@@ -14,12 +14,8 @@ function SolutionsDisplay(props) {
 
 
     return (
-        <section>
-            <p
-                className="solutions"
-            >
+        <section className="solutions">
                 {displaySolutions(props.solutionsList)}
-            </p>
         </section>
     );
 }
