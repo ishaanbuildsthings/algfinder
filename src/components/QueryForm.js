@@ -1,6 +1,6 @@
 import React from 'react';
 
-function QueryForm() {
+function QueryForm(props) {
 
     // initialize state
     const [queries, setQueries] = React.useState({
@@ -17,13 +17,6 @@ function QueryForm() {
             ...queries,
             [name]: value
         })
-    }
-
-
-    // generates the request URL
-    function handleClick() {
-        const {scramble, moveset, depth} = queries;
-        console.log(`http://127.0.0.1:5000/solve?scramble=${scramble}&max_depth=${depth}&move_types=${moveset}`);
     }
 
 
@@ -58,7 +51,7 @@ function QueryForm() {
 
             <button
                 className="form--button"
-                onClick={handleClick}
+                onClick={() => props.handleClick(queries)}
             >
                 Solve!
             </button>
