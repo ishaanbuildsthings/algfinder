@@ -8,6 +8,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 function Index() {
 
+    // state for SolutionsDisplay
     const [solutionsList, setSolutionsList] = React.useState([]);
 
     // converts "R U D' R' F" to "R,U,D',R',F"
@@ -15,21 +16,28 @@ function Index() {
         return str.split(' ').join(',');
     }
 
-    // accepts queries object and triggers async function
-    async function handleClick(queries) {
-        const {scramble, moveset, depth} = queries;
-        const response = await fetch(`http://127.0.0.1:5000/solve?scramble=${delimit(scramble)}&max_depth=${depth}&move_types=${delimit(moveset)}`);
-        const data = await response.json();
+    // converts ["R","x",D"] to "R,x,D"
+    function delimitList(list) {
+        let str;
+        str = list.join(",")
+        return str;
+    }
 
-        // to change
-        console.log(data);
+    // handles query form submission
+    async function handleSubmit(queries) {
+        const {scramble, moveset, depth} = queries;
+        const response = await fetch(`http://127.0.0.1:5000/solve?scramble=${delimit(scramble)}&max_depth=${depth}&move_types=${delimitList(moveset)}`);
+        const data = await response.json();
         setSolutionsList(data);
     }
 
     return (
         <div>
-            <QueryForm handleClick={handleClick}/>
+        <section>
+            <QueryForm handleSubmit={handleSubmit}/>
             <SolutionsDisplay solutionsList={solutionsList}/>
+        </section>
+
         </div>
     )
 }

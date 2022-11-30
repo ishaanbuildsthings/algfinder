@@ -11,3 +11,46 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.form--movesetButton {
+  border-color: #3498db;
+  color: #fff;
+  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
+  width: 25px;
+  height: 25px;
+  margin: 2px;
+}
+.form--movesetButton:hover {
+     box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+}
+
+.form--depth {
+  width: 163px;
+  margin: 5px;
+}
+
+.form--scramble {
+  width: 250px;
+  height: 50px;
+  margin: 5px;
+  color: #666;
+  background: #e6e6e6;
+  border: none;
+  padding: 0 30px;
+  font-size: 15px;
+  border-radius: 25px;
+  line-height: 1.5;
+  display: block;
+  outline: none;
+  overflow: visible;
+  font-family: 'Poppins', sans-serif;
+}
+
+.form--submit {
+  display: block;
+  margin: 5px;
+}
+
+.isToggled {
+  color: #ccc;
+}
