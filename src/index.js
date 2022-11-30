@@ -5,6 +5,8 @@ import QueryForm from './components/QueryForm';
 import SolutionsDisplay from './components/SolutionsDisplay';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const baseURL = 'http://127.0.0.1:5000';
+const pollInterval = 1000; // ms
 
 function Index() {
 
@@ -23,12 +25,30 @@ function Index() {
         return str;
     }
 
+    async function fetchURL(url) {
+        // TODO: handle errors
+        const response = await fetch(url);
+        return await response.json();
+    }
+    
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
     // handles query form submission
     async function handleSubmit(queries) {
         const {scramble, moveset, depth} = queries;
-        const response = await fetch(`http://127.0.0.1:5000/solve?scramble=${delimit(scramble)}&max_depth=${depth}&move_types=${delimitList(moveset)}`);
-        const data = await response.json();
-        setSolutionsList(data);
+        const txn_id = await fetchURL(`${baseURL}/solve?scramble=${delimit(scramble)}&max-depth=${depth}&move-types=${delimitList(moveset)}`);
+        console.log(`got txn_id: ${txn_id}`);
+
+        let solns = []
+        do {
+            await sleep(pollInterval)
+            solns = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`)
+            setSolutionsList(prevSolns => [...prevSolns, ...solns]);
+            console.log(solns)
+        } while(solns[solns.length-1] !== 'DONE')
+        setSolutionsList(prevSolns => [...prevSolns, ...solns]);
     }
 
     return (
