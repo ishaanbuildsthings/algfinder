@@ -5,7 +5,7 @@ import QueryForm from './components/QueryForm';
 import SolutionsDisplay from './components/SolutionsDisplay';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const baseURL = 'http://127.0.0.1:5000';
+const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 
 function Index() {
@@ -37,18 +37,23 @@ function Index() {
 
     // handles query form submission
     async function handleSubmit(queries) {
+        setSolutionsList([])
         const {scramble, moveset, depth} = queries;
         const txn_id = await fetchURL(`${baseURL}/solve?scramble=${delimit(scramble)}&max-depth=${depth}&move-types=${delimitList(moveset)}`);
         console.log(`got txn_id: ${txn_id}`);
 
         let solns = []
+        let keepGoing = true
         do {
             await sleep(pollInterval)
             solns = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`)
-            setSolutionsList(prevSolns => [...prevSolns, ...solns]);
             console.log(solns)
-        } while(solns[solns.length-1] !== 'DONE')
-        setSolutionsList(prevSolns => [...prevSolns, ...solns]);
+            if (solns[solns.length-1] === 'DONE') {
+                keepGoing = false
+                solns.pop()
+            }
+            setSolutionsList(prevSolns => [...prevSolns, ...solns]);
+        } while(keepGoing)
     }
 
     return (
