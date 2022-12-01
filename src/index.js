@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import QueryForm from './components/QueryForm';
 import SolutionsDisplay from './components/SolutionsDisplay';
+import Cube from './components/Cube';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const baseURL = 'http://127.0.0.1:3001';
@@ -61,6 +62,7 @@ function Index() {
         <section>
             <QueryForm handleSubmit={handleSubmit}/>
             <SolutionsDisplay solutionsList={solutionsList}/>
+            <Cube />
         </section>
 
         </div>

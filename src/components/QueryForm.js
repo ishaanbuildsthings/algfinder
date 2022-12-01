@@ -20,6 +20,16 @@ function QueryForm(props) {
         })
     }
 
+    // when scramble or depth text fields are changed, changes the state
+    function handleNumberChange(event) {
+        const {name, value} = event.target;
+        const result = value.replace(/\D/g, '');
+        setQueries({
+            ...queries,
+            [name]: result
+        })
+    }
+
     // when a moveset button is clicked or un-clicked, changes the state
     function handleMovesetClick(id) {
         if (!queries.moveset.includes(id)) {
@@ -63,7 +73,7 @@ function QueryForm(props) {
             <input
                 type="text"
                 placeholder="Scramble"
-                className="form--scramble"
+                className="scramble userInteractField"
                 name="scramble"
                 autoComplete="off"
                 value={queries.scramble}
@@ -72,13 +82,13 @@ function QueryForm(props) {
 
             {/* Depth Number Box */}
             <input
-                type="number"
+                type="text"
                 placeholder="Depth"
-                className="form--depth"
+                className="depth userInteractField"
                 name="depth"
                 autoComplete="off"
                 value={queries.depth}
-                onChange={handleTextChange}
+                onChange={handleNumberChange}
             />
 
         <section className="form--face-buttons">
@@ -94,7 +104,7 @@ function QueryForm(props) {
         </section>
 
             <button
-                className="form--submit"
+                className="submit userInteractField button"
                 onClick={() => props.handleSubmit(queries)}
             >
                 Show Me Solutions!
