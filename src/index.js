@@ -30,7 +30,7 @@ function Index() {
         const response = await fetch(url);
         return await response.json();
     }
-    
+
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }

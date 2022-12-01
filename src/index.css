@@ -13,42 +13,74 @@ code {
 }
 
 .form--movesetButton {
-  border-color: #3498db;
-  color: #fff;
-  box-shadow: 0 0 40px 40px #3498db inset, 0 0 0 0 #3498db;
-  width: 25px;
-  height: 25px;
-  margin: 2px;
+  /* button */
+  width: 50px;
+  height: 30px;
+  margin: 5px 12px;
+  border-radius: 5px;
+  border: none;
+  background: #e6e6e6;
+  /* text */
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  color: #666;
 }
 .form--movesetButton:hover {
-     box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+     border: 1px solid grey;
 }
 
 .form--depth {
-  width: 163px;
+  /* box */
+  width: 104px;
+  height: 50px;
   margin: 5px;
+  border-radius: 10px;
+  border: none;
+  background: #e6e6e6;
+  outline: none;
+  /* text */
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  color: #666;
+  text-align: center;
+  /* misc */
+  display: inline;
+  overflow: visible;
 }
 
 .form--scramble {
+  /* box */
   width: 250px;
   height: 50px;
   margin: 5px;
-  color: #666;
-  background: #e6e6e6;
-  border: none;
   padding: 0 30px;
-  font-size: 15px;
-  border-radius: 25px;
-  line-height: 1.5;
-  display: block;
+  border-radius: 10px;
+  border: none;
+  background: #e6e6e6;
   outline: none;
-  overflow: visible;
+  /* text */
   font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  color: #666;
+  /* misc */
+  display: inline;
+  overflow: visible;
 }
 
 .form--submit {
-  display: block;
+  /* button */
+  width: 428px;
+  height: 50px;
   margin: 5px;
+  border-radius: 10px;
+  border: none;
+  background: #e6e6e6;
+  /* text */
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  color: #666;
+  /* misc */
+  display: block;
 }
 
 .isToggled {

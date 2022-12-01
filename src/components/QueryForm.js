@@ -11,7 +11,7 @@ function QueryForm(props) {
     });
 
 
-    // changes the object state when text is modified
+    // when scramble or depth text fields are changed, changes the state
     function handleTextChange(event) {
         const {name, value} = event.target;
         setQueries({
@@ -20,7 +20,7 @@ function QueryForm(props) {
         })
     }
 
-    // handles moveset button clicks
+    // when a moveset button is clicked or un-clicked, changes the state
     function handleMovesetClick(id) {
         if (!queries.moveset.includes(id)) {
             setQueries({
@@ -35,135 +35,69 @@ function QueryForm(props) {
         }
     }
 
+    // creates an entire row of moveset buttons
+    function createManyJsxButtons(listOfLetters) {
+        const listOfButtons = [];
+        for (let letter of listOfLetters) {
+            listOfButtons.push(
+                <MovesetButton
+                               name={letter}
+                               value={letter}
+                               id={letter}
+                               changeMove={handleMovesetClick}
+                />
+            );
+        }
+        return listOfButtons;
+    }
 
-    // defines component
+    const buttonListFaceMoves = createManyJsxButtons(["R", "U", "D", "F", "L", "B"]);
+    const buttonListWideMoves = createManyJsxButtons(["r", "u", "d", "f", "l", "b"]);
+    const buttonListSliceAndRotation = createManyJsxButtons(["M", "S", "E", "x", "y", "z"]);
+
+
     return (
         <section className="queryForm">
 
+            {/* Scramble Text Box */}
             <input
                 type="text"
                 placeholder="Scramble"
                 className="form--scramble"
                 name="scramble"
+                autoComplete="off"
                 value={queries.scramble}
                 onChange={handleTextChange}
             />
 
-        <section className="form--face-buttons">
-            <MovesetButton name="R"
-                           value="R"
-                           id="R"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="U"
-                           value="U"
-                           id="U"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="F"
-                           value="F"
-                           id="F"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="D"
-                           value="D"
-                           id="D"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="L"
-                           value="L"
-                           id="L"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="B"
-                           value="B"
-                           id="B"
-                           changeMove={handleMovesetClick}
-            />
-        </section>
-
-        <section className="form--wide-buttons">
-            <MovesetButton name="r"
-                           value="r"
-                           id="r"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="u"
-                           value="u"
-                           id="u"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="f"
-                           value="f"
-                           id="f"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="d"
-                           value="d"
-                           id="d"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="l"
-                           value="l"
-                           id="l"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="b"
-                           value="b"
-                           id="b"
-                           changeMove={handleMovesetClick}
-            />
-        </section>
-
-        <section>
-            <MovesetButton name="M"
-                           value="M"
-                           id="M"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="S"
-                           value="S"
-                           id="S"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="E"
-                           value="E"
-                           id="E"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="x"
-                           value="x"
-                           id="x"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="y"
-                           value="y"
-                           id="y"
-                           changeMove={handleMovesetClick}
-            />
-            <MovesetButton name="z"
-                           value="z"
-                           id="z"
-                           changeMove={handleMovesetClick}
-            />
-        </section>
-
-
-
+            {/* Depth Number Box */}
             <input
-                type="text"
-                placeholder="Enter Max Algorithm Depth"
+                type="number"
+                placeholder="Depth"
                 className="form--depth"
                 name="depth"
+                autoComplete="off"
                 value={queries.depth}
                 onChange={handleTextChange}
             />
+
+        <section className="form--face-buttons">
+            {buttonListFaceMoves}
+        </section>
+
+        <section className="form--wide-buttons">
+            {buttonListWideMoves}
+        </section>
+
+        <section>
+            {buttonListSliceAndRotation}
+        </section>
 
             <button
                 className="form--submit"
                 onClick={() => props.handleSubmit(queries)}
             >
-                Solve!
+                Show Me Solutions!
             </button>
         </section>
     );
