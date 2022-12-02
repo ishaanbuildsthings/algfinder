@@ -1,21 +1,31 @@
 import React from 'react';
-import { PNG } from "sr-puzzlegen"
 
+export default function Cube(props) {
 
-
-export default function Cube() {
+  React.useEffect(() => {
+    const script = document.createElement('script');
+  
+    script.src = "https://cdn.cubing.net/js/cubing/twisty";
+    script.type= "module";
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
 
   return (
     <div>
 
-      <div id="cube"></div>
+      <twisty-player 
+                    visualization="PG3D"
+                    control-panel="none"
+                    alg={props.cubeSate}
+                    >
+      </twisty-player>
 
-      {/* <script type="text/javascript"> */}
-        {PNG("#cube", "cube")}
-      {/* </script> */}
-
-    </div>
-
+  </div>
   );
 }
 
