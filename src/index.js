@@ -11,32 +11,48 @@ const pollInterval = 1000; // ms
 
 function Index() {
 
-    // state for SolutionsDisplay
-    const [solutionsList, setSolutionsList] = React.useState([]);
+    // states
+    const [solutionsList, setSolutionsList] = React.useState([]); // directly drilled to SolutionDisplay
 
-    // converts "R U D' R' F" to "R,U,D',R',F"
-    function delimit(str) {
-        return str.split(' ').join(',');
+    const [queries, setQueries] = React.useState({
+        scramble: "",
+        moveset: [],
+        depth: ""
+    });
+
+
+    // handlers
+    function handleTextChange(event) {
+        const {name, value} = event.target;
+        setQueries({
+            ...queries,
+            [name]: value
+        })
     }
 
-    // converts ["R","x",D"] to "R,x,D"
-    function delimitList(list) {
-        let str;
-        str = list.join(",")
-        return str;
+    function handleNumberChange(event) {
+        const {name, value} = event.target;
+        const result = value.replace(/\D/g, '');
+        setQueries({
+            ...queries,
+            [name]: result
+        })
     }
 
-    async function fetchURL(url) {
-        // TODO: handle errors
-        const response = await fetch(url);
-        return await response.json();
+    function handleMovesetClick(id) {
+        if (!queries.moveset.includes(id)) {
+            setQueries({
+                ...queries,
+                moveset: [...queries.moveset, id]
+            });
+        } else {
+            setQueries({
+                ...queries,
+                moveset: queries.moveset.filter((element) => element !== id)
+            });
+        }
     }
 
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    // handles query form submission
     async function handleSubmit(queries) {
         setSolutionsList([])
         const {scramble, moveset, depth} = queries;
@@ -57,16 +73,69 @@ function Index() {
         } while(keepGoing)
     }
 
+
+    // tools
+
+        // converts "R U D' R' F" to "R,U,D',R',F"
+    function delimit(str) {
+        return str.split(' ').join(',');
+    }
+
+        // converts ["R","x",D"] to "R,x,D"
+    function delimitList(list) {
+        let str;
+        str = list.join(",")
+        return str;
+    }
+
+    async function fetchURL(url) {
+        // TODO: handle errors
+        const response = await fetch(url);
+        return await response.json();
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+
+
     return (
-        <div>
-        <section>
-            <QueryForm handleSubmit={handleSubmit}/>
-            <SolutionsDisplay solutionsList={solutionsList}/>
-            <Cube />
-        </section>
+        <div className="wholePage">
+
+
+            <div className="topHalf">
+
+                <div className="topLeftHalf">
+                    <div className="innerTopLeftHalf">
+                        <QueryForm
+                        handleTextChange={handleTextChange}
+                        handleNumberChange={handleNumberChange}
+                        handleSubmit={handleSubmit}
+                        handleMovesetClick={handleMovesetClick}
+                        queryState={queries}/>
+                    </div>
+                </div>
+
+                <div className="topRightHalf">
+                <Cube
+                        scramble={queries.scramble}/>
+                </div>
+
+            </div>
+
+
+
+            <div className="bottomHalf">
+                <div className="innerBottomHalf">
+                    <SolutionsDisplay solutionsList={solutionsList}/>
+                    this is the bottom half...
+                </div>
+            </div>
+
 
         </div>
-    )
+    );
 }
 
 root.render(

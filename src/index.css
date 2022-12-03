@@ -19,22 +19,113 @@ code {
     monospace;
 }
 
-/* any of the scramble, depth, or buttons */
-.userInteractField {
-  color: #757575;
-  border: none;
-  border-radius: 10px;
-  background: #282828;
+.wholePage {
+  display: flex;
+  flex-direction: column;
+  /* why is the flex direction column */
+  /* gap: 50px; */
+  height: 100vh;
+  /* why does removing this ^ cause the bottom half to expand */
 }
 
-.scramble, .depth {
+/* the whole top page is a flexbox which conains the query form and cube */
+.topHalf {
+  display: flex;
+  justify-content: space-between;
+  height: 50vh;
+}
+
+.bottomHalf {
+  display: flex;
+  height: 50vh;
+  overflow: auto;
+  background-color: #757575;
+  padding: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerBottomHalf {
+  background-color: green;
+  height: 100%;
+  width: 100%;
+}
+
+@media (max-width: 800px) {
+  .rightHalf {
+    display: none;
+  }
+}
+
+.topLeftHalf {
+  flex: 1;
+  display: flex;
+  /* what is flex doing exactly */
+  /* height: 50vh; */
+  padding: 30px;
+  background-color: lightslategray;
+  justify-content: center;
+  align-items: center;
+}
+
+.innerTopLeftHalf {
+  background-color: lightskyblue;
+  width: 100%;
+  height: 100%;
+}
+
+.topRightHalf {
+  /* display: flex; */
+  flex: 1;
+  height: 50vh;
+  box-sizing: border-box;
+  padding: 50px;
+  /* background-color: lightgrey; */
+  /* padding: 50px; */
+  /* justify-content: center;
+  align-items: center; */
+}
+
+.scramblePanel {
+  box-sizing: border-box;
+  background-color: #F0E6DC;
+  border: solid #888;
+  border-width: 2px 0 2px 0;
+  /* why does the border width affect the size if its box sizing */
+}
+
+.scrambleInput, .depthInput, .movesetButton, .submitButton {
+  color: #757575;
+  /* background: #282828; */
+  background: #FFF5EB;
+  width: 100%;
+}
+
+.scrambleInput, .depthInput {
   height: 50px;
+  padding-left: 20px;
   outline: none;
   border: none;
-  margin: 5px;
   display: inline;
   overflow: visible;
-  color: #E2E2E2;
+  color: black;
+  box-sizing: border-box;
+}
+
+.scrambleInput:hover, .depthInput:hover {
+  background: white;
+}
+
+.label {
+  display: block;
+  color: black;
+  padding-left: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+
+  /* why doesn't changing padding change size of box since its not border box */
 }
 
 ::selection {
@@ -42,14 +133,49 @@ code {
   background: #5E81A8;
 }
 
-.scramble {
-  width: 250px;
-  padding: 0 30px;
+
+.depthPanel {
+  box-sizing: border-box;
+  background-color: #F0E6DC;
+  border: solid #888;
+  border-width: 0 0 2px 0;
 }
 
-.depth {
-  width: 104px;
-  text-align: center;
+.depthInput {
+  width: 100%;
+}
+
+.movePanel {
+  box-sizing: border-box;
+  background-color: #F0E6DC;
+  border: solid #888;
+  border-width: 0 0 2px 0;
+}
+
+.buttonGrid {
+  width: 100%;
+}
+
+/* round the button grid borders */
+/* .buttonGrid > .movesetButton:nth-child(1) {
+  border-top-left-radius: 10px;
+}
+.buttonGrid > .movesetButton:nth-child(6) {
+  border-top-right-radius: 10px;
+}
+.buttonGrid > .movesetButton:nth-child(13) {
+  border-bottom-left-radius: 10px;
+}
+.buttonGrid > .movesetButton:nth-child(18) {
+  border-bottom-right-radius: 10px;
+} */
+
+.movesetButton {
+  width: calc(100% / 6);
+  height: 30px;
+  border: none;
+  border-radius: 0;
+
 }
 
 .button:hover {
@@ -65,21 +191,18 @@ code {
   /* TODO: FIGURE OUT TRANSITION WHEN CLICKING AFTER HOVER; */
 }
 
-.movesetButton {
-  width: 50px;
-  height: 30px;
-  margin: 5px 12px;
-  border-radius: 5px;
+.submitButton {
+  width: 100%;
+  height: 50px;
+  display: block;
+  border: none;
 }
 
-.submit {
-  width: 428px;
-  height: 50px;
-  margin: 5px;
-  display: block;
+twisty-player {
+  width: 100%;
+  height: 100%;
 }
 
 p {
   color: white;
 }
-

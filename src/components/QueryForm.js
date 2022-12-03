@@ -3,48 +3,6 @@ import MovesetButton from "./MovesetButton";
 
 function QueryForm(props) {
 
-    // initialize state
-    const [queries, setQueries] = React.useState({
-        scramble: "",
-        moveset: [],
-        depth: ""
-    });
-
-
-    // when scramble or depth text fields are changed, changes the state
-    function handleTextChange(event) {
-        const {name, value} = event.target;
-        setQueries({
-            ...queries,
-            [name]: value
-        })
-    }
-
-    // when scramble or depth text fields are changed, changes the state
-    function handleNumberChange(event) {
-        const {name, value} = event.target;
-        const result = value.replace(/\D/g, '');
-        setQueries({
-            ...queries,
-            [name]: result
-        })
-    }
-
-    // when a moveset button is clicked or un-clicked, changes the state
-    function handleMovesetClick(id) {
-        if (!queries.moveset.includes(id)) {
-            setQueries({
-                ...queries,
-                moveset: [...queries.moveset, id]
-            });
-        } else {
-            setQueries({
-                ...queries,
-                moveset: queries.moveset.filter((element) => element !== id)
-            });
-        }
-    }
-
     // creates an entire row of moveset buttons
     function createManyJsxButtons(listOfLetters) {
         const listOfButtons = [];
@@ -54,7 +12,7 @@ function QueryForm(props) {
                                name={letter}
                                value={letter}
                                id={letter}
-                               changeMove={handleMovesetClick}
+                               changeMove={props.handleMovesetClick}
                 />
             );
         }
@@ -67,49 +25,64 @@ function QueryForm(props) {
 
 
     return (
-        <section className="queryForm">
+        <div className="queryForm">
 
-            {/* Scramble Text Box */}
-            <input
-                type="text"
-                placeholder="Scramble"
-                className="scramble userInteractField"
-                name="scramble"
-                autoComplete="off"
-                value={queries.scramble}
-                onChange={handleTextChange}
-            />
+            <section className="scramblePanel">
 
-            {/* Depth Number Box */}
-            <input
-                type="text"
-                placeholder="Depth"
-                className="depth userInteractField"
-                name="depth"
-                autoComplete="off"
-                value={queries.depth}
-                onChange={handleNumberChange}
-            />
+                <label className="label">Scramble</label>
 
-        <section className="form--face-buttons">
-            {buttonListFaceMoves}
-        </section>
+                <input
+                    type="text"
+                    placeholder="[Click here to enter scramble you want to solve]"
+                    className="scrambleInput"
+                    name="scramble"
+                    autoComplete="off"
+                    value={props.queryState.scramble}
+                    onChange={props.handleTextChange}
 
-        <section className="form--wide-buttons">
-            {buttonListWideMoves}
-        </section>
+                />
+            </section>
 
-        <section>
-            {buttonListSliceAndRotation}
-        </section>
 
-            <button
-                className="submit userInteractField button"
-                onClick={() => props.handleSubmit(queries)}
-            >
-                Show Me Solutions!
-            </button>
-        </section>
+            <section className="depthPanel">
+
+                <label className="label">Depth</label>
+
+                <input
+                    type="text"
+                    placeholder="[Click here to enter maximum algorithm length]"
+                    className="depthInput"
+                    name="depth"
+                    autoComplete="off"
+                    value={props.queryState.depth}
+                    onChange={props.handleNumberChange}
+                />
+            </section>
+
+
+            <section className="movePanel">
+
+                <label className="label">Toggle allowed moveset:</label>
+                <section className="buttonGrid">
+                    {buttonListFaceMoves}
+                    {buttonListWideMoves}
+                    {buttonListSliceAndRotation}
+                </section>
+
+            </section>
+
+
+            <section>
+                <button
+                    className="submitButton button"
+                    onClick={() => props.handleSubmit(props.queryState)}
+                >
+                    Show Me Solutions!
+                </button>
+            </section>
+
+
+        </div>
     );
 }
 

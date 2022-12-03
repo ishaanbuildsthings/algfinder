@@ -4,28 +4,25 @@ export default function Cube(props) {
 
   React.useEffect(() => {
     const script = document.createElement('script');
-  
+
     script.src = "https://cdn.cubing.net/js/cubing/twisty";
     script.type= "module";
-  
+
     document.body.appendChild(script);
-  
+
     return () => {
       document.body.removeChild(script);
     }
   }, []);
 
   return (
-    <div>
-
-      <twisty-player 
+      <twisty-player
                     visualization="PG3D"
                     control-panel="none"
-                    alg={props.cubeSate}
+                    background="none"
+                    alg={props.scramble}
                     >
       </twisty-player>
-
-  </div>
   );
 }
 
