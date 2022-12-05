@@ -4,7 +4,7 @@ import './index.css';
 import QueryForm from './components/QueryForm';
 import SolutionsDisplay from './components/SolutionsDisplay';
 import Cube from './components/Cube';
-
+import Navbar from './components/Navbar';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
@@ -102,7 +102,7 @@ function Index() {
 
     return (
         <div className="wholePage">
-
+            <Navbar />
 
             <div className="topHalf">
 
@@ -129,7 +129,7 @@ function Index() {
             <div className="bottomHalf">
                 <div className="innerBottomHalf">
                     <SolutionsDisplay solutionsList={solutionsList}/>
-                    this is the bottom half...
+                    <p>test algorithm here</p>
                 </div>
             </div>
 

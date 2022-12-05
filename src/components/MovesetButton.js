@@ -13,7 +13,7 @@ function MovesetButton(props) {
 
     return (
         <button
-            className={cx("movesetButton", "userInteractField", toggled && "isToggled", "button")}
+            className={cx("movesetButton", "interactable", "userInteractField", toggled && "isToggled", "button")}
             name={props.name}
             value={props.value}
             onClick={toggleParentAndDarkened}

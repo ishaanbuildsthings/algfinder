@@ -29,12 +29,12 @@ function QueryForm(props) {
 
             <section className="scramblePanel">
 
-                <label className="label">Scramble</label>
+                <label className="label scrambleLabel">Scramble</label>
 
                 <input
                     type="text"
                     placeholder="[Click here to enter scramble you want to solve]"
-                    className="scrambleInput"
+                    className="scrambleInput interactable"
                     name="scramble"
                     autoComplete="off"
                     value={props.queryState.scramble}
@@ -51,7 +51,7 @@ function QueryForm(props) {
                 <input
                     type="text"
                     placeholder="[Click here to enter maximum algorithm length]"
-                    className="depthInput"
+                    className="depthInput interactable"
                     name="depth"
                     autoComplete="off"
                     value={props.queryState.depth}
@@ -62,7 +62,7 @@ function QueryForm(props) {
 
             <section className="movePanel">
 
-                <label className="label">Toggle allowed moveset:</label>
+                <label className="label">Toggle allowed moveset</label>
                 <section className="buttonGrid">
                     {buttonListFaceMoves}
                     {buttonListWideMoves}
@@ -74,7 +74,7 @@ function QueryForm(props) {
 
             <section>
                 <button
-                    className="submitButton button"
+                    className="submitButton button interactable"
                     onClick={() => props.handleSubmit(props.queryState)}
                 >
                     Show Me Solutions!
