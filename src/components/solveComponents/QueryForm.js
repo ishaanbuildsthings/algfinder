@@ -1,5 +1,7 @@
 import React from 'react';
 import MovesetButton from "./MovesetButton";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 function QueryForm(props) {
 
@@ -25,11 +27,12 @@ function QueryForm(props) {
 
 
     return (
-        <div className="queryForm">
+        <div className="queryFormWithSpacing">
 
             <section className="scramblePanel">
 
-                <label className="label scrambleLabel">Scramble</label>
+                <label className="label scrambleLabel">Scramble <FontAwesomeIcon icon={faCircleInfo} className="circleIconScramble fa-sm" color="white" />
+</label>
 
                 <input
                     type="text"
@@ -41,12 +44,13 @@ function QueryForm(props) {
                     onChange={props.handleTextChange}
 
                 />
+
             </section>
 
 
             <section className="depthPanel">
 
-                <label className="label">Depth</label>
+                <label className="label">Depth <FontAwesomeIcon icon={faCircleInfo} className="circleIconScramble fa-sm" color="white" /></label>
 
                 <input
                     type="text"
@@ -62,7 +66,7 @@ function QueryForm(props) {
 
             <section className="movePanel">
 
-                <label className="label">Toggle allowed moveset</label>
+                <label className="label">Toggle allowed moveset <FontAwesomeIcon icon={faCircleInfo} className="circleIconScramble fa-sm" color="white" /></label>
                 <section className="buttonGrid">
                     {buttonListFaceMoves}
                     {buttonListWideMoves}
