@@ -31,8 +31,12 @@ function QueryForm(props) {
 
             <section className="scramblePanel">
 
-                <label className="label scrambleLabel">Scramble <FontAwesomeIcon icon={faCircleInfo} className="circleIconScramble fa-sm" color="white" />
-</label>
+                <label className="label scrambleLabel">Scramble
+                    {/* //! <div className="circleIconScrambleDiv"> */}
+                        <FontAwesomeIcon icon={faCircleInfo} className="circleIconScramble fa-sm" color="white" />
+                        {/* //!<span className="circleIconScrambleTooltip">Test Tooltip Text</span> */}
+                    {/* //!</div> */}
+                </label>
 
                 <input
                     type="text"
@@ -50,7 +54,7 @@ function QueryForm(props) {
 
             <section className="depthPanel">
 
-                <label className="label">Depth <FontAwesomeIcon icon={faCircleInfo} className="circleIconScramble fa-sm" color="white" /></label>
+                <label className="label">Max Algorithm Length <FontAwesomeIcon icon={faCircleInfo} className="circleIconDepth fa-sm" color="white" /></label>
 
                 <input
                     type="text"
@@ -66,7 +70,7 @@ function QueryForm(props) {
 
             <section className="movePanel">
 
-                <label className="label">Toggle allowed moveset <FontAwesomeIcon icon={faCircleInfo} className="circleIconScramble fa-sm" color="white" /></label>
+                <label className="label">Toggle allowed moveset <FontAwesomeIcon icon={faCircleInfo} className="circleIconMoveset fa-sm" color="white" /></label>
                 <section className="buttonGrid">
                     {buttonListFaceMoves}
                     {buttonListWideMoves}

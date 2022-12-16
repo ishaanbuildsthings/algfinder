@@ -1,0 +1,37 @@
+.navBarDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.darkModeToggleDiv {
+  padding: 6px 55px 0 0;
+}
+
+.navbarUl {
+  list-style-type: none;
+  display: flex; /* TODO: fix this our navbar should be a horizontal flex container, we use align items to align the sunMoon icon vertically */
+}
+
+li a {
+  display: block;
+  /* ! why does display block make this move down */
+  /* see the special toggle component in js for color options */
+  color: white;
+  text-align: center;
+  padding: 10px 15px;
+  margin-top: 5px;
+  text-decoration: none;
+}
+
+li a:hover:not(.active) {
+  background-color: #1E1E1E;
+}
+
+.darkModeToggle {
+}
+
+.active {
+  background-color: #bb86fcc2;
+  color: #0F0F0F;
+}

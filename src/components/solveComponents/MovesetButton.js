@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from '../tools/cx';
+import cx from '../../tools/cx';
 
 function MovesetButton(props) {
 
@@ -7,7 +7,7 @@ function MovesetButton(props) {
 
     // when a button is clicked, it toggles both its darkened state, and the parent allowed moveset state
     function toggleParentAndDarkened() {
-        props.changeMove(props.id)
+        props.changeMove(props.id);
         setToggled(!toggled);
     }
 

@@ -1,8 +1,7 @@
 import React from 'react';
-import QueryForm from '../components/QueryForm';
-import SolutionsDisplay from '../components/SolutionsDisplay';
-import Cube from '../components/Cube';
-import Navbar from '../components/Navbar';
+import QueryForm from '../Components/SolveComponents/QueryForm';
+import SolutionsDisplay from '../Components/SolveComponents/SolutionsDisplay';
+import Cube from '../Components/SolveComponents/Cube';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 
@@ -45,6 +44,7 @@ function Solve() {
 
     }
 
+    // if we toggle on a moveset (includes the ID), add it to the state, if not, remove it
     function handleMovesetClick(id) {
         if (!queries.moveset.includes(id)) {
             setQueries({
@@ -60,20 +60,20 @@ function Solve() {
     }
 
     async function handleSubmit(queries) {
-        setSolutionsList([])
+        setSolutionsList([]);
         const {scramble, moveset, depth} = queries;
         const txn_id = await fetchURL(`${baseURL}/solve?scramble=${delimit(scramble)}&max-depth=${depth}&move-types=${delimitList(moveset)}`);
         console.log(`got txn_id: ${txn_id}`);
 
-        let solns = []
-        let keepGoing = true
+        let solns = [];
+        let keepGoing = true;
         do {
-            await sleep(pollInterval)
-            solns = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`)
-            console.log(solns)
+            await sleep(pollInterval);
+            solns = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`);
+            console.log(solns);
             if (solns[solns.length-1] === 'DONE') {
-                keepGoing = false
-                solns.pop()
+                keepGoing = false;
+                solns.pop();
             }
             setSolutionsList(prevSolns => [...prevSolns, ...solns]);
         } while(keepGoing)
@@ -82,12 +82,12 @@ function Solve() {
 
     // tools
 
-        // converts "R U D' R' F" to "R,U,D',R',F"
+    // converts "R U D' R' F" to "R,U,D',R',F"
     function delimit(str) {
         return str.split(' ').join(',');
     }
 
-        // converts ["R","x",D"] to "R,x,D"
+    // converts ["R","x",D"] to "R,x,D"
     function delimitList(list) {
         let str;
         str = list.join(",")
@@ -101,14 +101,16 @@ function Solve() {
     }
 
     function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
+        return new Promise((resolve) =>
+        {
+            setTimeout(resolve, ms);
+        });
     }
 
 
 
     return (
-        <div className="wholePage">
-            <Navbar />
+        <div className="wholePageMinusNav">
 
             <div className="topHalf">
 
@@ -120,8 +122,7 @@ function Solve() {
                 queryState={queries}/>
 
                 <div className="topRightHalf">
-                <Cube
-                        scramble={queries.scramble}/>
+                    <Cube scramble={queries.scramble}/>
                 </div>
 
             </div>

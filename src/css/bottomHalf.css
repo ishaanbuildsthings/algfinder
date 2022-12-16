@@ -1,0 +1,61 @@
+.bottomHalf {
+  flex: 1.5; /* the bottomHalf will flex 1 of the wholePageMinusNavbar, the topHalf will flex 2 */
+  display: flex;
+  flex-direction: column;
+  padding: 30px 90px 30px 90px;
+  justify-content: center;
+  align-items: center;
+  min-height: 170px;
+  position: relative; /* to position the sort buttons */
+  /* ! background-color: blue; */
+}
+
+.innerBottomHalf {
+  background-color: #222222;
+  flex: 1;
+  width: 100%;
+  max-height: 95%;
+  border-radius: 25px;
+  overflow-y: scroll;
+  position: relative; /* to allow the solutionsDisplay fontAwesomeIcon to be absolutely positioned */
+}
+
+
+.solutionButton {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+.solutionLi {
+margin-left: 30px;
+color: #A7A7A7;
+line-height: 2.5;
+}
+
+.sortButton {
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #E4E4E4;
+  padding: 10px;
+  background-color: #313131;
+  position: absolute;
+  right: 10%;
+}
+
+.stmButton {
+  right: 3%;
+}
+
+.circleIconSolutions {
+  position: absolute;
+  left: 25px;
+  top: 25px;
+  color: #E4E4E4;
+}
