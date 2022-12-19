@@ -87,17 +87,24 @@ function SolutionsDisplay(props) {
 
     return (
         // TODO: this sections div is unnecessary
-        <section className="solutions">
-            {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
-            <button onClick={handleClickOnSort} className="sortButton qtmButton" value="qtm">Sort by QTM</button>
-            <button onClick={handleClickOnSort} className="sortButton stmButton" value="stm">Sort by STM</button>
-            <FontAwesomeIcon icon={faCircleInfo} className="circleIconSolutions fa-sm"/>
-            <ol>
-                {/* display solutions creates the JSX for our solutions */}
-                {displaySolutions(solutionState)}
-                <li className="solutionLi">&nbsp;&nbsp;&nbsp;test solution here</li>
-            </ol>
-        </section>
+        // * <div> innerBottomHalf
+         <>
+            <div className="solutionsHeader">
+                spacing
+                space
+                {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
+                <button onClick={handleClickOnSort} className="sortButton qtmButton" value="qtm">Sort by QTM</button>
+                <button onClick={handleClickOnSort} className="sortButton stmButton" value="stm">Sort by STM</button>
+                <FontAwesomeIcon icon={faCircleInfo} className="circleIconSolutions fa-sm"/>
+            </div>
+            <div className="scrollableSolutions">
+                <ol>
+                    {/* display solutions creates the JSX for our solutions */}
+                    {displaySolutions(solutionState)}
+                    <li className="solutionLi">&nbsp;&nbsp;&nbsp;test solution here</li>
+                </ol>
+            </div>
+         </>
     );
 }
 

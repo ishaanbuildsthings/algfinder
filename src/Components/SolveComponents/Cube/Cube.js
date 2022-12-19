@@ -2,6 +2,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; //TODO: what was this
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons'; // 4-directional arrow
 
+// TODO: change span method to react hook
 /**
  * This function defines the cube component, which is used on the solve page. The cube component is a wrapper
  * of the custom HTML element <twisty-player> from the cubing.js library.
