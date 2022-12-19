@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import './css/index.css';
-import './css/navbar.css';
-import './css/queryFormWithSpacing.css';
-import './css/topRightHalf.css'
-import './css/bottomHalf.css';
-import './css/darkmode.css';
-import './css/documentation.css';
-import './css/mediaqueries.css';
+import './CSS/index.css';
+import './CSS/navbar.css';
+import './CSS/queryFormWithSpacing.css';
+import './CSS/topRightHalf.css'
+import './CSS/bottomHalf.css';
+import './CSS/darkmode.css';
+import './CSS/documentation.css';
+import './CSS/mediaQueries/LaptopAndBigger.css';
+import './CSS/mediaQueries/phoneAndTablet.css';
 
 import App from './app';
 import { BrowserRouter } from 'react-router-dom';
 
+/**
+ * This module renders the whole app with support for react-router-dom.
+ */
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 

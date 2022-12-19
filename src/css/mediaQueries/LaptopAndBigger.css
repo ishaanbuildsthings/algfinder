@@ -65,23 +65,11 @@
 }
 
 @media (max-width: 940px) {
-
   .topRightHalf {
     padding: 100px 20px 120px 20px;
   }
   .dragIconAndText {
     bottom: 9%;
     right: 32%;
-  }
-
-}
-
-@media (max-width: 800px) {
-  .topRightHalf {
-    visibility: hidden;
-    flex: 0;
-  }
-  .queryFormWithSpacing {
-    max-width: 90%;
   }
 }

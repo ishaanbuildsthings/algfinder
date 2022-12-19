@@ -1,0 +1,80 @@
+@media (max-width: 767px) { /*
+  ipad-mini and bigger will take the laptop view
+  smaller tablets: tablet width- 481-768 and phones: width- 320-480  will take the mobile view*/
+
+  .queryFormWithSpacing {
+    padding: 15px 5px 15px 5px; /* move query form up to use extra space */
+    max-width: 95%;
+    box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
+  }
+
+  .bottomHalf {
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
+  }
+  .innerBottomHalf {
+    max-width: 95%;
+  }
+
+  .topHalf {
+    flex-direction: column; /* flex the query form and cube vertically */
+    flex: 5; /* top half takes up more space compared to solutions display */
+    width: 100%; /* top half should now fill the width of the wholePageMinusNavbar div */
+    align-items: center; /* top half should be center on a mobile view */
+    min-height: 500px;
+  }
+
+  .topRightHalf {
+    padding: 0; /* make room for cube on smaller screen */
+    width: 100%; /* width was not defined in laptop view */
+    min-height: 100px; /* for really small vertical screen size phones, we prefer to scroll rather than fit everything */
+  }
+
+  .darkModeToggleDiv {
+    padding: 6px 0 0 0; /* right padding not used in small view */
+  }
+
+  .navbarUl {
+    padding: 0 0 0 10px; /* left padding not used in small view */
+  }
+  .innerBottomHalf {
+    border-radius: 10px;
+  }
+
+  .buttonGrid > .movesetButton:nth-child(13) {
+    border-bottom-left-radius: 10px;
+  }
+  .buttonGrid > .movesetButton:nth-child(18) {
+    border-bottom-right-radius: 10px;
+  }
+
+  .scrambleLabel {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .submitButton {
+    border-radius: 10px;
+  }
+
+}
+
+@media (max-width: 481px) { /* most phones should take this form */
+
+
+  .phoneDragText {
+    display: inline;
+  }
+
+  .laptopDragText {
+    display: none;
+  }
+
+  .dragIconAndText {
+    position: absolute;
+    bottom: -4%;
+    right: 6%;
+  }
+
+}

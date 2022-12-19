@@ -3,14 +3,9 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "cube.ico",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "cube_192_icon_stroke_3.ico",
+      "sizes": "192x192 128x128 64x64 32x32 24x24 16x16",
       "type": "image/x-icon"
-    },
-    {
-      "src": "cube192.png",
-      "type": "image/png",
-      "sizes": "192x192"
     }
   ],
   "start_url": ".",

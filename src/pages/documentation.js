@@ -1,5 +1,9 @@
 import React from 'react';
 
+/**
+ * The Documentation component handles all of the display unique to the documentation section of the website.
+ * @returns The JSX for the documentation component, used in app.js.
+ */
 function Documentation() {
   return (
     <div className="documentationDiv">
@@ -54,6 +58,9 @@ function Documentation() {
       <p>Notice how Fig 1.3 and Fig 2.2 are the same! Since we have a collision, we know we can construct a solution to the scramble by connecting the two paths. We continue to search
         deeper until the user-supplied maximum algorithm length is reached, and return all possible solutions.
       </p>
+      {
+      // TODO: fix
+      }
       <p>As the breadth-first search starting from the solved cube is repeated work, it is <a href="" target="_blank" rel="noopener noreferrer">preprocessed as a binary encoding,</a> speeding up
       the time complexity even further.</p>
       <h2>Credits</h2>

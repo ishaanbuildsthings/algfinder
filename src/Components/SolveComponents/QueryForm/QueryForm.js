@@ -1,5 +1,5 @@
 import React from 'react';
-import MovesetButton from "./MovesetButton";
+import MovesetButton from "../MovesetButton/MovesetButton.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
@@ -11,10 +11,9 @@ function QueryForm(props) {
         for (let letter of listOfLetters) {
             listOfButtons.push(
                 <MovesetButton
-                               name={letter}
                                value={letter}
-                               id={letter}
-                               changeMove={props.handleMovesetClick}
+                               key={letter} // TODO: why
+                               handleMovesetClick={props.handleMovesetClick}
                 />
             );
         }
@@ -44,7 +43,7 @@ function QueryForm(props) {
                     className="scrambleInput interactable"
                     name="scramble"
                     autoComplete="off"
-                    value={props.queryState.scramble}
+                    value={props.scramble}
                     onChange={props.handleTextChange}
 
                 />
@@ -62,7 +61,7 @@ function QueryForm(props) {
                     className="depthInput interactable"
                     name="depth"
                     autoComplete="off"
-                    value={props.queryState.depth}
+                    value={props.depth}
                     onChange={props.handleNumberChange}
                 />
             </section>
@@ -83,7 +82,7 @@ function QueryForm(props) {
             <section>
                 <button
                     className="submitButton button interactable"
-                    onClick={() => props.handleSubmit(props.queryState)}
+                    onClick={() => props.handleSubmit(props.queriesState)}
                 >
                     Show Me Solutions!
                 </button>

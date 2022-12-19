@@ -73,7 +73,8 @@ function SolutionsDisplay(props) {
             const halfTurnMetric = sliceTurnMetric + totalSliceMoves;
 
             solutionsJsx.push(
-                <li className="solutionLi">
+                // key needed to not throw error
+                <li className="solutionLi" key={solutions[i]}>
                     <button onClick={handleClickOnSolution} className="solutionButton">
                         &nbsp;&nbsp;&nbsp;{solutions[i]} ({sliceTurnMetric}s, {halfTurnMetric}q)
                     </button>
@@ -85,6 +86,7 @@ function SolutionsDisplay(props) {
     }
 
     return (
+        // TODO: this sections div is unnecessary
         <section className="solutions">
             {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
             <button onClick={handleClickOnSort} className="sortButton qtmButton" value="qtm">Sort by QTM</button>
