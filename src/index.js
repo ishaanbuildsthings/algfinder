@@ -3,12 +3,13 @@ import ReactDOM from 'react-dom/client';
 
 import './CSS/index.css';
 import './CSS/navbar.css';
+import './CSS/toggle.css';
 import './CSS/queryFormWithSpacing.css';
 import './CSS/topRightHalf.css'
 import './CSS/bottomHalf.css';
 import './CSS/darkmode.css';
 import './CSS/documentation.css';
-import './CSS/mediaQueries/LaptopAndBigger.css';
+import './CSS/mediaQueries/laptopAndBigger.css';
 import './CSS/mediaQueries/phoneAndTablet.css';
 
 import App from './app';

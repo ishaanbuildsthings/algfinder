@@ -1,5 +1,8 @@
 .documentationDiv {
-  padding: 40px 80px 40px 90px;
+  padding: 40px 80px 40px 80px;
+  /* test */
+  display: flex;
+  flex-direction: column;
 }
 
 .documentationDiv p, .documentationDiv h2 {
@@ -18,17 +21,35 @@
 
 .cubeRow {
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+
+.spacerDiv2 {
+  flex: 1;
 }
 
 .cubeAndCaption {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  min-width: 300px;
 }
 
 .cubePicture {
   max-width: 200px;
   max-height: 200px;
 }
+
+.cubeAndCaption p {
+  text-align: center;
+}
+
+.light .documentationDiv p, .light .documentationDiv h2 {
+  color: #313131;
+}
+
+.light .documentationDiv a {
+  color: #6200EE;
+}
+

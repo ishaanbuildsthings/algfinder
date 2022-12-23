@@ -4,10 +4,6 @@
   align-items: center;
 }
 
-.darkModeToggleDiv {
-  padding: 6px 55px 0 0;
-}
-
 .navbarUl {
   list-style-type: none;
   display: flex; /* TODO: fix this our navbar should be a horizontal flex container, we use align items to align the sunMoon icon vertically */
@@ -28,10 +24,9 @@ li a:hover:not(.active) {
   background-color: #1E1E1E;
 }
 
-.darkModeToggle {
-}
 
 .active {
   background-color: #bb86fcc2;
   color: #0F0F0F;
 }
+

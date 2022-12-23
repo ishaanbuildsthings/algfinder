@@ -1,16 +1,16 @@
 import React from 'react';
-import QueryForm from '../Components/SolveComponents/QueryForm/QueryForm.js';
-import SolutionsDisplay from '../Components/SolveComponents/SolutionsDisplay/SolutionsDisplay.js';
-import Cube from '../Components/SolveComponents/Cube/Cube.js';
+import QueryForm from '../Components/SolveComponents/QueryForm.js';
+import SolutionsDisplay from '../Components/SolveComponents/SolutionsDisplay.js';
+import Cube from '../Components/SolveComponents/Cube.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
+
 
 /**
  * The Solve component defines all of the display unique to the solve section of the website.
  * @usage Used in app.js
  */
 function Solve() {
-
     // * states
     // tracks the current list of solutions, will update via polling
     // @passed to SolutionsDisplay
@@ -69,6 +69,7 @@ function Solve() {
     async function handleSubmit(queries) {
         setSolutionsList([]);
         const {scramble, moveset, depth} = queries;
+        // TODO: remove console.log(`${baseURL}/solve?scramble=${delimit(scramble)}&max-depth=${depth}&move-types=${delimitList(moveset)}`);
         const txn_id = await fetchURL(`${baseURL}/solve?scramble=${delimit(scramble)}&max-depth=${depth}&move-types=${delimitList(moveset)}`);
         console.log(`got txn_id: ${txn_id}`); // TODO: remove
 
@@ -110,10 +111,17 @@ function Solve() {
             setTimeout(resolve, ms);
         });
     }
+    // validates scramble input client-side
+    function validateScramble(scramble) {
+        const arrayScramble = scramble.split(' ');
+        for (let i = 0; i < arrayScramble.length; i++) {
+
+        }
+    }
 
     // * jsx
     return (
-        <div className="wholePageMinusNav">
+        <div className="solvePageMinusNav">
 
             <div className="topHalf">
                 <QueryForm

@@ -12,7 +12,7 @@ body {
   font-weight: 500;
   font-size: 15px;
   background-color: #121212;
-  /* ? 18191A fb dark mode background */
+  /* ? #18191A fb dark mode background */
 }
 
 /* react boilerplate */
@@ -21,39 +21,20 @@ code {
     monospace;
 }
 
-/* * DIV layout:
-*
-*/
-
-.fakeBodyDiv {
-  height: 100vh;
-   /* our fakeBodyDiv will take up the whole screen height */
-}
-
-/* outer boxes */
-.wholePageMinusNav {
+.solvePageMinusNav {
   display: flex; /* the whole page contains the topHalf and bottomHalf, it will be a flex container to flex these two children vertically. The whole page should have a flex of 1, to take up any remaining space that the navbar does not occupy */
   flex-direction: column;
-  height: calc(100% - 78px); /* 78px is navbar height */
+  height: calc(100vh - 78px); /* this will take the height of the fakeBodyDiv minus the navbar */
   /* TODO: change calc */
-  /* TODO:editing background-color: green; */
 }
 
 .topHalf {
-  /* TODO:editing background-color: blue; */
   display: flex;
   justify-content: space-between;
   min-height: 460px;
   /* TODO: is the top half even needed? since it should just flex the items */
-  /* TODO: flex might not be needed, think more about min height and stuff */
   flex: 2; /* the top half will occupy 2/3rds of the vertical height of the body, */
-  /* ! when I vertically shrink the page why doesn't this div keep shrinking past a point, I would expect it to overflow the container */
 }
-
-.phoneDragText {
-  display: none;
-}
-
 
 
 

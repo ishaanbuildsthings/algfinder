@@ -32,4 +32,4 @@ function useLocalStorage(key, defaultValue) {   // if a value is stored already,
 
 export default useLocalStorage;
 
-// more info on this hook: https://designcode.io/react-hooks-handbook-uselocalstorage-hook
+// more info on where I learned this hook: https://designcode.io/react-hooks-handbook-uselocalstorage-hook

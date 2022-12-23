@@ -1,6 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; //TODO: what was this
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons'; // 4-directional arrow
+import UseWindowSize from '../../Tools/UseWindowSize';
 
 // TODO: change span method to react hook
 /**
@@ -11,6 +12,8 @@ import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons'; // 4-dire
  * @usage Used in solve.js
  */
 export default function Cube(props) {
+  // * misc
+  let windowSize = UseWindowSize();
 
   // * jsx
   return (
@@ -26,9 +29,7 @@ export default function Cube(props) {
 
       <div className="dragIconAndText">
         <FontAwesomeIcon icon={faUpDownLeftRight} className="upDownLeftRight fa-lg" color="white"/>
-        <p className="dragText">&nbsp;&nbsp;
-          <span className="laptopDragText">&nbsp;Drag cube to view</span>
-          <span className="phoneDragText">Drag cube</span>
+        <p className="dragText">&nbsp;&nbsp;{windowSize.width <= 800 ? 'Drag Cube' : 'Drag cube to view'}
         </p>
       </div>
 

@@ -1,8 +1,9 @@
 import React from 'react';
-import cx from '../../../Tools/cx';
-import useLocalStorage from '../../../Tools/useLocalStorage';
+import cx from '../Tools/cx';
+import useLocalStorage from '../Tools/useLocalStorage';
 import { DarkModeToggle } from '@anatoliygatt/dark-mode-toggle';
 import { useNavigate } from 'react-router-dom';
+import Toggle from './SolveComponents/Toggle.js';
 
 /**
  * This function defines the Navbar component, which is a shared component across the page. The navbar serves to route users
@@ -20,6 +21,7 @@ function Navbar() {
   // * handlers
   // whenever we click the darkmode toggle, this function changes the local storage state, re-rendering the function with the new style
   function handleSpecialDarkModeComponentChange() {
+    console.log('ran');
       if (localStorageState === 'dark') {
         setLocalStorageState('light');
       } else {
@@ -73,34 +75,7 @@ function Navbar() {
         </li>
       </ul>
 
-      <div className="darkModeToggleDiv">
-        <DarkModeToggle
-          mode={localStorageState} // responsible for animation of the toggle
-          dark="Dark"
-          light="Light"
-          size="sm"
-          inactiveLabelColor="white" // the color of both labels in dark mode, see inactiveTrackColor for options
-          inactiveLabelColorOnHover="yellow"  // the color of the light label when you hover over it, when in dark mode
-          activeLabelColorOnHover="black" // the color of the dark label when you hover over it, when in light mode
-          activeLabelColor="#313131" // the color of both labels in light mode
-          inactiveTrackColor="white"   // the color of the track in dark mode, default #e2e8f0, greyish option #E4E4E4
-          inactiveTrackColorOnHover="#d5d5d5" // when in dark mode and you hover over the track
-          inactiveTrackColorOnActive="#cbd5e1" // when you click the track from dark to light mode it briefly changes color
-          activeTrackColor="#334155" // when you are in light mode, the color of the track
-          activeTrackColorOnHover="#1e293b" // when you are in light mode, the color of the track on hover
-          activeTrackColorOnActive="#0f172a" // when you click the track from light to dark mode it briefly changes to this
-          inactiveThumbColor="#1e293b" // color of the dial in dark mode
-          activeThumbColor="#e2e8f0" // color of the dial in light mode
-          /* other unused properties:
-              focusRingColor="" // not sure
-              activeLabelColorOnActive="" // when you click dark mode, while in light mode, the color will briefly change to this
-              activeLabelColorOnActive="" // when you click light mode, while in dark mode, the color will briefly change to this
-          */
-          className="darkModeToggle"
-          onChange={handleSpecialDarkModeComponentChange}
-          >
-        </DarkModeToggle>
-      </div>
+      <Toggle clickAction={handleSpecialDarkModeComponentChange}/>
 
     </div>
   )

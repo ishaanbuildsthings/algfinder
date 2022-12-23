@@ -1,15 +1,23 @@
 add copied popup for solutions
 remove TODOs, errors, change tim's variable names
-add cancel searchn
-add client side validation
-add server side validation
 create generating solutions icon
 add click animation for submit button
 more styling for different screen sizes
-change dark mode toggle to vanilla
 style documentation page
-fix light mode
 add tooltips
 and click-through dragging on drag to view
-make sort buttons only show up when solutions are done
-prevent client side hacking for submit when on different page
+
+
+1) add client side query form validation into alerts -
+   1.b) refactor into border
+2) add client side validation to prevent hitting submit button from other pages
+3) any other client side validation?
+4) fix light mode-
+6) make sort button display popup if no solutions to sort-
+  6.b) refactor into flash
+
+tim:
+1) add cancel search
+2) add server side validation
+
+uninstall correct things
