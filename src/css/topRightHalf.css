@@ -42,9 +42,20 @@ twisty-player {
   }
 }
 
+@media (max-width: 1600px) {
+  .topRightHalf {
+    padding: 25px 0 45px 0;
+  }
+}
+
+
+
 @media (max-width: 1560px) {
   .dragIconAndText {
     bottom: 12%;
+  }
+  .topRightHalf {
+    padding: 40px 0 60px 0;
   }
 }
 
@@ -52,6 +63,9 @@ twisty-player {
   .dragIconAndText {
     right: 10%;
     bottom: 14%;
+  }
+  .topRightHalf {
+    padding: 60px 0 80px 0;
   }
 }
 
@@ -72,6 +86,9 @@ twisty-player {
   .dragIconAndText {
     bottom: 6%;
   }
+  .topRightHalf {
+    padding: 80px 0px 100px 0px;
+  }
 
 }
 
@@ -79,6 +96,9 @@ twisty-player {
   .dragIconAndText {
     bottom: 9%;
     right: 32%;
+  }
+  .topRightHalf {
+    padding: 100px 20px 120px 20px;
   }
 }
 @media (max-width: 481px) {
