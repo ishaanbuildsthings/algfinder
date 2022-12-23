@@ -86,8 +86,7 @@ function SolutionsDisplay(props) {
     }
 
     return (
-        // * <div> innerBottomHalf
-         <>
+         <div className="solutionsDisplay">
             <div className="solutionsHeader">
                 <FontAwesomeIcon icon={faCircleInfo} className="circleIconSolutions fa-sm"/>
                 {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
@@ -101,7 +100,7 @@ function SolutionsDisplay(props) {
                     <li className="solutionLi">&nbsp;&nbsp;&nbsp;test solution here</li>
                 </ol>
             </div>
-         </>
+         </div>
     );
 }
 

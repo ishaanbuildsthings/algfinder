@@ -1,6 +1,6 @@
 import React from 'react';
 import QueryForm from '../Components/QueryForm/QueryForm.js';
-import SolutionsDisplay from '../Components/SolutionsDisplay.js';
+import SolutionsDisplay from '../Components/SolutionsDisplay/SolutionsDisplay.js';
 import Cube from '../Components/Cube.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
@@ -139,10 +139,8 @@ function Solve() {
                 </div>
             </div>
 
-            <div className="bottomHalf">
-                <div className="innerBottomHalf">
+            <div className="solutionsDisplaySpacer">
                     <SolutionsDisplay solutionsList={solutionsList}/>
-                </div>
             </div>
 
         </div>
