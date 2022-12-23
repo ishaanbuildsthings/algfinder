@@ -1,5 +1,5 @@
 import React from 'react';
-import cx from '../../Tools/cx';
+import cx from '../Tools/cx';
 
 /**
  * @param {*} props

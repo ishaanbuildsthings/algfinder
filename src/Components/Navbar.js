@@ -1,9 +1,8 @@
 import React from 'react';
 import cx from '../Tools/cx';
 import useLocalStorage from '../Tools/useLocalStorage';
-import { DarkModeToggle } from '@anatoliygatt/dark-mode-toggle';
 import { useNavigate } from 'react-router-dom';
-import Toggle from './SolveComponents/Toggle.js';
+import Toggle from './Toggle.js';
 
 /**
  * This function defines the Navbar component, which is a shared component across the page. The navbar serves to route users

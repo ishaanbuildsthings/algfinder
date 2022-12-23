@@ -1,7 +1,7 @@
 import React from 'react';
-import QueryForm from '../Components/SolveComponents/QueryForm.js';
-import SolutionsDisplay from '../Components/SolveComponents/SolutionsDisplay.js';
-import Cube from '../Components/SolveComponents/Cube.js';
+import QueryForm from '../Components/QueryForm.js';
+import SolutionsDisplay from '../Components/SolutionsDisplay.js';
+import Cube from '../Components/Cube.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 
