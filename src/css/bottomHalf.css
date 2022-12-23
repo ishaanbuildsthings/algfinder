@@ -72,3 +72,17 @@
   color: #E4E4E4;
 }
 
+.light .sortButton {
+  background-color: #F2F2F2;
+  color: #313131;
+}
+
+.light .sortButton:hover {
+  background-color: #d6d3d3;
+}
+
+.light .innerBottomHalf {
+  /* background-color: #FAFAFA; */
+  background-color: #F2F2F2; /* TODO: what is this */
+
+}

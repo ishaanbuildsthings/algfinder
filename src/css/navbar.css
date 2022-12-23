@@ -30,3 +30,15 @@ li a:hover:not(.active) {
   color: #0F0F0F;
 }
 
+.light .active {
+  background-color: #6200EE;
+  color: #F3F1FE;
+}
+
+.light li a {
+  color: #313131;
+}
+
+.light li a:hover:not(.active) {
+  background-color: #d6d3d3;
+}

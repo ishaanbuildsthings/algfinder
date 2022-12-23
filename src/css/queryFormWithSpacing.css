@@ -119,3 +119,42 @@
   color: #E4E4E4;
 }
 
+
+.light .interactable {
+  /* background-color: #FAFAFA; */
+  background-color: #F2F2F2;
+}
+
+.light .label {
+  background-color: #c1c1c164;
+  color: #313131;
+}
+
+
+
+.light .circleIconScramble, .light .circleIconDepth,
+.light .circleIconMoveset, .light .circleIconSolutions {
+  color: #313131;
+}
+
+.light .submitButton {
+  color: #313131;
+}
+
+.light .scrambleInput, .light .depthInput, .light .movesetButton, .light .solutionLi {
+  color: #313131;
+}
+
+.light .scrambleInput:hover:not(:focus), .light .depthInput:hover:not(:focus) {
+  background-color: #d6d3d3;
+}
+
+.light .movesetButton:hover:not(.isToggled), .light .submitButton:hover {
+  background-color: #d6d3d3;
+}
+
+.light .isToggled {
+  color: #F3F1FE;
+  background-color: #6200EE;
+}
+
