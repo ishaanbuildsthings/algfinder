@@ -42,3 +42,9 @@ li a:hover:not(.active) {
 .light li a:hover:not(.active) {
   background-color: #d6d3d3;
 }
+
+@media (max-width: 767px) {
+  .navbarUl {
+    padding: 0 0 0 10px; /* left padding not used in small view */
+  }
+}

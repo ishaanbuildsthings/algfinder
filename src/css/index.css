@@ -42,5 +42,14 @@ body.light {
   background-color: #FFF;
 }
 
+@media (max-width: 767px) {
+  .topHalf {
+    flex-direction: column; /* flex the query form and cube vertically */
+    flex: 5; /* top half takes up more space compared to solutions display */
+    width: 100%; /* top half should now fill the width of the wholePageMinusNavbar div */
+    align-items: center; /* top half should be center on a mobile view */
+    min-height: 500px;
+  }
+}
 
 

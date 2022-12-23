@@ -92,3 +92,24 @@
     padding: 30px 30px 30px 30px;
   }
 }
+
+@media (max-width: 767px) {
+  .bottomHalf {
+    padding: 5px;
+    width: 100%;
+    box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
+  }
+  .innerBottomHalf {
+    max-width: 95%;
+  }
+}
+
+@media (max-width: 481px) { /* most phones should take this form */
+  .solutionLi {
+    margin-left: 0; /* in mobile view move the solutions to the left */
+  }
+
+  .solutionsOl {
+    padding-left: 25px; /* move the numbers a bit closer to the left */
+  }
+}

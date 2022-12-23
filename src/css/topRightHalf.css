@@ -101,6 +101,14 @@ twisty-player {
     padding: 100px 20px 120px 20px;
   }
 }
+@media (max-width: 767px) {
+  .topRightHalf {
+    padding: 0; /* make room for cube on smaller screen */
+    width: 100%; /* width was not defined in laptop view */
+    min-height: 100px; /* for really small vertical screen size phones, we prefer to scroll rather than fit everything */
+  }
+}
+
 @media (max-width: 481px) {
   .dragIconAndText {
     position: absolute;

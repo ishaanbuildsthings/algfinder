@@ -169,3 +169,28 @@
     padding: 90px 0 0 30px;
     }
 }
+
+@media (max-width: 767px) {
+
+  .queryFormWithSpacing {
+    padding: 15px 5px 15px 5px; /* move query form up to use extra space */
+    max-width: 95%;
+    box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
+  }
+
+  .buttonGrid > .movesetButton:nth-child(13) {
+    border-bottom-left-radius: 10px;
+  }
+  .buttonGrid > .movesetButton:nth-child(18) {
+    border-bottom-right-radius: 10px;
+  }
+
+  .scrambleLabel {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .submitButton {
+    border-radius: 10px;
+  }
+}
