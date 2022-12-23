@@ -36,4 +36,57 @@ twisty-player {
 .phoneDragNameToView {
   display: none;
 }
+@media (max-width: 1690px) {
+  .dragIconAndText {
+    right: 10%;
+  }
+}
+
+@media (max-width: 1560px) {
+  .dragIconAndText {
+    bottom: 12%;
+  }
+}
+
+@media (max-width: 1430px) {
+  .dragIconAndText {
+    right: 10%;
+    bottom: 14%;
+  }
+}
+
+@media (max-width: 1340px) {
+  .dragIconAndText {
+    right: 39%;
+    bottom: 3%;
+  }
+}
+
+@media (max-width: 1217px) {
+  .dragIconAndText {
+    right: 36%;
+  }
+}
+@media (max-width: 1100px) {
+
+  .dragIconAndText {
+    bottom: 6%;
+  }
+
+}
+
+@media (max-width: 940px) {
+  .dragIconAndText {
+    bottom: 9%;
+    right: 32%;
+  }
+}
+@media (max-width: 481px) {
+  .dragIconAndText {
+    position: absolute;
+    bottom: -4%;
+    right: 6%;
+  }
+}
 /* TODO: change to dynamic rendering */
+

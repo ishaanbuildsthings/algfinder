@@ -63,11 +63,7 @@
 @media (max-width: 481px) { /* most phones should take this form */
 
 
-  .dragIconAndText {
-    position: absolute;
-    bottom: -4%;
-    right: 6%;
-  }
+
 
   .solutionLi {
     margin-left: 0; /* in mobile view move the solutions to the left */
@@ -77,44 +73,5 @@
     padding-left: 25px; /* move the numbers a bit closer to the left */
   }
 
-
-
-  /* .documentationDiv {
-    padding: 0;
-  }
-
-  .cubeRow {
-    flex-wrap: wrap;
-  }
-
-  .cubePicture {
-    max-width: 150px;
-  }
-
-  .documentationDiv {
-    padding: 10px;
-  }
-
-  .cubeAndCaptionBlock {
-    width: 100%;
-  }
-
-  .cubeAndCaption {
-    max-width: 170px;
-  } */
-
-
-
-
 }
 
-@media (max-width: 562px) {
-  .cubePicture {
-    max-width: 150px;
-    max-height: 150px;
-  }
-
-  .documentationDiv {
-    padding: 0 20px;
-  }
-}
