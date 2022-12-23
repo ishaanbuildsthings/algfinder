@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'; //TODO: what was this
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons'; // 4-directional arrow
-import UseWindowSize from '../Tools/UseWindowSize';
+import UseWindowSize from '../../Tools/UseWindowSize';
 
 // TODO: change span method to react hook
 /**
@@ -17,7 +17,7 @@ export default function Cube(props) {
 
   // * jsx
   return (
-    <>
+    <div className="cubePanel">
 
       <twisty-player
                     visualization="PG3D"
@@ -33,6 +33,6 @@ export default function Cube(props) {
         </p>
       </div>
 
-     </>
+     </div>
   );
 }

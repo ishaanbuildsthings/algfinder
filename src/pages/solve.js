@@ -1,7 +1,7 @@
 import React from 'react';
 import QueryForm from '../Components/QueryForm/QueryForm.js';
 import SolutionsDisplay from '../Components/SolutionsDisplay/SolutionsDisplay.js';
-import Cube from '../Components/Cube.js';
+import CubePanel from '../Components/CubePanel/CubePanel.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 
@@ -134,9 +134,8 @@ function Solve() {
                     />
                 </div>
 
-                <div className="topRightHalf">
-                    <Cube scramble={queriesState.scramble}/>
-                </div>
+                <CubePanel scramble={queriesState.scramble}/>
+
             </div>
 
             <div className="solutionsDisplaySpacer">

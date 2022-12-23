@@ -1,4 +1,4 @@
-.topRightHalf {
+.cubePanel {
   flex: 1;
   box-sizing: border-box;
   padding: 15px 0 35px 0;
@@ -43,7 +43,7 @@ twisty-player {
 }
 
 @media (max-width: 1600px) {
-  .topRightHalf {
+  .cubePanel {
     padding: 25px 0 45px 0;
   }
 }
@@ -54,7 +54,7 @@ twisty-player {
   .dragIconAndText {
     bottom: 12%;
   }
-  .topRightHalf {
+  .cubePanel {
     padding: 40px 0 60px 0;
   }
 }
@@ -64,7 +64,7 @@ twisty-player {
     right: 10%;
     bottom: 14%;
   }
-  .topRightHalf {
+  .cubePanel {
     padding: 60px 0 80px 0;
   }
 }
@@ -86,7 +86,7 @@ twisty-player {
   .dragIconAndText {
     bottom: 6%;
   }
-  .topRightHalf {
+  .cubePanel {
     padding: 80px 0px 100px 0px;
   }
 
@@ -97,12 +97,12 @@ twisty-player {
     bottom: 9%;
     right: 32%;
   }
-  .topRightHalf {
+  .cubePanel {
     padding: 100px 20px 120px 20px;
   }
 }
 @media (max-width: 767px) {
-  .topRightHalf {
+  .cubePanel {
     padding: 0; /* make room for cube on smaller screen */
     width: 100%; /* width was not defined in laptop view */
     min-height: 100px; /* for really small vertical screen size phones, we prefer to scroll rather than fit everything */

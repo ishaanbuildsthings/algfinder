@@ -5,7 +5,7 @@ import './CSS/index.css';
 import './Components/Navbar/Navbar.css';
 import './Components/Toggle/Toggle.css';
 import './Components/QueryForm/QueryForm.css';
-import './CSS/topRightHalf.css'
+import './Components/CubePanel/CubePanel.css';
 import './Components/SolutionsDisplay/SolutionsDisplay.css';
 import './Components/Documentation/Documentation.css';
 
