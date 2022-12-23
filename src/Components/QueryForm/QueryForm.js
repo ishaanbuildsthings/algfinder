@@ -1,5 +1,5 @@
 import React from 'react';
-import MovesetButton from "./MovesetButton.js";
+import MovesetButton from "../MovesetButton.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
@@ -26,8 +26,8 @@ function QueryForm(props) {
 
 
     return (
-        <div className="queryFormWithSpacing">
 
+        <>
             <section className="scramblePanel">
 
                 <label className="label scrambleLabel">Scramble
@@ -87,9 +87,9 @@ function QueryForm(props) {
                     Show Me Solutions!
                 </button>
             </section>
+        </>
 
 
-        </div>
     );
 }
 

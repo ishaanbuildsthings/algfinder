@@ -1,5 +1,5 @@
 import React from 'react';
-import QueryForm from '../Components/QueryForm.js';
+import QueryForm from '../Components/QueryForm/QueryForm.js';
 import SolutionsDisplay from '../Components/SolutionsDisplay.js';
 import Cube from '../Components/Cube.js';
 const baseURL = 'http://127.0.0.1:3001';
@@ -124,13 +124,15 @@ function Solve() {
         <div className="solvePageMinusNav">
 
             <div className="topHalf">
-                <QueryForm
-                handleTextChange={handleTextChange}
-                handleNumberChange={handleNumberChange}
-                handleSubmit={handleSubmit}
-                handleMovesetClick={handleMovesetClick}
-                queriesState={queriesState}
-                />
+                <div className="queryFormSpacer">
+                    <QueryForm
+                    handleTextChange={handleTextChange}
+                    handleNumberChange={handleNumberChange}
+                    handleSubmit={handleSubmit}
+                    handleMovesetClick={handleMovesetClick}
+                    queriesState={queriesState}
+                    />
+                </div>
 
                 <div className="topRightHalf">
                     <Cube scramble={queriesState.scramble}/>

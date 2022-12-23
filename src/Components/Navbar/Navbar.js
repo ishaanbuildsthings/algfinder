@@ -1,8 +1,8 @@
 import React from 'react';
-import cx from '../Tools/cx';
-import useLocalStorage from '../Tools/useLocalStorage';
+import cx from '../../Tools/cx';
+import useLocalStorage from '../../Tools/useLocalStorage';
 import { useNavigate } from 'react-router-dom';
-import Toggle from './Toggle.js';
+import Toggle from '../Toggle/Toggle.js';
 
 /**
  * This function defines the Navbar component, which is a shared component across the page. The navbar serves to route users

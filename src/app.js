@@ -1,6 +1,6 @@
-import Navbar from './Components/Navbar.js';
-import Solve from './Pages/solve';
-import Documentation from './Pages/documentation';
+import Navbar from './Components/Navbar/Navbar.js';
+import Solve from './Pages/solve.js';
+import Documentation from './Components/Documentation/Documentation.js';
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';
 

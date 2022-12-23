@@ -1,5 +1,5 @@
 /* top left panel */
-.queryFormWithSpacing {
+.queryFormSpacer {
   width: 100%;
   max-width: 650px;
   height: 100%;
@@ -159,20 +159,20 @@
 }
 
 @media (max-width: 1430px) {
-  .queryFormWithSpacing {
+  .queryFormSpacer {
     padding: 50px 0 0 30px;
     }
 }
 
 @media (max-width: 1340px) {
-  .queryFormWithSpacing {
+  .queryFormSpacer {
     padding: 90px 0 0 30px;
     }
 }
 
 @media (max-width: 767px) {
 
-  .queryFormWithSpacing {
+  .queryFormSpacer {
     padding: 15px 5px 15px 5px; /* move query form up to use extra space */
     max-width: 95%;
     box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
