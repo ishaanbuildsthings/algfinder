@@ -8,7 +8,6 @@ import './CSS/queryFormWithSpacing.css';
 import './CSS/topRightHalf.css'
 import './CSS/bottomHalf.css';
 import './CSS/documentation.css';
-import './CSS/mediaQueries/laptopAndBigger.css';
 import './CSS/mediaQueries/phoneAndTablet.css';
 
 import App from './app';

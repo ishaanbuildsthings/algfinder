@@ -86,3 +86,9 @@
   background-color: #F2F2F2; /* TODO: what is this */
 
 }
+
+@media (max-width: 1430px) {
+  .bottomHalf {
+    padding: 30px 30px 30px 30px;
+  }
+}

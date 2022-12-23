@@ -158,3 +158,14 @@
   background-color: #6200EE;
 }
 
+@media (max-width: 1430px) {
+  .queryFormWithSpacing {
+    padding: 50px 0 0 30px;
+    }
+}
+
+@media (max-width: 1340px) {
+  .queryFormWithSpacing {
+    padding: 90px 0 0 30px;
+    }
+}
