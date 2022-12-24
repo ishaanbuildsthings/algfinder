@@ -13,26 +13,23 @@ function Documentation() {
       A basic walkthrough of the algorithm is below.</p>
       <p>We start with two cubes:</p>
       <div className="cubeRow">
-        <div className="spacerDiv2"></div>
 
-        <div className="cubeAndCaption">
+        <div className="cubeAndCaption cube1">
           <img src="./600px_solved.png" alt="solved cube" className="cubePicture"></img>
           <p>A solved cube</p>
         </div>
 
-        <div className="cubeAndCaption">
+        <div className="cubeAndCaption cube2">
           <img src="./600px_R_U_scramble.png" alt="scrambled cube" className="cubePicture"></img>
           <p>A user-supplied scrambled cube</p>
         </div>
 
-        <div className="spacerDiv2"></div>
       </div>
 
 
       <hr></hr>
       <p>We then search 1-move adjacent states from the solved cube. Some examples would be:</p>
       <div className="cubeRow">
-        <div className="spacerDiv2"></div>
 
         <div className="cubeAndCaption">
           <img src="./600px_solved_F.png" alt="adjacent cube state to solved cube" className="cubePicture"></img>
@@ -49,7 +46,6 @@ function Documentation() {
           <p>Fig 1.3</p>
         </div>
 
-        <div className="spacerDiv2"></div>
       </div>
       <p>These adjacent states are added to a dictionary, which maps states reached starting from the solved cube, to lists of ways to reach said states.</p>
 
@@ -57,7 +53,6 @@ function Documentation() {
       <hr></hr>
       <p>We then repeat the 1-move adjacent search process, starting from the scrambled cube, adding these states to a second dictionary. Some examples would be:</p>
       <div className="cubeRow">
-        <div className="spacerDiv2"></div>
 
         <div className="cubeAndCaption">
           <img src="./600px_scrambled_R_U_D.png" alt="adjacent cube state to scrambled cube" className="cubePicture"></img>
@@ -74,7 +69,6 @@ function Documentation() {
           <p>Fig 2.3</p>
         </div>
 
-        <div className="spacerDiv2"></div>
       </div>
       <p>Notice how Fig 1.3 and Fig 2.2 are the same! Since we have a collision, we know we can construct a solution to the scramble by connecting the two paths. We continue to search
         deeper until the user-supplied maximum algorithm length is reached, and return all possible solutions.
@@ -96,7 +90,7 @@ function Documentation() {
 
 
       <h2>Contributions</h2>
-      <p>The tech stack is React+Flask and is open-source. If you would like to contribute, the Github repositories are here:&nbsp;
+      <p>This is written in React+Flask and is open-source. If you would like to contribute, the Github repositories are here:&nbsp;
         <a href="https://github.com/agrawalishaan/cubeExplorerFrontend" target="_blank" rel="noopen noreferrer">Front End</a>&nbsp;|&nbsp;
         <a href="https://github.com/agrawalishaan/cubeexplorer" target="_blank" rel="noopen noreferrer">Back End</a>
       </p>

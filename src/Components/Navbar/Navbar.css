@@ -1,4 +1,4 @@
-.navBarDiv {
+.navbarDiv {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,6 +8,7 @@
   list-style-type: none;
   display: flex; /* TODO: fix this our navbar should be a horizontal flex container, we use align items to align the sunMoon icon vertically */
 }
+
 
 li a {
   display: block;

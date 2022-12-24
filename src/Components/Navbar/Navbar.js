@@ -45,7 +45,7 @@ function Navbar() {
 
   // * jsx
   return (
-    <div className="navBarDiv">
+    <navbar className="navbarDiv">
 
       <ul className="navbarUl">
         <li className="navbarItem">
@@ -76,7 +76,7 @@ function Navbar() {
 
       <Toggle clickAction={handleSpecialDarkModeComponentChange}/>
 
-    </div>
+    </navbar>
   )
 }
 

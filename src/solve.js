@@ -1,7 +1,7 @@
 import React from 'react';
-import QueryForm from '../Components/QueryForm/QueryForm.js';
-import SolutionsDisplay from '../Components/SolutionsDisplay/SolutionsDisplay.js';
-import CubePanel from '../Components/CubePanel/CubePanel.js';
+import QueryForm from './Components/QueryForm/QueryForm.js';
+import SolutionsDisplay from './Components/SolutionsDisplay/SolutionsDisplay.js';
+import CubePanel from './Components/CubePanel/CubePanel.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 
@@ -124,7 +124,7 @@ function Solve() {
         <div className="solvePageMinusNav">
 
             <div className="topHalf">
-                <div className="queryFormSpacer">
+                <div className="queryFormContainer">
                     <QueryForm
                     handleTextChange={handleTextChange}
                     handleNumberChange={handleNumberChange}

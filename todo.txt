@@ -3,7 +3,6 @@ remove TODOs, errors, change tim's variable names
 create generating solutions icon
 add click animation for submit button
 more styling for different screen sizes
-style documentation page
 add tooltips
 and click-through dragging on drag to view
 
@@ -21,3 +20,6 @@ tim:
 2) add server side validation
 
 uninstall correct things
+
+add persistent state for tab?
+fixed navbar

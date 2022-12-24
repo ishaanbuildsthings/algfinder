@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import './CSS/index.css';
+import './index.css';
 import './Components/Navbar/Navbar.css';
 import './Components/Toggle/Toggle.css';
 import './Components/QueryForm/QueryForm.css';

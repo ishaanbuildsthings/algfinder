@@ -1,5 +1,5 @@
 import React from 'react';
-import MovesetButton from "../MovesetButton.js";
+import MovesetButton from "./MovesetButton.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 

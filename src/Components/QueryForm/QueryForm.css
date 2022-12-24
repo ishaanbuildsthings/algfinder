@@ -1,10 +1,11 @@
 /* top left panel */
-.queryFormSpacer {
+.queryFormContainer {
   width: 100%;
   max-width: 650px;
   height: 100%;
-  padding: 50px 0 0 90px;
+  padding: 50px 0 0 50px;
   flex: 1;
+  box-sizing: border-box;
 }
 
 .interactable {
@@ -159,20 +160,20 @@
 }
 
 @media (max-width: 1430px) {
-  .queryFormSpacer {
+  .queryFormContainer {
     padding: 50px 0 0 30px;
     }
 }
 
 @media (max-width: 1340px) {
-  .queryFormSpacer {
-    padding: 90px 0 0 30px;
+  .queryFormContainer {
+    padding: 50px 0 0 30px;
     }
 }
 
 @media (max-width: 767px) {
 
-  .queryFormSpacer {
+  .queryFormContainer {
     padding: 15px 5px 15px 5px; /* move query form up to use extra space */
     max-width: 95%;
     box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */

@@ -1,6 +1,5 @@
 .documentationDiv {
-  padding: 40px 80px 40px 80px;
-  /* test */
+  padding: 40px 4%;
   display: flex;
   flex-direction: column;
 }
@@ -21,45 +20,30 @@
 
 .cubeRow {
   display: flex;
-  justify-content: space-evenly;
-  flex-wrap: wrap;
-}
-
-.spacerDiv2 {
-  flex: 1;
+  justify-content: center;
+  /* width is forced at max since the document flexes vertically */
 }
 
 .cubeAndCaption {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 300px;
+  width: 300px;
 }
 
 .cubePicture {
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 70%;
 }
 
 .cubeAndCaption p {
   text-align: center;
 }
 
+/** light mode */
 .light .documentationDiv p, .light .documentationDiv h2 {
   color: #313131;
 }
 
 .light .documentationDiv a {
   color: #6200EE;
-}
-
-@media (max-width: 562px) {
-  .cubePicture {
-    max-width: 150px;
-    max-height: 150px;
-  }
-
-  .documentationDiv {
-    padding: 0 20px;
-  }
 }
