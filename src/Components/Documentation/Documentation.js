@@ -100,3 +100,5 @@ function Documentation() {
 }
 
 export default Documentation;
+
+// TODO: js remember to remove unnecessary class names

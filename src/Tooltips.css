@@ -1,0 +1,60 @@
+/* all cricle info icons are styled in queryForm.css */
+
+.queryFormContainer .icon {
+  margin-left: 4px;
+}
+
+.iconAndPopup { /* allows positioning for popup */
+  position: relative;
+}
+
+.popup {
+  position: absolute;
+  display: none;
+  background-color: #926AC3;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px;
+  left: 30px;
+  text-transform: none;
+  font-size: 14px;
+}
+
+.scramblePopup {
+  width: 320px;
+  font-weight: 500; /*override label font-weight */
+}
+
+.movesetPopup {
+  width: 320px;
+  font-weight: 500;
+}
+
+.depthPopup {
+  width: 320px;
+  font-weight: 500;
+}
+
+.solutionsPopup {
+  width: 320px;
+}
+
+.scrambleIcon:hover + .scramblePopup {
+  display: inline;
+}
+
+.depthIcon:hover + .depthPopup {
+  display: inline;
+}
+
+.movesetIcon:hover + .movesetPopup {
+  display: inline;
+}
+
+.solutionsIcon:hover + .solutionsPopup {
+  display: inline;
+}
+
+.light .popup {
+  background-color: #6200EE;;
+}

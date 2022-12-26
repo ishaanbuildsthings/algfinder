@@ -87,17 +87,23 @@ function SolutionsDisplay(props) {
 
     return (
          <div className="solutionsDisplay">
-            <div className="solutionsHeader">
-                <FontAwesomeIcon icon={faCircleInfo} className="circleIconSolutions fa-sm"/>
+            <div className="solutionsHeader mainColor">
+                <div className="iconAndPopup">
+                    <FontAwesomeIcon icon={faCircleInfo} className="solutionsIcon icon mainText fa-sm"/>
+                    <span className="solutionsPopup popup">Any found solutions will be displayed here.
+                    Click a solution to copy it to your clipboard. Solutions are fully exhaustive,
+                    so all will be found for a given query.</span>
+                </div>
+                <div className="solutionsHeaderSpacer"></div>
                 {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
-                <button onClick={handleClickOnSort} className="sortButton qtmButton" value="qtm">Sort by QTM</button>
-                <button onClick={handleClickOnSort} className="sortButton stmButton" value="stm">Sort by STM</button>
+                <button onClick={handleClickOnSort} className="sortButton mainText" value="qtm">Sort by QTM</button>
+                <button onClick={handleClickOnSort} className="sortButton mainText" value="stm">Sort by STM</button>
             </div>
-            <div className="scrollableSolutions">
+            <div className="scrollableSolutions secondaryColor">
                 <ol className="solutionsOl">
                     {/* display solutions creates the JSX for our solutions */}
                     {displaySolutions(solutionState)}
-                    <li className="solutionLi">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
                 </ol>
             </div>
          </div>
@@ -105,3 +111,5 @@ function SolutionsDisplay(props) {
 }
 
 export default SolutionsDisplay;
+
+// TODO: all

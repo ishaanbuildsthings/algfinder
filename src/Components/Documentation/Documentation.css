@@ -21,7 +21,7 @@
 .cubeRow {
   display: flex;
   justify-content: center;
-  /* width is forced at max since the document flexes vertically */
+  /* width is forced to max since the document flexes vertically */
 }
 
 .cubeAndCaption {
@@ -36,7 +36,7 @@
 }
 
 .cubeAndCaption p {
-  text-align: center;
+  text-align: center; /* p may be aligned within cubeAndCaption, but the text inside isn't, this is needed for when the caption is too long as per tony's explanation */
 }
 
 /** light mode */

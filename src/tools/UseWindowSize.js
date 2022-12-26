@@ -12,11 +12,11 @@ function UseWindowSize() {
     }
 
     // 'resize' is a premade option that applies when the window is resized
-    window.addEventListener("resize", handleResize);
+    window.addEventListener('resize', handleResize);
     // update the state via the handler
     handleResize();
     // Return a function that removes the event listener upon dismount
-    return () => window.removeEventListener("resize", handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return windowSize;

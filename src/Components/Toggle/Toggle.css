@@ -6,13 +6,12 @@
   display: flex;
   align-items: center;
   background-color: white;
-
   border-radius: 15px;
-  /* height / 2 */
 
-  /* position: relative;
-  left: 355px;
-  top: 40px; */
+}
+
+.toggle:hover {
+  background-color: #d5d5d5;
 }
 
 .thumb {
@@ -21,11 +20,17 @@
   width: 20px;
   height: 20px;
   border-radius: 10px;
-  background-color: #334155;
+  background-color: #313131;
   border: none;
   transition: transform 0.4s;
-  /* position: relative;
-  right: 5px; */
+}
+
+.light .toggle {
+  background-color: #6200EE;
+}
+
+.light .toggle:hover {
+  background-color: hsl(265, 100%, 39%);
 }
 
 .light .thumb {
@@ -33,19 +38,8 @@
   /* right border of thumb in left position = toggle left padding + thumb width = 24px */
   /* need to move that border to: toggle width - toggle right padding position = 48-4 = 44px */
   /* total translate = #2 - #1 */
-  background-color: #e2e8f0;
-}
-
-.light .toggle {
-  background-color: #334155;
-}
-
-.light .toggle:hover {
-  background-color: #1E293B;
+  background-color: #E7E7E7;
 }
 
 
-.toggle:hover {
-  background-color: #d5d5d5;
-}
 

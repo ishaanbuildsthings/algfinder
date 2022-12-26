@@ -1,77 +1,61 @@
-/* top left panel */
 .queryFormContainer {
-  width: 100%;
   max-width: 650px;
-  height: 100%;
-  padding: 50px 0 0 50px;
-  flex: 1;
-  box-sizing: border-box;
+  padding-top: 50px;
+  padding-left: 50px; /* large screen positionings */
+  flex: 0 0 50%;
+  box-sizing: border-box; /* make the width truly 50% */
 }
 
-.interactable {
-  color: #A7A7A7;
-  background: #222222;
-  width: 100%;
-}
-
-.scrambleInput, .depthInput {
-  height: 50px;
-  padding-left: 35px;
-  outline: none;
-  border: none;
-  display: inline;
-  overflow: visible;
-  color: #A7A7A7;
-  box-sizing: border-box;
-  font-weight: bold;
-}
-
-.scrambleInput:hover:not(:focus), .depthInput:hover:not(:focus) {
-  background: #4C4C4C;
-}
-
-.scrambleInput:focus::placeHolder, .depthInput:focus::placeholder {
-  color: transparent;
-}
-
-
-.label {
-  display: block;
+.mainText {
   color: #E4E4E4;
+}
+
+.mainColor {
+  background-color: #1E1E1E;
+}
+
+.secondaryColor {
+  background-color: #222;
+}
+
+.queryFormContainer label {
+  display: flex; /* this also makes the width of the label 100% since labels are not by default */
   padding-left: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
   text-transform: uppercase;
   font-weight: 700;
-  background-color: #1E1E1E;
   font-size: 0.8rem;
   line-height: 2;
+}
+
+.queryFormContainer input {
+  width: 100%; /* expand to fill full queryFormContainer */
+  box-sizing: border-box; /* make it true 100% width */
+  height: 50px;
+  padding-left: 35px;
+  padding-right: 35px;
+  outline: none;
+  border: none;
+  font-weight: bold;
+}
+
+.queryFormContainer input:hover:not(:focus) {
+  background-color: #4C4C4C;
+}
+
+.queryFormContainer input:focus::placeholder {
+  color: transparent; /* make the placeholder disappear when clicked in */
+}
+
+::selection {
+  color: #E4E4E4;
+  background-color: #5E81A8;
 }
 
 .scrambleLabel {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-}
-
-::selection {
-  color: #FCFDFC;
-  background: #5E81A8;
-}
-
-.depthPanel {
-  box-sizing: border-box;
-}
-
-.depthInput {
-  width: 100%;
-}
-
-.movePanel {
-  box-sizing: border-box;
-}
-
-.buttonGrid {
-  width: 100%;
 }
 
 .buttonGrid > .movesetButton:nth-child(13) {
@@ -82,16 +66,15 @@
 }
 
 .movesetButton {
-  width: calc(100% / 6);
+  width: calc(100% / 6); /* take 1/6th of the button grid which is a blocking div inside the queryFormContainer */
   height: 30px;
   border: none;
   border-radius: 0;
   font-weight: bold;
   cursor: pointer;
-  /* padding: 10px; TODO ADD SPACING*/
 }
 
-.button:hover:not(.isToggled) {
+.queryFormContainer button:hover:not(.isToggled) {
   background-color: #4C4C4C;
   transition: 0.2s;
 }
@@ -106,51 +89,30 @@
   margin-top: 10px;
   width: 100%;
   height: 50px;
-  display: block;
   border: none;
   border-radius: 15px;
-  color: #E4E4E4;
   font-weight: bold;
-  cursor: pointer f;
-}
-
-/* icons */
-.circleIconScramble, .circleIconDepth, .circleIconMoveset {
-  margin-left: 4px;
-  color: #E4E4E4;
+  cursor: pointer;
 }
 
 
-.light .interactable {
-  /* background-color: #FAFAFA; */
-  background-color: #F2F2F2;
-}
-
-.light .label {
-  background-color: #c1c1c164;
+.light .mainText {
   color: #313131;
 }
 
-
-
-.light .circleIconScramble, .light .circleIconDepth,
-.light .circleIconMoveset, .light .circleIconSolutions {
-  color: #313131;
+.light .mainColor {
+  background-color: #E7E7E7;
 }
 
-.light .submitButton {
-  color: #313131;
+.light .secondaryColor {
+ background-color: #F2F2F2;
 }
 
-.light .scrambleInput, .light .depthInput, .light .movesetButton, .light .solutionLi {
-  color: #313131;
-}
-
-.light .scrambleInput:hover:not(:focus), .light .depthInput:hover:not(:focus) {
+.light .queryFormContainer input:hover:not(:focus) {
   background-color: #d6d3d3;
 }
 
-.light .movesetButton:hover:not(.isToggled), .light .submitButton:hover {
+.light .queryFormContainer button:hover:not(.isToggled) {
   background-color: #d6d3d3;
 }
 
@@ -159,24 +121,14 @@
   background-color: #6200EE;
 }
 
-@media (max-width: 1430px) {
-  .queryFormContainer {
-    padding: 50px 0 0 30px;
-    }
-}
-
-@media (max-width: 1340px) {
-  .queryFormContainer {
-    padding: 50px 0 0 30px;
-    }
-}
 
 @media (max-width: 767px) {
 
   .queryFormContainer {
     padding: 15px 5px 15px 5px; /* move query form up to use extra space */
-    max-width: 95%;
     box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
+    width: 100%; /* once we flex vertically, fill the whole screen, this is needed
+    despite the flex 0 0 50%; since .topHalf has align-items: center set */
   }
 
   .buttonGrid > .movesetButton:nth-child(13) {

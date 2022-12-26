@@ -26,21 +26,23 @@ function QueryForm(props) {
 
 
     return (
-
+        // * queryFormContainer
         <>
             <section className="scramblePanel">
 
-                <label className="label scrambleLabel">Scramble
-                    {/* //! <div className="circleIconScrambleDiv"> */}
-                        <FontAwesomeIcon icon={faCircleInfo} className="circleIconScramble fa-sm" color="white" />
-                        {/* //!<span className="circleIconScrambleTooltip">Test Tooltip Text</span> */}
-                    {/* //!</div> */}
+                <label className="scrambleLabel mainText mainColor" htmlFor="scrambleInput">Scramble
+                <div className="iconAndPopup">
+                        <FontAwesomeIcon icon={faCircleInfo} className="scrambleIcon icon mainText fa-sm"/>
+                        <span className="scramblePopup popup">Enter the scramble for which you want to find solutions. Moves must be
+                        delimited by spaces, for instance: R2 U R' U x R U L'</span>
+                    </div>
                 </label>
 
                 <input
+                    id="scrambleInput"
                     type="text"
                     placeholder="[Click here to enter scramble you want to solve]"
-                    className="scrambleInput interactable"
+                    className="secondaryColor mainText"
                     name="scramble"
                     autoComplete="off"
                     value={props.scramble}
@@ -53,12 +55,20 @@ function QueryForm(props) {
 
             <section className="depthPanel">
 
-                <label className="label">Max Algorithm Length <FontAwesomeIcon icon={faCircleInfo} className="circleIconDepth fa-sm" color="white" /></label>
+                <label className="mainText mainColor" htmlFor="depthInput">Max Algorithm Length
+                    <div className="iconAndPopup">
+                        <FontAwesomeIcon icon={faCircleInfo} className="depthIcon icon mainText fa-sm"/>
+                        <span className="depthPopup popup">Enter the maximum algorithm length the solver will use. For example,
+                        if you enter 14, the solver will generate all solutions that are 14 moves or shorter.</span>
+                    </div>
+                </label>
+
 
                 <input
+                    id="depthInput"
                     type="text"
                     placeholder="[Click here to enter maximum algorithm length]"
-                    className="depthInput interactable"
+                    className="secondaryColor mainText"
                     name="depth"
                     autoComplete="off"
                     value={props.depth}
@@ -69,7 +79,13 @@ function QueryForm(props) {
 
             <section className="movePanel">
 
-                <label className="label">Toggle allowed moveset <FontAwesomeIcon icon={faCircleInfo} className="circleIconMoveset fa-sm" color="white" /></label>
+                <label className="mainText mainColor">Toggle allowed moveset
+                <div className="iconAndPopup">
+                        <FontAwesomeIcon icon={faCircleInfo} className="movesetIcon mainText icon fa-sm"/>
+                        <span className="movesetPopup popup">Enter the move types you want the solutions to be restricted to.
+                        For example, if you enter RUD, solutions will at most use those three move types.</span>
+                    </div>
+                </label>
                 <section className="buttonGrid">
                     {buttonListFaceMoves}
                     {buttonListWideMoves}
@@ -79,14 +95,14 @@ function QueryForm(props) {
             </section>
 
 
-            <section>
+
                 <button
-                    className="submitButton button interactable"
+                    className="submitButton button mainText secondaryColor"
                     onClick={() => props.handleSubmit(props.queriesState)}
                 >
                     Show Me Solutions!
                 </button>
-            </section>
+
         </>
 
 
@@ -94,3 +110,5 @@ function QueryForm(props) {
 }
 
 export default QueryForm;
+
+// TODO: fix js, mobile css, check extra classes, ' vs "", order inside cx

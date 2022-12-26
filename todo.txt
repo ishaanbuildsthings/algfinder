@@ -1,9 +1,7 @@
 add copied popup for solutions
-remove TODOs, errors, change tim's variable names
 create generating solutions icon
-add click animation for submit button
+add click animation for submit button and sort buttons
 more styling for different screen sizes
-add tooltips
 and click-through dragging on drag to view
 
 
@@ -11,7 +9,7 @@ and click-through dragging on drag to view
    1.b) refactor into border
 2) add client side validation to prevent hitting submit button from other pages
 3) any other client side validation?
-4) fix light mode-
+
 6) make sort button display popup if no solutions to sort-
   6.b) refactor into flash
 
@@ -23,3 +21,7 @@ uninstall correct things
 
 add persistent state for tab?
 fixed navbar
+
+remove all errors
+
+make navbar sticky

@@ -44,7 +44,7 @@ code {
   justify-content: center;
   align-items: center;
   min-height: 170px;
-  padding: 30px 90px 30px 90px;
+  padding: 25px 50px 25px 50px;
 }
 
 
@@ -74,4 +74,4 @@ body.light {
   }
 }
 
-
+/* TODO: fix this */

@@ -25,10 +25,9 @@ function MovesetButton(props) {
         setToggled(!toggled);
     }
 
-    // * jsx
     return (
         <button
-            className={cx("movesetButton", "interactable", "userInteractField", toggled && "isToggled", "button")}
+            className={cx('mainText', 'secondaryColor', 'movesetButton', toggled && 'isToggled')}
             onClick={toggleParentAndDarkened}
         >
             {props.value}

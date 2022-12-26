@@ -12,8 +12,6 @@
 
 li a {
   display: block;
-  /* ! why does display block make this move down */
-  /* see the special toggle component in js for color options */
   color: white;
   text-align: center;
   padding: 10px 15px;
@@ -27,7 +25,7 @@ li a:hover:not(.active) {
 
 
 .active {
-  background-color: #bb86fcc2;
+  background-color: #926AC3;
   color: #0F0F0F;
 }
 
@@ -41,7 +39,7 @@ li a:hover:not(.active) {
 }
 
 .light li a:hover:not(.active) {
-  background-color: #d6d3d3;
+  background-color: #D6D3D3;
 }
 
 @media (max-width: 767px) {

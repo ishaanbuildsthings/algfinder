@@ -9,7 +9,7 @@ function cx(...args) {
         (element) => {
             return typeof element === 'string';
         }
-    ).join(" ")
+    ).join(' ')
 }
 
 export default cx;

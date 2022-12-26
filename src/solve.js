@@ -18,9 +18,9 @@ function Solve() {
     // tracks the fields of the query form, data will be sent to the backend
     // @passed to QueryForm and Cube, so that they can display the user-defined data
     const [queriesState, setQueries] = React.useState({
-        scramble: "",
+        scramble: '',
         moveset: [],
-        depth: ""
+        depth: ''
     });
 
     // * handlers
@@ -38,8 +38,8 @@ function Solve() {
         const regex = value.replace(/\D/g, '');
         let result;
 
-        if (regex === "") {
-            result = "";
+        if (regex === '') {
+            result = '';
         } else {
         result = Math.min(100, regex);
         }
@@ -69,21 +69,20 @@ function Solve() {
     async function handleSubmit(queries) {
         setSolutionsList([]);
         const {scramble, moveset, depth} = queries;
-        // TODO: remove console.log(`${baseURL}/solve?scramble=${delimit(scramble)}&max-depth=${depth}&move-types=${delimitList(moveset)}`);
         const txn_id = await fetchURL(`${baseURL}/solve?scramble=${delimit(scramble)}&max-depth=${depth}&move-types=${delimitList(moveset)}`);
-        console.log(`got txn_id: ${txn_id}`); // TODO: remove
+        //console.log(`got txn_id: ${txn_id}`); for debugging
 
-        let solns = [];
+        let solutions = [];
         let keepGoing = true;
         do {
             await sleep(pollInterval);
-            solns = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`);
-            console.log(solns); // TODO: remove
-            if (solns[solns.length-1] === 'DONE') {
+            solutions = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`);
+            //console.log(solns); for debugging
+            if (solutions[solutions.length - 1] === 'DONE') {
                 keepGoing = false;
-                solns.pop();
+                solutions.pop();
             }
-            setSolutionsList(prevSolns => [...prevSolns, ...solns]); // TODO: fix
+            setSolutionsList(previousSolutions => [...previousSolutions, ...solutions]); // TODO: fix
         } while(keepGoing);
     }
 
@@ -95,7 +94,7 @@ function Solve() {
     // converts ["R","x",D"] to "R,x,D"
     function delimitList(list) {
         let str;
-        str = list.join(",")
+        str = list.join(',')
         return str;
     }
     // converts UL data to JSON
@@ -119,7 +118,6 @@ function Solve() {
         }
     }
 
-    // * jsx
     return (
         <div className="solvePageMinusNav">
 
@@ -147,4 +145,3 @@ function Solve() {
 }
 
 export default Solve;
-
