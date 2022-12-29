@@ -136,8 +136,8 @@ function Solve() {
 
             </div>
 
-            <div className="solutionsDisplaySpacer">
-                    <SolutionsDisplay solutionsList={solutionsList}/>
+            <div className="solutionsDisplayContainer">
+                <SolutionsDisplay solutionsList={solutionsList}/>
             </div>
 
         </div>

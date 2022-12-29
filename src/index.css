@@ -21,57 +21,81 @@ code {
     monospace;
 }
 
-.solvePageMinusNav {
-  display: flex; /* the whole page contains the topHalf and bottomHalf, it will be a flex container to flex these two children vertically. The whole page should have a flex of 1, to take up any remaining space that the navbar does not occupy */
+#root {
+  height: 100vh; /* root should always take full VH unless the content overflows it such as small screens for the solve page, or the documentation page, which will cause scrollbars */
+  display: flex;
   flex-direction: column;
-  height: calc(100vh - 78px); /* this will take the height of the fakeBodyDiv minus the navbar */
+}
+
+/* since the navbar is taken out of flow with position: fixed; this pushes the elements down, repeated section for clarity */
+.solvePageMinusNav {
+  margin-top: 50px;
+}
+
+.documentationDiv {
+  margin-top: 50px;
+}
+
+.solvePageMinusNav {
+  display: flex; /* the whole page contains the topHalf and bottomHalf, it will be a flex container to flex these two children vertically. The whole page should have a flex of 1, to take up any remaining space that the navbar does not occupy. */
+  flex-direction: column;
+  flex: 1; /* Occupy the full height of the root except for the fixed navbar. Due to minimum heights, the solvePageMinusNav will
+  eventually overflow the viewport and allow the user to scroll. */
   /* TODO: change calc */
+  min-height: 0; /* since this doesn't have an assigned height, we need to stop protecting its children and allow it to shrink */
+  /* https://codepen.io/Sean713/pen/PoBZKbP */
 }
 
 .topHalf {
   display: flex;
-  justify-content: space-between;
-  min-height: 460px;
-  /* TODO: is the top half even needed? since it should just flex the items */
-  flex: 2; /* the top half will occupy 2/3rds of the vertical height of the body, */
+  /* ? top half can be removed and just the items are used */
+  flex: 1; /* the top half will occupy 1/2 of the solvePageMinusNav height */
+  box-sizing: border-box; /*TODO: remove */
 }
 
-.solutionsDisplaySpacer {
-  flex: 1.5; /* the solutionsDisplaySpacer will flex 1 of the wholePageMinusNavbar, the topHalf will flex 2 */
+.solutionsDisplayContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: column; /* TODO: none of this flex stuff is needed really */
+  flex: 1; /* the solutionsDisplayContainer will flex 1/2 of the solvePageMinusNav height */
   padding: 0;
   justify-content: center;
   align-items: center;
-  min-height: 170px;
-  padding: 25px 50px 25px 50px;
+  padding: 25px 5%;
+  min-height: 145px;
+  /* this allows the container to shrink somewhat as height is not set otherwise,
+  but it caps out at a certain point, so the scrollable solutions is visible */
 }
 
+/** light mode */
 
 body.light {
   /* background-color: #E5E5E5; */
   background-color: #FFF;
 }
 
-@media (max-width: 1430px) {
-  .solutionsDisplaySpacer {
-    padding: 30px 30px 30px 30px;
-  }
-}
+
+/** media queries */
 
 @media (max-width: 767px) {
   .topHalf {
-    flex-direction: column; /* flex the query form and cube vertically */
-    flex: 5; /* top half takes up more space compared to solutions display */
+    flex-direction: column; /* flex the queryFormContainer and cubePanel vertically */
+    flex: 1; /* top half takes up more space compared to solutions display when in vertical flex mode */
     width: 100%; /* top half should now fill the width of the wholePageMinusNavbar div */
     align-items: center; /* top half should be center on a mobile view */
-    min-height: 500px;
+    max-height: 700px; /* in the stacked few, prevent the cube from becoming too big */
   }
-  .solutionsDisplaySpacer {
-    padding: 5px;
+  .solutionsDisplayContainer {
+    padding: 5px 10px;
     width: 100%;
+    flex: 0.5; /* takes up 1/3rd of the solvePageMinusNav, allowing the cube visual to have enough room */
     box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
   }
 }
 
-/* TODO: fix this */
+@media (min-width: 768px) { /* in the normal side by side view, prevent the cube from growing by limiting .topHalf */
+  .topHalf {
+    max-height: 500px;
+  }
+}
+
+/*TODO: galaxy fold doesn't work with toggle. also mobile view for documentation for cube images is misaligned */

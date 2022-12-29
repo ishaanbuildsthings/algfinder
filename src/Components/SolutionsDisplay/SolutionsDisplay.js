@@ -1,8 +1,12 @@
 import React from 'react';
+import UseWindowSize from '../../Tools/UseWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 function SolutionsDisplay(props) {
+    // custom hook to dynamically re-render on window size changes
+  let windowSize = UseWindowSize();
+
     // * states
     // ["solution 1", "solution 2" ...]
     // when more solutions are found, props change, but solutionState does not, useState explicitly only registers the FIRST time
@@ -16,7 +20,7 @@ function SolutionsDisplay(props) {
     // * handlers
     // handles clicking on the solution text, copies the text
     function handleClickOnSolution() {
-        navigator.clipboard.writeText("test copy");
+        navigator.clipboard.writeText('test copy');
     }
 
     // handles clicking the sort button
@@ -32,7 +36,7 @@ function SolutionsDisplay(props) {
     function solutionsListToDictMapping(solutions) {
         let solutionsDictWithMovecounts = {};
         for (let i = 0; i < solutions.length; i++) {
-            const noSpacesPrimeOrDouble = solutions[i].replace(/ /g, "").replace(/'/g, "").replace(/2/g, "");
+            const noSpacesPrimeOrDouble = solutions[i].replace(/ /g, '').replace(/'/g, '').replace(/2/g, '');
             const totalSliceMoves = (noSpacesPrimeOrDouble.match(/E/g) || []).length +
                                     (noSpacesPrimeOrDouble.match(/S/g) || []).length +
                                     (noSpacesPrimeOrDouble.match(/M/g) || []).length;
@@ -64,7 +68,7 @@ function SolutionsDisplay(props) {
     function displaySolutions(solutions) {
         const solutionsJsx = [];
         for (let i = 0; i < solutions.length; i++) {
-            const noSpacesPrimeOrDouble = solutions[i].replace(/ /g, "").replace(/'/g, "").replace(/2/g, "");
+            const noSpacesPrimeOrDouble = solutions[i].replace(/ /g, '').replace(/'/g, '').replace(/2/g, "");
             const totalSliceMoves = (noSpacesPrimeOrDouble.match(/E/g) || []).length +
                                     (noSpacesPrimeOrDouble.match(/S/g) || []).length +
                                     (noSpacesPrimeOrDouble.match(/M/g) || []).length;
@@ -74,7 +78,7 @@ function SolutionsDisplay(props) {
 
             solutionsJsx.push(
                 // key needed to not throw error
-                <li className="solutionLi" key={solutions[i]}>
+                <li className="solutionLi mainText" key={solutions[i]}>
                     <button onClick={handleClickOnSolution} className="solutionButton">
                         &nbsp;&nbsp;&nbsp;{solutions[i]} ({sliceTurnMetric}s, {halfTurnMetric}q)
                     </button>
@@ -88,11 +92,11 @@ function SolutionsDisplay(props) {
     return (
          <div className="solutionsDisplay">
             <div className="solutionsHeader mainColor">
+            <span className="mainText">Solutions</span>
                 <div className="iconAndPopup">
-                    <FontAwesomeIcon icon={faCircleInfo} className="solutionsIcon icon mainText fa-sm"/>
-                    <span className="solutionsPopup popup">Any found solutions will be displayed here.
-                    Click a solution to copy it to your clipboard. Solutions are fully exhaustive,
-                    so all will be found for a given query.</span>
+                    <FontAwesomeIcon icon={faCircleInfo} className="solutionsIcon icon mainText"/>
+                    <div className="solutionsPopup popup"><p>Any found solutions will be displayed here.
+                    Click a solution to copy it to your clipboard. All solutions that exist for a query will be found.</p></div>
                 </div>
                 <div className="solutionsHeaderSpacer"></div>
                 {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
@@ -104,6 +108,18 @@ function SolutionsDisplay(props) {
                     {/* display solutions creates the JSX for our solutions */}
                     {displaySolutions(solutionState)}
                     <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    {/* <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li> */}
+                    {/* <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
+                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li> */}
                 </ol>
             </div>
          </div>

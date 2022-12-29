@@ -1,21 +1,35 @@
+/* the navbar will contain two elements, the UL and the toggle */
 .navbarDiv {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; /* navbar contains the UL and the toggle so this spaces them out */
+  align-items: center; /* center the toggle */
+}
+
+/* second duplicate selector as it makes it easier to edit */
+.navbarDiv {
+  /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
+  position: fixed; /* make navbar stay on the top, particularly for documentation page */
+  background-color: #121212; /* set color so when scrolling the navbar is not see through */
+  width: 100%; /* expand to width of the page */
+  z-index: 1; /* scramble circle icon would appear above when scrolled otherwise */
 }
 
 .navbarUl {
   list-style-type: none;
-  display: flex; /* TODO: fix this our navbar should be a horizontal flex container, we use align items to align the sunMoon icon vertically */
+  display: flex;
+  padding-left: 3vw;
 }
 
+.active {
+  background-color: #926AC3;
+  color: #0F0F0F;
+}
 
 li a {
   display: block;
   color: white;
   text-align: center;
   padding: 10px 15px;
-  margin-top: 5px;
   text-decoration: none;
 }
 
@@ -24,10 +38,12 @@ li a:hover:not(.active) {
 }
 
 
-.active {
-  background-color: #926AC3;
-  color: #0F0F0F;
+/** light mode */
+
+.light .navbarDiv {
+  background-color: #FFF;
 }
+
 
 .light .active {
   background-color: #6200EE;
@@ -42,8 +58,26 @@ li a:hover:not(.active) {
   background-color: #D6D3D3;
 }
 
-@media (max-width: 767px) {
-  .navbarUl {
-    padding: 0 0 0 10px; /* left padding not used in small view */
+/** media queries */
+
+@media (max-width: 767px) { /* when the top half stacks vertically, move all the elements down a bit */
+  .solvePageMinusNav {
+   margin-top: 60px;
   }
-}
+ }
+
+ @media (max-width: 372px) { /* on very thin screens make the nav elements closer together */
+
+  .navbarUl {
+    padding-left: 10px;
+  }
+ }
+
+ @media (max-width: 300px) { /* the navbar text is too big */
+  .navbarDiv {
+    font-size: 12px;
+  }
+  .solvePageMinusNav {
+    margin-top: 50px;
+  }
+ }

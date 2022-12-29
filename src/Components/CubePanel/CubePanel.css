@@ -7,6 +7,7 @@
   /* normally the cube expands or shrinks to fill the remainder of the page, for small phones we don't want the cube to keep shrinking, we would rather scroll.
   By adding a minimum height, the sum of heights of our content will overflow the 100vh
   height allowing for the scroll effect.*/
+  /* TODO: on tall screens the cube becomes really big, on phone screens the popups are too big, galaxy fold the input is messed up */
 }
 
 
@@ -69,27 +70,40 @@ twisty-player {
 
 @media (max-width: 1340px) {
   .dragIconAndText {
-    right: 39%;
+    right: 37%;
     bottom: 3%;
   }
 }
 
-
-@media (max-width: 1217px) {
+@media (max-width: 1280px) {
   .dragIconAndText {
     right: 36%;
+  }
+}
+
+@media (max-width: 1230px) {
+  .dragIconAndText {
+    right: 35%;
   }
 }
 
 
 @media (max-width: 1100px) {
   .dragIconAndText {
+    right: 34%;
     bottom: 6%;
   }
   .cubePanel {
     padding: 80px 0px 100px 0px;
   }
 }
+
+@media (max-width: 1030px) {
+  .dragIconAndText {
+    right: 33%;
+  }
+}
+
 
 
 @media (max-width: 940px) {
@@ -102,12 +116,31 @@ twisty-player {
   }
 }
 
+@media (max-width: 870px) {
+  .dragIconAndText {
+    right: 31%;
+  }
+}
+
+@media (max-width: 820px) {
+  .dragIconAndText {
+    right: 30%;
+  }
+}
+
+
 
 @media (max-width: 767px) {
   .cubePanel {
     padding: 0; /* make room for cube on smaller screen */
     width: 100%; /* width was not defined in laptop view */
-    flex-shrink: 1; /* once the components are stacked vertically, allow the cube to shrink to less than 50% of the height. This is needed as the queryForm is fixed height and the cube will otherwise be hardcoded at 50% */
+    flex-shrink: 1;
+    /* once the components are stacked vertically, allow the cube to shrink to less than 50% of the height.
+    This is needed as the queryForm is fixed height and the cube will otherwise be hardcoded at 50% */
+  }
+  .dragIconAndText {
+    right: 10%;
+    bottom: 0;
   }
 }
 
@@ -115,7 +148,7 @@ twisty-player {
 @media (max-width: 481px) {
   .dragIconAndText {
     position: absolute;
-    bottom: -4%;
+    bottom: -3%;
     right: 6%;
   }
 }

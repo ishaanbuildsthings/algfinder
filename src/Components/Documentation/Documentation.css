@@ -20,8 +20,7 @@
 
 .cubeRow {
   display: flex;
-  justify-content: center;
-  /* width is forced to max since the document flexes vertically */
+  justify-content: center; /* width is forced to max since the document flexes vertically */
 }
 
 .cubeAndCaption {
@@ -40,6 +39,7 @@
 }
 
 /** light mode */
+
 .light .documentationDiv p, .light .documentationDiv h2 {
   color: #313131;
 }

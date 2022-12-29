@@ -1,0 +1,24 @@
+.copiedPopup {
+  background-color: #926AC3;
+  padding: 6px;
+  border-radius: 5px;
+}
+
+.copiedPopupButton {
+  margin-top: 200px;
+}
+
+.light .copiedPopup {
+  background-color: #6200EE;
+}
+
+/* for the animation */
+.copiedPopup-shown {
+  opacity: 1;
+  transition: all 250ms linear;
+}
+
+.copiedPopup-hidden {
+  opacity: 0;
+  transition: all 250ms linear 2s;
+}

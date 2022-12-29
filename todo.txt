@@ -1,27 +1,17 @@
-add copied popup for solutions
-create generating solutions icon
-add click animation for submit button and sort buttons
-more styling for different screen sizes
-and click-through dragging on drag to view
-
-
-1) add client side query form validation into alerts -
-   1.b) refactor into border
-2) add client side validation to prevent hitting submit button from other pages
-3) any other client side validation?
-
-6) make sort button display popup if no solutions to sort-
-  6.b) refactor into flash
-
-tim:
-1) add cancel search
-2) add server side validation
-
-uninstall correct things
-
-add persistent state for tab?
-fixed navbar
-
-remove all errors
-
-make navbar sticky
+add copied popup for solutions---
+create generating solutions icon TIM
+client side form validation should give modal with errors---
+client side prevent hitting submit from other pages TIM
+if no solutions have it say that TIM
+add cancel search TIM
+add server side validation TIM
+add rate limiting TIM
+all TODOs---
+if you spam a lot of requests in a row they stack, if you click submit again it should cancel the prior request TIM
+fix solutions being too wide on small screens---
+on mobile clicking a button leaves the color up, on moveset buttons too when deselecting---
+messenger things---
+am i creating multiple windowSize things by accident -ask TULI
+weird max height cant exceed 1638px -ask TULI
+replace cdn with actual thing---
+https://codepen.io/Sean713/pen/PoBZKbP -ask TULI this codepen removing min height from solvepageminusnav

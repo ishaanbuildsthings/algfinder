@@ -7,7 +7,7 @@
   align-items: center;
   background-color: white;
   border-radius: 15px;
-
+  margin-right: 2vw;
 }
 
 .toggle:hover {
@@ -25,6 +25,8 @@
   transition: transform 0.4s;
 }
 
+/** light mode */
+
 .light .toggle {
   background-color: #6200EE;
 }
@@ -41,5 +43,9 @@
   background-color: #E7E7E7;
 }
 
-
-
+/** media queries */
+@media (max-width: 850px) {
+  .toggle {
+    margin-right: 4vw;
+  }
+}

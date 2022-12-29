@@ -1,7 +1,7 @@
 .queryFormContainer {
   max-width: 650px;
   padding-top: 50px;
-  padding-left: 50px; /* large screen positionings */
+  padding-left: 5%; /* large screen positionings */
   flex: 0 0 50%;
   box-sizing: border-box; /* make the width truly 50% */
 }
@@ -95,6 +95,11 @@
   cursor: pointer;
 }
 
+.submitButton:active {
+  transform: translateY(5px);
+}
+
+/** light mode */
 
 .light .mainText {
   color: #313131;
@@ -121,13 +126,17 @@
   background-color: #6200EE;
 }
 
+/** media queries */
 
 @media (max-width: 767px) {
 
   .queryFormContainer {
-    padding: 15px 5px 15px 5px; /* move query form up to use extra space */
+    padding: 15px 10px 10px 10px; /* move query form up to use extra space */
     box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
-    width: 100%; /* once we flex vertically, fill the whole screen, this is needed
+    max-width: none;
+    width: 100%;
+    box-sizing: border-box;
+    /* once we flex vertically, fill the whole screen, this is needed
     despite the flex 0 0 50%; since .topHalf has align-items: center set */
   }
 

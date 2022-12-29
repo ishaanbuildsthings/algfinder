@@ -1,7 +1,7 @@
 import React from 'react';
 import cx from '../../Tools/cx';
 import useLocalStorage from '../../Tools/useLocalStorage';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import Toggle from '../Toggle/Toggle.js';
 
 /**
@@ -10,12 +10,15 @@ import Toggle from '../Toggle/Toggle.js';
  * @usage Used in index.js
  */
 function Navbar() {
+    // * misc
+  // necessary for react-router-dom routing
+  const history = useNavigate();
+  // necessary for parsing the current URL to display the correct .active CSS coloring
+  let location = useLocation();
 
   // * states
   // localStorageStatecomponent tracks the user's local storage data on if they are in dark mode or not
   const [localStorageState, setLocalStorageState] = useLocalStorage('darkStatus', 'dark');
-  // this state tracks which page of the app we are on so that we can highlight the correct tab
-  const [clickedNavbarItem, setClickedNavbarItem] = React.useState('/');
 
   // * handlers
   // whenever we click the darkmode toggle, this function changes the local storage state, re-rendering the function with the new style
@@ -38,22 +41,16 @@ function Navbar() {
     }
   }, [localStorageState]);
 
-  // * misc
-  // necessary for react-router-dom routing
-  const history = useNavigate();
-
   return (
-    <navbar className="navbarDiv">
-
+    <nav className="navbarDiv">
       <ul className="navbarUl">
         <li className="navbarItem">
           <a
             onClick={(e) => {
               e.preventDefault();
               history('/');
-              setClickedNavbarItem('/')
             }}
-            className={cx(clickedNavbarItem === '/' && 'active')}
+            className={cx(location.pathname === '/' && 'active')}
             href="/"
             >Solve
           </a>
@@ -63,9 +60,8 @@ function Navbar() {
             onClick={(e) => {
               e.preventDefault();
               history('/documentation');
-              setClickedNavbarItem('/documentation')
             }}
-            className={cx(clickedNavbarItem === '/documentation' && 'active')}
+            className={cx(location.pathname === '/documentation' && 'active')}
             href="/documentation"
             >Documentation
           </a>
@@ -74,10 +70,8 @@ function Navbar() {
 
       <Toggle clickAction={handleSpecialDarkModeComponentChange}/>
 
-    </navbar>
+    </nav>
   )
 }
 
 export default Navbar;
-
-//TODO: css

@@ -1,14 +1,12 @@
 .solutionsDisplay {
   flex: 1;
   width: 100%;
-  max-height: 95%;
+  max-height: 95%; /* take up 95% of the container */
   display: flex;
   flex-direction: column;
-} /* TODO: fix its inheriting a bg color in light mode */
+}
 .scrollableSolutions {
   overflow-y: scroll;
-  /* max-height: 100%; */
-  /* background-color: #222; */
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   flex: 1;
@@ -59,7 +57,9 @@
   transition: 0.2s;
 }
 
-
+.sortButton:active {
+  transform: translateY(5px);
+}
 
 
 /** light mode */
@@ -69,19 +69,20 @@
 }
 
 /** media queries */
-@media (max-width: 767px) {
 
-  .solutionsDisplay {
-    max-width: 95%;
-  }
-}
-
-@media (max-width: 481px) { /* most phones should take this form */
+/* most phones should take this form */
+@media (max-width: 481px) {
   .solutionLi {
     margin-left: 0; /* in mobile view move the solutions to the left */
   }
 
   .solutionsOl {
     padding-left: 25px; /* move the numbers a bit closer to the left */
+  }
+}
+
+@media (max-width: 280px) { /* prevent scrollbars from showing in scrollable soltuions on very narrow screens */
+  .solutionsOl {
+    margin-top: 5px;
   }
 }

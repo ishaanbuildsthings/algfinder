@@ -14,6 +14,16 @@ export default function Cube(props) {
   // custom hook to dynamically re-render on window size changes
   let windowSize = UseWindowSize();
 
+  function setDragText() {
+    if (windowSize.width < 360) {
+      return 'Drag';
+    } else if (windowSize.width <= 767) {
+      return 'Drag cube';
+    }
+
+    return 'Drag cube to view';
+  }
+
   return (
     <div className="cubePanel">
 
@@ -27,12 +37,10 @@ export default function Cube(props) {
 
       <div className="dragIconAndText mainText">
         <FontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg"/>
-        <p className="dragText">&nbsp;&nbsp;{windowSize.width <= 800 ? 'Drag Cube' : 'Drag cube to view'}
+        <p className="dragText">&nbsp;&nbsp;{setDragText()}
         </p>
       </div>
 
      </div>
   );
 }
-
-// TODO: change css to dynamic
