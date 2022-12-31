@@ -7,7 +7,6 @@ import './Tooltips.css';
 import './Components/SolutionsDisplay/SolutionsDisplay.css';
 import './Components/Documentation/Documentation.css';
 import './Components/Navbar/Navbar.css';
-import './Components/CopyPopup/CopyPopup.css';
 import './Components/Solve/Solve.css';
 
 import App from './app';
