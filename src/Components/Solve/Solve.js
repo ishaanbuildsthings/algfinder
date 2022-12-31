@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import QueryFormContainer from '../QueryFormContainer/QueryFormContainer.js';
 import SolutionsDisplayContainer from '../SolutionsDisplayContainer/SolutionsDisplayContainer.js';
+import './Solve.css';
 import CubePanel from '../CubePanel/CubePanel.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
