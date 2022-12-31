@@ -12,7 +12,7 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
  * queriesState - all of the scramble, depth, and moveset
  * @usage Used in solve.js
  */
-function QueryForm({handleTextChange, handleNumberChange, handleSubmit, handleMovesetClick, queriesState}) {
+function QueryFormContainer({handleTextChange, handleNumberChange, handleSubmit, handleMovesetClick, queriesState}) {
   //* misc
   // custom hook to dynamically re-render on window size changes
   let windowSize = UseWindowSize();
@@ -68,7 +68,7 @@ function QueryForm({handleTextChange, handleNumberChange, handleSubmit, handleMo
 
     return (
         // queryFormContainer goes here
-        <>
+        <div className="queryFormContainer">
             <section>
 
                 <label className="scrambleLabel mainText mainColor" htmlFor="scrambleInput">Scramble
@@ -146,8 +146,8 @@ function QueryForm({handleTextChange, handleNumberChange, handleSubmit, handleMo
             >
                 Show Me Solutions!
             </button>
-        </>
+        </div>
     );
 }
 
-export default QueryForm;
+export default QueryFormContainer;

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import QueryForm from '../QueryForm/QueryForm.js';
-import SolutionsDisplay from '../SolutionsDisplay/SolutionsDisplay.js';
+import QueryFormContainer from '../QueryFormContainer/QueryFormContainer.js';
+import SolutionsDisplayContainer from '../SolutionsDisplayContainer/SolutionsDisplayContainer.js';
 import CubePanel from '../CubePanel/CubePanel.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
@@ -152,26 +152,18 @@ function Solve() {
 
     return (
         <div className="solvePageMinusNav">
-
             <div className="topHalf">
-                <div className="queryFormContainer">
-                    <QueryForm
-                    handleTextChange={handleTextChange}
-                    handleNumberChange={handleNumberChange}
-                    handleSubmit={handleSubmit}
-                    handleMovesetClick={handleMovesetClick}
-                    queriesState={queriesState}
-                    />
-                </div>
-
+                <QueryFormContainer
+                handleTextChange={handleTextChange}
+                handleNumberChange={handleNumberChange}
+                handleSubmit={handleSubmit}
+                handleMovesetClick={handleMovesetClick}
+                queriesState={queriesState}
+                />
                 <CubePanel scramble={queriesState.scramble}/>
-
             </div>
 
-            <div className="solutionsDisplayContainer">
-                <SolutionsDisplay solutionsList={solutionsList}/>
-            </div>
-
+            <SolutionsDisplayContainer solutionsList={solutionsList}/>
         </div>
     );
 }

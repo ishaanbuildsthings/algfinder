@@ -2,13 +2,14 @@ import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import Solution from '../Solution/Solution';
+import './SolutionsDisplayContainer.css';
 
 /**
  * @param {*} props The props contain:
  * <SolutionsDisplay solutionsList={solutionsList}/>
  * @usage Used in solve.js
  */
-function SolutionsDisplay({solutionsList}) {
+function SolutionsDisplayContainer({solutionsList}) {
     // * states
     // ["solution 1", "solution 2" ...]
     // when more solutions are found, props change, but solutionState does not, useState explicitly only registers the first time
@@ -62,26 +63,28 @@ function SolutionsDisplay({solutionsList}) {
     }
 
     return (
-         <div className="solutionsDisplay">
-            <div className="solutionsHeader mainColor">
-            <span className="mainText">Solutions</span>
-                <div className="iconAndPopup">
-                    <FontAwesomeIcon icon={faCircleInfo} className="solutionsIcon icon mainText"/>
-                    <div className="solutionsPopup popup"><p>Any found solutions will be displayed here.
-                    Click a solution to copy it to your clipboard. All solutions that exist for a query will be found.</p></div>
+        <div className="solutionsDisplayContainer">
+            <div className="solutionsDisplay">
+                <div className="solutionsHeader mainColor">
+                <span className="mainText">Solutions</span>
+                    <div className="iconAndPopup">
+                        <FontAwesomeIcon icon={faCircleInfo} className="solutionsIcon icon mainText"/>
+                        <div className="solutionsPopup popup"><p>Any found solutions will be displayed here.
+                        Click a solution to copy it to your clipboard. All solutions that exist for a query will be found.</p></div>
+                    </div>
+                    <div className="solutionsHeaderSpacer"></div>
+                    {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
+                    <button onClick={handleClickOnSort} className="sortButton mainText" value="qtm">Sort by QTM</button>
+                    <button onClick={handleClickOnSort} className="sortButton mainText" value="stm">Sort by STM</button>
                 </div>
-                <div className="solutionsHeaderSpacer"></div>
-                {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
-                <button onClick={handleClickOnSort} className="sortButton mainText" value="qtm">Sort by QTM</button>
-                <button onClick={handleClickOnSort} className="sortButton mainText" value="stm">Sort by STM</button>
+                <div className="scrollableSolutions secondaryColor">
+                    <ol className="solutionsOl">
+                        {JsxSolutions}
+                    </ol>
+                </div>
             </div>
-            <div className="scrollableSolutions secondaryColor">
-                <ol className="solutionsOl">
-                    {JsxSolutions}
-                </ol>
-            </div>
-         </div>
+        </div>
     );
 }
 
-export default SolutionsDisplay;
+export default SolutionsDisplayContainer;
