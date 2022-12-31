@@ -61,14 +61,7 @@ li a:hover:not(.active) {
 
 /** media queries */
 
-@media (max-width: 767px) { /* when the top half stacks vertically, move all the elements down a bit */
-  .solvePageMinusNav {
-   margin-top: 60px;
-  }
- }
-
  @media (max-width: 372px) { /* on very thin screens make the nav elements closer together */
-
   .navbarUl {
     padding-left: 10px;
   }
@@ -77,8 +70,5 @@ li a:hover:not(.active) {
  @media (max-width: 300px) { /* the navbar text is too big */
   .navbarDiv {
     font-size: 12px;
-  }
-  .solvePageMinusNav {
-    margin-top: 50px;
   }
  }

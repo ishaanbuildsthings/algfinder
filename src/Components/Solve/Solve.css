@@ -7,3 +7,15 @@
   min-height: 0; /* since this doesn't have an assigned height, we need to stop protecting its children and allow it to shrink */
   /* https://codepen.io/Sean713/pen/PoBZKbP */
 }
+
+@media (max-width: 767px) { /* when the top half stacks vertically, move all the elements down a bit */
+  .solvePageMinusNav {
+   margin-top: 60px;
+  }
+ }
+
+@media (max-width: 300px) { /* the navbar text is too big */
+  .solvePageMinusNav {
+    margin-top: 50px;
+  }
+ }
