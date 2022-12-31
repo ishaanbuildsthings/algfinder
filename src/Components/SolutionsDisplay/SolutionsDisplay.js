@@ -1,21 +1,24 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import Solution from '../Solution/Solution';
 
 /**
  * @param {*} props The props contain:
  * <SolutionsDisplay solutionsList={solutionsList}/>
  * @usage Used in solve.js
  */
-function SolutionsDisplay(props) {
+function SolutionsDisplay({solutionsList}) {
     // * states
     // ["solution 1", "solution 2" ...]
-    // when more solutions are found, props change, but solutionState does not, useState explicitly only registers the FIRST time
-    const [solutionState, setSolutionState] = React.useState(props.solutionsList);
+    // when more solutions are found, props change, but solutionState does not, useState explicitly only registers the first time
+    const [solutionState, setSolutionState] = useState(solutionsList);
     // this lets the state update dynamically
-    React.useEffect(() => {
-        setSolutionState(props.solutionsList);
-    }, [props.solutionsList]);
+    useEffect(() => {
+        setSolutionState(solutionsList);
+    }, [solutionsList]);
+
+    const JsxSolutions = solutionState.map((solution) => (<Solution solution="solution"/>));
 
 
     // * handlers
@@ -78,7 +81,11 @@ function SolutionsDisplay(props) {
 
             solutionsJsx.push(
                 <li className="solutionLi mainText" key={solutions[i]}>
-                    <button onClick={() => copyText(solutions[i])} className="solutionButton">
+                    <button onClick={() => {
+                        copyText(solutions[i]);
+
+                    }
+                        } className="solutionButton">
                         {solutions[i]} ({sliceTurnMetric}s, {halfTurnMetric}q)
                     </button>
                 </li>

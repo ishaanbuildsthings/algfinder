@@ -1,4 +1,3 @@
-import React from 'react';
 import MovesetButton from "./MovesetButton.js";
 import UseWindowSize from '../../Tools/UseWindowSize.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -6,15 +5,9 @@ import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 /**
  *The QueryForm component is used on the solve page, and receives handlers to modify state and submit data, and it receives the actual state itself via queriesState
- * @param {*} props The props contain:
- * handleTextChange={handleTextChange}
- * handleNumberChange={handleNumberChange}
- * handleSubmit={handleSubmit}
- * handleMovesetClick={handleMovesetClick}
- * queriesState={queriesState}
  * @usage Used in solve.js
  */
-function QueryForm(props) {
+function QueryForm({handleTextChange, handleNumberChange, handleSubmit, handleMovesetClick, queriesState}) {
   //* misc
   // custom hook to dynamically re-render on window size changes
   let windowSize = UseWindowSize();
@@ -54,8 +47,8 @@ function QueryForm(props) {
                 <MovesetButton
                                value={letter}
                                key={letter}
-                               handleMovesetClick={props.handleMovesetClick}
-                               isToggled={props.queriesState.moveset.includes(letter)}
+                               handleMovesetClick={handleMovesetClick}
+                               isToggled={queriesState.moveset.includes(letter)}
                 />
             );
         }
@@ -90,8 +83,8 @@ function QueryForm(props) {
                     className="secondaryColor mainText"
                     name="scramble"
                     autoComplete="off"
-                    value={props.queriesState.scramble}
-                    onChange={props.handleTextChange}
+                    value={queriesState.scramble}
+                    onChange={handleTextChange}
                 />
 
             </section>
@@ -116,8 +109,8 @@ function QueryForm(props) {
                     className="secondaryColor mainText"
                     name="depth"
                     autoComplete="off"
-                    value={props.queriesState.depth}
-                    onChange={props.handleNumberChange}
+                    value={queriesState.depth}
+                    onChange={handleNumberChange}
                 />
             </section>
 
@@ -144,7 +137,7 @@ function QueryForm(props) {
 
             <button
                 className="submitButton button mainText secondaryColor"
-                onClick={() => props.handleSubmit(props.queriesState)}
+                onClick={() => handleSubmit(queriesState)}
             >
                 Show Me Solutions!
             </button>

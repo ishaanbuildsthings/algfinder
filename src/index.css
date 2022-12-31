@@ -64,6 +64,11 @@ code {
   but it caps out at a certain point, so the scrollable solutions is visible */
 }
 
+.sortButton { /* buttons, inputs, and maybe some other fields are using the user agent style fonts not the inherited ones from the body, they look good though */
+  font-size: 12px;
+}
+
+
 /** light mode */
 
 body.light {

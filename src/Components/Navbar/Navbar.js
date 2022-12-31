@@ -22,7 +22,7 @@ function Navbar() {
 
   // * handlers
   // whenever we click the darkmode toggle, this function changes the local storage state, re-rendering the function with the new style
-  function handleSpecialDarkModeComponentChange() {
+  function handleDarkMode() {
       if (localStorageState === 'dark') {
         setLocalStorageState('light');
       } else {
@@ -68,7 +68,7 @@ function Navbar() {
         </li>
       </ul>
 
-      <Toggle clickAction={handleSpecialDarkModeComponentChange}/>
+      <Toggle handleClick={handleDarkMode}/>
 
     </nav>
   )

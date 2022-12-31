@@ -1,8 +1,6 @@
-import React from 'react';
-
-function Toggle(props) {
+function Toggle({handleClick}) {
   return (
-    <div className="toggle" onClick={props.clickAction}>
+    <div className="toggle" onClick={handleClick}>
       <button className="thumb"></button>
     </div>
   );

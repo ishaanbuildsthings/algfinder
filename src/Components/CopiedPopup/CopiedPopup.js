@@ -1,14 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import cx from '../../Tools/cx.js';
 
 function CopiedPopup() {
   // Determines if the popup is shown or not
-  const [isShown, setShown] = React.useState(false);
+  const [isShown, setShown] = useState(false);
 
-  if (isShown) {
-    console.log('this is running');
-    console.log(isShown);
-  }
 
   return (
     <>

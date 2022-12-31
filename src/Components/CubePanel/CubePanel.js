@@ -1,4 +1,3 @@
-import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import UseWindowSize from '../../Tools/UseWindowSize';

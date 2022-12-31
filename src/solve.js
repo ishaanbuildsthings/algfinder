@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import QueryForm from './Components/QueryForm/QueryForm.js';
 import SolutionsDisplay from './Components/SolutionsDisplay/SolutionsDisplay.js';
 import CubePanel from './Components/CubePanel/CubePanel.js';
@@ -16,10 +16,10 @@ function Solve() {
     // * states
     // tracks the current list of solutions, will update via polling
     // @passed to SolutionsDisplay
-    const [solutionsList, setSolutionsList] = React.useState([]);
+    const [solutionsList, setSolutionsList] = useState([]);
     // tracks the fields of the query form, data will be sent to the backend
     // @passed to QueryForm and Cube, so that they can display the user-defined data
-    const [queriesState, setQueries] = React.useState({
+    const [queriesState, setQueries] = useState({
         scramble: '',
         depth: '',
         moveset: []
