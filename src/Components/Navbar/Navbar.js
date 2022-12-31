@@ -5,7 +5,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import Toggle from '../Toggle/Toggle.js';
 
 /**
- * This function defines the Navbar component, which is a shared component across the page. The navbar serves to route users
+ * The Navbar component is a shared component across the page. The navbar serves to route users
  * to the appropriate page.
  * @usage Used in index.js
  */

@@ -38,6 +38,11 @@
   line-height: 2.5;
 }
 
+.solutionLi button {
+  text-align: left; /* when solutions go on two lines this keeps it lined up */
+  margin-left: 10px; /* add some spacing between the solution and number */
+}
+
 .solutionsHeaderSpacer { /* horizontal spacer in the header to push sort buttons to the right */
   flex: 1;
 }
@@ -52,9 +57,11 @@
   margin-right: 8px;
 }
 
-.sortButton:hover {
-  background-color: #4C4C4C;
-  transition: 0.2s;
+@media (hover: hover) { /* get rid of sticky hover when clicking in a field on mobile */
+  .sortButton:hover {
+    background-color: #4C4C4C;
+    transition: 0.2s;
+  }
 }
 
 .sortButton:active {
@@ -64,8 +71,10 @@
 
 /** light mode */
 
-.light .sortButton:hover {
-  background-color: #d6d3d3;
+@media (hover: hover) { /* get rid of sticky hover when clicking in a field on mobile */
+  .light .sortButton:hover {
+    background-color: #d6d3d3;
+  }
 }
 
 /** media queries */
@@ -73,7 +82,7 @@
 /* most phones should take this form */
 @media (max-width: 481px) {
   .solutionLi {
-    margin-left: 0; /* in mobile view move the solutions to the left */
+    margin-left: 5px; /* in mobile view move the solutions to the left, but still let 2 digit number solutions fit */
   }
 
   .solutionsOl {

@@ -2,9 +2,10 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import UseWindowSize from '../../Tools/UseWindowSize';
+import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
 
 /**
- * This function defines the cube component, which is used on the solve page. The cube component is a wrapper
+ * This Cube component is used on the solve page. The cube component is a wrapper
  * of the custom HTML element <twisty-player> from the cubing.js library.
  *
  * @param {*} props The props contain the current Rubik's cube scramble held in the state on solve.js.

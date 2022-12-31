@@ -1,12 +1,13 @@
 import React from 'react';
-import UseWindowSize from '../../Tools/UseWindowSize';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ * @param {*} props The props contain:
+ * <SolutionsDisplay solutionsList={solutionsList}/>
+ * @usage Used in solve.js
+ */
 function SolutionsDisplay(props) {
-    // custom hook to dynamically re-render on window size changes
-  let windowSize = UseWindowSize();
-
     // * states
     // ["solution 1", "solution 2" ...]
     // when more solutions are found, props change, but solutionState does not, useState explicitly only registers the FIRST time
@@ -19,21 +20,21 @@ function SolutionsDisplay(props) {
 
     // * handlers
     // handles clicking on the solution text, copies the text
-    function handleClickOnSolution() {
-        navigator.clipboard.writeText('test copy');
+    function copyText(solution) {
+        navigator.clipboard.writeText(solution);
     }
 
     // handles clicking the sort button
     // e.target.value is the value of whether the stm or qtm sort button was clicked
     function handleClickOnSort(e) {
-        const reorderedList = sortSolutionsDictByMoves(solutionsListToDictMapping(solutionState), e.target.value);
+        const reorderedList = sortSolutionsDictByMoves(mapSolutionsListToDict(solutionState), e.target.value);
         setSolutionState(reorderedList);
     }
 
     // * helpers
     // takes in an input of ["solution 1", "solution 2" ...]
     // outputs { "solution 1" : [1, 2], "solution 2" : [3, 4] }
-    function solutionsListToDictMapping(solutions) {
+    function mapSolutionsListToDict(solutions) {
         let solutionsDictWithMovecounts = {};
         for (let i = 0; i < solutions.length; i++) {
             const noSpacesPrimeOrDouble = solutions[i].replace(/ /g, '').replace(/'/g, '').replace(/2/g, '');
@@ -43,7 +44,6 @@ function SolutionsDisplay(props) {
             // maps a solution to [A, B] where A is the STM and B is the QTM
             solutionsDictWithMovecounts[solutions[i]] = [noSpacesPrimeOrDouble.length, noSpacesPrimeOrDouble.length + totalSliceMoves];
         }
-
         return solutionsDictWithMovecounts;
     }
 
@@ -68,7 +68,7 @@ function SolutionsDisplay(props) {
     function displaySolutions(solutions) {
         const solutionsJsx = [];
         for (let i = 0; i < solutions.length; i++) {
-            const noSpacesPrimeOrDouble = solutions[i].replace(/ /g, '').replace(/'/g, '').replace(/2/g, "");
+            const noSpacesPrimeOrDouble = solutions[i].replace(/ /g, '').replace(/'/g, '').replace(/2/g, '');
             const totalSliceMoves = (noSpacesPrimeOrDouble.match(/E/g) || []).length +
                                     (noSpacesPrimeOrDouble.match(/S/g) || []).length +
                                     (noSpacesPrimeOrDouble.match(/M/g) || []).length;
@@ -77,12 +77,10 @@ function SolutionsDisplay(props) {
             const halfTurnMetric = sliceTurnMetric + totalSliceMoves;
 
             solutionsJsx.push(
-                // key needed to not throw error
                 <li className="solutionLi mainText" key={solutions[i]}>
-                    <button onClick={handleClickOnSolution} className="solutionButton">
-                        &nbsp;&nbsp;&nbsp;{solutions[i]} ({sliceTurnMetric}s, {halfTurnMetric}q)
+                    <button onClick={() => copyText(solutions[i])} className="solutionButton">
+                        {solutions[i]} ({sliceTurnMetric}s, {halfTurnMetric}q)
                     </button>
-
                 </li>
             );
         }
@@ -107,19 +105,6 @@ function SolutionsDisplay(props) {
                 <ol className="solutionsOl">
                     {/* display solutions creates the JSX for our solutions */}
                     {displaySolutions(solutionState)}
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    {/* <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li> */}
-                    {/* <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li>
-                    <li className="solutionLi mainText">&nbsp;&nbsp;&nbsp;test solution here</li> */}
                 </ol>
             </div>
          </div>
@@ -127,5 +112,3 @@ function SolutionsDisplay(props) {
 }
 
 export default SolutionsDisplay;
-
-// TODO: all

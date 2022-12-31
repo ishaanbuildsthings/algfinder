@@ -4,7 +4,9 @@ import SolutionsDisplay from './Components/SolutionsDisplay/SolutionsDisplay.js'
 import CubePanel from './Components/CubePanel/CubePanel.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
-
+const VALID_MOVES = new Set('R', 'R2', "R'", 'U', 'U2', "U'", 'D', 'D2', "D'", 'F', 'F2', "F'", 'L', 'L2', "L'", 'B', 'B2', "B'", 'r',
+'r2', "r'", 'u', 'u2', "u'", 'd', 'd2', "d'", 'f', 'f2', "f'", 'l', 'l2', "l'", 'b', 'b2', "b'", 'x', 'x2', "x'", 'y', 'y2', "y'", 'z', 'z2', "z'");
+const MAX_ALLOWED_MOVESETS = 4;
 
 /**
  * The Solve component defines all of the display unique to the solve section of the website.
@@ -19,8 +21,8 @@ function Solve() {
     // @passed to QueryForm and Cube, so that they can display the user-defined data
     const [queriesState, setQueries] = React.useState({
         scramble: '',
-        moveset: [],
-        depth: ''
+        depth: '',
+        moveset: []
     });
 
     // * handlers
@@ -41,9 +43,8 @@ function Solve() {
         if (regex === '') {
             result = '';
         } else {
-        result = Math.min(100, regex);
+        result = Math.min(20, regex);
         }
-
         setQueries({
             ...queriesState,
             [name]: result
@@ -51,6 +52,10 @@ function Solve() {
     }
     // when the user clicks on a moveset button, change the queries state to include/exclude that button
     function handleMovesetClick(id) {
+        if (queriesState.moveset.length >= MAX_ALLOWED_MOVESETS && !queriesState.moveset.includes(id)) {
+            alert(`Please select at most ${MAX_ALLOWED_MOVESETS} move types!`);
+            return;
+        }
         if (!queriesState.moveset.includes(id)) {
             setQueries({
                 ...queriesState,
@@ -78,11 +83,14 @@ function Solve() {
             await sleep(pollInterval);
             solutions = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`);
             //console.log(solns); for debugging
-            if (solutions[solutions.length - 1] === 'DONE') {
+            if (solutions[solutions.length - 1] === 'DONE' && solutionsList.length !== 0) {
                 keepGoing = false;
                 solutions.pop();
+            } else if (solutions[solutions.length - 1] === 'DONE' && solutionsList.length === 0) { // if we hit DONE statement and we don't have any solutions, handle differently
+                alert('No solutions exist!');
+                return;
             }
-            setSolutionsList(previousSolutions => [...previousSolutions, ...solutions]); // TODO: fix
+            setSolutionsList(previousSolutions => [...previousSolutions, ...solutions]);
         } while(keepGoing);
     }
 
@@ -110,11 +118,35 @@ function Solve() {
             setTimeout(resolve, ms);
         });
     }
+    function validateQueries() {
+        const { scramble, depth, moveset } = queriesState;
+        if (moveset.length === 2 && depth > 20) { // should be covered by inability to enter a number higher than 20 in the field
+            alert('For 2-gen scrambles, please choose a depth of at most 20');
+            return;
+        } else if (moveset.length === 3 & depth > 18) {
+            alert('For 3-gen scrambles, please choose a depth of at most 18');
+            return;
+        } else if (moveset.length === 4 & depth > 14) {
+            alert('For 4-gen scrambles, please choose a depth of at most 14');
+            return;
+        } else if (moveset.length > 4) {
+            alert('Please choose at most 4 move types'); // redundant function, should be covered since we can't toggle > 4 buttons
+            return;
+        } else if (moveset.length < 2) {
+            alert('Please choose at least 2 move types');
+            return;
+        }
+        validateScramble(scramble);
+
+    }
     // validates scramble input client-side
     function validateScramble(scramble) {
         const arrayScramble = scramble.split(' ');
-        for (let i = 0; i < arrayScramble.length; i++) {
-
+        for (let move of arrayScramble) {
+            if (!VALID_MOVES.has(move)) {
+                alert('Please fix your scramble');
+                return;
+            }
         }
     }
 

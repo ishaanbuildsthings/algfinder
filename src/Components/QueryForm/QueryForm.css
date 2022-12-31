@@ -2,8 +2,10 @@
   max-width: 650px;
   padding-top: 50px;
   padding-left: 5%; /* large screen positionings */
-  flex: 0 0 50%;
-  box-sizing: border-box; /* make the width truly 50% */
+  flex: 1;
+  /* take up half of the width (but get capped via max width),
+  or half of height (but get capped via .topHalf max height) */
+  box-sizing: border-box; /* make the width capped at true 650px including padding */
 }
 
 .mainText {
@@ -24,7 +26,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 700; /*TODO: understand fonts */
   font-size: 0.8rem;
   line-height: 2;
 }
@@ -40,8 +42,10 @@
   font-weight: bold;
 }
 
-.queryFormContainer input:hover:not(:focus) {
-  background-color: #4C4C4C;
+@media (hover: hover) { /* get rid of sticky hover when clicking in a field on mobile */
+  .queryFormContainer input:hover:not(:focus) {
+    background-color: #4C4C4C;
+  }
 }
 
 .queryFormContainer input:focus::placeholder {
@@ -74,9 +78,11 @@
   cursor: pointer;
 }
 
-.queryFormContainer button:hover:not(.isToggled) {
-  background-color: #4C4C4C;
-  transition: 0.2s;
+@media (hover: hover) {
+  .queryFormContainer button:hover:not(.isToggled) { /* get rid of sticky hover when clicking in a field on mobile */
+    background-color: #4C4C4C;
+    transition: 0.2s;
+  }
 }
 
 .isToggled {
@@ -113,12 +119,16 @@
  background-color: #F2F2F2;
 }
 
-.light .queryFormContainer input:hover:not(:focus) {
-  background-color: #d6d3d3;
+@media (hover: hover) {
+  .light .queryFormContainer input:hover:not(:focus) { /* get rid of sticky hover when clicking in a field on mobile */
+    background-color: #d6d3d3;
+  }
 }
 
-.light .queryFormContainer button:hover:not(.isToggled) {
-  background-color: #d6d3d3;
+@media (hover: hover) {
+  .light .queryFormContainer button:hover:not(.isToggled) { /* get rid of sticky hover when clicking in a field on mobile */
+    background-color: #d6d3d3;
+  }
 }
 
 .light .isToggled {

@@ -76,9 +76,6 @@ function Documentation() {
       <p>Notice how Fig 1.3 and Fig 2.2 are the same! Since we have a collision, we know we can construct a solution to the scramble by connecting the two paths. We continue to search
         deeper until the user-supplied maximum algorithm length is reached, and return all possible solutions.
       </p>
-      {
-      // TODO: fix
-      }
       <p>As the breadth-first search starting from the solved cube is repeated work, it is <a href="" target="_blank" rel="noopener noreferrer">preprocessed as a binary encoding,</a> speeding up
       the time complexity even further.</p>
 
@@ -97,7 +94,6 @@ function Documentation() {
         <a href="https://github.com/agrawalishaan/cubeExplorerFrontend" target="_blank" rel="noopen noreferrer">Front End</a>&nbsp;|&nbsp;
         <a href="https://github.com/agrawalishaan/cubeexplorer" target="_blank" rel="noopen noreferrer">Back End</a>
       </p>
-      <p>If you want to support the development of this tool, you can do so <a href="https://www.buymeacoffee.com/complete-your-page" target="_blank" rel="noopen noreferrer">here.</a></p>
     </div>
     </>
   );

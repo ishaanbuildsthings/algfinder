@@ -33,6 +33,7 @@ li a {
   text-decoration: none;
 }
 
+/* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
 li a:hover:not(.active) {
   background-color: #1E1E1E;
 }
@@ -54,6 +55,7 @@ li a:hover:not(.active) {
   color: #313131;
 }
 
+/* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
 .light li a:hover:not(.active) {
   background-color: #D6D3D3;
 }

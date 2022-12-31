@@ -19,7 +19,7 @@
 
   background-color: #926AC3;
   border: 1px solid black;
-  z-index: 1; /*TODO: get why this lets the queryForm popups appear over the cube */
+  z-index: 0; /*TODO: get why this lets the queryForm popups appear over the cube */
   color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
@@ -56,7 +56,8 @@
   width: 305px;
 }
 
-/* make all tooltips visible on hover, display type does not really matter */
+/* make all tooltips visible on hover, display type does not really matter
+on mobile, these function as buttons due to sticky hover */
 .scrambleIcon:hover + .scramblePopup {
   display: inline;
 }

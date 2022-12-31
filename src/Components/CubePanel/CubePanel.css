@@ -1,13 +1,11 @@
 .cubePanel {
   padding: 15px 0 35px 0;
   position: relative; /* to position drag cube to view icon and text */
-  flex: 0 0 50%; /* takes up exactly half of the top half, once in portrait flex-shrink is setup */
-  box-sizing: border-box; /* makes it true 50% */
+  flex: 1; /* fill out the width since cubePanel will get capped, in height mode keep expanding until .topHalf caps the height */
   min-height: 100px;
   /* normally the cube expands or shrinks to fill the remainder of the page, for small phones we don't want the cube to keep shrinking, we would rather scroll.
   By adding a minimum height, the sum of heights of our content will overflow the 100vh
   height allowing for the scroll effect.*/
-  /* TODO: on tall screens the cube becomes really big, on phone screens the popups are too big, galaxy fold the input is messed up */
 }
 
 

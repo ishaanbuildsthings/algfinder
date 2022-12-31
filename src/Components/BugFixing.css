@@ -1,0 +1,13 @@
+.flexbox {
+  display: flex;
+  width: 50vw;
+  border: 10px solid red;
+  margin-top: 100px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 0.8rem;
+  line-height: 2;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Poppins', sans-serif;
+}
+

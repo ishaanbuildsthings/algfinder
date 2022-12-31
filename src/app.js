@@ -3,6 +3,7 @@ import Solve from './solve.js';
 import Documentation from './Components/Documentation/Documentation.js';
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';
+import BugFixPage from './Components/BugFixing.js';
 
 /**
  * This defines the entire website in terms of components, including all routes.
@@ -18,6 +19,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Solve />} />
         <Route path="/documentation" element={<Documentation />} />
+        <Route path="/bugfix" element={<BugFixPage />} />
       </Routes>
     </>
   )

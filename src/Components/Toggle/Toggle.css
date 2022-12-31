@@ -10,8 +10,10 @@
   margin-right: 2vw;
 }
 
-.toggle:hover {
-  background-color: #d5d5d5;
+@media (hover: hover) { /* get rid of sticky hover when clicking in a field on mobile */
+  .toggle:hover {
+    background-color: #d5d5d5;
+  }
 }
 
 .thumb {
@@ -31,8 +33,10 @@
   background-color: #6200EE;
 }
 
-.light .toggle:hover {
-  background-color: hsl(265, 100%, 39%);
+@media (hover: hover) { /* get rid of sticky hover when clicking in a field on mobile */
+  .light .toggle:hover {
+    background-color: hsl(265, 100%, 39%);
+  }
 }
 
 .light .thumb {

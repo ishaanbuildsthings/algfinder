@@ -3,32 +3,23 @@ import cx from '../../Tools/cx';
 
 /**
  * @param {*} props
- * The props contain the moveset button's value, which is the buttons corresponding letter.
- * This prop is passed down from QueryForm, which constructs the grid of buttons via a for loop.
+ * value={letter}
+ * key={letter}
+ * handleMovesetClick={props.handleMovesetClick}
+ * totalButtonsToggled={props.queriesState.moveset.length}
+ * isToggled={props.queriesState.moveset.includes(letter)}
  *
- * The props also contain props.handleMovesetClick, a function passed from solve->QueryForm->MovesetButton. This function
- * changes the state of which buttons are currently toggled.
+ * props.handleMovesetClick is passed from solve->QueryForm->MovesetButton.
  *
  * @usage Used in QueryForm.js
  */
 function MovesetButton(props) {
 
-    // * states
-    // each button tracks its own toggled state to know if it should be in dark mode
-    // ? can re-factor this to have it done at the solve.js level, but this may be better separation of concerns
-    const [toggled, setToggled] = React.useState(false);
-
-    // * handlers
-    // when a button is clicked, it toggles its darkened state, and solve.js's list of currently toggled moves
-    function toggleParentAndDarkened() {
-        props.handleMovesetClick(props.value);
-        setToggled(!toggled);
-    }
-
     return (
         <button
-            className={cx('mainText', 'secondaryColor', 'movesetButton', toggled && 'isToggled')}
-            onClick={toggleParentAndDarkened}
+        // if a button is toggled it will render with the isToggled class
+            className={cx('mainText', 'secondaryColor', 'movesetButton', props.isToggled && 'isToggled')}
+            onClick={() => props.handleMovesetClick(props.value)}
         >
             {props.value}
         </button>

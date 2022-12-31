@@ -4,10 +4,22 @@ import UseWindowSize from '../../Tools/UseWindowSize.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
+/**
+ *The QueryForm component is used on the solve page, and receives handlers to modify state and submit data, and it receives the actual state itself via queriesState
+ * @param {*} props The props contain:
+ * handleTextChange={handleTextChange}
+ * handleNumberChange={handleNumberChange}
+ * handleSubmit={handleSubmit}
+ * handleMovesetClick={handleMovesetClick}
+ * queriesState={queriesState}
+ * @usage Used in solve.js
+ */
 function QueryForm(props) {
-    // custom hook to dynamically re-render on window size changes
+  //* misc
+  // custom hook to dynamically re-render on window size changes
   let windowSize = UseWindowSize();
 
+  //* helpers
   function determineScramblePlaceholderText() {
     if (windowSize.width <= 352) {
         return '[Tap here to enter]';
@@ -34,8 +46,6 @@ function QueryForm(props) {
     return '[Click here to enter maximum algorithm length]';
   }
 
-
-
     // creates an entire row of moveset buttons
     function createManyJsxButtons(listOfLetters) {
         const listOfButtons = [];
@@ -43,23 +53,25 @@ function QueryForm(props) {
             listOfButtons.push(
                 <MovesetButton
                                value={letter}
-                               key={letter} // TODO: why
+                               key={letter}
                                handleMovesetClick={props.handleMovesetClick}
+                               isToggled={props.queriesState.moveset.includes(letter)}
                 />
             );
         }
         return listOfButtons;
     }
 
+    // create arrays of JSX buttons
     const buttonListFaceMoves = createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']);
     const buttonListWideMoves = createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']);
     const buttonListSliceAndRotation = createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']);
 
 
     return (
-        // * queryFormContainer
+        // queryFormContainer goes here
         <>
-            <section className="scramblePanel">
+            <section>
 
                 <label className="scrambleLabel mainText mainColor" htmlFor="scrambleInput">Scramble
                 <div className="iconAndPopup">
@@ -78,15 +90,14 @@ function QueryForm(props) {
                     className="secondaryColor mainText"
                     name="scramble"
                     autoComplete="off"
-                    value={props.scramble}
+                    value={props.queriesState.scramble}
                     onChange={props.handleTextChange}
-
                 />
 
             </section>
 
 
-            <section className="depthPanel">
+            <section>
 
                 <label className="mainText mainColor" htmlFor="depthInput">Max Algorithm Length
                     <div className="iconAndPopup">
@@ -98,7 +109,6 @@ function QueryForm(props) {
                     </div>
                 </label>
 
-
                 <input
                     id="depthInput"
                     type="text"
@@ -106,16 +116,16 @@ function QueryForm(props) {
                     className="secondaryColor mainText"
                     name="depth"
                     autoComplete="off"
-                    value={props.depth}
+                    value={props.queriesState.depth}
                     onChange={props.handleNumberChange}
                 />
             </section>
 
 
-            <section className="movePanel">
+            <section>
 
                 <label className="mainText mainColor">Toggle allowed moveset
-                <div className="iconAndPopup">
+                    <div className="iconAndPopup">
                         <FontAwesomeIcon icon={faCircleInfo} className="movesetIcon mainText icon"/>
                         <div className="movesetPopup popup">
                             <p>Enter the move types you want the solutions to be restricted to.</p>
@@ -123,29 +133,23 @@ function QueryForm(props) {
                         </div>
                     </div>
                 </label>
-                <section className="buttonGrid">
+                <div className="buttonGrid">
                     {buttonListFaceMoves}
                     {buttonListWideMoves}
                     {buttonListSliceAndRotation}
-                </section>
+                </div>
 
             </section>
 
 
-
-                <button
-                    className="submitButton button mainText secondaryColor"
-                    onClick={() => props.handleSubmit(props.queriesState)}
-                >
-                    Show Me Solutions!
-                </button>
-
+            <button
+                className="submitButton button mainText secondaryColor"
+                onClick={() => props.handleSubmit(props.queriesState)}
+            >
+                Show Me Solutions!
+            </button>
         </>
-
-
     );
 }
 
 export default QueryForm;
-
-// TODO: fix js, mobile css, check extra classes, order inside cx

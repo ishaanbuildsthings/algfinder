@@ -2,16 +2,13 @@ add copied popup for solutions---
 create generating solutions icon TIM
 client side form validation should give modal with errors---
 client side prevent hitting submit from other pages TIM
-if no solutions have it say that TIM
+refactor no solutions into modal---
 add cancel search TIM
 add server side validation TIM
 add rate limiting TIM
 all TODOs---
 if you spam a lot of requests in a row they stack, if you click submit again it should cancel the prior request TIM
-fix solutions being too wide on small screens---
-on mobile clicking a button leaves the color up, on moveset buttons too when deselecting---
 messenger things---
 am i creating multiple windowSize things by accident -ask TULI
-weird max height cant exceed 1638px -ask TULI
-replace cdn with actual thing---
 https://codepen.io/Sean713/pen/PoBZKbP -ask TULI this codepen removing min height from solvepageminusnav
+fix webkit highlighting and button animation on mobile and safari fucked divs
