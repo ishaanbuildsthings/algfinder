@@ -3,6 +3,7 @@ import cx from '../../Tools/cx';
 import useLocalStorage from '../../Tools/useLocalStorage';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toggle from '../Toggle/Toggle.js';
+import './Navbar.css';
 
 function Navbar() {
   // * misc

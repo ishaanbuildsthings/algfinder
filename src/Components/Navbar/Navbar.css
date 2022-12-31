@@ -3,10 +3,6 @@
   display: flex;
   justify-content: space-between; /* navbar contains the UL and the toggle so this spaces them out */
   align-items: center; /* center the toggle */
-}
-
-/* second duplicate selector as it makes it easier to edit */
-.navbarDiv {
   position: fixed; /* make navbar stay on the top, particularly for documentation page */
   background-color: #121212; /* set color so when scrolling the navbar is not see through */
   width: 100%; /* expand to width of the page */
