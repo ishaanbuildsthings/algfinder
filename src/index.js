@@ -2,7 +2,6 @@ import ReactDOM from 'react-dom/client';
 
 import './index.css';
 import './Components/QueryForm/QueryForm.css';
-import './Components/CubePanel/CubePanel.css';
 import './Tooltips.css';
 import './Components/SolutionsDisplay/SolutionsDisplay.css';
 import './Components/Solve/Solve.css';
