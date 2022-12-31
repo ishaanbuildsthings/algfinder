@@ -1,7 +1,8 @@
-import MovesetButton from "./MovesetButton.js";
-import UseWindowSize from '../../Tools/UseWindowSize.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import MovesetButton from "./MovesetButton.js";
+import UseWindowSize from '../../Tools/UseWindowSize.js';
+import './QueryFormContainer.css';
 
 /**
  * @param {*}

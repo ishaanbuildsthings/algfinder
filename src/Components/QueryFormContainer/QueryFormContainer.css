@@ -8,18 +8,6 @@
   box-sizing: border-box; /* make the width capped at true 650px including padding */
 }
 
-.mainText {
-  color: #E4E4E4;
-}
-
-.mainColor {
-  background-color: #1E1E1E;
-}
-
-.secondaryColor {
-  background-color: #222;
-}
-
 .queryFormContainer label {
   display: flex; /* this also makes the width of the label 100% since labels are not by default */
   padding-left: 20px;
@@ -50,11 +38,6 @@
 
 .queryFormContainer input:focus::placeholder {
   color: transparent; /* make the placeholder disappear when clicked in */
-}
-
-::selection {
-  color: #E4E4E4;
-  background-color: #5E81A8;
 }
 
 .scrambleLabel {
@@ -110,18 +93,6 @@
 }
 
 /** light mode */
-
-.light .mainText {
-  color: #313131;
-}
-
-.light .mainColor {
-  background-color: #E7E7E7;
-}
-
-.light .secondaryColor {
- background-color: #F2F2F2;
-}
 
 @media (hover: hover) {
   .light .queryFormContainer input:hover:not(:focus) { /* get rid of sticky hover when clicking in a field on mobile */

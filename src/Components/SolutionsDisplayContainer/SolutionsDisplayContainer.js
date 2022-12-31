@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import Solution from '../Solution/Solution';
+import { useState, useEffect } from 'react';
 import './SolutionsDisplayContainer.css';
 
 /**

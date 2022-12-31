@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
-import UseWindowSize from '../../Tools/UseWindowSize';
 import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
+import UseWindowSize from '../../Tools/UseWindowSize';
 import './CubePanel.css';
 
 /**

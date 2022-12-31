@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import QueryFormContainer from '../QueryFormContainer/QueryFormContainer.js';
 import SolutionsDisplayContainer from '../SolutionsDisplayContainer/SolutionsDisplayContainer.js';
-import './Solve.css';
 import CubePanel from '../CubePanel/CubePanel.js';
+import { useState } from 'react';
+import './Solve.css';
+
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 const VALID_MOVES = new Set('R', 'R2', "R'", 'U', 'U2', "U'", 'D', 'D2', "D'", 'F', 'F2', "F'", 'L', 'L2', "L'", 'B', 'B2', "B'", 'r',
