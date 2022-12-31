@@ -1,7 +1,6 @@
 import ReactDOM from 'react-dom/client';
 
 import './index.css';
-import './Components/Toggle/Toggle.css';
 import './Components/QueryForm/QueryForm.css';
 import './Components/CubePanel/CubePanel.css';
 import './Tooltips.css';

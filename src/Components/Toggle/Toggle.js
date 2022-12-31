@@ -1,3 +1,5 @@
+import './Toggle.css';
+
 function Toggle({handleClick}) {
   return (
     <div className="toggle" onClick={handleClick}>
