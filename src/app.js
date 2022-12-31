@@ -1,5 +1,5 @@
 import Navbar from './Components/Navbar/Navbar.js';
-import Solve from './solve.js';
+import Solve from './Components/Solve/Solve.js';
 import Documentation from './Components/Documentation/Documentation.js';
 import { Routes, Route } from 'react-router-dom';
 import React from 'react';

@@ -18,15 +18,10 @@ function SolutionsDisplay({solutionsList}) {
         setSolutionState(solutionsList);
     }, [solutionsList]);
 
-    const JsxSolutions = solutionState.map((solution) => (<Solution solution="solution"/>));
+    const JsxSolutions = solutionState.map((solution) => (<Solution solution={solution}/>));
 
 
     // * handlers
-    // handles clicking on the solution text, copies the text
-    function copyText(solution) {
-        navigator.clipboard.writeText(solution);
-    }
-
     // handles clicking the sort button
     // e.target.value is the value of whether the stm or qtm sort button was clicked
     function handleClickOnSort(e) {
@@ -66,34 +61,6 @@ function SolutionsDisplay({solutionsList}) {
         return strings;
     }
 
-    // takes in an input of ["M U M2 U2 M'", "R2 U R U R' R' U F R U"]
-    // outputs a JSX of those elements
-    function displaySolutions(solutions) {
-        const solutionsJsx = [];
-        for (let i = 0; i < solutions.length; i++) {
-            const noSpacesPrimeOrDouble = solutions[i].replace(/ /g, '').replace(/'/g, '').replace(/2/g, '');
-            const totalSliceMoves = (noSpacesPrimeOrDouble.match(/E/g) || []).length +
-                                    (noSpacesPrimeOrDouble.match(/S/g) || []).length +
-                                    (noSpacesPrimeOrDouble.match(/M/g) || []).length;
-
-            const sliceTurnMetric = noSpacesPrimeOrDouble.length;
-            const halfTurnMetric = sliceTurnMetric + totalSliceMoves;
-
-            solutionsJsx.push(
-                <li className="solutionLi mainText" key={solutions[i]}>
-                    <button onClick={() => {
-                        copyText(solutions[i]);
-
-                    }
-                        } className="solutionButton">
-                        {solutions[i]} ({sliceTurnMetric}s, {halfTurnMetric}q)
-                    </button>
-                </li>
-            );
-        }
-        return solutionsJsx;
-    }
-
     return (
          <div className="solutionsDisplay">
             <div className="solutionsHeader mainColor">
@@ -110,8 +77,7 @@ function SolutionsDisplay({solutionsList}) {
             </div>
             <div className="scrollableSolutions secondaryColor">
                 <ol className="solutionsOl">
-                    {/* display solutions creates the JSX for our solutions */}
-                    {displaySolutions(solutionState)}
+                    {JsxSolutions}
                 </ol>
             </div>
          </div>

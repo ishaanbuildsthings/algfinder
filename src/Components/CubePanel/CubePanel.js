@@ -7,10 +7,11 @@ import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web com
  * This Cube component is used on the solve page. The cube component is a wrapper
  * of the custom HTML element <twisty-player> from the cubing.js library.
  *
- * @param {*} props The props contain the current Rubik's cube scramble held in the state on solve.js.
+ * @param {*}
+ * scramble - the current entered scramble
  * @usage Used in solve.js
  */
-export default function Cube(props) {
+export default function Cube({scramble}) {
   // custom hook to dynamically re-render on window size changes
   let windowSize = UseWindowSize();
 
@@ -20,7 +21,6 @@ export default function Cube(props) {
     } else if (windowSize.width <= 767) {
       return 'Drag cube';
     }
-
     return 'Drag cube to view';
   }
 
@@ -31,14 +31,13 @@ export default function Cube(props) {
                     visualization="PG3D"
                     control-panel="none"
                     background="none"
-                    alg={props.scramble}
+                    alg={scramble}
                     >
       </twisty-player>
 
       <div className="dragIconAndText mainText">
         <FontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg"/>
-        <p className="dragText">&nbsp;&nbsp;{setDragText()}
-        </p>
+        <p className="dragText">&nbsp;&nbsp;{setDragText()}</p>
       </div>
 
      </div>

@@ -7,7 +7,6 @@
 
 /* second duplicate selector as it makes it easier to edit */
 .navbarDiv {
-  /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
   position: fixed; /* make navbar stay on the top, particularly for documentation page */
   background-color: #121212; /* set color so when scrolling the navbar is not see through */
   width: 100%; /* expand to width of the page */

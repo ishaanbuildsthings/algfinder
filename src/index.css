@@ -27,24 +27,6 @@ code {
   flex-direction: column;
 }
 
-/* since the navbar is taken out of flow with position: fixed; this pushes the elements down, repeated section for clarity */
-.solvePageMinusNav {
-  margin-top: 50px;
-}
-
-.documentationDiv {
-  margin-top: 50px;
-}
-
-.solvePageMinusNav {
-  display: flex; /* the whole page contains the topHalf and bottomHalf, it will be a flex container to flex these two children vertically. The whole page should have a flex of 1, to take up any remaining space that the navbar does not occupy. */
-  flex-direction: column;
-  flex: 1; /* Occupy the full height of the root except for the fixed navbar. Due to minimum heights, the solvePageMinusNav will
-  eventually overflow the viewport and allow the user to scroll. */
-  min-height: 0; /* since this doesn't have an assigned height, we need to stop protecting its children and allow it to shrink */
-  /* https://codepen.io/Sean713/pen/PoBZKbP */
-}
-
 .topHalf {
   display: flex;
   /* ? top half can be removed and just the items are used */
@@ -62,10 +44,6 @@ code {
   min-height: 145px;
   /* this allows the container to shrink somewhat as height is not set otherwise,
   but it caps out at a certain point, so the scrollable solutions is visible */
-}
-
-.sortButton { /* buttons, inputs, and maybe some other fields are using the user agent style fonts not the inherited ones from the body, they look good though */
-  font-size: 12px;
 }
 
 

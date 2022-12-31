@@ -1,0 +1,21 @@
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation-name: fadeOut;
+  animation-delay: 1s;
+  animation-duration: 1s;
+}
+
+.copyPopup {
+  position: absolute;
+  background-color: #926AC3;
+  border-radius: 10px;
+  padding: 0 10px;
+}

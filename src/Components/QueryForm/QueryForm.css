@@ -86,9 +86,13 @@
 }
 
 .isToggled {
-  background-color: #bb86fcc2;
+  background-color: #926AC3;
   color: #0F0F0F;
   transition: 0.2s;
+}
+
+.sortButton { /* buttons, inputs, and maybe some other fields are using the user agent style fonts not the inherited ones from the body, they look good though */
+  font-size: 12px;
 }
 
 .submitButton {

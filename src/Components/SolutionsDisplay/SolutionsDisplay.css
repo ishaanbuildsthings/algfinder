@@ -4,6 +4,7 @@
   max-height: 95%; /* take up 95% of the container */
   display: flex;
   flex-direction: column;
+  position: relative; /* allows for positioning of the CopyPopup */
 }
 .scrollableSolutions {
   overflow-y: scroll;

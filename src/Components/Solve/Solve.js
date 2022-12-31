@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import QueryForm from './Components/QueryForm/QueryForm.js';
-import SolutionsDisplay from './Components/SolutionsDisplay/SolutionsDisplay.js';
-import CubePanel from './Components/CubePanel/CubePanel.js';
+import QueryForm from '../QueryForm/QueryForm.js';
+import SolutionsDisplay from '../SolutionsDisplay/SolutionsDisplay.js';
+import CubePanel from '../CubePanel/CubePanel.js';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 const VALID_MOVES = new Set('R', 'R2', "R'", 'U', 'U2', "U'", 'D', 'D2', "D'", 'F', 'F2', "F'", 'L', 'L2', "L'", 'B', 'B2', "B'", 'r',

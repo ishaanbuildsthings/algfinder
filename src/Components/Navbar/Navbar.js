@@ -1,16 +1,11 @@
-import React from 'react';
+import { useEffect } from 'react';
 import cx from '../../Tools/cx';
 import useLocalStorage from '../../Tools/useLocalStorage';
 import { useNavigate, useLocation } from 'react-router-dom';
 import Toggle from '../Toggle/Toggle.js';
 
-/**
- * The Navbar component is a shared component across the page. The navbar serves to route users
- * to the appropriate page.
- * @usage Used in index.js
- */
 function Navbar() {
-    // * misc
+  // * misc
   // necessary for react-router-dom routing
   const history = useNavigate();
   // necessary for parsing the current URL to display the correct .active CSS coloring
@@ -22,7 +17,7 @@ function Navbar() {
 
   // * handlers
   // whenever we click the darkmode toggle, this function changes the local storage state, re-rendering the function with the new style
-  function handleDarkMode() {
+  function handleDarkModeToggle() {
       if (localStorageState === 'dark') {
         setLocalStorageState('light');
       } else {
@@ -33,7 +28,7 @@ function Navbar() {
   // * other hooks
   // when the localStorageState changes, this will add or remove a class to the body which creates the different visual style
   // if we refresh the website, it reads the cookie and determines if it should start on dark mode or not
-  React.useEffect(() => {
+  useEffect(() => {
     if (localStorageState === 'dark') {
       document.body.classList.remove('light');
     } else {
@@ -68,7 +63,7 @@ function Navbar() {
         </li>
       </ul>
 
-      <Toggle handleClick={handleDarkMode}/>
+      <Toggle handleClick={handleDarkModeToggle}/>
 
     </nav>
   )

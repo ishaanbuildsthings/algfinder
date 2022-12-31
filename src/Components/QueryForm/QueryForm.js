@@ -4,7 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 
 /**
- *The QueryForm component is used on the solve page, and receives handlers to modify state and submit data, and it receives the actual state itself via queriesState
+ * @param {*}
+ * handleTextChange - modifies the solve.js state based on entered scramble text
+ * handleNumberChange - modifies the solve.js state based on entered depth
+ * handleSubmit - queries the backend with all the parameters
+ * handleMovesetClick - modifies the solve.js state based on toggled moves
+ * queriesState - all of the scramble, depth, and moveset
  * @usage Used in solve.js
  */
 function QueryForm({handleTextChange, handleNumberChange, handleSubmit, handleMovesetClick, queriesState}) {

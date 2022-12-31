@@ -1,14 +1,8 @@
 import React from 'react';
-import CopiedPopup from '../CopiedPopup/CopiedPopup';
 
-/**
- * The Documentation component handles all of the display unique to the documentation section of the website.
- * @returns The JSX for the documentation component, used in app.js.
- */
 function Documentation() {
   return (
     <>
-    <CopiedPopup />
     <div className="documentationDiv">
       <h2>How this works (for nerds)</h2>
       <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. In the backend, we use a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeexplorer/blob/main/main.py">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.

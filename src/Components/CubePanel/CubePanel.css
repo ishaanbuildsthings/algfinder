@@ -96,12 +96,12 @@ twisty-player {
   }
 }
 
+
 @media (max-width: 1030px) {
   .dragIconAndText {
     right: 33%;
   }
 }
-
 
 
 @media (max-width: 940px) {
@@ -114,18 +114,19 @@ twisty-player {
   }
 }
 
+
 @media (max-width: 870px) {
   .dragIconAndText {
     right: 31%;
   }
 }
 
+
 @media (max-width: 820px) {
   .dragIconAndText {
     right: 30%;
   }
 }
-
 
 
 @media (max-width: 767px) {
