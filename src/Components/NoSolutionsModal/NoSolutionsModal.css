@@ -5,12 +5,9 @@
   padding: 10px;
   border-radius: 5px;
   width: max-content;
-  z-index: 1; /* TODO: understand */
 }
 
 .noSolutionsModal p {
   margin: 0;
   color: white;
 }
-
-/* TODO: add a mainbackground and accent color and everything class to make it less repetitive */

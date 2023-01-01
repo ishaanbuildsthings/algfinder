@@ -4,6 +4,25 @@ import TwistyPlayer from "cubing/twisty"; // this lets us use the custom web com
 import UseWindowSize from "../../Hooks/UseWindowSize";
 import './CubePanel.css';
 
+
+function processMoves(scramble) {
+  let result = '';
+
+  for (let i = 0; i < scramble.length; i++) {
+    if (i === scramble.length - 1 && /[RUFLDBxyzEMrufldb]/.test(scramble[i])) {
+      return result + scramble[i];
+    }
+    if (/[RUFLDBxyzEMrufldb]/.test(scramble[i])) {
+      result += scramble[i];
+    }
+    if (scramble[i + 1] === "'" || scramble[i + 1] === ' ' || scramble[i + 1] === '2') {
+      result += scramble[i + 1];
+    } else {
+      result += ' ';
+    }
+  }
+  return result;
+}
 /**
  * This Cube component is used on the solve page. The cube component is a wrapper
  * of the custom HTML element <twisty-player> from the cubing.js library.
@@ -31,7 +50,7 @@ export default function Cube({ scramble }) {
         visualization="PG3D"
         control-panel="none"
         background="none"
-        alg={scramble}
+        alg={processMoves(scramble)}
       ></twisty-player>
 
       <div className="dragIconAndText mainText">

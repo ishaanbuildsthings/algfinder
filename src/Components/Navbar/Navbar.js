@@ -8,7 +8,7 @@ function Navbar() {
   // necessary for react-router-dom routing
   const history = useNavigate();
   // necessary for parsing the current URL to display the correct .active CSS coloring
-  let location = useLocation();
+  const location = useLocation();
 
   return (
     <nav className="navbarDiv">

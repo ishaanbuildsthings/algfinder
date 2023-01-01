@@ -61,7 +61,7 @@ function Solve() {
     // when a user changes the scramble, change the queries state
     function handleTextChange(event) {
         const { name, value } = event.target;
-        if(/^([rludfbRLUDFBMSExyz][\'2]? ?)+$/.test(value) || value === '') { // TODO: force spaces
+        if(/^([rludfbRLUDFBMSExyz][\'2]? ?)+$/.test(value) || value === '') {
             setQueries({
                 ...queriesState,
                 [name]: value

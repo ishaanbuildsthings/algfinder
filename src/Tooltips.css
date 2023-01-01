@@ -1,5 +1,3 @@
-/* all circle info icons are styled in queryForm.css */
-
 .queryFormContainer .icon {
   margin-left: 4px;
 }
@@ -17,7 +15,7 @@
   position: absolute; /* positioned relative to the .iconAndPopup */
   left: 30px;
   border: 1px solid black;
-  z-index: 0; /*TODO: get why this lets the queryForm popups appear over the cube */
+  z-index: 0;
   color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
