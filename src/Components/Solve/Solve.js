@@ -6,18 +6,16 @@ import NoSolutionsModal from '../NoSolutionsModal/NoSolutionsModal.js';
 import CubePanel from '../CubePanel/CubePanel.js';
 import { useState, useEffect } from 'react';
 import './Solve.css';
-
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 let errorMessage = '';
 
- // converts UL data to JSON
     async function fetchURL(url) {
         // TODO: handle errors
         const response = await fetch(url);
         return await response.json();
     }
-    // waits n time
+
     function sleep(ms) {
         return new Promise((resolve) => {
             setTimeout(resolve, ms);
@@ -110,8 +108,7 @@ function Solve() {
             errorMessage = 'Please enter a valid scramble';
             setErrorPopup(true);
             return;
-        }
-        if (depth === 1 || depth === '') {
+        } else if (depth === 1 || depth === '') {
             errorMessage = 'Please choose a depth of at least 2';
             setErrorPopup(true);
             return;

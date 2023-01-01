@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import './Tooltips.css';
+import './Popups.css';
 import App from './app';
 import { BrowserRouter } from 'react-router-dom';
 

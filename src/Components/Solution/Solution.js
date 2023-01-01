@@ -20,7 +20,7 @@ function Solution({ solution }) {
   const [sliceTurnMetric, halfTurnMetric] = getQtmAndStm(solution);
 
   return (
-    <li className="solutionLi mainText" key={solution}>
+    <li className="solutionLi mainText">
       {isPopup && <CopyPopup setPopup={setPopup} />}
       <button
         onClick={() => {
@@ -36,6 +36,3 @@ function Solution({ solution }) {
 }
 
 export default Solution;
-
-// TODO: R2 U R U R' U' R' U' R' U R', 11, RU gives a keyerror
-// TODO: unique keys on R U length 5

@@ -5,10 +5,9 @@ add server side validation TIM
 add rate limiting TIM
 if you spam a lot of requests in a row they stack, if you click submit again it should cancel the prior request TIM
 https://codepen.io/Sean713/pen/PoBZKbP -ask this codepen removing min height from solvepageminusnav
-fix animation for buttons and weird safari divs and safari font
+fix weird safari divs and safari font
 make re-rendering more performant
 all todos
-refactor popups css
 
 code review:
 position of popups

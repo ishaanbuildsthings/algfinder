@@ -53,7 +53,7 @@ function SolutionsDisplayContainer({ solutionsList }) {
   }, [solutionsList]);
 
   const JsxSolutions = solutionState.map((solution) => (
-    <Solution solution={solution} />
+    <Solution solution={solution} key={solution} />
   ));
 
   // * handlers
@@ -72,12 +72,12 @@ function SolutionsDisplayContainer({ solutionsList }) {
       <div className="solutionsDisplay">
         <div className="solutionsHeader mainColor">
           <span className="mainText">Solutions</span>
-          <div className="iconAndPopup">
+          <div className="iconAndTooltip">
             <FontAwesomeIcon
               icon={faCircleInfo}
               className="solutionsIcon icon mainText"
             />
-            <div className="solutionsPopup popup accentColor">
+            <div className="solutionsTooltip tooltip accentColor">
               <p>
                 Any found solutions will be displayed here. Click a solution to
                 copy it to your clipboard. All solutions that exist for a query

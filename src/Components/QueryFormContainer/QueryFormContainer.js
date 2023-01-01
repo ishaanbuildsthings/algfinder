@@ -74,9 +74,9 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
             <section>
 
                 <label className="scrambleLabel mainText mainColor" htmlFor="scrambleInput">Scramble
-                    <div className="iconAndPopup">
+                    <div className="iconAndTooltip">
                         <FontAwesomeIcon icon={faCircleInfo} className="scrambleIcon icon mainText" />
-                        <div className="scramblePopup popup accentColor">
+                        <div className="scrambleTooltip tooltip accentColor">
                             <p>Enter the scramble you want to solve.</p>
                             <p>Example: R U R' y R' F R U' R' F' R</p>
                         </div>
@@ -100,9 +100,9 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
             <section>
 
                 <label className="mainText mainColor" htmlFor="depthInput">Max Algorithm Length
-                    <div className="iconAndPopup">
+                    <div className="iconAndTooltip">
                         <FontAwesomeIcon icon={faCircleInfo} className="depthIcon icon mainText" />
-                        <div className="depthPopup popup accentColor">
+                        <div className="depthTooltip tooltip accentColor">
                             <p>Enter the maximum length of solutions the solver should give.</p>
                             <p>Example: 14 means you will receive solutions of at most 14 moves.</p>
                         </div>
@@ -125,9 +125,9 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
             <section>
 
                 <label className="mainText mainColor">Toggle allowed moveset
-                    <div className="iconAndPopup">
+                    <div className="iconAndTooltip">
                         <FontAwesomeIcon icon={faCircleInfo} className="movesetIcon mainText icon" />
-                        <div className="movesetPopup popup accentColor">
+                        <div className="movesetTooltip tooltip accentColor">
                             <p>Enter the move types you want the solutions to be restricted to.</p>
                             <p>Example: if you enter RUD, solutions will at most use those three move types.</p>
                         </div>

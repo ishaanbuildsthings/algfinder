@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 /**
- * const [theme, setTheme] = useLocalStraoge("theme", "dark") would set {"theme":"dark"} in local storage
+ * const [theme, setTheme] = useLocalStraoge("theme", "dark") would set {"theme": "dark"} in local storage
  * and provide a setter function, setTheme, to change the value.
  *
  * @param {*} key The name of the key that will be written in local storage

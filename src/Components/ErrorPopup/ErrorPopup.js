@@ -1,5 +1,3 @@
-import './ErrorPopup.css';
-
 /**
  * @param {*}
  * errorMessage - the string for the message that should be used in the popup

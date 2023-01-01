@@ -1,0 +1,47 @@
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation-name: fadeOut;
+  animation-delay: 1s;
+  animation-duration: 1s;
+}
+
+.copyPopup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 10px;
+  padding: 0 10px;
+  color: #fff;
+}
+
+.errorPopup {
+  border-radius: 5px;
+  padding: 10px;
+  width: max-content;
+  max-width: 300px;
+  position: fixed;
+  z-index: 1;
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.movesetPopupError {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%);
+  border-radius: 5px;
+  padding: 0 10px;
+  color: #fff;
+}

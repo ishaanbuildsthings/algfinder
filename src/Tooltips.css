@@ -6,16 +6,16 @@
   margin-left: 4px;
 }
 
-.iconAndPopup {
-  position: relative; /* allows positioning for popup */
+.iconAndTooltip {
+  position: relative; /* allows positioning for tooltip */
 }
 
-.popup {
+.tooltip {
   display: none; /* by default do not show or take up space */
-  position: absolute; /* positioned relative to the .iconAndPopup */
+  position: absolute; /* positioned relative to the .iconAndTooltip */
   left: 30px;
   border: 1px solid black;
-  z-index: 0;
+  z-index: 1;
   color: #fff;
   padding: 5px 10px;
   border-radius: 5px;
@@ -24,51 +24,51 @@
   line-height: 1.5;
 }
 
-.scramblePopup,
-.depthPopup,
-.movesetPopup {
+.scrambleTooltip,
+.depthTooltip,
+.movesetTooltip {
   font-weight: 500; /* override label font-weight */
 }
 
 /* add some margins between p tags for spacing */
-.popup p {
+.tooltip p {
   margin-top: 3px;
   margin-bottom: 3px;
 }
 
 /* needed to handle the scramble as we don't want that to split into two lines */
-.scramblePopup {
+.scrambleTooltip {
   width: max-content;
 }
 
-/* base widths for the other popups, the popup will not tightly wrap the p element as you need JS for that */
-.movesetPopup p {
+/* base widths for the other tooltip, the tooltip will not tightly wrap the p element as you need JS for that */
+.movesetTooltip p {
   width: 250px;
 }
 
-.depthPopup p {
+.depthTooltip p {
   width: 250px;
 }
 
-.solutionsPopup p {
+.solutionsTooltip p {
   width: 305px;
 }
 
 /* make all tooltips visible on hover, display type does not really matter
 on mobile, these function as buttons due to sticky hover */
-.scrambleIcon:hover + .scramblePopup {
+.scrambleIcon:hover + .scrambleTooltip {
   display: inline;
 }
 
-.depthIcon:hover + .depthPopup {
+.depthIcon:hover + .depthTooltip {
   display: inline;
 }
 
-.movesetIcon:hover + .movesetPopup {
+.movesetIcon:hover + .movesetTooltip {
   display: inline;
 }
 
-.solutionsIcon:hover + .solutionsPopup {
+.solutionsIcon:hover + .solutionsTooltip {
   display: inline;
 }
 
@@ -76,39 +76,39 @@ on mobile, these function as buttons due to sticky hover */
 
 /* when the screen is short enough make the tooltip appear above not below */
 @media (max-height: 700px) {
-  .solutionsPopup {
+  .solutionsTooltip {
     bottom: 0;
   }
 }
 
 /* start to move over tooltips when width shrinnks */
 @media (max-width: 525px) {
-  .scramblePopup,
-  .depthPopup,
-  .movesetPopup {
+  .scrambleTooltip,
+  .depthTooltip,
+  .movesetTooltip {
     left: -50px;
     top: 20px;
   }
 }
 
 @media (max-width: 460px) {
-  .scramblePopup {
+  .scrambleTooltip {
     left: -70px;
   }
-  .depthPopup,
-  .movesetPopup {
+  .depthTooltip,
+  .movesetTooltip {
     left: -120px;
   }
 }
 
 /* when near phone widths we reduce tooltips to a % of the screen, not yet needed for scramble */
 @media (max-width: 420px) {
-  .depthPopup p,
-  .movesetPopup p,
-  .solutionsPopup p {
+  .depthTooltip p,
+  .movesetTooltip p,
+  .solutionsTooltip p {
     width: 50vw;
   }
-  .scramblePopup p {
+  .scrambleTooltip p {
     width: max-content;
   }
 }
@@ -116,7 +116,7 @@ on mobile, these function as buttons due to sticky hover */
 /* at very thin views concede the max-width: content which was set to allow the scramble
 to appear on one line */
 @media (max-width: 330px) {
-  .scramblePopup p {
+  .scrambleTooltip p {
     width: 50vw;
   }
 }
