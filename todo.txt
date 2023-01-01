@@ -1,14 +1,13 @@
-add copied popup for solutions---
 create generating solutions icon TIM
-client side form validation should give modal with errors---
 client side prevent hitting submit from other pages TIM
-refactor no solutions into modal---
 add cancel search TIM
 add server side validation TIM
 add rate limiting TIM
 all TODOs---
 if you spam a lot of requests in a row they stack, if you click submit again it should cancel the prior request TIM
-messenger things---
 am i creating multiple windowSize things by accident -ask TULI
 https://codepen.io/Sean713/pen/PoBZKbP -ask TULI this codepen removing min height from solvepageminusnav
-fix webkit highlighting and button animation on mobile and safari fucked divs
+fix animation for buttons and weird safari divs and safari font
+make re-rendering more performant
+1) why do parents rerender children
+3) put things outside function

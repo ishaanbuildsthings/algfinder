@@ -10,7 +10,8 @@ import { useState, useEffect } from 'react';
  * @returns Returns the value of the data in localStorage and the setter function to re-write that value
  */
 
-function useLocalStorage(key, defaultValue) {   // if a value is stored already, we use that, otherwise we use the default value
+function useLocalStorage(key, defaultValue) {
+  // if a value is stored already, we use that, otherwise we use the default value
   const [value, setValue] = useState(() => {
     let currentValue;
     try {

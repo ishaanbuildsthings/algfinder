@@ -16,8 +16,6 @@
   display: none; /* by default do not show or take up space */
   position: absolute; /* positioned relative to the .iconAndPopup */
   left: 30px;
-
-  background-color: #926AC3;
   border: 1px solid black;
   z-index: 0; /*TODO: get why this lets the queryForm popups appear over the cube */
   color: #fff;
@@ -28,7 +26,9 @@
   line-height: 1.5;
 }
 
-.scramblePopup, .depthPopup, .movesetPopup {
+.scramblePopup,
+.depthPopup,
+.movesetPopup {
   font-weight: 500; /* override label font-weight */
 }
 
@@ -74,16 +74,10 @@ on mobile, these function as buttons due to sticky hover */
   display: inline;
 }
 
-/** light mode */
-
-.light .popup {
-  background-color: #6200EE;;
-}
-
 /** media queries */
 
 /* when the screen is short enough make the tooltip appear above not below */
-@media(max-height: 700px) {
+@media (max-height: 700px) {
   .solutionsPopup {
     bottom: 0;
   }
@@ -91,7 +85,9 @@ on mobile, these function as buttons due to sticky hover */
 
 /* start to move over tooltips when width shrinnks */
 @media (max-width: 525px) {
-  .scramblePopup, .depthPopup, .movesetPopup {
+  .scramblePopup,
+  .depthPopup,
+  .movesetPopup {
     left: -50px;
     top: 20px;
   }
@@ -101,14 +97,17 @@ on mobile, these function as buttons due to sticky hover */
   .scramblePopup {
     left: -70px;
   }
-  .depthPopup, .movesetPopup {
+  .depthPopup,
+  .movesetPopup {
     left: -120px;
   }
 }
 
 /* when near phone widths we reduce tooltips to a % of the screen, not yet needed for scramble */
 @media (max-width: 420px) {
-  .depthPopup p, .movesetPopup p, .solutionsPopup p {
+  .depthPopup p,
+  .movesetPopup p,
+  .solutionsPopup p {
     width: 50vw;
   }
   .scramblePopup p {
@@ -118,7 +117,7 @@ on mobile, these function as buttons due to sticky hover */
 
 /* at very thin views concede the max-width: content which was set to allow the scramble
 to appear on one line */
-@media(max-width: 330px) {
+@media (max-width: 330px) {
   .scramblePopup p {
     width: 50vw;
   }

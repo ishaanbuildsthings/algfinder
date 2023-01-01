@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
 
 function UseWindowSize() {
-
-  const [windowSize, setWindowSize] = useState({width: window.width}); // lets us access width or height later if we need
+  const [windowSize, setWindowSize] = useState({ width: window.width }); // lets us access width or height later if we need
 
   useEffect(() => {
-
     // when the handler is triggered, change the state
     function handleResize() {
-      setWindowSize({width: window.innerWidth });
+      setWindowSize({ width: window.innerWidth });
     }
 
     // 'resize' is a premade option that applies when the window is resized
@@ -23,6 +21,3 @@ function UseWindowSize() {
 }
 
 export default UseWindowSize;
-
-
-

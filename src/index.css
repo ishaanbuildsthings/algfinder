@@ -2,21 +2,22 @@ body {
   /* react boilerplate */
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* my styling */
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 500;
   font-size: 15px;
   background-color: #121212;
+  -webkit-tap-highlight-color: transparent; /* remove blue flash on some responsive sites */
 }
 
 /* react boilerplate */
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
@@ -32,42 +33,37 @@ code {
   flex: 1; /* the top half will occupy 1/2 of the solvePageMinusNav height */
 }
 
-.solutionsDisplayContainer {
-  display: flex;
-  flex-direction: column; /* ? can use a non-flexbox */
-  flex: 1; /* the solutionsDisplayContainer will flex 1/2 of the solvePageMinusNav height */
-  padding: 0;
-  justify-content: center;
-  align-items: center;
-  padding: 25px 5%;
-  min-height: 145px;
-  /* this allows the container to shrink somewhat as height is not set otherwise,
-  but it caps out at a certain point, so the scrollable solutions is visible */
-}
-
 .mainText {
-  color: #E4E4E4;
+  color: #e4e4e4;
 }
 
 ::selection {
-  color: #E4E4E4;
-  background-color: #5E81A8;
+  color: #e4e4e4;
+  background-color: #5e81a8;
 }
 
 .mainColor {
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
 }
 
 .secondaryColor {
   background-color: #222;
 }
 
+.accentColor {
+  background-color: #926ac3;
+}
+
+.errorColor {
+  background-color: #cf6679;
+  color: black;
+}
 
 /** light mode */
 
 body.light {
   /* background-color: #E5E5E5; */
-  background-color: #FFF;
+  background-color: #fff;
 }
 
 .light .mainText {
@@ -75,11 +71,20 @@ body.light {
 }
 
 .light .mainColor {
-  background-color: #E7E7E7;
+  background-color: #e7e7e7;
 }
 
 .light .secondaryColor {
- background-color: #F2F2F2;
+  background-color: #f2f2f2;
+}
+
+.light .accentColor {
+  background-color: #6200ee;
+}
+
+.light .errorColor {
+  background-color: #b00020;
+  color: white;
 }
 
 /** media queries */
@@ -92,15 +97,10 @@ body.light {
     align-items: center; /* top half should be center on a mobile view */
     max-height: 700px; /* in the stacked few, prevent the cube from becoming too big */
   }
-  .solutionsDisplayContainer {
-    padding: 5px 10px;
-    width: 100%;
-    flex: 0.5; /* takes up 1/3rd of the solvePageMinusNav, allowing the cube visual to have enough room */
-    box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
-  }
 }
 
-@media (min-width: 768px) { /* in the normal side by side view, prevent the cube from growing by limiting .topHalf */
+@media (min-width: 768px) {
+  /* in the normal side by side view, prevent the cube from growing by limiting .topHalf */
   .topHalf {
     max-height: 450px;
   }

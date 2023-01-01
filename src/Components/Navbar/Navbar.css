@@ -16,8 +16,7 @@
 }
 
 .active {
-  background-color: #926AC3;
-  color: #0F0F0F;
+  color: #0f0f0f;
 }
 
 li a {
@@ -30,20 +29,17 @@ li a {
 
 /* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
 li a:hover:not(.active) {
-  background-color: #1E1E1E;
+  background-color: #1e1e1e;
 }
-
 
 /** light mode */
 
 .light .navbarDiv {
-  background-color: #FFF;
+  background-color: #fff;
 }
 
-
 .light .active {
-  background-color: #6200EE;
-  color: #F3F1FE;
+  color: #f3f1fe;
 }
 
 .light li a {
@@ -52,19 +48,21 @@ li a:hover:not(.active) {
 
 /* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
 .light li a:hover:not(.active) {
-  background-color: #D6D3D3;
+  background-color: #d6d3d3;
 }
 
 /** media queries */
 
- @media (max-width: 372px) { /* on very thin screens make the nav elements closer together */
+@media (max-width: 372px) {
+  /* on very thin screens make the nav elements closer together */
   .navbarUl {
     padding-left: 10px;
   }
- }
+}
 
- @media (max-width: 300px) { /* the navbar text is too big */
+@media (max-width: 300px) {
+  /* the navbar text is too big */
   .navbarDiv {
     font-size: 12px;
   }
- }
+}

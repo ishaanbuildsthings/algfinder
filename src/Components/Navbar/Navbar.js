@@ -1,7 +1,5 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
-import useLocalStorage from '../../Tools/useLocalStorage';
-import cx from '../../Tools/cx';
+import cx from '../../cx';
 import Toggle from '../Toggle/Toggle.js';
 import './Navbar.css';
 
@@ -12,31 +10,6 @@ function Navbar() {
   // necessary for parsing the current URL to display the correct .active CSS coloring
   let location = useLocation();
 
-  // * states
-  // localStorageStatecomponent tracks the user's local storage data on if they are in dark mode or not
-  const [localStorageState, setLocalStorageState] = useLocalStorage('darkStatus', 'dark');
-
-  // * handlers
-  // whenever we click the darkmode toggle, this function changes the local storage state, re-rendering the function with the new style
-  function handleDarkModeToggle() {
-      if (localStorageState === 'dark') {
-        setLocalStorageState('light');
-      } else {
-        setLocalStorageState('dark');
-      }
-  }
-
-  // * other hooks
-  // when the localStorageState changes, this will add or remove a class to the body which creates the different visual style
-  // if we refresh the website, it reads the cookie and determines if it should start on dark mode or not
-  useEffect(() => {
-    if (localStorageState === 'dark') {
-      document.body.classList.remove('light');
-    } else {
-      document.body.classList.add('light');
-    }
-  }, [localStorageState]);
-
   return (
     <nav className="navbarDiv">
       <ul className="navbarUl">
@@ -46,28 +19,29 @@ function Navbar() {
               e.preventDefault();
               history('/');
             }}
-            className={cx(location.pathname === '/' && 'active')}
+            className={cx(location.pathname === '/' && 'active accentColor')}
             href="/"
-            >Solve
+          >
+            Solve
           </a>
         </li>
         <li className="navbarItem">
           <a
             onClick={(e) => {
               e.preventDefault();
-              history('/documentation');
+              history("/documentation");
             }}
-            className={cx(location.pathname === '/documentation' && 'active')}
+            className={cx(location.pathname === '/documentation' && 'active accentColor')}
             href="/documentation"
-            >Documentation
+          >
+            Documentation
           </a>
         </li>
       </ul>
 
-      <Toggle handleClick={handleDarkModeToggle}/>
-
+      <Toggle />
     </nav>
-  )
+  );
 }
 
 export default Navbar;

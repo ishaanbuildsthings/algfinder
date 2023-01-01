@@ -5,7 +5,8 @@
   margin-top: 50px; /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
 }
 
-.documentationDiv p, .documentationDiv h2 {
+.documentationDiv p,
+.documentationDiv h2 {
   color: white;
 }
 
@@ -41,10 +42,11 @@
 
 /** light mode */
 
-.light .documentationDiv p, .light .documentationDiv h2 {
+.light .documentationDiv p,
+.light .documentationDiv h2 {
   color: #313131;
 }
 
 .light .documentationDiv a {
-  color: #6200EE;
+  color: #6200ee;
 }

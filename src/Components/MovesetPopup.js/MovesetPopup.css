@@ -13,12 +13,12 @@
   animation-duration: 1s;
 }
 
-.copyPopup {
+.movesetPopupError {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%);
-  border-radius: 10px;
+  border-radius: 5px;
   padding: 0 10px;
   color: #fff;
 }

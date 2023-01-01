@@ -30,9 +30,10 @@
   font-weight: bold;
 }
 
-@media (hover: hover) { /* get rid of sticky hover when clicking in a field on mobile */
+@media (hover: hover) {
+  /* get rid of sticky hover when clicking in a field on mobile */
   .queryFormContainer input:hover:not(:focus) {
-    background-color: #4C4C4C;
+    background-color: #4c4c4c;
   }
 }
 
@@ -53,7 +54,9 @@
 }
 
 .movesetButton {
-  width: calc(100% / 6); /* take 1/6th of the button grid which is a blocking div inside the queryFormContainer */
+  width: calc(
+    100% / 6
+  ); /* take 1/6th of the button grid which is a blocking div inside the queryFormContainer */
   height: 30px;
   border: none;
   border-radius: 0;
@@ -62,19 +65,20 @@
 }
 
 @media (hover: hover) {
-  .queryFormContainer button:hover:not(.isToggled) { /* get rid of sticky hover when clicking in a field on mobile */
-    background-color: #4C4C4C;
+  .queryFormContainer button:hover:not(.isToggled) {
+    /* get rid of sticky hover when clicking in a field on mobile */
+    background-color: #4c4c4c;
     transition: 0.2s;
   }
 }
 
 .isToggled {
-  background-color: #926AC3;
-  color: #0F0F0F;
+  color: #0f0f0f;
   transition: 0.2s;
 }
 
-.sortButton { /* buttons, inputs, and maybe some other fields are using the user agent style fonts not the inherited ones from the body, they look good though */
+.sortButton {
+  /* buttons, inputs, and maybe some other fields are using the user agent style fonts not the inherited ones from the body, they look good though */
   font-size: 12px;
 }
 
@@ -95,26 +99,26 @@
 /** light mode */
 
 @media (hover: hover) {
-  .light .queryFormContainer input:hover:not(:focus) { /* get rid of sticky hover when clicking in a field on mobile */
+  /* get rid of sticky hover when clicking in a field on mobile */
+  .light .queryFormContainer input:hover:not(:focus) {
     background-color: #d6d3d3;
   }
 }
 
 @media (hover: hover) {
-  .light .queryFormContainer button:hover:not(.isToggled) { /* get rid of sticky hover when clicking in a field on mobile */
+  /* get rid of sticky hover when clicking in a field on mobile */
+  .light .queryFormContainer button:hover:not(.isToggled) {
     background-color: #d6d3d3;
   }
 }
 
 .light .isToggled {
-  color: #F3F1FE;
-  background-color: #6200EE;
+  color: #f3f1fe;
 }
 
 /** media queries */
 
 @media (max-width: 767px) {
-
   .queryFormContainer {
     padding: 15px 10px 10px 10px; /* move query form up to use extra space */
     box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */

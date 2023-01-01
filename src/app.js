@@ -3,7 +3,6 @@ import Navbar from './Components/Navbar/Navbar.js';
 import Solve from './Components/Solve/Solve.js';
 import Documentation from './Components/Documentation/Documentation.js';
 
-
 /**
  * This defines the entire website in terms of components, including all routes.
  *
@@ -11,16 +10,15 @@ import Documentation from './Components/Documentation/Documentation.js';
  * @usage Used in index.js
  */
 function App() {
-
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <Routes>
         <Route path="/" element={<Solve />} />
         <Route path="/documentation" element={<Documentation />} />
       </Routes>
     </>
-  )
+  );
 }
 
 export default App;
