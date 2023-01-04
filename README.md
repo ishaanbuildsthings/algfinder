@@ -1,7 +1,3 @@
-# Author comments
-
-This code contains comments such as // * < comment >. These comments are highlighted when using the VSCode better comments extension, which will improve readability: (https://marketplace.visualstudio.com/items?itemName=aaron-bond.better-comments)
-
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

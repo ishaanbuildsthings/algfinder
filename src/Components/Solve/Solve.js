@@ -45,6 +45,8 @@ function Solve() {
     const [isMovesetPopupError, setMovesetPopupError] = useState(false);
     // used to conditionally render the NoSolutionsModal
     const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
+    // used to conditionally render the spinner icon, at this level so it can be handled inside handleSubmit function
+    const [isSpinner, setSpinner] = useState(false);
 
     // * other hooks
     useEffect(() => {
@@ -54,12 +56,13 @@ function Solve() {
       window.removeEventListener('click', () => setNoSolutionsModal(false));
     };
     }, [isNoSolutionsModal])
+    // TODO
 
     // * handlers
     // when a user changes the scramble, change the queries state
     function handleTextChange(event) {
         const { name, value } = event.target;
-        if(/^([rludfbRLUDFBMSExyz][\'2]? ?)+$/.test(value) || value === '') {
+        if(/^([rludfbRLUDFBMSExyz]['2]? ?)+$/.test(value) || value === '') {
             setQueries({
                 ...queriesState,
                 [name]: value
@@ -127,25 +130,27 @@ function Solve() {
         }
 
         setSolutionsList([]);
+        setSpinner(true);
         const txn_id = await fetchURL(`${baseURL}/solve?scramble=${scramble.trim().split(' ').join(',')}&max-depth=${depth}&move-types=${moveset.join(',')}`);
         //console.log(`got txn_id: ${txn_id}`); for debugging
 
         let solutions = []; // solutions is the new diff we receive from backend
+        let allLocalSolutions = [];
         let keepGoing = true;
         do {
             await sleep(pollInterval);
-            solutions = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`);
-            console.log(solutions); // TODO: remove, for debugging
-            if (solutions[solutions.length - 1] === 'DONE') {
+            solutions = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`); // the new diff
+            allLocalSolutions = [...allLocalSolutions, ...solutions]; // memo solutions will keep adding new diffs, tracking the current solutions in local context
+            if (solutions[solutions.length - 1] === 'DONE') { // if the last id from the diff is 'DONE', we have hit the end
                 keepGoing = false;
-                solutions.pop();
-                if (solutionsList.length === 0 && solutions.length === 0) { // if we receive 'DONE', and the diff only contains that, we have no solutions
+                allLocalSolutions.pop();
+                if (allLocalSolutions.length === 0) { // if we receive 'DONE', and the diff only contains that, we have no solutions
                     setNoSolutionsModal(true);
-                    return;
                 }
             }
-            setSolutionsList(previousSolutions => [...previousSolutions, ...solutions]);
+            setSolutionsList(allLocalSolutions);
         } while (keepGoing);
+        setSpinner(false);
     }
 
     return (
@@ -160,10 +165,10 @@ function Solve() {
                     handleSubmit={handleSubmit}
                     handleMovesetClick={handleMovesetClick}
                     queriesState={queriesState}
+                    isSpinner={isSpinner}
                 />
                 <CubePanel scramble={queriesState.scramble} />
             </div>
-
             <SolutionsDisplayContainer solutionsList={solutionsList} />
         </div>
     );

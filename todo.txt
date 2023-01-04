@@ -1,4 +1,3 @@
-create generating solutions icon TIM
 client side prevent hitting submit from other pages TIM
 add cancel search TIM
 add server side validation TIM
@@ -8,6 +7,7 @@ https://codepen.io/Sean713/pen/PoBZKbP -ask this codepen removing min height fro
 fix weird safari divs and safari font
 make re-rendering more performant
 all todos
+why does reerender happen on resize of solve page
 
 code review:
 position of popups

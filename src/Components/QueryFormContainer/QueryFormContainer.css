@@ -96,6 +96,21 @@
   transform: translateY(5px);
 }
 
+.spinner {
+  margin-left: 5px;
+  color: #e4e4e4;
+  animation: spin infinite 2s linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 /** light mode */
 
 @media (hover: hover) {
@@ -114,6 +129,10 @@
 
 .light .isToggled {
   color: #f3f1fe;
+}
+
+.light .spinner {
+  color: #313131;
 }
 
 /** media queries */

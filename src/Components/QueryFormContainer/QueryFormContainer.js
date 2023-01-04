@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import MovesetButton from './MovesetButton.js';
 import UseWindowSize from '../../Hooks/UseWindowSize.js';
 import './QueryFormContainer.css';
@@ -12,9 +13,10 @@ import './QueryFormContainer.css';
  * handleSubmit - queries the backend with all the parameters
  * handleMovesetClick - modifies the Solve.js state based on toggled moves
  * queriesState - all of the scramble, depth, and moveset
+ * isSpinner - the ste if the spinner should show
  * @usage Used in Solve.js
  */
-function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit, handleMovesetClick, queriesState }) {
+function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit, handleMovesetClick, queriesState, isSpinner }) {
     //* misc
     // custom hook to dynamically re-render on window size changes
     let windowSize = UseWindowSize();
@@ -47,7 +49,7 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
     }
 
     // creates an entire row of moveset buttons
-    function createManyJsxButtons(listOfLetters) {
+    const createManyJsxButtons = (listOfLetters) => {
         const listOfButtons = [];
         for (let letter of listOfLetters) {
             listOfButtons.push(
@@ -62,10 +64,12 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
         return listOfButtons;
     }
 
+    // TODO: weird stuff going on and not sure if i need to re-render anyway
     // create arrays of JSX buttons
+    //const buttonListFaceMoves = useMemo(() => createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']), [queriesState.moveset]);
     const buttonListFaceMoves = createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']);
-    const buttonListWideMoves = createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']);
-    const buttonListSliceAndRotation = createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']);
+    const buttonListWideMoves = useMemo(() => createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']), [queriesState.moveset]);
+    const buttonListSliceAndRotation = useMemo(() => createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']), [queriesState.moveset]);
 
 
     return (
@@ -146,7 +150,12 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
                 className="submitButton button mainText secondaryColor"
                 onClick={() => handleSubmit(queriesState)}
             >
-                Show Me Solutions!
+                {isSpinner ?
+                    (<>
+                        Generating Solutions <FontAwesomeIcon className="spinner fa-lg" icon={faSpinner} />
+                    </>)
+                    : 'Show Me Solutions!'
+                }
             </button>
         </div>
     );

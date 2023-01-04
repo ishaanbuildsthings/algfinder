@@ -6,7 +6,7 @@ function Documentation() {
     <>
       <div className="documentationDiv">
         <h2>How this works (for nerds)</h2>
-        <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. In the backend, we use a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeexplorer/blob/main/main.py">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.
+        <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. In the backend, I implemented a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeexplorer/blob/main/main.py">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.
           This algorithm reduces the time complexity of the naive solution of O(k<sup>n</sup>), to O(k<sup>n/2</sup>), where k is the branching factor and n is the search depth.
           A basic walkthrough of the algorithm is below.</p>
         <p>We start with two cubes:</p>
@@ -68,7 +68,7 @@ function Documentation() {
           </div>
 
         </div>
-        <p>Notice how Fig 1.3 and Fig 2.2 are the same! Since we have a collision, we know we can construct a solution to the scramble by connecting the two paths. We continue to search
+        <p>Notice how Fig 1.3 and Fig 2.2 are the same! Since there is a collision, we know we can construct a solution to the scramble by connecting the two paths. We continue to search
           deeper until the user-supplied maximum algorithm length is reached, and return all possible solutions.
         </p>
         <p>As the breadth-first search starting from the solved cube is repeated work, it is <a href="" target="_blank" rel="noopener noreferrer">preprocessed as a binary encoding,</a> speeding up
@@ -85,7 +85,7 @@ function Documentation() {
 
 
         <h2>Contributions</h2>
-        <p>This is written in React + Flask and is open-source. If you would like to contribute, make feature requests, or report a bug, the Github repositories are here:&nbsp;
+        <p>This is written in React + Flask and is open-source. If you would like to contribute, make feature requests, or report bugs, the Github repositories are here:&nbsp;
           <a href="https://github.com/agrawalishaan/cubeExplorerFrontend" target="_blank" rel="noopen noreferrer">Front End</a>&nbsp;|&nbsp;
           <a href="https://github.com/agrawalishaan/cubeexplorer" target="_blank" rel="noopen noreferrer">Back End</a>
         </p>

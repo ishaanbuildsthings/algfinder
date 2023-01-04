@@ -1,9 +1,11 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUpDownLeftRight } from "@fortawesome/free-solid-svg-icons";
+import { memo } from 'react';
 import TwistyPlayer from "cubing/twisty"; // this lets us use the custom web component
 import UseWindowSize from "../../Hooks/UseWindowSize";
 import './CubePanel.css';
 
+const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
 
 function processMoves(scramble) {
   let result = '';
@@ -31,7 +33,7 @@ function processMoves(scramble) {
  * scramble - the currently entered scramble
  * @usage Used in Solve.js
  */
-export default function Cube({ scramble }) {
+function Cube({ scramble }) {
   // custom hook to dynamically re-render on window size changes
   let windowSize = UseWindowSize();
 
@@ -54,9 +56,11 @@ export default function Cube({ scramble }) {
       ></twisty-player>
 
       <div className="dragIconAndText mainText">
-        <FontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg" />
+        <MemoizedFontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg" />
         <p className="dragText">&nbsp;&nbsp;{setDragText()}</p>
       </div>
     </div>
   );
 }
+
+export default memo(Cube); // the cube should only re-render if its props change
