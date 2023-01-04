@@ -145,18 +145,25 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
 
             </section>
 
+            <section className="submitAndCancel">
+                <button
+                    className="submitButton mainText secondaryColor"
+                    onClick={() => handleSubmit(queriesState)}
+                >
+                    {isSpinner ?
+                        (<>
+                            Generating Solutions <FontAwesomeIcon className="spinner fa-lg" icon={faSpinner} />
+                        </>)
+                        : 'Show Me Solutions!'
+                    }
+                </button>
+                <button onClick={() => console.log('cancel button clicked')}
+                    className="cancelButton mainText secondaryColor"
+                >
+                    Cancel
+                </button>
+            </section>
 
-            <button
-                className="submitButton button mainText secondaryColor"
-                onClick={() => handleSubmit(queriesState)}
-            >
-                {isSpinner ?
-                    (<>
-                        Generating Solutions <FontAwesomeIcon className="spinner fa-lg" icon={faSpinner} />
-                    </>)
-                    : 'Show Me Solutions!'
-                }
-            </button>
         </div>
     );
 }
