@@ -5,22 +5,23 @@ import MovesetPopup from '../MovesetPopup.js/MovesetPopup.js';
 import NoSolutionsModal from '../NoSolutionsModal/NoSolutionsModal.js';
 import CubePanel from '../CubePanel/CubePanel.js';
 import { useState, useEffect } from 'react';
+import processMoves from '../../processMoves.js';
 import './Solve.css';
 const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 let errorMessage = '';
 
-    async function fetchURL(url) {
-        // TODO: handle errors
-        const response = await fetch(url);
-        return await response.json();
-    }
+async function fetchURL(url) {
+    // TODO: handle errors
+    const response = await fetch(url);
+    return await response.json();
+}
 
-    function sleep(ms) {
-        return new Promise((resolve) => {
-            setTimeout(resolve, ms);
-        });
-    }
+function sleep(ms) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, ms);
+    });
+}
 
 /**
  * The Solve component defines all of the display unique to the solve section of the website.
@@ -52,9 +53,9 @@ function Solve() {
     useEffect(() => {
         window.addEventListener('click', () => setNoSolutionsModal(false));
 
-    return () => {
-      window.removeEventListener('click', () => setNoSolutionsModal(false));
-    };
+        return () => {
+            window.removeEventListener('click', () => setNoSolutionsModal(false));
+        };
     }, [isNoSolutionsModal])
     // TODO
 
@@ -62,7 +63,7 @@ function Solve() {
     // when a user changes the scramble, change the queries state
     function handleTextChange(event) {
         const { name, value } = event.target;
-        if(/^([rludfbRLUDFBMSExyz]['2]? ?)+$/.test(value) || value === '') {
+        if (/^([rludfbRLUDFBMSExyz]['2]? ?)+$/.test(value) || value === '') {
             setQueries({
                 ...queriesState,
                 [name]: value
@@ -72,18 +73,17 @@ function Solve() {
     // when the user changes the depth, change the queries state
     function handleNumberChange(event) {
         const { name, value } = event.target;
-        const regex = value.replace(/\D/g, '');
-        let result;
-
-        if (regex === '') {
-            result = '';
-        } else {
-            result = Math.min(20, regex);
+        if (value === '') {
+            setQueries({
+                ...queriesState,
+                [name]: value
+            })
+        } else if (/^[0123456789]+$/.test(value)) {
+            setQueries({
+                ...queriesState,
+                [name]: Math.min(20, value)
+            })
         }
-        setQueries({
-            ...queriesState,
-            [name]: result
-        })
     }
     // when the user clicks on a moveset button, change the queries state to include/exclude that button
     function handleMovesetClick(id) {
@@ -103,6 +103,7 @@ function Solve() {
             });
         }
     }
+
     // @passed to the queryForm, which registers this function as an onClick for the submit button
     // when the user clicks the button, send the queries to the backend
     // repeatedly poll the backend for updated data and change the solutions state accordingly
@@ -131,8 +132,9 @@ function Solve() {
 
         setSolutionsList([]);
         setSpinner(true);
-        const txn_id = await fetchURL(`${baseURL}/solve?scramble=${scramble.trim().split(' ').join(',')}&max-depth=${depth}&move-types=${moveset.join(',')}`);
-        //console.log(`got txn_id: ${txn_id}`); for debugging
+        console.log(processMoves(scramble))
+        const txn_id = await fetchURL(`${baseURL}/solve?scramble=${processMoves(scramble).trim().split(' ').join(',')}&max-depth=${depth}&move-types=${moveset.join(',')}`);
+        console.log(`got txn_id: ${txn_id}`); //for debugging
 
         let solutions = []; // solutions is the new diff we receive from backend
         let allLocalSolutions = [];
@@ -158,7 +160,7 @@ function Solve() {
             <div className="topHalf">
                 {isMovesetPopupError && <MovesetPopup setMovesetPopup={setMovesetPopupError} />}
                 {isErrorPopup && <ErrorPopup errorMessage={errorMessage} setErrorPopup={setErrorPopup} />}
-                {isNoSolutionsModal && <NoSolutionsModal/>}
+                {isNoSolutionsModal && <NoSolutionsModal />}
                 <QueryFormContainer
                     handleTextChange={handleTextChange}
                     handleNumberChange={handleNumberChange}

@@ -1,30 +1,13 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUpDownLeftRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { memo } from 'react';
-import TwistyPlayer from "cubing/twisty"; // this lets us use the custom web component
-import UseWindowSize from "../../Hooks/UseWindowSize";
+import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
+import UseWindowSize from '../../Hooks/UseWindowSize';
+import processMoves from '../../processMoves';
 import './CubePanel.css';
 
 const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
 
-function processMoves(scramble) {
-  let result = '';
-
-  for (let i = 0; i < scramble.length; i++) {
-    if (i === scramble.length - 1 && /[RUFLDBxyzEMrufldb]/.test(scramble[i])) {
-      return result + scramble[i];
-    }
-    if (/[RUFLDBxyzEMrufldb]/.test(scramble[i])) {
-      result += scramble[i];
-    }
-    if (scramble[i + 1] === "'" || scramble[i + 1] === ' ' || scramble[i + 1] === '2') {
-      result += scramble[i + 1];
-    } else {
-      result += ' ';
-    }
-  }
-  return result;
-}
 /**
  * This Cube component is used on the solve page. The cube component is a wrapper
  * of the custom HTML element <twisty-player> from the cubing.js library.
@@ -45,6 +28,8 @@ function Cube({ scramble }) {
     }
     return "Drag cube to view";
   }
+
+  console.log(processMoves(scramble))
 
   return (
     <div className="cubePanel">
