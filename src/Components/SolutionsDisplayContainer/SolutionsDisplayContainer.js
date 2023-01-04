@@ -23,7 +23,7 @@ function mapSolutionsListToDict(solutions) {
   let solutionsDictWithMovecounts = {};
   for (let i = 0; i < solutions.length; i++) {
     const noSpacesPrimeOrDouble = solutions[i].replace(/ '2/g, '');
-    const totalSliceMoves = (noSpacesPrimeOrDouble.match(/ESM/g)).length;
+    const totalSliceMoves = (noSpacesPrimeOrDouble.match(/ESM/g));
     // maps a solution to [A, B] where A is the STM and B is the QTM
     solutionsDictWithMovecounts[solutions[i]] = [
       noSpacesPrimeOrDouble.length,
@@ -58,25 +58,24 @@ function SolutionsDisplayContainer({ solutionsList }) {
   // * states
   // ["solution 1", "solution 2" ...]
   // when more solutions are found, props change, but solutionState does not, useState explicitly only registers the first time
-  const [solutionState, setSolutionState] = useState(solutionsList);
+  const [solutionsState, setSolutionsState] = useState(solutionsList);
   // this lets the state update dynamically
   useEffect(() => {
-    setSolutionState(solutionsList);
+    setSolutionsState(solutionsList);
   }, [solutionsList]);
 
-  const JsxSolutions = solutionState.map((solution) => (
+  const JsxSolutions = solutionsState.map((solution) => (
     <Solution solution={solution} key={solution} />
   ));
 
   // * handlers
-  // handles clicking the sort button
   // e.target.value is the value of whether the stm or qtm sort button was clicked
   function handleClickOnSort(e) {
     const reorderedList = sortSolutionsDictByMoves(
-      mapSolutionsListToDict(solutionState),
+      mapSolutionsListToDict(solutionsState),
       e.target.value
     );
-    setSolutionState(reorderedList);
+    setSolutionsState(reorderedList);
   }
 
   return (
