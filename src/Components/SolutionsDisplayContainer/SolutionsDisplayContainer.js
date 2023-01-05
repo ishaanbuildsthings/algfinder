@@ -110,5 +110,5 @@ function SolutionsDisplayContainer({ solutionsList }) {
   );
 }
 
-//export default SolutionsDisplayContainer;
-export default memo(SolutionsDisplayContainer); // never re-renders unless the prop (a state, which does not change upon re-render of the parent) changes
+export default SolutionsDisplayContainer;
+//export default memo(SolutionsDisplayContainer); // never re-renders unless the prop (a state, which does not change upon re-render of the parent) changes

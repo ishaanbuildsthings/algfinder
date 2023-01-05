@@ -2,7 +2,7 @@
   padding: 0px 4% 40px 4%;
   display: flex;
   flex-direction: column;
-  margin-top: 50px; /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
+  margin-top: 150px; /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
 }
 
 .documentationDiv p,
