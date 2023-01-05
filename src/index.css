@@ -8,14 +8,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* my styling */
-
-  font-family: 'Poppins', sans-serif;
-  font-weight: 500;
-  font-size: 15px;
-  background-color: #121212;
   -webkit-tap-highlight-color: transparent;
   /* remove blue flash on some responsive sites */
+  background-color: #121212;
   font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 button {
@@ -29,35 +27,9 @@ code {
     monospace;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  /* root should always take full VH unless the content overflows it such as small screens for the solve page, or the documentation page, which will cause scrollbars */
-}
-
-.topHalf {
-  display: flex;
-  /* ? top half can be removed and just the items are used */
-  flex: 1;
-  /* the top half will occupy 1/2 of the solvePageMinusNav height */
-}
-
-.mainText {
-  color: #e4e4e4;
-}
-
 ::selection {
   background-color: #5e81a8;
   color: #e4e4e4;
-}
-
-.mainColor {
-  background-color: #1e1e1e;
-}
-
-.secondaryColor {
-  background-color: #222;
 }
 
 .accentColor {
@@ -69,22 +41,36 @@ code {
   color: black;
 }
 
+.mainColor {
+  background-color: #1e1e1e;
+}
+
+.mainText {
+  color: #e4e4e4;
+}
+
+.secondaryColor {
+  background-color: #222;
+}
+
+.topHalf {
+  display: flex;
+  /* ? top half can be removed and just the items are used */
+  flex: 1;
+  /* the top half will occupy 1/2 of the solvePageMinusNav height */
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  /* root should always take full VH unless the content overflows it such as small screens for the solve page, or the documentation page, which will cause scrollbars */
+}
+
 /** light mode */
 
 body.light {
   background-color: #fff;
-}
-
-.light .mainText {
-  color: #313131;
-}
-
-.light .mainColor {
-  background-color: #e7e7e7;
-}
-
-.light .secondaryColor {
-  background-color: #f2f2f2;
 }
 
 .light .accentColor {
@@ -94,6 +80,18 @@ body.light {
 .light .errorColor {
   background-color: #b00020;
   color: white;
+}
+
+.light .mainColor {
+  background-color: #e7e7e7;
+}
+
+.light .mainText {
+  color: #313131;
+}
+
+.light .secondaryColor {
+  background-color: #f2f2f2;
 }
 
 /** media queries */

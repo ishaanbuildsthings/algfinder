@@ -1,4 +1,20 @@
-/* the navbar will contain two elements, the UL and the toggle */
+li a {
+  color: white;
+  display: block;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
+li a:hover:not(.active) {
+  background-color: #1e1e1e;
+}
+
+.active {
+  color: #0f0f0f;
+}
+
 .navbarDiv {
   align-items: center;
   /* center the toggle */
@@ -21,33 +37,8 @@
   padding-left: 3vw;
 }
 
-.active {
-  color: #0f0f0f;
-}
-
-li a {
-  color: white;
-  display: block;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-}
-
-/* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
-li a:hover:not(.active) {
-  background-color: #1e1e1e;
-}
 
 /** light mode */
-
-.light .navbarDiv {
-  background-color: #fff;
-}
-
-.light .active {
-  color: #f3f1fe;
-}
-
 .light li a {
   color: #313131;
 }
@@ -56,6 +47,15 @@ li a:hover:not(.active) {
 .light li a:hover:not(.active) {
   background-color: #d6d3d3;
 }
+
+.light .active {
+  color: #f3f1fe;
+}
+
+.light .navbarDiv {
+  background-color: #fff;
+}
+
 
 /** media queries */
 

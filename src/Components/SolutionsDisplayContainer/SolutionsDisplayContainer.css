@@ -1,46 +1,9 @@
-.solutionsDisplayContainer {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  /* ? can use a non-flexbox */
-  flex: 1;
-  /* the solutionsDisplayContainer will flex 1/2 of the solvePageMinusNav height */
-  justify-content: center;
-  min-height: 145px;
-  /* this allows the container to shrink somewhat as height is not set otherwise,
-  but it caps out at a certain point, so the scrollable solutions is visible */
-  padding: 0;
-  padding: 25px 5%;
-  position: relative;
-  /* allows for positioning of the CopyPopup */
-}
-
-.solutionsDisplay {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  max-height: 95%;
-  /* take up 95% of the container */
-  width: 100%;
-}
-
 .scrollableSolutions {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   color-scheme: dark;
   flex: 1;
   overflow-y: scroll;
-}
-
-/* solutionsDisplay icon is styled from queryForm.css */
-
-.solutionsHeader {
-  align-items: center;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-  display: flex;
-  padding-left: 15px;
-  padding: 5px;
 }
 
 .solutionButton {
@@ -58,11 +21,39 @@
   margin-left: 30px;
 }
 
-.solutionLi button {
-  margin-left: 10px;
-  /* add some spacing between the solution and number */
-  text-align: left;
-  /* when solutions go on two lines this keeps it lined up */
+.solutionsDisplay {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  max-height: 95%;
+  /* take up 95% of the container */
+  width: 100%;
+}
+
+.solutionsDisplayContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  /* ? can use a non-flexbox */
+  flex: 1;
+  /* the solutionsDisplayContainer will flex 1/2 of the solvePageMinusNav height */
+  justify-content: center;
+  min-height: 145px;
+  /* this allows the container to shrink somewhat as height is not set otherwise,
+  but it caps out at a certain point, so the scrollable solutions is visible */
+  padding: 0;
+  padding: 25px 5%;
+  position: relative;
+  /* allows for positioning of the CopyPopup */
+}
+
+.solutionsHeader {
+  align-items: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  padding-left: 15px;
+  padding: 5px;
 }
 
 .solutionsHeaderSpacer {
@@ -81,6 +72,13 @@
   padding: 10px;
 }
 
+.solutionLi button {
+  margin-left: 10px;
+  /* add some spacing between the solution and number */
+  text-align: left;
+  /* when solutions go on two lines this keeps it lined up */
+}
+
 @media (hover: hover) {
 
   /* get rid of sticky hover when clicking in a field on mobile */
@@ -97,6 +95,9 @@
 /** light mode */
 
 @media (hover: hover) {
+  .light .scrollableSolutions {
+    color-scheme: normal;
+  }
 
   /* get rid of sticky hover when clicking in a field on mobile */
   .light .sortButton:hover {
@@ -104,9 +105,7 @@
   }
 }
 
-.light .scrollableSolutions {
-  color-scheme: normal;
-}
+
 
 /** media queries */
 @media (max-width: 767px) {

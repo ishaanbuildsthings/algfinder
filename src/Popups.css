@@ -8,12 +8,6 @@
   }
 }
 
-.fade-out {
-  animation-delay: 1s;
-  animation-duration: 1s;
-  animation-name: fadeOut;
-}
-
 .copyPopup {
   border-radius: 10px;
   color: #fff;
@@ -35,6 +29,12 @@
   transform: translate(-50%);
   width: max-content;
   z-index: 1;
+}
+
+.fade-out {
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-name: fadeOut;
 }
 
 .movesetPopupError {

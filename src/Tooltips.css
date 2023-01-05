@@ -1,14 +1,10 @@
-.queryFormContainer .icon {
-  margin-left: 4px;
+.iconAndTooltip {
+  position: relative;
+  /* allows positioning for tooltip */
 }
 
 .solutionsIcon {
   margin-left: 4px;
-}
-
-.iconAndTooltip {
-  position: relative;
-  /* allows positioning for tooltip */
 }
 
 .tooltip {
@@ -28,6 +24,11 @@
   z-index: 1;
 }
 
+/* needed to handle the scramble as we don't want that to split into two lines */
+.scrambleTooltip {
+  width: max-content;
+}
+
 .scrambleTooltip,
 .depthTooltip,
 .movesetTooltip {
@@ -35,15 +36,22 @@
   /* override label font-weight */
 }
 
-/* add some margins between p tags for spacing */
-.tooltip p {
-  margin-bottom: 3px;
-  margin-top: 3px;
+/* make all tooltips visible on hover, display type does not really matter
+on mobile, these function as buttons due to sticky hover */
+.depthIcon:hover+.depthTooltip {
+  display: inline;
 }
 
-/* needed to handle the scramble as we don't want that to split into two lines */
-.scrambleTooltip {
-  width: max-content;
+.movesetIcon:hover+.movesetTooltip {
+  display: inline;
+}
+
+.scrambleIcon:hover+.scrambleTooltip {
+  display: inline;
+}
+
+.solutionsIcon:hover+.solutionsTooltip {
+  display: inline;
 }
 
 /* base widths for the other tooltip, the tooltip will not tightly wrap the p element as you need JS for that */
@@ -59,22 +67,14 @@
   width: 305px;
 }
 
-/* make all tooltips visible on hover, display type does not really matter
-on mobile, these function as buttons due to sticky hover */
-.scrambleIcon:hover+.scrambleTooltip {
-  display: inline;
+/* add some margins between p tags for spacing */
+.tooltip p {
+  margin-bottom: 3px;
+  margin-top: 3px;
 }
 
-.depthIcon:hover+.depthTooltip {
-  display: inline;
-}
-
-.movesetIcon:hover+.movesetTooltip {
-  display: inline;
-}
-
-.solutionsIcon:hover+.solutionsTooltip {
-  display: inline;
+.queryFormContainer .icon {
+  margin-left: 4px;
 }
 
 /** media queries */
@@ -98,13 +98,14 @@ on mobile, these function as buttons due to sticky hover */
 }
 
 @media (max-width: 460px) {
-  .scrambleTooltip {
-    left: -70px;
-  }
 
   .depthTooltip,
   .movesetTooltip {
     left: -120px;
+  }
+
+  .scrambleTooltip {
+    left: -70px;
   }
 }
 
