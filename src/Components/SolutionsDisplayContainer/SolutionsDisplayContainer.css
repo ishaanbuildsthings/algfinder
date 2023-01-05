@@ -1,61 +1,68 @@
 .solutionsDisplayContainer {
-  display: flex;
-  flex-direction: column; /* ? can use a non-flexbox */
-  flex: 1; /* the solutionsDisplayContainer will flex 1/2 of the solvePageMinusNav height */
-  padding: 0;
-  justify-content: center;
   align-items: center;
-  padding: 25px 5%;
+  display: flex;
+  flex-direction: column;
+  /* ? can use a non-flexbox */
+  flex: 1;
+  /* the solutionsDisplayContainer will flex 1/2 of the solvePageMinusNav height */
+  justify-content: center;
   min-height: 145px;
   /* this allows the container to shrink somewhat as height is not set otherwise,
   but it caps out at a certain point, so the scrollable solutions is visible */
-  position: relative; /* allows for positioning of the CopyPopup */
+  padding: 0;
+  padding: 25px 5%;
+  position: relative;
+  /* allows for positioning of the CopyPopup */
 }
 
 .solutionsDisplay {
-  flex: 1;
-  width: 100%;
-  max-height: 95%; /* take up 95% of the container */
   display: flex;
+  flex: 1;
   flex-direction: column;
+  max-height: 95%;
+  /* take up 95% of the container */
+  width: 100%;
 }
+
 .scrollableSolutions {
-  overflow-y: scroll;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
-  flex: 1;
   color-scheme: dark;
+  flex: 1;
+  overflow-y: scroll;
 }
 
 /* solutionsDisplay icon is styled from queryForm.css */
 
 .solutionsHeader {
+  align-items: center;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-  padding: 5px;
-  padding-left: 15px;
   display: flex;
-  align-items: center;
+  padding-left: 15px;
+  padding: 5px;
 }
 
 .solutionButton {
   background: none;
-  color: inherit;
   border: none;
-  padding: 0;
-  font: inherit;
+  color: inherit;
   cursor: pointer;
+  font: inherit;
   outline: inherit;
+  padding: 0;
 }
 
 .solutionLi {
-  margin-left: 30px;
   line-height: 2.5;
+  margin-left: 30px;
 }
 
 .solutionLi button {
-  text-align: left; /* when solutions go on two lines this keeps it lined up */
-  margin-left: 10px; /* add some spacing between the solution and number */
+  margin-left: 10px;
+  /* add some spacing between the solution and number */
+  text-align: left;
+  /* when solutions go on two lines this keeps it lined up */
 }
 
 .solutionsHeaderSpacer {
@@ -64,17 +71,18 @@
 }
 
 .sortButton {
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  padding: 10px;
   background-color: inherit;
-  margin-right: 8px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
   font-size: 12px;
+  font-weight: 500;
+  margin-right: 8px;
+  padding: 10px;
 }
 
 @media (hover: hover) {
+
   /* get rid of sticky hover when clicking in a field on mobile */
   .sortButton:hover {
     background-color: #4c4c4c;
@@ -89,6 +97,7 @@
 /** light mode */
 
 @media (hover: hover) {
+
   /* get rid of sticky hover when clicking in a field on mobile */
   .light .sortButton:hover {
     background-color: #d6d3d3;
@@ -102,21 +111,25 @@
 /** media queries */
 @media (max-width: 767px) {
   .solutionsDisplayContainer {
+    box-sizing: border-box;
+    /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
+    flex: 0.5;
+    /* takes up 1/3rd of the solvePageMinusNav, allowing the cube visual to have enough room */
     padding: 5px 10px;
     width: 100%;
-    flex: 0.5; /* takes up 1/3rd of the solvePageMinusNav, allowing the cube visual to have enough room */
-    box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
   }
 }
 
 /* most phones should take this form */
 @media (max-width: 481px) {
   .solutionLi {
-    margin-left: 5px; /* in mobile view move the solutions to the left, but still let 2 digit number solutions fit */
+    margin-left: 5px;
+    /* in mobile view move the solutions to the left, but still let 2 digit number solutions fit */
   }
 
   .solutionsOl {
-    padding-left: 25px; /* move the numbers a bit closer to the left */
+    padding-left: 25px;
+    /* move the numbers a bit closer to the left */
   }
 }
 
@@ -133,6 +146,7 @@
 }
 
 @media (max-width: 280px) {
+
   /* prevent scrollbars from showing in scrollable soltuions on very narrow screens */
   .solutionsOl {
     margin-top: 5px;

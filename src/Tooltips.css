@@ -7,33 +7,38 @@
 }
 
 .iconAndTooltip {
-  position: relative; /* allows positioning for tooltip */
+  position: relative;
+  /* allows positioning for tooltip */
 }
 
 .tooltip {
-  display: none; /* by default do not show or take up space */
-  position: absolute; /* positioned relative to the .iconAndTooltip */
-  left: 30px;
-  border: 1px solid black;
-  z-index: 1;
-  color: #fff;
-  padding: 5px 10px;
   border-radius: 5px;
-  text-transform: none; /* override all caps that came from the labels */
+  border: 1px solid black;
+  color: #fff;
+  display: none;
+  /* by default do not show or take up space */
   font-size: 14px;
+  left: 30px;
   line-height: 1.5;
+  padding: 5px 10px;
+  position: absolute;
+  /* positioned relative to the .iconAndTooltip */
+  text-transform: none;
+  /* override all caps that came from the labels */
+  z-index: 1;
 }
 
 .scrambleTooltip,
 .depthTooltip,
 .movesetTooltip {
-  font-weight: 500; /* override label font-weight */
+  font-weight: 500;
+  /* override label font-weight */
 }
 
 /* add some margins between p tags for spacing */
 .tooltip p {
-  margin-top: 3px;
   margin-bottom: 3px;
+  margin-top: 3px;
 }
 
 /* needed to handle the scramble as we don't want that to split into two lines */
@@ -56,19 +61,19 @@
 
 /* make all tooltips visible on hover, display type does not really matter
 on mobile, these function as buttons due to sticky hover */
-.scrambleIcon:hover + .scrambleTooltip {
+.scrambleIcon:hover+.scrambleTooltip {
   display: inline;
 }
 
-.depthIcon:hover + .depthTooltip {
+.depthIcon:hover+.depthTooltip {
   display: inline;
 }
 
-.movesetIcon:hover + .movesetTooltip {
+.movesetIcon:hover+.movesetTooltip {
   display: inline;
 }
 
-.solutionsIcon:hover + .solutionsTooltip {
+.solutionsIcon:hover+.solutionsTooltip {
   display: inline;
 }
 
@@ -83,6 +88,7 @@ on mobile, these function as buttons due to sticky hover */
 
 /* start to move over tooltips when width shrinnks */
 @media (max-width: 525px) {
+
   .scrambleTooltip,
   .depthTooltip,
   .movesetTooltip {
@@ -95,6 +101,7 @@ on mobile, these function as buttons due to sticky hover */
   .scrambleTooltip {
     left: -70px;
   }
+
   .depthTooltip,
   .movesetTooltip {
     left: -120px;
@@ -103,11 +110,13 @@ on mobile, these function as buttons due to sticky hover */
 
 /* when near phone widths we reduce tooltips to a % of the screen, not yet needed for scramble */
 @media (max-width: 420px) {
+
   .depthTooltip p,
   .movesetTooltip p,
   .solutionsTooltip p {
     width: 50vw;
   }
+
   .scrambleTooltip p {
     width: max-content;
   }

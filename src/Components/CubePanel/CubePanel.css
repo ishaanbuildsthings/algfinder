@@ -1,27 +1,29 @@
+twisty-player {
+  height: 100%;
+  width: 100%;
+}
+
 .cubePanel {
-  padding: 15px 0 35px 0;
-  position: relative; /* to position drag cube to view icon and text */
-  flex: 1; /* fill out the width since cubePanel will get capped, in height mode keep expanding until .topHalf caps the height */
+  flex: 1;
+  /* fill out the width since cubePanel will get capped, in height mode keep expanding until .topHalf caps the height */
   min-height: 100px;
   /* normally the cube expands or shrinks to fill the remainder of the page, for small phones we don't want the cube to keep shrinking, we would rather scroll.
   By adding a minimum height, the sum of heights of our content will overflow the 100vh
-  height allowing for the scroll effect.*/
-}
-
-twisty-player {
-  width: 100%;
-  height: 100%;
+  height allowing for the scroll effect. */
+  padding: 15px 0 35px 0;
+  position: relative;
+  /* to position drag cube to view icon and text */
 }
 
 .dragIconAndText {
-  position: absolute;
   bottom: 8%;
+  position: absolute;
   right: 15%;
 }
 
 .dragText {
-  display: inline-block;
   cursor: default;
+  display: inline-block;
 }
 
 /** moving around cube, drag icon, and text */
@@ -39,28 +41,30 @@ twisty-player {
 }
 
 @media (max-width: 1560px) {
-  .dragIconAndText {
-    bottom: 12%;
-  }
   .cubePanel {
     padding: 40px 0 60px 0;
+  }
+
+  .dragIconAndText {
+    bottom: 12%;
   }
 }
 
 @media (max-width: 1430px) {
-  .dragIconAndText {
-    right: 10%;
-    bottom: 14%;
-  }
   .cubePanel {
     padding: 60px 0 80px 0;
+  }
+
+  .dragIconAndText {
+    bottom: 14%;
+    right: 10%;
   }
 }
 
 @media (max-width: 1340px) {
   .dragIconAndText {
-    right: 37%;
     bottom: 3%;
+    right: 37%;
   }
 }
 
@@ -77,12 +81,13 @@ twisty-player {
 }
 
 @media (max-width: 1100px) {
-  .dragIconAndText {
-    right: 34%;
-    bottom: 6%;
-  }
   .cubePanel {
     padding: 80px 0px 100px 0px;
+  }
+
+  .dragIconAndText {
+    bottom: 6%;
+    right: 34%;
   }
 }
 
@@ -93,12 +98,13 @@ twisty-player {
 }
 
 @media (max-width: 940px) {
+  .cubePanel {
+    padding: 100px 20px 120px 20px;
+  }
+
   .dragIconAndText {
     bottom: 9%;
     right: 32%;
-  }
-  .cubePanel {
-    padding: 100px 20px 120px 20px;
   }
 }
 
@@ -116,22 +122,25 @@ twisty-player {
 
 @media (max-width: 767px) {
   .cubePanel {
-    padding: 0; /* make room for cube on smaller screen */
-    width: 100%; /* width was not defined in laptop view */
     flex-shrink: 1;
     /* once the components are stacked vertically, allow the cube to shrink to less than 50% of the height.
     This is needed as the queryForm is fixed height and the cube will otherwise be hardcoded at 50% */
+    padding: 0;
+    /* make room for cube on smaller screen */
+    width: 100%;
+    /* width was not defined in laptop view */
   }
+
   .dragIconAndText {
-    right: 10%;
     bottom: 0;
+    right: 10%;
   }
 }
 
 @media (max-width: 481px) {
   .dragIconAndText {
-    position: absolute;
     bottom: -3%;
+    position: absolute;
     right: 6%;
   }
 }

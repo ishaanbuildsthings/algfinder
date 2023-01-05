@@ -1,13 +1,13 @@
 .noSolutionsModal {
-  position: fixed;
-  left: 45%;
-  top: 45%;
-  padding: 10px;
   border-radius: 5px;
+  left: 45%;
+  padding: 10px;
+  position: fixed;
+  top: 45%;
   width: max-content;
 }
 
 .noSolutionsModal p {
-  margin: 0;
   color: white;
+  margin: 0;
 }

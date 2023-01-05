@@ -1,34 +1,7 @@
-.documentationDiv {
-  padding: 0px 4% 40px 4%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 150px; /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
-}
-
-.documentationDiv p,
-.documentationDiv h2 {
-  color: white;
-}
-
-.documentationDiv a {
-  text-decoration: none;
-  color: #bb86fcc2;
-  font-weight: bold;
-}
-
-.documentationDiv hr {
-  margin: 30px 0;
-}
-
-.cubeRow {
-  display: flex;
-  justify-content: center; /* width is forced to max since the document flexes vertically */
-}
-
 .cubeAndCaption {
+  align-items: center;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 300px;
 }
 
@@ -36,17 +9,47 @@
   max-width: 70%;
 }
 
-.cubeAndCaption p {
-  text-align: center; /* p may be aligned within cubeAndCaption, but the text inside isn't, this is needed for when the caption is too long as per tony's explanation */
+.cubeRow {
+  display: flex;
+  justify-content: center;
+  /* width is forced to max since the document flexes vertically */
 }
+
+.documentationDiv {
+  display: flex;
+  flex-direction: column;
+  margin-top: 150px;
+  /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
+  padding: 0px 4% 40px 4%;
+}
+
+.cubeAndCaption p {
+  text-align: center;
+  /* p may be aligned within cubeAndCaption, but the text inside isn't, this is needed for when the caption is too long as per tony's explanation */
+}
+
+.documentationDiv a {
+  color: #bb86fcc2;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.documentationDiv h2,
+.documentationDiv p {
+  color: white;
+}
+
+.documentationDiv hr {
+  margin: 30px 0;
+}
+
 
 /** light mode */
-
-.light .documentationDiv p,
-.light .documentationDiv h2 {
-  color: #313131;
-}
-
 .light .documentationDiv a {
   color: #6200ee;
+}
+
+.light .documentationDiv h2,
+.light .documentationDiv p {
+  color: #313131;
 }

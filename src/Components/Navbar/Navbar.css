@@ -1,17 +1,23 @@
 /* the navbar will contain two elements, the UL and the toggle */
 .navbarDiv {
+  align-items: center;
+  /* center the toggle */
+  background-color: #121212;
+  /* set color so when scrolling the navbar is not see through */
   display: flex;
-  justify-content: space-between; /* navbar contains the UL and the toggle so this spaces them out */
-  align-items: center; /* center the toggle */
-  position: fixed; /* make navbar stay on the top, particularly for documentation page */
-  background-color: #121212; /* set color so when scrolling the navbar is not see through */
-  width: 100%; /* expand to width of the page */
-  z-index: 1; /* scramble circle icon would appear above when scrolled otherwise */
+  justify-content: space-between;
+  /* navbar contains the UL and the toggle so this spaces them out */
+  position: fixed;
+  /* make navbar stay on the top, particularly for documentation page */
+  width: 100%;
+  /* expand to width of the page */
+  z-index: 1;
+  /* scramble circle icon would appear above when scrolled otherwise */
 }
 
 .navbarUl {
-  list-style-type: none;
   display: flex;
+  list-style-type: none;
   padding-left: 3vw;
 }
 
@@ -20,10 +26,10 @@
 }
 
 li a {
-  display: block;
   color: white;
-  text-align: center;
+  display: block;
   padding: 10px 15px;
+  text-align: center;
   text-decoration: none;
 }
 
@@ -54,6 +60,7 @@ li a:hover:not(.active) {
 /** media queries */
 
 @media (max-width: 372px) {
+
   /* on very thin screens make the nav elements closer together */
   .navbarUl {
     padding-left: 10px;
@@ -61,6 +68,7 @@ li a:hover:not(.active) {
 }
 
 @media (max-width: 300px) {
+
   /* the navbar text is too big */
   .navbarDiv {
     font-size: 12px;

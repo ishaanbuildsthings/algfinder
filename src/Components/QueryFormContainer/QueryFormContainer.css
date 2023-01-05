@@ -1,36 +1,42 @@
 .queryFormContainer {
-  max-width: 650px;
-  padding-top: 50px;
-  padding-left: 5%; /* large screen positionings */
+  box-sizing: border-box;
+  /* make the width capped at true 650px including padding */
   flex: 1;
   /* take up half of the width (but get capped via max width),
   or half of height (but get capped via .topHalf max height) */
-  box-sizing: border-box; /* make the width capped at true 650px including padding */
+  max-width: 650px;
+  padding-top: 50px;
+  padding-left: 5%;
+  /* large screen positionings */
 }
 
 .queryFormContainer label {
-  display: flex; /* this also makes the width of the label 100% since labels are not by default */
+  display: flex;
+  /* this also makes the width of the label 100% since labels are not by default */
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 2;
+  padding-bottom: 10px;
   padding-left: 20px;
   padding-top: 10px;
-  padding-bottom: 10px;
   text-transform: uppercase;
-  font-weight: 600;
-  font-size: 0.8rem;
-  line-height: 2;
 }
 
 .queryFormContainer input {
-  width: 100%; /* expand to fill full queryFormContainer */
-  box-sizing: border-box; /* make it true 100% width */
+  border: none;
+  box-sizing: border-box;
+  /* make it true 100% width */
+  font-weight: 600;
   height: 50px;
+  outline: none;
   padding-left: 35px;
   padding-right: 35px;
-  outline: none;
-  border: none;
-  font-weight: 600;
+  width: 100%;
+  /* expand to fill full queryFormContainer */
 }
 
 @media (hover: hover) {
+
   /* get rid of sticky hover when clicking in a field on mobile */
   .queryFormContainer input:hover:not(:focus) {
     background-color: #4c4c4c;
@@ -38,7 +44,8 @@
 }
 
 .queryFormContainer input:focus::placeholder {
-  color: transparent; /* make the placeholder disappear when clicked in */
+  color: transparent;
+  /* make the placeholder disappear when clicked in */
 }
 
 .scrambleLabel {
@@ -46,22 +53,22 @@
   border-top-right-radius: 20px;
 }
 
-.buttonGrid > .movesetButton:nth-child(13) {
+.buttonGrid>.movesetButton:nth-child(13) {
   border-bottom-left-radius: 20px;
 }
-.buttonGrid > .movesetButton:nth-child(18) {
+
+.buttonGrid>.movesetButton:nth-child(18) {
   border-bottom-right-radius: 20px;
 }
 
 .movesetButton {
-  width: calc(
-    100% / 6
-  ); /* take 1/6th of the button grid which is a blocking div inside the queryFormContainer */
-  height: 30px;
-  border: none;
   border-radius: 0;
-  font-weight: bold;
+  border: none;
   cursor: pointer;
+  font-weight: bold;
+  height: 30px;
+  width: calc(100% / 6);
+  /* take 1/6th of the button grid which is a blocking div inside the queryFormContainer */
 }
 
 @media (hover: hover) {
@@ -78,21 +85,23 @@
 }
 
 .sortButton {
+  font-family: 'Poppins', sans-serif;
+  /* override user style sheet */
   /* buttons, inputs, and maybe some other fields are using the user agent style fonts not the inherited ones from the body, they look good though */
   font-size: 12px;
-  font-family: 'Poppins', sans-serif; /* override user style sheet */
 }
 
 .submitButton {
-  margin-top: 10px;
-  flex: 1;
-  height: 50px;
-  border: none;
   border-radius: 15px;
-  font-weight: 500;
+  border: none;
   cursor: pointer;
+  flex: 1;
+  font-family: 'Poppins', sans-serif;
+  /* override user style sheet */
+  font-weight: 500;
+  height: 50px;
   margin-right: 10px;
-  font-family: 'Poppins', sans-serif; /* override user style sheet */
+  margin-top: 10px;
 }
 
 .submitButton:active {
@@ -100,11 +109,11 @@
 }
 
 .cancelButton {
-  height: 50px;
-  border: none;
   border-radius: 15px;
-  font-weight: bold;
+  border: none;
   cursor: pointer;
+  font-weight: bold;
+  height: 50px;
   margin-top: 10px;
   width: 80px;
 }
@@ -114,20 +123,21 @@
 }
 
 .submitAndCancel {
-  width: 100%;
   display: flex;
+  width: 100%;
 }
 
 .spinner {
-  margin-left: 5px;
-  color: #e4e4e4;
   animation: spin infinite 2s linear;
+  color: #e4e4e4;
+  margin-left: 5px;
 }
 
 @keyframes spin {
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -136,6 +146,7 @@
 /** light mode */
 
 @media (hover: hover) {
+
   /* get rid of sticky hover when clicking in a field on mobile */
   .light .queryFormContainer input:hover:not(:focus) {
     background-color: #d6d3d3;
@@ -143,6 +154,7 @@
 }
 
 @media (hover: hover) {
+
   /* get rid of sticky hover when clicking in a field on mobile */
   .light .queryFormContainer button:hover:not(.isToggled) {
     background-color: #d6d3d3;
@@ -161,23 +173,24 @@
 
 @media (max-width: 767px) {
   .queryFormContainer {
-    padding: 15px 10px 10px 10px; /* move query form up to use extra space */
-    box-sizing: border-box; /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
-    max-width: none;
-    width: 100%;
     box-sizing: border-box;
-    /* once we flex vertically, fill the whole screen, this is needed
-    despite the flex 0 0 50%; since .topHalf has align-items: center set */
+    /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
+    max-width: none;
+    padding: 15px 10px 10px 10px;
+    /* move query form up to use extra space */
+    width: 100%;
+    /* once we flex vertically, fill the whole screen */
   }
 
   .movesetButton {
     height: 40px;
   }
 
-  .buttonGrid > .movesetButton:nth-child(13) {
+  .buttonGrid>.movesetButton:nth-child(13) {
     border-bottom-left-radius: 10px;
   }
-  .buttonGrid > .movesetButton:nth-child(18) {
+
+  .buttonGrid>.movesetButton:nth-child(18) {
     border-bottom-right-radius: 10px;
   }
 

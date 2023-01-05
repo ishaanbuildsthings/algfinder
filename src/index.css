@@ -8,18 +8,18 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* my styling */
-  /* font-family: 'Roboto', sans-serif; */
+
   font-family: 'Poppins', sans-serif;
-  /* font-family: "Poppins", sans-serif;
-  font-weight: 500; */
   font-weight: 500;
   font-size: 15px;
   background-color: #121212;
-  -webkit-tap-highlight-color: transparent; /* remove blue flash on some responsive sites */
+  -webkit-tap-highlight-color: transparent;
+  /* remove blue flash on some responsive sites */
   font-family: 'Poppins', sans-serif;
 }
 
-button { /* override user style sheet */
+button {
+  /* override user style sheet */
   letter-spacing: 0.01rem;
 }
 
@@ -30,15 +30,17 @@ code {
 }
 
 #root {
-  height: 100vh; /* root should always take full VH unless the content overflows it such as small screens for the solve page, or the documentation page, which will cause scrollbars */
   display: flex;
   flex-direction: column;
+  height: 100vh;
+  /* root should always take full VH unless the content overflows it such as small screens for the solve page, or the documentation page, which will cause scrollbars */
 }
 
 .topHalf {
   display: flex;
   /* ? top half can be removed and just the items are used */
-  flex: 1; /* the top half will occupy 1/2 of the solvePageMinusNav height */
+  flex: 1;
+  /* the top half will occupy 1/2 of the solvePageMinusNav height */
 }
 
 .mainText {
@@ -46,8 +48,8 @@ code {
 }
 
 ::selection {
-  color: #e4e4e4;
   background-color: #5e81a8;
+  color: #e4e4e4;
 }
 
 .mainColor {
@@ -70,7 +72,6 @@ code {
 /** light mode */
 
 body.light {
-  /* background-color: #E5E5E5; */
   background-color: #fff;
 }
 
@@ -99,15 +100,21 @@ body.light {
 
 @media (max-width: 767px) {
   .topHalf {
-    flex-direction: column; /* flex the queryFormContainer and cubePanel vertically */
-    flex: 1; /* top half takes up more space compared to solutions display when in vertical flex mode */
-    width: 100%; /* top half should now fill the width of the wholePageMinusNavbar div */
-    align-items: center; /* top half should be center on a mobile view */
-    max-height: 700px; /* in the stacked few, prevent the cube from becoming too big */
+    align-items: center;
+    /* top half should be center on a mobile view */
+    flex-direction: column;
+    /* flex the queryFormContainer and cubePanel vertically */
+    flex: 1;
+    /* top half takes up more space compared to solutions display when in vertical flex mode */
+    max-height: 700px;
+    /* in the stacked few, prevent the cube from becoming too big */
+    width: 100%;
+    /* top half should now fill the width of the wholePageMinusNavbar div */
   }
 }
 
 @media (min-width: 768px) {
+
   /* in the normal side by side view, prevent the cube from growing by limiting .topHalf */
   .topHalf {
     max-height: 450px;
