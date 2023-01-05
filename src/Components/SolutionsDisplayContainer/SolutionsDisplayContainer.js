@@ -1,20 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Solution from '../Solution/Solution';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import './SolutionsDisplayContainer.css';
 import { memo } from 'react';
-
-
-// TODO: remove
-function areEqual(prevProps, nextProps) {
-  for (let key in prevProps) {
-    if (!(nextProps[key] === prevProps[key])) {
-      return false;
-    }
-  }
-  return true;
-}
 
 // * helpers
 // takes in an input of ["solution 1", "solution 2" ...]
@@ -121,5 +110,5 @@ function SolutionsDisplayContainer({ solutionsList }) {
   );
 }
 
-export default memo(SolutionsDisplayContainer); // the solutions display should only change if its props change
-// TODO: why is this working when the prop for solutionsidsplay is a list
+//export default SolutionsDisplayContainer;
+export default memo(SolutionsDisplayContainer); // never re-renders unless the prop (a state, which does not change upon re-render of the parent) changes

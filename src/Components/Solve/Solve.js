@@ -11,6 +11,7 @@ const baseURL = 'http://127.0.0.1:3001';
 const pollInterval = 1000; // ms
 let errorMessage = '';
 
+
 async function fetchURL(url) {
     // TODO: handle errors
     const response = await fetch(url);
@@ -28,7 +29,6 @@ function sleep(ms) {
  * @usage Used in app.js
  */
 function Solve() {
-
     // * states
     // tracks the current list of solutions, will update via polling
     // @passed to SolutionsDisplay
@@ -132,9 +132,8 @@ function Solve() {
 
         setSolutionsList([]);
         setSpinner(true);
-        console.log(processMoves(scramble))
         const txn_id = await fetchURL(`${baseURL}/solve?scramble=${processMoves(scramble).trim().split(' ').join(',')}&max-depth=${depth}&move-types=${moveset.join(',')}`);
-        console.log(`got txn_id: ${txn_id}`); //for debugging
+        // console.log(`got txn_id: ${txn_id}`); for debugging
 
         let solutions = []; // solutions is the new diff we receive from backend
         let allLocalSolutions = [];

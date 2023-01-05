@@ -1,4 +1,3 @@
-client side prevent hitting submit from other pages TIM
 add cancel search TIM
 add server side validation TIM
 add rate limiting TIM

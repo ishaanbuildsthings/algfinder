@@ -66,11 +66,12 @@
 .sortButton {
   border: none;
   border-radius: 8px;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
   padding: 10px;
   background-color: inherit;
   margin-right: 8px;
+  font-size: 12px;
 }
 
 @media (hover: hover) {

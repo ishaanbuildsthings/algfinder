@@ -14,7 +14,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   text-transform: uppercase;
-  font-weight: 700; /*TODO: understand fonts */
+  font-weight: 600;
   font-size: 0.8rem;
   line-height: 2;
 }
@@ -27,7 +27,7 @@
   padding-right: 35px;
   outline: none;
   border: none;
-  font-weight: bold;
+  font-weight: 600;
 }
 
 @media (hover: hover) {
@@ -80,6 +80,7 @@
 .sortButton {
   /* buttons, inputs, and maybe some other fields are using the user agent style fonts not the inherited ones from the body, they look good though */
   font-size: 12px;
+  font-family: 'Poppins', sans-serif; /* override user style sheet */
 }
 
 .submitButton {
@@ -88,9 +89,10 @@
   height: 50px;
   border: none;
   border-radius: 15px;
-  font-weight: bold;
+  font-weight: 500;
   cursor: pointer;
   margin-right: 10px;
+  font-family: 'Poppins', sans-serif; /* override user style sheet */
 }
 
 .submitButton:active {
@@ -166,6 +168,10 @@
     box-sizing: border-box;
     /* once we flex vertically, fill the whole screen, this is needed
     despite the flex 0 0 50%; since .topHalf has align-items: center set */
+  }
+
+  .movesetButton {
+    height: 40px;
   }
 
   .buttonGrid > .movesetButton:nth-child(13) {

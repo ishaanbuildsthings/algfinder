@@ -169,3 +169,4 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
 }
 
 export default QueryFormContainer;
+// TODO: why does typing an 'a' repaint the scramble, the vdom isnt even changed
