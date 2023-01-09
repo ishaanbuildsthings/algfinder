@@ -42,8 +42,7 @@
   /* take up half of the width (but get capped via max width),
   or half of height (but get capped via .topHalf max height) */
   max-width: 650px;
-  padding-top: 50px;
-  padding-left: 5%;
+  padding: 50px 0 0 5%;
   /* large screen positionings */
 }
 
@@ -55,8 +54,7 @@
   font-weight: 600;
   height: 50px;
   outline: none;
-  padding-left: 35px;
-  padding-right: 35px;
+  padding: 0 35px;
   width: 100%;
   /* expand to fill full queryFormContainer */
 }
@@ -72,28 +70,13 @@
   font-size: 0.8rem;
   font-weight: 600;
   line-height: 2;
-  padding-bottom: 10px;
-  padding-left: 20px;
-  padding-top: 10px;
+  padding: 10px 0 10px 20px;
   text-transform: uppercase;
 }
 
 .scrambleLabel {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-}
-
-.sortButton {
-  font-family: 'Poppins', sans-serif;
-  /* override user style sheet */
-  /* buttons, inputs, and maybe some other fields are using the user agent style fonts not the inherited ones from the body, they look good though */
-  font-size: 12px;
-}
-
-.spinner {
-  animation: spin infinite 2s linear;
-  color: #e4e4e4;
-  margin-left: 5px;
 }
 
 .submitAndCancel {
@@ -106,12 +89,9 @@
   border: none;
   cursor: pointer;
   flex: 1;
-  font-family: 'Poppins', sans-serif;
-  /* override user style sheet */
-  font-weight: 500;
+  font-weight: bold;
   height: 50px;
-  margin-right: 10px;
-  margin-top: 10px;
+  margin: 10px 10px 0 0;
 }
 
 .submitButton:active {
@@ -123,16 +103,6 @@
   .queryFormContainer input:hover:not(:focus) {
     /* get rid of sticky hover when clicking in a field on mobile */
     background-color: #4c4c4c;
-  }
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
   }
 }
 

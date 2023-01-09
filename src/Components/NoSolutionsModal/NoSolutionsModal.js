@@ -1,7 +1,5 @@
 import './NoSolutionsModal.css';
-/**
- * @params
- * setNoSolutionsModal - a setter which can remove the modals existence
+/**xw
  * @usage used in Solve.js
  */
 function NoSolutionsModal() {

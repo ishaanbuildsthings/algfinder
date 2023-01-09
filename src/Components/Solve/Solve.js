@@ -1,28 +1,16 @@
 import QueryFormContainer from '../QueryFormContainer/QueryFormContainer.js';
 import SolutionsDisplayContainer from '../SolutionsDisplayContainer/SolutionsDisplayContainer.js';
 import ErrorPopup from '../ErrorPopup/ErrorPopup.js';
-import MovesetPopup from '../MovesetPopup.js/MovesetPopup.js';
+import MovesetPopup from '../MovesetPopup/MovesetPopup.js';
 import NoSolutionsModal from '../NoSolutionsModal/NoSolutionsModal.js';
 import CubePanel from '../CubePanel/CubePanel.js';
+import { solve } from '../../CubeSolver/Solver.js';
 import { useState, useEffect } from 'react';
-import processMoves from '../../processMoves.js';
 import './Solve.css';
-const baseURL = 'http://127.0.0.1:3001';
-const pollInterval = 1000; // ms
+import '../../Common/Popups.css';
+import '../../Common/Tooltips.css';
+import '../../Common/animation.css';
 let errorMessage = '';
-
-
-async function fetchURL(url) {
-    // TODO: handle errors
-    const response = await fetch(url);
-    return await response.json();
-}
-
-function sleep(ms) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
 
 /**
  * The Solve component defines all of the display unique to the solve section of the website.
@@ -31,10 +19,10 @@ function sleep(ms) {
 function Solve() {
     // * states
     // tracks the current list of solutions, will update via polling
-    // @passed to SolutionsDisplay
+    // passed to SolutionsDisplay
     const [solutionsList, setSolutionsList] = useState([]);
     // tracks the fields of the query form, data will be sent to the backend
-    // @passed to QueryForm and Cube, so that they can display the user-defined data
+    // passed to QueryForm and Cube, so that they can display the user-defined data
     const [queriesState, setQueries] = useState({
         scramble: '',
         depth: '',
@@ -48,6 +36,7 @@ function Solve() {
     const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
     // used to conditionally render the spinner icon, at this level so it can be handled inside handleSubmit function
     const [isSpinner, setSpinner] = useState(false);
+    // a state the tracks if the current solver function is allowed to be ran, can be toggled by both handleSubmit and handleCancel
 
     // * other hooks
     useEffect(() => {
@@ -104,10 +93,11 @@ function Solve() {
         }
     }
 
-    // @passed to the queryForm, which registers this function as an onClick for the submit button
+    // passed to the queryForm, which registers this function as an onClick for the submit button
     // when the user clicks the button, send the queries to the backend
     // repeatedly poll the backend for updated data and change the solutions state accordingly
     async function handleSubmit({ scramble, depth, moveset }) {
+        // TODO: remove some handling
         if (scramble.length < 2) {
             errorMessage = 'Please enter a valid scramble';
             setErrorPopup(true);
@@ -129,29 +119,13 @@ function Solve() {
             setErrorPopup(true);
             return;
         }
-
-        setSolutionsList([]);
         setSpinner(true);
-        const txn_id = await fetchURL(`${baseURL}/solve?scramble=${processMoves(scramble).trim().split(' ').join(',')}&max-depth=${depth}&move-types=${moveset.join(',')}`);
-        // console.log(`got txn_id: ${txn_id}`); for debugging
-
-        let solutions = []; // solutions is the new diff we receive from backend
-        let allLocalSolutions = [];
-        let keepGoing = true;
-        do {
-            await sleep(pollInterval);
-            solutions = await fetchURL(`${baseURL}/solve-update?txn-id=${txn_id}`); // the new diff
-            allLocalSolutions = [...allLocalSolutions, ...solutions]; // memo solutions will keep adding new diffs, tracking the current solutions in local context
-            if (solutions[solutions.length - 1] === 'DONE') { // if the last id from the diff is 'DONE', we have hit the end
-                keepGoing = false;
-                allLocalSolutions.pop();
-                if (allLocalSolutions.length === 0) { // if we receive 'DONE', and the diff only contains that, we have no solutions
-                    setNoSolutionsModal(true);
-                }
-            }
-            setSolutionsList(allLocalSolutions);
-        } while (keepGoing);
+        await solve(scramble, moveset.join(' '), depth, setSolutionsList, setNoSolutionsModal);
         setSpinner(false);
+    }
+
+    function handleCancel() {
+        //currentRunningSubmitAllowedToRun = false;
     }
 
     return (
@@ -164,6 +138,7 @@ function Solve() {
                     handleTextChange={handleTextChange}
                     handleNumberChange={handleNumberChange}
                     handleSubmit={handleSubmit}
+                    handleCancel={handleCancel}
                     handleMovesetClick={handleMovesetClick}
                     queriesState={queriesState}
                     isSpinner={isSpinner}

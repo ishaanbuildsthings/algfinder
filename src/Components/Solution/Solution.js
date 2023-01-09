@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import CopyPopup from '../CopyPopup/CopyPopup';
-
-function getQtmAndStm(solution) {
-  const noSpacesPrimeOrDouble = solution.replace(/[ '2]/g, "");
-  const totalSliceMoves = (noSpacesPrimeOrDouble.match(/ESM/g) || []).length;
-  const sliceTurnMetric = noSpacesPrimeOrDouble.length;
-  const halfTurnMetric = sliceTurnMetric + totalSliceMoves;
-  return [sliceTurnMetric, halfTurnMetric];
-}
+import getQtmAndStm from '../../Utils/getQtmAndStm';
 
 /**
  * @param {*}

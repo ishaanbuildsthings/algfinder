@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import useLocalStorage from '../../Hooks/useLocalStorage';
+import useLocalStorage from '../../Utils/Hooks/useLocalStorage';
 import './Toggle.css';
 
 function Toggle() {

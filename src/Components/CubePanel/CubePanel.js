@@ -2,8 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { memo } from 'react';
 import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
-import UseWindowSize from '../../Hooks/UseWindowSize';
-import processMoves from '../../processMoves';
+import UseWindowSize from '../../Utils/Hooks/useWindowSize.js';
+import processMoves from '../../Utils/processMoves.js';
+import setDragText from '../../Utils/setDragText.js'
 import './CubePanel.css';
 
 const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
@@ -20,17 +21,6 @@ function Cube({ scramble }) {
   // custom hook to dynamically re-render on window size changes
   let windowSize = UseWindowSize();
 
-  function setDragText() {
-    if (windowSize.width < 360) {
-      return "Drag";
-    } else if (windowSize.width <= 767) {
-      return "Drag cube";
-    }
-    return "Drag cube to view";
-  }
-
-  console.log(processMoves(scramble))
-
   return (
     <div className="cubePanel">
       <twisty-player
@@ -42,7 +32,7 @@ function Cube({ scramble }) {
 
       <div className="dragIconAndText mainText">
         <MemoizedFontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg" />
-        <p className="dragText">&nbsp;&nbsp;{setDragText()}</p>
+        <p className="dragText">&nbsp;&nbsp;{setDragText(windowSize)}</p>
       </div>
     </div>
   );

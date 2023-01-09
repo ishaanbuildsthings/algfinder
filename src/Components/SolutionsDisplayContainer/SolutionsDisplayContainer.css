@@ -52,8 +52,8 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   display: flex;
-  padding-left: 15px;
   padding: 5px;
+  padding-left: 15px;
 }
 
 .solutionsHeaderSpacer {
@@ -67,7 +67,7 @@
   border: none;
   cursor: pointer;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: bold;
   margin-right: 8px;
   padding: 10px;
 }

@@ -2,21 +2,22 @@ import { useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import MovesetButton from './MovesetButton.js';
-import UseWindowSize from '../../Hooks/UseWindowSize.js';
+import MovesetButton from '../MovesetButton/MovesetButton.js';
+import UseWindowSize from '../../Utils/Hooks/useWindowSize.js';
 import './QueryFormContainer.css';
 
 /**
  * @param {*}
  * handleTextChange - modifies the Solve.js state based on entered scramble text
  * handleNumberChange - modifies the Solve.js state based on entered depth
- * handleSubmit - queries the backend with all the parameters
+ * handleSubmit - runs the solve function with parameters, or queries the backend if implemented with the cloud
+ * handleCancel - cancels the computation from the submit function
  * handleMovesetClick - modifies the Solve.js state based on toggled moves
  * queriesState - all of the scramble, depth, and moveset
  * isSpinner - the ste if the spinner should show
  * @usage Used in Solve.js
  */
-function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit, handleMovesetClick, queriesState, isSpinner }) {
+function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit, handleCancel, handleMovesetClick, queriesState, isSpinner }) {
     //* misc
     // custom hook to dynamically re-render on window size changes
     let windowSize = UseWindowSize();
@@ -157,7 +158,11 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
                         : 'Show Me Solutions!'
                     }
                 </button>
-                <button onClick={() => console.log('cancel button clicked')}
+                <button onClick={() => {
+                    console.log('cancel button clicked');
+                    handleCancel();
+                    }
+                }
                     className="cancelButton mainText secondaryColor"
                 >
                     Cancel

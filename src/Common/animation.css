@@ -1,0 +1,31 @@
+.fade-out {
+  animation-delay: 1s;
+  animation-duration: 1s;
+  animation-name: fadeOut;
+}
+
+.spinner {
+  animation: spin infinite 2s linear;
+  color: #e4e4e4;
+  margin-left: 5px;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -95,6 +95,13 @@ body.light {
 }
 
 /** media queries */
+@media (min-width: 768px) {
+
+  /* in the normal side by side view, prevent the cube from growing by limiting .topHalf */
+  .topHalf {
+    max-height: 450px;
+  }
+}
 
 @media (max-width: 767px) {
   .topHalf {
@@ -108,14 +115,6 @@ body.light {
     /* in the stacked few, prevent the cube from becoming too big */
     width: 100%;
     /* top half should now fill the width of the wholePageMinusNavbar div */
-  }
-}
-
-@media (min-width: 768px) {
-
-  /* in the normal side by side view, prevent the cube from growing by limiting .topHalf */
-  .topHalf {
-    max-height: 450px;
   }
 }
 
