@@ -1,5 +1,3 @@
-add cancel search TIM
-if you spam a lot of requests in a row they stack, if you click submit again it should cancel the prior request TIM
 https://codepen.io/Sean713/pen/PoBZKbP -ask this codepen removing min height from solvepageminusnav
 fix weird safari divs and safari font
 make re-rendering more performant
@@ -26,6 +24,4 @@ make sure you know what the rendering process is, which part of the code runs wh
 TODO:
 add random excample button
 change documentation, maybe add usage gif + diff usage gif for different size app
-add other moves to cube
-wire in solver
 why cant i do var a = 10; to modify the window object and access it from another file, it doesnt recognize a

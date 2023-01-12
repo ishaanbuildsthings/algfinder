@@ -11,6 +11,7 @@ import '../../Common/Popups.css';
 import '../../Common/Tooltips.css';
 import '../../Common/animation.css';
 let errorMessage = '';
+let allowedToRun = [false]; // the compute should only be allowed to run while this is true
 
 /**
  * The Solve component defines all of the display unique to the solve section of the website.
@@ -97,6 +98,9 @@ function Solve() {
     // when the user clicks the button, send the queries to the backend
     // repeatedly poll the backend for updated data and change the solutions state accordingly
     async function handleSubmit({ scramble, depth, moveset }) {
+        if (allowedToRun[0]) { // if this is true, it implies compute is already running, so do not run it again
+            return;
+        }
         // TODO: remove some handling
         if (scramble.length < 2) {
             errorMessage = 'Please enter a valid scramble';
@@ -120,12 +124,14 @@ function Solve() {
             return;
         }
         setSpinner(true);
-        await solve(scramble, moveset.join(' '), depth, setSolutionsList, setNoSolutionsModal);
+        allowedToRun[0] = true; // the compute is only allowed to run in this specifically defined area
+        await solve(scramble, moveset.join(' '), depth, setSolutionsList, setNoSolutionsModal, allowedToRun);
         setSpinner(false);
+        allowedToRun[0] = false;
     }
 
-    function handleCancel() {
-        //currentRunningSubmitAllowedToRun = false;
+    function handleCancel() { // if cancel is clicked, mutate the area to stop solve() from running
+        allowedToRun[0] = false;
     }
 
     return (

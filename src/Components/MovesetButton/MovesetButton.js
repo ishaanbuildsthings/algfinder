@@ -14,7 +14,7 @@ function MovesetButton({ value, handleMovesetClick, isToggled }) {
     <button
       className={cx(
         'mainText',
-        'secondaryColor',
+        !isToggled && 'secondaryColor',
         'movesetButton',
         isToggled && 'isToggled accentColor'
       )}

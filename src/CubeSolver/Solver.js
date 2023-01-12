@@ -3,9 +3,7 @@ import Cube from './Cube.js';
 import { applyAlg, cleanUpIntersection, reverseAndInvertMoveList } from './AlgHandler.js';
 import sleep from '../Utils/sleep.js';
 
-//TODO: remove any console logs and visualize or printlines or w.e
-
-async function solve(scramble, allowedMoves, maxDepth, setSolutionsList, setNoSolutionsModal) {
+async function solve(scramble, allowedMoves, maxDepth, setSolutionsList, setNoSolutionsModal, allowedToRun) {
   // if exactly one end is odd, such as 7+8 or 8+9
   let oddStatus = Boolean(maxDepth % 2);
   scramble = scramble.split(' ');
@@ -43,7 +41,7 @@ async function solve(scramble, allowedMoves, maxDepth, setSolutionsList, setNoSo
   const finalSolutions = new Set();
 
   // if our user-defined max depth is 5 or 6 (making maxDepth to be searched from one end = 3), and the next cube in the queue has a max depth of 2 or less, process it
-  while (depthOfNextQueuedCube < maxDepth) {
+  while (depthOfNextQueuedCube < maxDepth && allowedToRun[0]) {
 
     // grab the next cube from the list and create its adjacency list
     const parentSolvedCube = solvedQueue.shift();

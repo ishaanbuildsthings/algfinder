@@ -6,7 +6,7 @@
  */
 function MovesetPopup({ setMovesetPopup }) {
   return (
-    <div onAnimationEnd={() => setMovesetPopup(false)} className="mainColor movesetPopupError fade-out errorColor">Please choose at most 4 moves!</div>
+    <div onAnimationEnd={() => setMovesetPopup(false)} className="movesetPopupError fade-out errorColor">Please choose at most 4 moves!</div>
   )
 }
 

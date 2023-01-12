@@ -6,7 +6,7 @@
  */
 function ErrorPopup({ errorMessage, setErrorPopup }) {
   return (
-    <div onAnimationEnd={() => setErrorPopup(false)} className="mainColor errorPopup fade-out errorColor">{errorMessage}</div>
+    <div onAnimationEnd={() => setErrorPopup(false)} className="errorPopup fade-out errorColor">{errorMessage}</div>
   )
 }
 
