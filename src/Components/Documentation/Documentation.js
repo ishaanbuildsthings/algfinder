@@ -1,27 +1,11 @@
 import './Documentation.css';
 
-import Child1 from './Child1.js';
-import Child2 from './Child2.js';
-import { useState } from 'react';
-// function Documentation() {
-//   const [text, setText] = useState("");
-//   const [data, setData] = useState(0);
-//   return (
-//     <div className="documentationDiv">
-//       <Child1 handleTextChange={setText} />
-//       {text}
-//       <Child2 data={data} />
-//     </div>
-//   );
-// }
-// TODO:
-
 function Documentation() {
   return (
     <>
       <div className="documentationDiv">
         <h2>How this works (for nerds)</h2>
-        <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. In the backend, I implemented a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeexplorer/blob/main/main.py">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.
+        <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. I implemented a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeexplorer/blob/main/main.py">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.
           This algorithm reduces the time complexity of the naive solution of O(k<sup>n</sup>), to O(k<sup>n/2</sup>), where k is the branching factor and n is the search depth.
           A basic walkthrough of the algorithm is below.</p>
         <p>We start with two cubes:</p>
@@ -91,18 +75,17 @@ function Documentation() {
 
 
         <h2>Credits</h2>
-        <p>This tool was primarily made by <a href="https://www.worldcubeassociation.org/persons/2015AGRA03" target="_blank" rel="noopener noreferrer">Ishaan Agrawal.</a></p>
-        <p>With special thanks to Tony Peng, for spending more hours than any reasonable person ever should, teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.</p>
-        <p><a href="https://www.worldcubeassociation.org/persons/2016GOHT01" target="_blank" rel="noopener noreferrer">Timothy Goh,</a> for his work on
-          setting up the backend server with Flask, connecting it to the frontend, implementing polling to make solutions update continuously, general code review,
-          and answering many technical questions.</p>
+        <p>This tool was made by <a href="https://www.worldcubeassociation.org/persons/2015AGRA03" target="_blank" rel="noopener noreferrer">Ishaan Agrawal.</a></p>
+        <p>With special thanks to Tony Peng and <a href="https://www.worldcubeassociation.org/persons/2016GOHT01" target="_blank" rel="noopener noreferrer">Timothy Goh,</a> for teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.</p>
+
         <p>And <a href="https://www.worldcubeassociation.org/persons/2006GARR01" target="_blank" rel="noopen noreferrer">Lucas Garron</a> and his co-contributors, for their beautiful <a href="https://js.cubing.net/cubing/" target="_blank" rel="noopener noreferrer">Rubik's Cube visual display.</a></p>
 
 
         <h2>Contributions</h2>
-        <p>This is written in React + Flask and is open-source. If you would like to contribute, make feature requests, or report bugs, the Github repositories are here:&nbsp;
-          <a href="https://github.com/agrawalishaan/cubeExplorerFrontend" target="_blank" rel="noopen noreferrer">Front End</a>&nbsp;|&nbsp;
-          <a href="https://github.com/agrawalishaan/cubeexplorer" target="_blank" rel="noopen noreferrer">Back End</a>
+        <p>This is written in React and is open-source. If you would like to contribute, make feature requests, or report bugs, the Github repository is&nbsp;
+          <a href="https://github.com/agrawalishaan/cubeExplorerFrontend" target="_blank" rel="noopen noreferrer">here.</a>
+          {/* &nbsp;|&nbsp;
+          <a href="https://github.com/agrawalishaan/cubeexplorer" target="_blank" rel="noopen noreferrer">Back End</a> */}
         </p>
       </div>
     </>

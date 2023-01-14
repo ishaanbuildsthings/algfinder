@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import cx from '../../Utils/cx';
 
-export default function NavbarListItem({ route }) {
+export default function NavbarListItem({ route, tabName }) {
   // necessary for react-router-dom routing
   const history = useNavigate();
   // necessary for parsing the current URL to display the correct .active CSS coloring
@@ -17,7 +17,7 @@ export default function NavbarListItem({ route }) {
             className={cx(location.pathname === route && 'active accentColor')}
             href={route}
           >
-            Solve
+            {tabName}
           </a>
         </li>
   );

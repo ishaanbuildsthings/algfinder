@@ -10,6 +10,7 @@ import './QueryFormContainer.css';
  * @param {*}
  * handleTextChange - modifies the Solve.js state based on entered scramble text
  * handleNumberChange - modifies the Solve.js state based on entered depth
+ * handleRandomExample - modifies the Solve.js queriesState with a randomly generated example
  * handleSubmit - runs the solve function with parameters, or queries the backend if implemented with the cloud
  * handleCancel - cancels the computation from the submit function
  * handleMovesetClick - modifies the Solve.js state based on toggled moves
@@ -17,7 +18,7 @@ import './QueryFormContainer.css';
  * isSpinner - the ste if the spinner should show
  * @usage Used in Solve.js
  */
-function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit, handleCancel, handleMovesetClick, queriesState, isSpinner }) {
+function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandomExample, handleSubmit, handleCancel, handleMovesetClick, queriesState, isSpinner }) {
     //* misc
     // custom hook to dynamically re-render on window size changes
     let windowSize = UseWindowSize();
@@ -148,7 +149,7 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
 
             <section className="submitAndCancel">
                 <button
-                    className="submitButton mainText secondaryColor"
+                    className="bottomButton submitButton mainText secondaryColor"
                     onClick={() => handleSubmit(queriesState)}
                 >
                     {isSpinner ?
@@ -159,13 +160,21 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleSubmit
                     }
                 </button>
                 <button onClick={() => {
-                    console.log('cancel button clicked');
                     handleCancel();
                     }
                 }
-                    className="cancelButton mainText secondaryColor"
+                    className="bottomButton cancelButton mainText secondaryColor"
                 >
                     Cancel
+                </button>
+
+                <button onClick={() => {
+                    handleRandomExample();
+                    }
+                }
+                    className="bottomButton randomExampleButton mainText secondaryColor"
+                >
+                    Try a Random Example
                 </button>
             </section>
 

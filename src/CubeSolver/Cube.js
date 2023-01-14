@@ -16,6 +16,7 @@ const SOLVED_STICKER_STATE = [
   '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨',
 ]
 
+// todo
 function getFace(cube, letter) {
   const mapping = {
     'U': cube.uFace, 'F': cube.fFace, 'R': cube.rFace,
@@ -56,10 +57,10 @@ export default class Cube {
     clone.lFace = [...this.lFace];
     clone.dFace = [...this.dFace];
     // todo
-    // clone.faceMapping = {
-    //   'U': clone.uFace, 'F': clone.fFace, 'R': clone.rFace,
-    //   'D': clone.dFace, 'L': clone.lFace, 'B': clone.bFace
-    // };
+    clone.faceMapping = {
+      'U': clone.uFace, 'F': clone.fFace, 'R': clone.rFace,
+      'D': clone.dFace, 'L': clone.lFace, 'B': clone.bFace
+    };
     return clone;
   }
 
@@ -409,7 +410,6 @@ export default class Cube {
     } else if (move[0] === 'E' || move[0] === 'd' || move[0] === 'u') {
       handleE();
     }
-
     // handle rotations
     if (move[0] === 'x') {
       handleX();
@@ -420,7 +420,7 @@ export default class Cube {
     }
 
     if (move[0] === 'x' || move[0] === 'y' || move[0] === 'z' || move[0] === 'S' || move[0] === 'M' || move[0] === 'E') {
-      return; // don't rotate any faces
+      return; // don't rotate any more faces
     }
 
     // rotate the correct face the right amount of degrees based on the move

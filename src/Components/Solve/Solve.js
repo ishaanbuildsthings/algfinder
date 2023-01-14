@@ -4,20 +4,23 @@ import ErrorPopup from '../ErrorPopup/ErrorPopup.js';
 import MovesetPopup from '../MovesetPopup/MovesetPopup.js';
 import NoSolutionsModal from '../NoSolutionsModal/NoSolutionsModal.js';
 import CubePanel from '../CubePanel/CubePanel.js';
+import processMoves from '../../Utils/processMoves.js';
 import { solve } from '../../CubeSolver/Solver.js';
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
+import generateRandomExample from '../../Utils/randomExamples.js';
+import sleep from '../../Utils/sleep.js';
 import './Solve.css';
 import '../../Common/Popups.css';
 import '../../Common/Tooltips.css';
 import '../../Common/animation.css';
 let errorMessage = '';
-let allowedToRun = [false]; // the compute should only be allowed to run while this is true
 
 /**
  * The Solve component defines all of the display unique to the solve section of the website.
  * @usage Used in app.js
  */
 function Solve() {
+    let allowedToRunRef = useRef(false);
     // * states
     // tracks the current list of solutions, will update via polling
     // passed to SolutionsDisplay
@@ -50,10 +53,31 @@ function Solve() {
     // TODO
 
     // * handlers
+    async function handleRandomExample() {
+
+        let data = generateRandomExample();
+        while (data === queriesState) {
+            data = generateRandomExample();
+        }
+
+        allowedToRunRef.current = false;
+        setQueries(data);
+        await sleep(0);
+        handleSubmit(data);
+        // console.log('next')
+        //await sleep(5000);
+        //handleSubmit(data); // data is basically a memo so we don't have to worry about the states
+        // set to false, set queries, jump out of timeline
+        // sync code is done, dequeue initial setTimeout
+        // solve timeline stops
+        // allowed to run is set to false
+        //
+    }
+
     // when a user changes the scramble, change the queries state
     function handleTextChange(event) {
         const { name, value } = event.target;
-        if (/^([rludfbRLUDFBMSExyz]['2]? ?)+$/.test(value) || value === '') {
+        if (/^[ RUFLDBrufldxyzMSE'2]*$/.test(value) || value === '') {
             setQueries({
                 ...queriesState,
                 [name]: value
@@ -98,9 +122,13 @@ function Solve() {
     // when the user clicks the button, send the queries to the backend
     // repeatedly poll the backend for updated data and change the solutions state accordingly
     async function handleSubmit({ scramble, depth, moveset }) {
-        if (allowedToRun[0]) { // if this is true, it implies compute is already running, so do not run it again
-            return;
-        }
+        scramble = processMoves(scramble);
+
+        // todo: this wont work if we want to clear things
+        // if (allowedToRunRef.current) { // if this is true, it implies compute is already running, so do not run it again
+        //     return;
+        // }
+
         // TODO: remove some handling
         if (scramble.length < 2) {
             errorMessage = 'Please enter a valid scramble';
@@ -124,14 +152,14 @@ function Solve() {
             return;
         }
         setSpinner(true);
-        allowedToRun[0] = true; // the compute is only allowed to run in this specifically defined area
-        await solve(scramble, moveset.join(' '), depth, setSolutionsList, setNoSolutionsModal, allowedToRun);
+        allowedToRunRef.current = true;
+        await solve(scramble, moveset.join(' '), depth, setSolutionsList, setNoSolutionsModal, allowedToRunRef);
         setSpinner(false);
-        allowedToRun[0] = false;
+        allowedToRunRef.current = false;
     }
 
     function handleCancel() { // if cancel is clicked, mutate the area to stop solve() from running
-        allowedToRun[0] = false;
+        allowedToRunRef.current = false;
     }
 
     return (
@@ -143,6 +171,7 @@ function Solve() {
                 <QueryFormContainer
                     handleTextChange={handleTextChange}
                     handleNumberChange={handleNumberChange}
+                    handleRandomExample={handleRandomExample}
                     handleSubmit={handleSubmit}
                     handleCancel={handleCancel}
                     handleMovesetClick={handleMovesetClick}

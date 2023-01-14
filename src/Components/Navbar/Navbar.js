@@ -6,8 +6,8 @@ function Navbar() {
   return (
     <nav className="navbarDiv">
       <ul className="navbarUl">
-        <NavbarListItem route={'/'} />
-        <NavbarListItem route={'documentation'} />
+        <NavbarListItem route={'/'} tabName="Solve" />
+        <NavbarListItem route={'/documentation'} tabName="Documentation" />
       </ul>
 
       <Toggle />

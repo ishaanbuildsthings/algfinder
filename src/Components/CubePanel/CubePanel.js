@@ -2,8 +2,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { memo } from 'react';
 import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
-import UseWindowSize from '../../Utils/Hooks/useWindowSize.js';
 import processMoves from '../../Utils/processMoves.js';
+import UseWindowSize from '../../Utils/Hooks/useWindowSize.js';
 import setDragText from '../../Utils/setDragText.js'
 import './CubePanel.css';
 

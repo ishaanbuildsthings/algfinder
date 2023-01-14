@@ -22,6 +22,5 @@ queryformcontainer lines 66-68, am i inefficient, talk about the flow
 make sure you know what the rendering process is, which part of the code runs when, the return statement, etc
 
 TODO:
-add random excample button
 change documentation, maybe add usage gif + diff usage gif for different size app
 why cant i do var a = 10; to modify the window object and access it from another file, it doesnt recognize a

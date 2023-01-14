@@ -8,11 +8,12 @@ import readline from 'readline-sync';
 import { visualize } from './Visualizer.js';
 
 const myCube = new Cube();
-const myStr = "F r' z F2 U l2 L S d' E U' x S y l2 l2 r' z2 r2 L2 x2 l R2 b' E2 y F2 b' r2 L f2 l2 d2 y x L' B L2 U z2 R E y' u2 B' D M2 y2 M' R l L M2 E2 l' r' B f' L x' L' R2 z2 y U y f' S2 E2 R' F2 U S M' x2 U B' M d S z L' b2 d2 U' z F2 x' r2 r U U d2 l S' l z' E F F z2 L M' D D2 r' f' z' S' u f' y' r2 D' r' d M R' L f M' S U2 b' D y2 x' y' F r2 E' E2 E d2 U2 S2 f2 D' E' b2 d2 r' z y d E' d2 x' f2 E U' b b' M' f S' d' d' y' S2 U' F' B b z' z' B' S' u2 d E' F' y2 l d y E S2 M2 B' f x2 z2 x' U2 M2 L' L' r' z2 r2 x D2 b2 S2 b y D2 r2 f2 x2 z2 L f L' d' E' l2 B E B' f R' r2 x2 r' E' U L' z2 l2 L' l2 f F2 R' L L' U' x b' r' M2 b U y2 r' x' S' d2 z2 u' R E' z2 U2 S2 f D y' R' d u2 S2 S2 y' y2 R2 d2 l y y2 M r' y' S l z b' y' L y2 F' y R' M b u' z' b L' U2 B2 F' b L2 z' U2 z y2 L' y u d2 D' x' U2 L' x' y2 S2 E y z' u2 D2 d' S' x' r2 S' y' R2 u' r' f' z z l d D2 B' u' l2 S' l2 E r x u2 L' R L y' r L2 D l' f' b' M2 d' E2 U2 u B2 b' R M f f y2 z' L' d' x d2 M2 f' F2 d' F' E2 S2 R2 R' y x2 y M D' S2 z u2 F2 E F2 L S2 z' d d L b' l2 L' L z' f F F2 b2 M' u' x S2 M' r2 l d l u2 F2 x B r2 S' d2 U R D2 U' l' F' M b2 l' D B D2 U' l' R y' S2 u' r' y2 U2 f' f' D b u r' z' B2 y L M2 E2 R2 d' d' x b' f S' F2 f u' B f' y' L d z l S2 u2 B f F2 b x' r M2 x' F' R2 S' L2 y D2 D2 L2 r E' x S2 d2 y2 E f L x2 R2 u2 y2 y r r' D' z l' D2 B E' b R";
+const myStr = "L z' S' R2 U U2 f2 B' U2 d S' d2 z E2 d' U2 y' L d2 R S2 r2 d2 d2 R2 r' L L2 B' S' L l2 l2 F' y2 M2 r l2 x u2 F' S B2 D u2 y2 x l' M' D b y f' M2 l f' u2 L' l2 r' E' x' E y2 u' S2 D' M2 F2 B b' E' S2 R' u L S2 L' f2 l2 B' d' u U x E2 u b2 E' d' z' x' x2 x' E D' S f r' F' E F2 b M' E x' y2 E E' f2 S' d' y' M b B2 L U F' f2 b u2 R' E x' l' x' y2 x' y U' F y2 U R2 R M z' y' B' R2 d S' R f U d r L' d' D x S' r2 x' b2 E' u x' U f' S F2 F S2 S2 r' x2 L f L2 l' f' B' L E2 z b' D y' F l2 b' b2 L B y E f' D y2 z B2 b D2 B R S M' r2 l' M d d l2 z2 f b L' E B' d' R r S' f y' D l2 l2 E' z2 B' x' F' l' M x L' r' S' L2 y' f' B b2 l2 r' l D' z u' y' D u' l2 b2 S2 B R E' D' r' R' r' B2 l f2 D F u2 b' L U' u' B z' x f R L2 z' f' l2 U' u d2 z' E2 l' U r2 z2 l D2 U2 U2 M2 R' u S' z2 L' f' y d L' R2 b M' d' B' z2 E2 z' u y' d R2 b R2 d' b' R2 z2 l2 x u' u' L' y' d u' F2 B D2 R2 R' b2 D x u f2 u2 E2 U' F z2 E' u' f2 S' B x' f2 f2 D' L2 S2 l' D' B' x B' F R d2 d2 F2 z' L' S U' d x2 r x2 R U' F2 z' U2 l r E S2 L' L E2 y L E S' f l' b x z2 D' E' U' F' d M' F r' B' r' U l' b z2 u2 f2 y2 U' l2 u R R L L2 E L' d D' U u' R f' U2 D2 D2 d2 l' y' y' S z2 f l' E2 f2 u2 r x2 u' f' S' d u2 z' d' f z B D E z2 b r2 E2 E u E' x2 L R2 b2 y2 z2 B2 S F f2 l2 M2 r2 B u2 f l2 b' S2 y2 L2 M2 M' x2 l S R2 r' b2 U B2 d2 l' U' E' d2 z y' M d' M2 d' u2 z y";
 applyAlg(myStr.split(' '), myCube);
 visualize(myCube);
 while (true) {
-const move = readline.question('next move?');
-applyAlg([move], myCube);
-visualize(myCube);
+  const move = readline.question('next move?');
+  applyAlg([move], myCube);
+  visualize(myCube);
+
 }

@@ -1,3 +1,15 @@
+.bottomButton {
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  height: 50px;
+}
+
+.bottomButton:active {
+  transform: translateY(5px);
+}
+
 .buttonGrid>.movesetButton:nth-child(13) {
   border-bottom-left-radius: 20px;
 }
@@ -7,17 +19,9 @@
 }
 
 .cancelButton {
-  border-radius: 15px;
-  border: none;
-  cursor: pointer;
-  font-weight: bold;
-  height: 50px;
   margin-top: 10px;
+  margin-right: 10px;
   width: 80px;
-}
-
-.cancelButton:active {
-  transform: translateY(5px);
 }
 
 .isToggled {
@@ -74,6 +78,11 @@
   text-transform: uppercase;
 }
 
+.randomExampleButton {
+  margin-top: 10px;
+  padding: 0 12px;
+}
+
 .scrambleLabel {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -85,19 +94,9 @@
 }
 
 .submitButton {
-  border-radius: 15px;
-  border: none;
-  cursor: pointer;
   flex: 1;
-  font-weight: bold;
-  height: 50px;
   margin: 10px 10px 0 0;
 }
-
-.submitButton:active {
-  transform: translateY(5px);
-}
-
 
 @media (hover: hover) {
   .queryFormContainer input:hover:not(:focus) {
@@ -172,5 +171,11 @@
 
   .submitButton {
     border-radius: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .randomExampleButton {
+    max-width: 120px;
   }
 }
