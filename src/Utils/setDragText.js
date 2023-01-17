@@ -1,8 +1,8 @@
 export default function setDragText(windowSize) {
     if (windowSize.width < 360) {
-      return "Drag";
+      return 'Drag';
     } else if (windowSize.width <= 767) {
-      return "Drag cube";
+      return 'Drag cube';
     }
-    return "Drag cube to view";
+    return 'Drag cube to view';
   }

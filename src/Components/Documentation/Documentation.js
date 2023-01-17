@@ -1,9 +1,31 @@
 import './Documentation.css';
-
+import { useEffect, useState } from 'react';
 function Documentation() {
+  const [result, setResult] = useState(null);
+
+  useEffect(() => {
+    console.log('ran');
+    const worker = new Worker('../../Workers/SolveWorker.js');
+
+    worker.postMessage({ type: 'start', data: [5, 10] });
+
+    console.log(worker);
+
+
+    return () => {
+      worker.terminate();
+    };
+  }, []);
+
+
   return (
     <>
       <div className="documentationDiv">
+        <div className="deleteme">
+          {/* <button onClick={() => solve(Math.random(), Math.random())}>
+            Solve
+          </button> */}
+        </div>
         <h2>How this works (for nerds)</h2>
         <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. I implemented a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeexplorer/blob/main/main.py">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.
           This algorithm reduces the time complexity of the naive solution of O(k<sup>n</sup>), to O(k<sup>n/2</sup>), where k is the branching factor and n is the search depth.

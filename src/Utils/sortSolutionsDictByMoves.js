@@ -5,7 +5,7 @@ export default function sortSolutionsDictByMoves(obj, stmOrQtm) {
   strings.sort((a, b) => {
     const listA = obj[a];
     const listB = obj[b];
-    if (stmOrQtm === "stm") {
+    if (stmOrQtm === 'stm') {
       return listA[0] - listB[0];
     } else {
       return listA[1] - listB[1];

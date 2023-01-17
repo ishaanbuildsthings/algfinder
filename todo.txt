@@ -5,8 +5,8 @@ all todos
 why does reerender happen on resize of solve page
 get rena to style
 max updatedepth
-new dark button
 could not find icon null
+generating solutions button is weird padding and vertical space
 
 code review:
 position of popups
