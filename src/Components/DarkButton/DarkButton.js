@@ -1,13 +1,18 @@
+
+import { BsFillMoonStarsFill } from 'react-icons/bs';
+import { IconContext } from 'react-icons';
+import { RiSunLine } from 'react-icons/ri';
 import { useEffect } from 'react';
 import useLocalStorage from '../../Utils/Hooks/useLocalStorage';
-import './Toggle.css';
+import './DarkButton.css';
 
-function Toggle() {
+
+function DarkButton() {
   // * states
   // localStorageStatecomponent tracks the user's local storage data on if they are in dark mode or not
   const [localStorageState, setLocalStorageState] = useLocalStorage(
-    "darkStatus",
-    "dark"
+    'darkStatus',
+    'dark'
   );
 
   // * handlers
@@ -31,11 +36,21 @@ function Toggle() {
     }
   }, [localStorageState]);
 
+  // TODO: no colon?
   return (
-    <div className="toggle" onClick={handleClick}>
-      <button className="thumb"></button>
-    </div>
+    <button className="darkButton" onClick={handleClick}>
+      <IconContext.Provider value={
+        (() => {
+          if (localStorageState === 'dark') {
+            return { size: '60%' };
+          }
+          return { size: '45%' };
+        })()
+      }>
+        {localStorageState === 'dark' ? <RiSunLine /> : <BsFillMoonStarsFill />}
+      </IconContext.Provider>
+    </button>
   );
 }
 
-export default Toggle;
+export default DarkButton;

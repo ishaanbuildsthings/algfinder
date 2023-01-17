@@ -8,7 +8,7 @@ import processMoves from '../../Utils/processMoves.js';
 import { solve } from '../../CubeSolver/Solver.js';
 import { useRef, useState, useEffect } from 'react';
 import generateRandomExample from '../../Utils/randomExamples.js';
-import sleep from '../../Utils/sleep.js';
+import { yieldAsync } from '../../Utils/yieldAsync.js';
 import './Solve.css';
 import '../../Common/Popups.css';
 import '../../Common/Tooltips.css';
@@ -39,7 +39,7 @@ function Solve() {
     // used to conditionally render the NoSolutionsModal
     const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
     // used to conditionally render the spinner icon, at this level so it can be handled inside handleSubmit function
-    const [isSpinner, setSpinner] = useState(false);
+    const [isSpinner, setSpinner] = useState(true);
     // a state the tracks if the current solver function is allowed to be ran, can be toggled by both handleSubmit and handleCancel
 
     // * other hooks
@@ -62,7 +62,7 @@ function Solve() {
 
         allowedToRunRef.current = false;
         setQueries(data);
-        await sleep(0);
+        await yieldAsync();
         handleSubmit(data);
         // console.log('next')
         //await sleep(5000);
@@ -151,11 +151,11 @@ function Solve() {
             setErrorPopup(true);
             return;
         }
-        setSpinner(true);
-        allowedToRunRef.current = true;
+        // setSpinner(true);
+        // allowedToRunRef.current = true;
         await solve(scramble, moveset.join(' '), depth, setSolutionsList, setNoSolutionsModal, allowedToRunRef);
-        setSpinner(false);
-        allowedToRunRef.current = false;
+        // setSpinner(false);
+        // allowedToRunRef.current = false;
     }
 
     function handleCancel() { // if cancel is clicked, mutate the area to stop solve() from running

@@ -4,6 +4,9 @@ make re-rendering more performant
 all todos
 why does reerender happen on resize of solve page
 get rena to style
+max updatedepth
+new dark button
+could not find icon null
 
 code review:
 position of popups

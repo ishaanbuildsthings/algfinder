@@ -1,5 +1,5 @@
+import DarkButton from '../DarkButton/DarkButton';
 import NavbarListItem from '../NavbarListItem/NavbarListItem';
-import Toggle from '../Toggle/Toggle.js';
 import './Navbar.css';
 
 function Navbar() {
@@ -9,8 +9,7 @@ function Navbar() {
         <NavbarListItem route={'/'} tabName="Solve" />
         <NavbarListItem route={'/documentation'} tabName="Documentation" />
       </ul>
-
-      <Toggle />
+      <DarkButton />
     </nav>
   );
 }

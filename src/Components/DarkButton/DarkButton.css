@@ -1,0 +1,41 @@
+.darkButton {
+  align-items: center;
+  background-color: #efc523;
+  border: none;
+  border-radius: 3px;
+  box-sizing: border-box;
+  color: #0F0F0F;
+  display: flex;
+  height: 43px;
+  justify-content: center;
+  margin-right: 2vw;
+  padding: 0;
+  width: 43px;
+}
+
+.darkButton:hover {
+  cursor: pointer;
+  background-color: #dab523;
+}
+
+.light .darkButton {
+  background-color: #191970;
+  color: #f3f1fe;
+}
+
+.light .darkButton:hover {
+  background-color: #101045;
+}
+
+@media (max-width: 850px) {
+  .darkButton {
+    margin-right: 4vw;
+  }
+}
+
+@media (max-width: 300px) {
+  .darkButton {
+    height: 37.5px;
+    width: 37.5px;
+  }
+}
