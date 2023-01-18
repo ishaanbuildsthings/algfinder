@@ -5,10 +5,8 @@ import MovesetPopup from '../MovesetPopup/MovesetPopup.js';
 import NoSolutionsModal from '../NoSolutionsModal/NoSolutionsModal.js';
 import CubePanel from '../CubePanel/CubePanel.js';
 import processMoves from '../../Utils/processMoves.js';
-import { solve } from '../../CubeSolver/Solver.js';
-import { useRef, useState, useEffect } from 'react';
 import generateRandomExample from '../../Utils/randomExamples.js';
-import { yieldAsync } from '../../Utils/yieldAsync.js';
+import { useEffect, useRef, useState } from 'react';
 import './Solve.css';
 import '../../Common/Popups.css';
 import '../../Common/Tooltips.css';
@@ -20,27 +18,23 @@ let errorMessage = '';
  * @usage Used in app.js
  */
 function Solve() {
-    let allowedToRunRef = useRef(false);
+    const workerRef = useRef(null); // initially the ref points to no worker
+
     // * states
-    // tracks the current list of solutions, will update via polling
-    // passed to SolutionsDisplay
+    // tracks the current list of solutions, passed to solutionsDisplay
     const [solutionsList, setSolutionsList] = useState([]);
-    // tracks the fields of the query form, data will be sent to the backend
+    // tracks the fields of the query form
     // passed to QueryForm and Cube, so that they can display the user-defined data
     const [queriesState, setQueries] = useState({
         scramble: '',
         depth: '',
         moveset: []
     });
-    // used to conditionally render ErrorPopup
+    // conditional renders
     const [isErrorPopup, setErrorPopup] = useState(false);
-    // used to conditionally render MovesetPopup
     const [isMovesetPopupError, setMovesetPopupError] = useState(false);
-    // used to conditionally render the NoSolutionsModal
     const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
-    // used to conditionally render the spinner icon, at this level so it can be handled inside handleSubmit function
-    const [isSpinner, setSpinner] = useState(true);
-    // a state the tracks if the current solver function is allowed to be ran, can be toggled by both handleSubmit and handleCancel
+    const [isSpinner, setSpinner] = useState(false);
 
     // * other hooks
     useEffect(() => {
@@ -52,26 +46,20 @@ function Solve() {
     }, [isNoSolutionsModal])
     // TODO
 
-    // * handlers
-    async function handleRandomExample() {
+    // whenever the component unmounts, kill any active worker
+    useEffect(() => {
+        return () => workerRef.current.terminate();
+    }, []);
 
+
+    // * handlers
+    function handleRandomExample() {
         let data = generateRandomExample();
-        while (data === queriesState) {
+        while (JSON.stringify(data) === JSON.stringify(queriesState)) {
             data = generateRandomExample();
         }
-
-        allowedToRunRef.current = false;
         setQueries(data);
-        await yieldAsync();
         handleSubmit(data);
-        // console.log('next')
-        //await sleep(5000);
-        //handleSubmit(data); // data is basically a memo so we don't have to worry about the states
-        // set to false, set queries, jump out of timeline
-        // sync code is done, dequeue initial setTimeout
-        // solve timeline stops
-        // allowed to run is set to false
-        //
     }
 
     // when a user changes the scramble, change the queries state
@@ -118,23 +106,13 @@ function Solve() {
         }
     }
 
-    // passed to the queryForm, which registers this function as an onClick for the submit button
-    // when the user clicks the button, send the queries to the backend
-    // repeatedly poll the backend for updated data and change the solutions state accordingly
-    async function handleSubmit({ scramble, depth, moveset }) {
-        scramble = processMoves(scramble);
+    function handleSubmit({ scramble, depth, moveset }) {
+        if (workerRef.current) {
+        workerRef.current.terminate();
+        }
 
-        // todo: this wont work if we want to clear things
-        // if (allowedToRunRef.current) { // if this is true, it implies compute is already running, so do not run it again
-        //     return;
-        // }
-
-        // TODO: remove some handling
-        if (scramble.length < 2) {
-            errorMessage = 'Please enter a valid scramble';
-            setErrorPopup(true);
-            return;
-        } else if (depth === 1 || depth === '') {
+        // TODO: remove some handling, check if scramble length 1 works
+        if (depth === 1 || depth === '') {
             errorMessage = 'Please choose a depth of at least 2';
             setErrorPopup(true);
             return;
@@ -151,15 +129,37 @@ function Solve() {
             setErrorPopup(true);
             return;
         }
-        // setSpinner(true);
-        // allowedToRunRef.current = true;
-        await solve(scramble, moveset.join(' '), depth, setSolutionsList, setNoSolutionsModal, allowedToRunRef);
-        // setSpinner(false);
-        // allowedToRunRef.current = false;
+
+        scramble = processMoves(scramble);
+        const params = { scramble: scramble, moveset: moveset, depth: depth }
+        setSpinner(true);
+
+        // initialize
+        workerRef.current = new Worker('Workers/SolveWorker.js');
+        // if we receive a message from the worker
+        workerRef.current.onmessage = (e) => {
+            if (e.data === 'done') {
+                console.log('done');
+                setSpinner(false);
+                workerRef.current.terminate();
+                workerRef.current = null;
+                return;
+            } else {
+                console.log(e.data);
+                setSolutionsList(e.data);
+            }
+        };
+
+        // fire off the webworker thread with the queries
+        workerRef.current.postMessage(params);
     }
 
-    function handleCancel() { // if cancel is clicked, mutate the area to stop solve() from running
-        allowedToRunRef.current = false;
+    function handleCancel() {
+        if (workerRef.current) {
+            workerRef.current.terminate();
+            setSpinner(false);
+            workerRef.current = null;
+        }
     }
 
     return (

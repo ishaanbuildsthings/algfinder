@@ -7,6 +7,7 @@ get rena to style
 max updatedepth
 could not find icon null
 generating solutions button is weird padding and vertical space
+button isnt ACTUALLY naimated right
 
 code review:
 position of popups

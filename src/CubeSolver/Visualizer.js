@@ -39,5 +39,3 @@ function printSolutionsString(solutionsList) {
 }
 
 export { visualize, printLine, printDepth, printMoves, printSolutionsString };
-
-// TODO: do i need to remove this or can it be treeshaked

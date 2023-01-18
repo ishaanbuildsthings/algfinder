@@ -1,6 +1,14 @@
 // takes in an input of { "solution 1" : [1, 2], "solution 2" : [3, 4] }
 // outputs a list of the sorted solutions by STM: ["M U M2 U2 M'", "R2 U R U R' R' U F R U"]
 export default function sortSolutionsDictByMoves(obj, stmOrQtm) {
+  const solutions = [];
+  const moveCounts = [];
+  for (let key in obj) {
+    solutions.push(key);
+    moveCounts.push(obj[key]);
+  }
+
+
   const strings = Object.keys(obj);
   strings.sort((a, b) => {
     const listA = obj[a];
@@ -14,4 +22,4 @@ export default function sortSolutionsDictByMoves(obj, stmOrQtm) {
   return strings;
 }
 
-// TODO: fix
+// TODO: fix for when its already sorted

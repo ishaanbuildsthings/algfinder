@@ -5,7 +5,7 @@ function Documentation() {
 
   useEffect(() => {
     console.log('ran');
-    const worker = new Worker('../../Workers/SolveWorker.js');
+    const worker = new Worker('Workers/SolveWorker.js');
 
     worker.postMessage({ type: 'start', data: [5, 10] });
 

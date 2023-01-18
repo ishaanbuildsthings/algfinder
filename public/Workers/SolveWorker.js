@@ -1,5 +1,155 @@
-import { simplifyMove } from './AlgHandler.js';
+// import Cube from './Cube.js';
+// import { applyAlg, cleanUpIntersection, reverseAndInvertMoveList } from './AlgHandler.js';
+// importScripts('Cube.js');
 
+// when the worker receives a message from the main thread
+// e.data = the params we send in via postMessage
+onmessage = function (e) {
+  let { scramble, moveset, depth } = e.data;
+
+  // if exactly one end is odd, such as 7+8 or 8+9
+  let oddStatus = Boolean(depth % 2);
+  scramble = scramble.split(' ');
+  moveset = moveset.split(' ');
+  // if input is 13, this will become 7, odd status is true
+  // if input is 14, this will become 7, odd status is false
+  // if input is 15, this will become 8, odd status is true
+  // if input is 16, this will become 8, odd status is false
+  depth = parseInt(Math.ceil((parseInt(depth) / 2)));
+
+  // create the cubes
+  const solvedCube = new Cube();
+  solvedCube.allowedMoves = moveset;
+  const scrambledCube = new Cube();
+  applyAlg(scramble, scrambledCube);
+  scrambledCube.movesApplied = [];
+  scrambledCube.allowedMoves = moveset;
+
+  // setup for search algorithm
+  const solvedHash = {}; // holds a mapping of cube states to lists of solutions, { "R2 U R" : ["R' U' R2, "x R F U2"] }
+  const solvedQueue = [solvedCube]; // holds a queue of cubes
+  const scrambledHash = {};
+  const scrambledQueue = [scrambledCube];
+
+  // let numCubes = 0;
+  let depthOfNextQueuedCube = 0;
+  const finalSolutions = new Set();
+
+  // if our user-defined max depth is 5 or 6 (making maxDepth to be searched from one end = 3), and the next cube in the queue has a max depth of 2 or less, process it
+  while (depthOfNextQueuedCube < depth) {
+    // flag if we get new solutions
+    let hasChanged = false;
+
+     // grab the next cube from the list and create its adjacency list
+    const parentSolvedCube = solvedQueue.shift();
+    const solvedAdjacencyList = parentSolvedCube.createAdjList();
+
+    // for every cube in the adjacency list, assign properties
+    for (let adjacentCube of solvedAdjacencyList) {
+      adjacentCube.parentCube = parentSolvedCube;
+      adjacentCube.depth = parentSolvedCube.depth + 1;
+      adjacentCube.allowedMoves = moveset;
+
+       // if this state hasnt been reached, initialize the ways to reach that state
+      if (!(adjacentCube.getState() in solvedHash)) {
+        // console.log("This cube state hasn't been reached from the solved end before, hashing now...");
+        solvedHash[adjacentCube.getState()] = [adjacentCube.movesApplied.join(' ')];
+      } else { // if it has been reached, just add another state
+        // console.log('This cube state has already been reached from the solved end before via different moves, adding another sequence to hash now...');
+        solvedHash[adjacentCube.getState()].push(adjacentCube.movesApplied.join(' '));
+      }
+      // if this cube state has been seen in the scrambled hash, create all solutions
+      if (adjacentCube.getState() in scrambledHash) {
+        // iterate over all the scrambled halfways to reach the solved state
+        //  console.log('This cube state has been reached from the scrambled end before! Intersection found.');
+        //  console.log('Here are the ways we reached this state from the scrambled end:');
+        for (let scrambledHalfway of scrambledHash[adjacentCube.getState()]) {
+          //  console.log(scrambledHalfway);
+          scrambledHalfway = scrambledHalfway.split(' ');
+          const stage1 = reverseAndInvertMoveList(scrambledHalfway);
+          const stage2 = cleanUpIntersection(adjacentCube.movesApplied, stage1);
+          const stage3 = reverseAndInvertMoveList(stage2);
+          const stage3s = stage3.join(' ');
+
+          // add solutions only if they haven't been found
+          if (!finalSolutions.has(stage3s)) {
+            hasSolutions = true;
+            finalSolutions.add(stage3s);
+          }
+        }
+      }
+       // add the adjacenytcube to the queue for BFS
+      solvedQueue.push(adjacentCube);
+    }
+     // update the depth for the next cube
+    depthOfNextQueuedCube = solvedQueue[0].depth;
+
+    // update the state with the current found solutions, it is done before entering the scrambled side in case that is pruned
+    const currentFoundSolutions = [];
+     for (let solution of finalSolutions) {
+      currentFoundSolutions.push(solution);
+    }
+
+     // SCRAMBLED END
+
+    const parentScrambledCube = scrambledQueue.shift();
+
+    // assume the depth is 15
+    // odd status is true, the max depth is 8
+    // if we reach a scrambled cube of depth 7, meaning we are processing neighbors of depth 8
+    // then skip that, we don't need to check the scrambled size of depth 8, we will just check the solved size of depth 8
+    // the top part will run again, if the next solved cube has depth 7, meaning we are processing depth 8 neighbors, the while condition is valid
+    // repeat the pruning skip, the top will stop running when we hit a solved cube with depth 8, since we don't need to search depth 9 neighbors
+    //  assume the depth is 17
+    // odd status is true, the max depth is 9
+
+    if (oddStatus && parentScrambledCube.depth === depth - 1) {
+      continue;
+    }
+
+     // grab the next cube from the list and create its adjacency list
+    const scrambledAdjacencyList = parentScrambledCube.createAdjList();
+
+      // for every cube in the adjacency list, assign properties
+    for (let scrambledAdjacentCube of scrambledAdjacencyList) {
+      scrambledAdjacentCube.parentCube = parentScrambledCube;
+      scrambledAdjacentCube.depth = parentScrambledCube.depth + 1;
+      scrambledAdjacentCube.allowedMoves = moveset;
+
+       // if this state hasnt been reached, initialize the ways to reach that state
+      if (!(scrambledAdjacentCube.getState() in scrambledHash)) {
+        scrambledHash[scrambledAdjacentCube.getState()] = [scrambledAdjacentCube.movesApplied.join(' ')];
+      } else { // if it has been reached, just add another state
+        scrambledHash[scrambledAdjacentCube.getState()].push(scrambledAdjacentCube.movesApplied.join(' '));
+      }
+
+      // if the cube state has been seen in the solved hash, create all solutions
+      if (scrambledAdjacentCube.getState() in solvedHash) {
+        // iterate over all the solved halfways to reach the scrambled state
+        // if we can reached the scrambled state from two different ways, the comparison would happen for each time
+        for (let solvedHalfway of solvedHash[scrambledAdjacentCube.getState()]) {
+          solvedHalfway = solvedHalfway.split(' ');
+          const stage1 = reverseAndInvertMoveList(solvedHalfway);
+          const stage2 = cleanUpIntersection(scrambledAdjacentCube.movesApplied, stage1);
+          const stage2s = stage2.join(' ');
+          if (!finalSolutions.has(stage2s)) {
+            hasChanged = true;
+            finalSolutions.add(stage2s);
+          }
+        }
+      }
+      scrambledQueue.push(scrambledAdjacentCube);
+    if (hasChanged) {
+      this.postMessage(finalSolutions);
+    }
+    }
+  this.postMessage('done');
+  }
+}
+
+
+
+// TESTING CUBE
 
 const MOVES = [
   'U', 'R', 'F', 'B', 'L', 'D',
@@ -472,3 +622,129 @@ export default class Cube {
   }
 }
 
+
+// TESTING ALG
+
+function applyAlg(algorithm, cube) {
+  for (let move of algorithm) {
+    cube.move(move);
+  }
+}
+
+function invertMoveList(moveList) {
+  const invertedList = [];
+  for (let move of moveList) {
+    invertedList.push(invertMove(move));
+  }
+  return invertedList;
+}
+
+function reverseMoveList(moveList) {
+  return moveList.slice().reverse();
+}
+
+function reverseAndInvertMoveList(moveList) {
+  return invertMoveList(reverseMoveList(moveList));
+}
+
+// take in a move string and return just the letter portion
+function simplifyMove(move) {
+  if (move.length === 2) {
+    move = move[0];
+  }
+  return move;
+}
+
+// invert a move string
+function invertMove(move) {
+  if (move[move.length - 1] === "'") {
+    move = move[0];
+  } else if (move.length === 1) {
+    move += "'";
+  }
+  return move;
+}
+
+// parsing functions
+function normalToPrime(move) {
+  return move + "'";
+}
+
+function normalToDouble(move) {
+  return move + '2';
+}
+
+function primeToDouble(move) {
+  return move[0] + '2';
+}
+
+function doubleToNormal(move) {
+  return move[0];
+}
+
+function doubleToPrime(move) {
+  return move[0] + "'";
+}
+
+// connects the left and right ends of move lists
+function cleanUpIntersection(lista, listb) { // ["R2", "U" "R'", "U'"] and ["R", "U", "R'", "U2"]
+  // create copies of the lists of the moves
+  const list1 = lista.slice();
+  const list2 = listb.slice();
+
+  // ? console.log(`list1 is: ${JSON.stringify(list1)}`);
+  // ? console.log(`list2 is: ${JSON.stringify(list2)}`);
+
+  // if one of the lists is empty, return the other list
+  if (list1.length === 0) {
+    return list2;
+  }
+  if (list2.length === 0) {
+    return list1;
+  }
+
+  const list1LastMove = list1[list1.length - 1]; // R2 or U
+  const list1LastMoveFirstChar = list1LastMove[0]; // R or U
+  const list1LastMoveLastChar = list1LastMove[list1LastMove.length - 1]; // 2 or U
+
+  const list2FirstMove = list2[0];
+  const list2FirstMoveFirstChar = list2FirstMove[0];
+  const list2FirstMoveLastChar = list2FirstMove[list2FirstMove.length - 1];
+
+  // if the last move of the first list is not the same type as the first move of the second list, just return the lists
+  if (list1LastMoveFirstChar !== list2FirstMoveFirstChar) { // ["R2", "U2"] and ["F2", "R2"]
+    return [...list1, ...list2]; // returns ["R2", "U2", "F2", "R2"]
+  }
+
+  if (list1LastMoveLastChar === "'") {
+    if (list2FirstMoveLastChar === "'") {
+      list1[list1.length - 1] = primeToDouble(list1[list1.length - 1]);
+    } else if (list2FirstMoveLastChar === '2') {
+      list1[list1.length - 1] = invertMove(list1[list1.length - 1]);
+    } else {
+      list1.splice(-1, 1);
+    }
+  } else if (list1LastMoveLastChar === '2') {
+    if (list2FirstMoveLastChar === "'") {
+      list1[list1.length - 1] = doubleToNormal(list1[list1.length - 1]);
+    } else if (list2FirstMoveLastChar === '2') { // ["R2"] and ["R2"]
+      list1.splice(-1, 1);
+    } else {
+      list1[list1.length - 1] = doubleToPrime(list1[list1.length - 1]);
+    }
+  } else {
+    if (list2FirstMoveLastChar === "'") {
+      list1.splice(-1, 1);
+    } else if (list2FirstMoveLastChar === '2') {
+      list1[list1.length - 1] = invertMove(list1[list1.length - 1]);
+    } else {
+      list1[list1.length - 1] = normalToDouble(list1[list1.length - 1]);
+    }
+  }
+  // ? console.log(`before, list 2 is: ${list2}`)
+  list2.splice(0, 1);
+  // ? console.log(`new lists to clean up are: ${list1} and ${list2}`)
+  return cleanUpIntersection(list1, list2);
+}
+
+export { applyAlg, invertMoveList, reverseMoveList, reverseAndInvertMoveList, simplifyMove, invertMove, normalToPrime, cleanUpIntersection }

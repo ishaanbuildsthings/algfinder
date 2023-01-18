@@ -36,7 +36,6 @@ function DarkButton() {
     }
   }, [localStorageState]);
 
-  // TODO: no colon?
   return (
     <button className="darkButton" onClick={handleClick}>
       <IconContext.Provider value={

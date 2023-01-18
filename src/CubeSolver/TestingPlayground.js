@@ -1,7 +1,6 @@
 // used during development to test the cube and solving algorithm
 // need to add "type": "module", to package.json
 
-// todo
 import applyAlg from './AlgHandler.js';
 import Cube from './Cube.js';
 import readline from 'readline-sync';
