@@ -34,7 +34,7 @@ function Solve() {
     const [isErrorPopup, setErrorPopup] = useState(false);
     const [isMovesetPopupError, setMovesetPopupError] = useState(false);
     const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
-    const [isSpinner, setSpinner] = useState(false);
+    const [isSpinner, setSpinner] = useState(true);
 
     // * other hooks
     useEffect(() => {
