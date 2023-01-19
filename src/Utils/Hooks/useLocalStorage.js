@@ -19,8 +19,7 @@ function useLocalStorage(key, defaultValue) {
     } catch (error) {
       currentValue = defaultValue; // if it doesn't exist use the default value
     }
-
-    return currentValue;
+    return currentValue; // initial value
   });
 
   // TODO: understand this?

@@ -35,6 +35,7 @@ function SolutionsDisplayContainer({ solutionsList }) {
     );
     setSolutionsState(reorderedList);
   }
+  //todo: make more performant
 
   return (
     <div className="solutionsDisplayContainer">

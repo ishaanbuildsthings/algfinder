@@ -1,13 +1,11 @@
 https://codepen.io/Sean713/pen/PoBZKbP -ask this codepen removing min height from solvepageminusnav
 fix weird safari divs and safari font
 make re-rendering more performant
-all todos
 why does reerender happen on resize of solve page
 get rena to style
 max updatedepth
 could not find icon null
 generating solutions button is weird padding and vertical space
-button isnt ACTUALLY naimated right
 
 code review:
 position of popups
@@ -15,16 +13,17 @@ position of popups
 errorPopup.css has z-index which lets it appear over button, why?
 clicking IN BETWEEn label and input puts cursor at beginning
 put things outside function
-all my popups flash again
 1) why do parents rerender children if the childrens states dont change?
 navbar.js should I include const inside or outside
 queryformcontainer has helper function but its inside because it needs the states
-in general isnt putting handlers inside the functional components inefficient
 how to create universal windowsize, am i creating miltiple in a weird way?
 if react remembers const, then why does usememo exist or do we just not use it on []
 queryformcontainer lines 66-68, am i inefficient, talk about the flow
-make sure you know what the rendering process is, which part of the code runs when, the return statement, etc
 
 TODO:
 change documentation, maybe add usage gif + diff usage gif for different size app
 why cant i do var a = 10; to modify the window object and access it from another file, it doesnt recognize a
+
+dev todos:
+streamline processing of moves for sorting
+after deployed, check speeds on different devices

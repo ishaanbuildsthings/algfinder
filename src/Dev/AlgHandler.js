@@ -1,3 +1,5 @@
+// * this is the algHandler module for dev testing purposes
+
 export default function applyAlg(algorithm, cube) {
   for (let move of algorithm) {
     cube.move(move);

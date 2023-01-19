@@ -55,7 +55,7 @@ export default class Cube {
     clone.bFace = [...this.bFace];
     clone.lFace = [...this.lFace];
     clone.dFace = [...this.dFace];
-    // todo
+
     clone.faceMapping = {
       'U': clone.uFace, 'F': clone.fFace, 'R': clone.rFace,
       'D': clone.dFace, 'L': clone.lFace, 'B': clone.bFace

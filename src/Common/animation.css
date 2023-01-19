@@ -1,6 +1,7 @@
 .fade-out {
   animation-delay: 1s;
   animation-duration: 1s;
+  animation-fill-mode: forwards;
   animation-name: fadeOut;
 }
 

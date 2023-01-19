@@ -1,106 +1,7 @@
-// when the worker receives a message from the main thread
-// e.data = the params we send in via postMessage
-onmessage = function (e) {
-  let { scramble, moveset, depth } = e.data;
-
-  let oddStatus = Boolean(depth % 2);
-  scramble = scramble.split(' ');
-  depth = parseInt(Math.ceil((parseInt(depth) / 2)));
-
-  // create the cubes
-  const solvedCube = new Cube();
-  solvedCube.allowedMoves = moveset;
-  const scrambledCube = new Cube();
-  applyAlg(scramble, scrambledCube);
-  scrambledCube.movesApplied = [];
-  scrambledCube.allowedMoves = moveset;
-
-  // setup for search algorithm
-  const solvedHash = {};
-  const solvedQueue = [solvedCube]; // holds a queue of cubes
-  const scrambledHash = {};
-  const scrambledQueue = [scrambledCube];
-
-  let depthOfNextQueuedCube = 0;
-  const finalSolutions = new Set(); // this is to track if repeat solutions are found
-
-  while (depthOfNextQueuedCube < depth) {
-
-     // grab the next cube from the list and create its adjacency list
-    const parentSolvedCube = solvedQueue.shift();
-    const solvedAdjacencyList = parentSolvedCube.createAdjList();
-
-    // for every cube in the adjacency list, assign properties
-    for (let adjacentCube of solvedAdjacencyList) {
-      adjacentCube.parentCube = parentSolvedCube;
-      adjacentCube.depth = parentSolvedCube.depth + 1;
-      adjacentCube.allowedMoves = moveset;
-
-       // if this state hasnt been reached, initialize the ways to reach that state
-      if (!(adjacentCube.getState() in solvedHash)) {
-        solvedHash[adjacentCube.getState()] = [adjacentCube.movesApplied.join(' ')];
-      } else {
-        solvedHash[adjacentCube.getState()].push(adjacentCube.movesApplied.join(' '));
-      }
-      if (adjacentCube.getState() in scrambledHash) {
-        for (let scrambledHalfway of scrambledHash[adjacentCube.getState()]) {
-          scrambledHalfway = scrambledHalfway.split(' ');
-          const stage1 = reverseAndInvertMoveList(scrambledHalfway);
-          const stage2 = cleanUpIntersection(adjacentCube.movesApplied, stage1);
-          const stage3 = reverseAndInvertMoveList(stage2);
-          const stage3s = stage3.join(' ');
-          if (!finalSolutions.has(stage3s)) {
-            this.postMessage(stage3s);
-            finalSolutions.add(stage3s);
-          }
-        }
-      }
-      solvedQueue.push(adjacentCube);
-    }
-     // update the depth for the next cube
-    depthOfNextQueuedCube = solvedQueue[0].depth;
-
-     // SCRAMBLED END
-
-    const parentScrambledCube = scrambledQueue.shift();
-
-    if (oddStatus && parentScrambledCube.depth === depth - 1) {
-      continue;
-    }
-
-    const scrambledAdjacencyList = parentScrambledCube.createAdjList();
-
-    for (let scrambledAdjacentCube of scrambledAdjacencyList) {
-      scrambledAdjacentCube.parentCube = parentScrambledCube;
-      scrambledAdjacentCube.depth = parentScrambledCube.depth + 1;
-      scrambledAdjacentCube.allowedMoves = moveset;
-
-      if (!(scrambledAdjacentCube.getState() in scrambledHash)) {
-        scrambledHash[scrambledAdjacentCube.getState()] = [scrambledAdjacentCube.movesApplied.join(' ')];
-      } else { // if it has been reached, just add another state
-        scrambledHash[scrambledAdjacentCube.getState()].push(scrambledAdjacentCube.movesApplied.join(' '));
-      }
-
-      if (scrambledAdjacentCube.getState() in solvedHash) {
-        for (let solvedHalfway of solvedHash[scrambledAdjacentCube.getState()]) {
-          solvedHalfway = solvedHalfway.split(' ');
-          const stage1 = reverseAndInvertMoveList(solvedHalfway);
-          const stage2 = cleanUpIntersection(scrambledAdjacentCube.movesApplied, stage1);
-          const stage2s = stage2.join(' ');
-          if (!finalSolutions.has(stage2s)) {
-            this.postMessage(stage2s);
-            finalSolutions.add(stage2s);
-          }
-        }
-      }
-    scrambledQueue.push(scrambledAdjacentCube);
-    }
-  }
-  this.postMessage('done');
-}
+// * this module is for testing the webworker file within node
 
 
-// ! CUBE ___________________________________________________
+// ! CUBE
 
 const MOVES = [
   'U', 'R', 'F', 'B', 'L', 'D',
@@ -156,7 +57,6 @@ class Cube {
     clone.bFace = [...this.bFace];
     clone.lFace = [...this.lFace];
     clone.dFace = [...this.dFace];
-
     clone.faceMapping = {
       'U': clone.uFace, 'F': clone.fFace, 'R': clone.rFace,
       'D': clone.dFace, 'L': clone.lFace, 'B': clone.bFace
@@ -574,7 +474,7 @@ class Cube {
 }
 
 
-// ! ALGHANDLER
+// ! ALG HANDLER
 
 function applyAlg(algorithm, cube) {
   for (let move of algorithm) {
@@ -617,6 +517,10 @@ function invertMove(move) {
 }
 
 // parsing functions
+function normalToPrime(move) {
+  return move + "'";
+}
+
 function normalToDouble(move) {
   return move + '2';
 }
@@ -638,6 +542,9 @@ function cleanUpIntersection(lista, listb) { // ["R2", "U" "R'", "U'"] and ["R",
   // create copies of the lists of the moves
   const list1 = lista.slice();
   const list2 = listb.slice();
+
+  // ? console.log(`list1 is: ${JSON.stringify(list1)}`);
+  // ? console.log(`list2 is: ${JSON.stringify(list2)}`);
 
   // if one of the lists is empty, return the other list
   if (list1.length === 0) {
@@ -685,6 +592,177 @@ function cleanUpIntersection(lista, listb) { // ["R2", "U" "R'", "U'"] and ["R",
       list1[list1.length - 1] = normalToDouble(list1[list1.length - 1]);
     }
   }
+  // ? console.log(`before, list 2 is: ${list2}`)
   list2.splice(0, 1);
+  // ? console.log(`new lists to clean up are: ${list1} and ${list2}`)
   return cleanUpIntersection(list1, list2);
 }
+
+
+// ! VISUALIZER
+
+function visualize(cube) {
+  const state = [cube.uFace, cube.fFace, cube.rFace, cube.bFace, cube.lFace, cube.dFace];
+  console.log(`       ${state[0][0]}${state[0][1]}${state[0][2]}`);
+  console.log(`       ${state[0][3]}${state[0][4]}${state[0][5]}`);
+  console.log(`       ${state[0][6]}${state[0][7]}${state[0][8]}`);
+
+  console.log(
+    `${state[4][0]}${state[4][1]}${state[4][2]} ${state[1][0]}${state[1][1]}${state[1][2]} ${state[2][0]}${state[2][1]}${state[2][2]} ${state[3][0]}${state[3][1]}${state[3][2]}`);
+
+  console.log(
+    `${state[4][3]}${state[4][4]}${state[4][5]} ${state[1][3]}${state[1][4]}${state[1][5]} ${state[2][3]}${state[2][4]}${state[2][5]} ${state[3][3]}${state[3][4]}${state[3][5]}`);
+
+  console.log(
+    `${state[4][6]}${state[4][7]}${state[4][8]} ${state[1][6]}${state[1][7]}${state[1][8]} ${state[2][6]}${state[2][7]}${state[2][8]} ${state[3][6]}${state[3][7]}${state[3][8]}`);
+
+  console.log(`       ${state[5][0]}${state[5][1]}${state[5][2]}`);
+  console.log(`       ${state[5][3]}${state[5][4]}${state[5][5]}`);
+  console.log(`       ${state[5][6]}${state[5][7]}${state[5][8]}`);
+}
+
+function printLine(n=1) {
+  for (let i = 0; i < n; i++) {
+    console.log('__________________________');
+  }
+}
+
+function printDepth(cube) {
+  console.log(`Depth: ${cube.depth}`);
+}
+
+function printMoves(cube) {
+  console.log(cube.movesApplied.join(' '));
+}
+
+function printSolutionsString(solutionsList) {
+  for (let solution of solutionsList) {
+    console.log(`a solution is: ${solution}`);
+  }
+}
+
+// ! SOLVER
+
+
+//let { scramble, moveset, depth } = { scramble: "R2 U2 R2 U2 R2 U2", moveset: ["R", "U"], depth: 6 };
+let { scramble, moveset, depth } = { scramble: "R2 U R U R' U' R' U' R' U R'", moveset: ["R", "U"], depth: 12 };
+
+let oddStatus = Boolean(depth % 2);
+scramble = scramble.split(' ');
+depth = parseInt(Math.ceil((parseInt(depth) / 2)));
+
+// create the cubes
+const solvedCube = new Cube();
+solvedCube.allowedMoves = moveset;
+const scrambledCube = new Cube();
+applyAlg(scramble, scrambledCube);
+scrambledCube.movesApplied = [];
+scrambledCube.allowedMoves = moveset;
+
+// setup for search algorithm
+const solvedHash = {};
+const solvedQueue = [solvedCube]; // holds a queue of cubes
+const scrambledHash = {};
+const scrambledQueue = [scrambledCube];
+
+let depthOfNextQueuedCube = 0;
+const finalSolutions = new Set();
+
+while (depthOfNextQueuedCube < depth) {
+
+  // grab the next cube from the list and create its adjacency list
+  const parentSolvedCube = solvedQueue.shift();
+  const solvedAdjacencyList = parentSolvedCube.createAdjList();
+
+  // for every cube in the adjacency list, assign properties
+  for (let adjacentCube of solvedAdjacencyList) {
+    adjacentCube.parentCube = parentSolvedCube;
+    adjacentCube.depth = parentSolvedCube.depth + 1;
+    adjacentCube.allowedMoves = moveset;
+
+    console.log('Started from solved cube');
+    visualize(adjacentCube);
+    printDepth(adjacentCube);
+    printMoves(adjacentCube);
+
+    // if this state hasnt been reached, initialize the ways to reach that state
+    if (!(adjacentCube.getState() in solvedHash)) {
+      console.log("This cube state hasn't been reached from the solved end before, hashing now...");
+      solvedHash[adjacentCube.getState()] = [adjacentCube.movesApplied.join(' ')];
+    } else {
+      console.log('This cube state has already been reached from the solved end before via different moves, adding another sequence to hash now...');
+      solvedHash[adjacentCube.getState()].push(adjacentCube.movesApplied.join(' '));
+    }
+    if (adjacentCube.getState() in scrambledHash) {
+      console.log('This cube state has been reached from the scrambled end before! Intersection found.');
+      console.log('Here are the ways we reached this state from the scrambled end:');
+      for (let scrambledHalfway of scrambledHash[adjacentCube.getState()]) {
+        console.log(scrambledHalfway);
+        scrambledHalfway = scrambledHalfway.split(' ');
+        const stage1 = reverseAndInvertMoveList(scrambledHalfway);
+        const stage2 = cleanUpIntersection(adjacentCube.movesApplied, stage1);
+        const stage3 = reverseAndInvertMoveList(stage2);
+        const stage3s = stage3.join(' ');
+        if (!finalSolutions.has(stage3s)) {
+          finalSolutions.add(stage3s);
+        }
+      }
+    }
+    printLine();
+    solvedQueue.push(adjacentCube);
+  }
+  // update the depth for the next cube
+  depthOfNextQueuedCube = solvedQueue[0].depth;
+
+  // update the state with the current found solutions, it is done before entering the scrambled side in case that is pruned
+
+  // SCRAMBLED END
+
+  const parentScrambledCube = scrambledQueue.shift();
+
+  if (oddStatus && parentScrambledCube.depth === depth - 1) {
+    continue;
+  }
+
+  const scrambledAdjacencyList = parentScrambledCube.createAdjList();
+
+  for (let scrambledAdjacentCube of scrambledAdjacencyList) {
+    scrambledAdjacentCube.parentCube = parentScrambledCube;
+    scrambledAdjacentCube.depth = parentScrambledCube.depth + 1;
+    scrambledAdjacentCube.allowedMoves = moveset;
+
+    console.log('Started from scrambled cube');
+    visualize(scrambledAdjacentCube);
+    printDepth(scrambledAdjacentCube);
+    printMoves(scrambledAdjacentCube);
+
+    if (!(scrambledAdjacentCube.getState() in scrambledHash)) {
+      console.log("This cube hasn't been reached from the scrambled end before, hashing now...");
+      scrambledHash[scrambledAdjacentCube.getState()] = [scrambledAdjacentCube.movesApplied.join(' ')];
+    } else { // if it has been reached, just add another state
+      console.log('This cube state has already been reached from the solved end before, adding another sequence to hash now');
+      scrambledHash[scrambledAdjacentCube.getState()].push(scrambledAdjacentCube.movesApplied.join(' '));
+    }
+
+    if (scrambledAdjacentCube.getState() in solvedHash) {
+      console.log('This cube state has been reached from the scrambled end before! Intersection found.');
+      console.log('Here are the ways we reached this state from the scrambled end:');
+      for (let solvedHalfway of solvedHash[scrambledAdjacentCube.getState()]) {
+        console.log(solvedHalfway);
+        solvedHalfway = solvedHalfway.split(' ');
+        const stage1 = reverseAndInvertMoveList(solvedHalfway);
+        const stage2 = cleanUpIntersection(scrambledAdjacentCube.movesApplied, stage1);
+        const stage2s = stage2.join(' ');
+        if (!finalSolutions.has(stage2s)) {
+          finalSolutions.add(stage2s);
+        }
+      }
+    }
+    printLine();
+    scrambledQueue.push(scrambledAdjacentCube);
+
+  }
+}
+console.log(finalSolutions);
+
+

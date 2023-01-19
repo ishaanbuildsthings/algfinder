@@ -69,10 +69,11 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
     // TODO: weird stuff going on and not sure if i need to re-render anyway
     // create arrays of JSX buttons
     //const buttonListFaceMoves = useMemo(() => createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']), [queriesState.moveset]);
+    // const buttonListWideMoves = useMemo(() => createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']), [queriesState.moveset]);
+    // const buttonListSliceAndRotation = useMemo(() => createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']), [queriesState.moveset]);
     const buttonListFaceMoves = createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']);
-    const buttonListWideMoves = useMemo(() => createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']), [queriesState.moveset]);
-    const buttonListSliceAndRotation = useMemo(() => createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']), [queriesState.moveset]);
-
+    const buttonListWideMoves = createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']);
+    const buttonListSliceAndRotation = createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']);
 
     return (
         // queryFormContainer goes here
@@ -183,4 +184,3 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
 }
 
 export default QueryFormContainer;
-// TODO: why does typing an 'a' repaint the scramble, the vdom isnt even changed

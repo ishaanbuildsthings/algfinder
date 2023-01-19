@@ -1,3 +1,5 @@
+// * this is for testing in node
+
 // used during development to test the cube and solving algorithm
 // need to add "type": "module", to package.json
 

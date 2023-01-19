@@ -1,3 +1,5 @@
+// * this repo is a non-webworker solver to be used in the frontend
+
 import Cube from './Cube.js';
 // import { visualize, printLine, printDepth, printMoves, printSolutionsString } from './Visualizer.js';
 import { applyAlg, cleanUpIntersection, reverseAndInvertMoveList } from './AlgHandler.js';

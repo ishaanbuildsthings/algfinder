@@ -1,3 +1,5 @@
+// * this is for testing in node or the frontend
+
 function visualize(cube) {
   const state = [cube.uFace, cube.fFace, cube.rFace, cube.bFace, cube.lFace, cube.dFace];
   console.log(`       ${state[0][0]}${state[0][1]}${state[0][2]}`);

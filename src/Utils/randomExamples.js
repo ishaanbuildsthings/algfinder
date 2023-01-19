@@ -1,23 +1,29 @@
+// good examples are 12 move 3gen, 10 move 4gen, that don't have a lot of solutions
 const examples = [
-  {
+  { // u perm
     scramble: "R2 U R U R' U' R' U' R' U R'",
     moveset: ['R', 'U'],
     depth: 13
   },
-  {
-    scramble: "L' U L U L' U2 L",
-    moveset: ['R', 'U', 'L'],
-    depth: 7
-  },
-  {
-    scramble: "R' D R U2 R' D' R U2",
-    moveset: ['R', 'U', 'D'],
+  { // a perm
+    scramble: "x R' U R' D2 R U' R' D2 R2",
+    moveset: ['R', 'U', 'D', 'x'],
     depth: 10
   },
-  {
-    scramble: "R E R' U' R E' R' U",
-    moveset: ['R', 'U', 'E'],
-    depth: 8
+  { // j perm
+    scramble: "R' U L' U2 R U' R' U2 R L",
+    moveset: ['R', 'U', 'L'],
+    depth: 12
+  },
+  { // checkerboard oll
+    scramble: "M U R U R' U' M2 U R U' r'",
+    moveset: ['R', 'U', 'M'],
+    depth: 12
+  },
+  { // corner
+    scramble: "R' D' R' D R U2 R' D' R U2 D R",
+    moveset: ['R', 'U', 'D'],
+    depth: 12
   }
 ];
 

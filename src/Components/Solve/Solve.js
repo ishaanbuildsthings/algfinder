@@ -38,17 +38,22 @@ function Solve() {
 
     // * other hooks
     useEffect(() => {
-        window.addEventListener('click', () => setNoSolutionsModal(false));
+        window.addEventListener('mousedown', () => setNoSolutionsModal(false));
 
         return () => {
-            window.removeEventListener('click', () => setNoSolutionsModal(false));
+            window.removeEventListener('mousedown', () => setNoSolutionsModal(false));
         };
     }, [isNoSolutionsModal])
     // TODO
 
     // whenever the component unmounts, kill any active worker
     useEffect(() => {
-        return () => workerRef.current.terminate();
+        return () => {
+            if (workerRef.current !== null) {
+                workerRef.current.terminate();
+                workerRef.current = null;
+            }
+        }
     }, []);
 
 
@@ -69,7 +74,7 @@ function Solve() {
             setQueries({
                 ...queriesState,
                 [name]: value
-            })
+            });
         }
     }
     // when the user changes the depth, change the queries state
@@ -108,7 +113,7 @@ function Solve() {
 
     function handleSubmit({ scramble, depth, moveset }) {
         if (workerRef.current) {
-        workerRef.current.terminate();
+            workerRef.current.terminate();
         }
 
         // TODO: remove some handling, check if scramble length 1 works
@@ -133,26 +138,34 @@ function Solve() {
         scramble = processMoves(scramble);
         const params = { scramble: scramble, moveset: moveset, depth: depth }
         setSpinner(true);
+        setSolutionsList([]);
 
         // initialize
         workerRef.current = new Worker('Workers/SolveWorker.js');
         // if we receive a message from the worker
+        const totalSolutions = [];
         workerRef.current.onmessage = (e) => {
+            // ! todo
+            console.log(`message is: ${e.data}`);
             if (e.data === 'done') {
-                console.log('done');
                 setSpinner(false);
                 workerRef.current.terminate();
                 workerRef.current = null;
+                if (totalSolutions.length === 0) {
+                    setNoSolutionsModal(true);
+                }
                 return;
-            } else {
-                console.log(e.data);
-                setSolutionsList(e.data);
+            } else if (typeof e.data === 'string' && e.data !== 'done') {
+                totalSolutions.push(e.data);
+                console.log(totalSolutions);
+                setSolutionsList([...totalSolutions]) // shallow equality is checked
             }
         };
 
         // fire off the webworker thread with the queries
         workerRef.current.postMessage(params);
     }
+    // todo: scramble = x, movetypes = R, depth = 12, a solution of R' is found?
 
     function handleCancel() {
         if (workerRef.current) {
