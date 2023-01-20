@@ -148,6 +148,7 @@ function Solve() {
             // ! todo
             console.log(`message is: ${e.data}`);
             if (e.data === 'done') {
+                console.log('hit done');
                 setSpinner(false);
                 workerRef.current.terminate();
                 workerRef.current = null;
@@ -156,10 +157,12 @@ function Solve() {
                 }
                 return;
             } else if (typeof e.data === 'string' && e.data !== 'done') {
+                console.log('hit else if');
                 totalSolutions.push(e.data);
                 console.log(totalSolutions);
                 setSolutionsList([...totalSolutions]) // shallow equality is checked
             }
+            console.log('hit end');
         };
 
         // fire off the webworker thread with the queries
