@@ -1,3 +1,8 @@
+input:not([type="radio"]):not([type="checkbox"]) { /* remove rounded corners on inputs for ios */
+    -webkit-appearance: none;
+    border-radius: 0;
+}
+
 .bottomButton {
   border-radius: 15px;
   border: none;
