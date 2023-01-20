@@ -4,6 +4,7 @@
 // when the worker receives a message from the main thread
 // e.data = the params we send in via postMessage
 onmessage = function (e) {
+  this.postMessage('post');
   let { scramble, moveset, depth } = e.data;
 
   let oddStatus = Boolean(depth % 2);
