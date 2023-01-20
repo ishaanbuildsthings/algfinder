@@ -32,6 +32,7 @@ function DarkButton() {
     if (localStorageState === 'dark') {
       document.body.classList.remove('light');
     } else {
+      console.log('doesnt equal dark'); // todo
       document.body.classList.add('light');
     }
   }, [localStorageState]);

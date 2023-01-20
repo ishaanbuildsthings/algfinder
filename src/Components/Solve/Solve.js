@@ -34,7 +34,7 @@ function Solve() {
     const [isErrorPopup, setErrorPopup] = useState(false);
     const [isMovesetPopupError, setMovesetPopupError] = useState(false);
     const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
-    const [isSpinner, setSpinner] = useState(true);
+    const [isSpinner, setSpinner] = useState(false);
 
     // * other hooks
     useEffect(() => {
@@ -44,7 +44,7 @@ function Solve() {
             window.removeEventListener('mousedown', () => setNoSolutionsModal(false));
         };
     }, [isNoSolutionsModal])
-    // TODO
+    // TODO:
 
     // whenever the component unmounts, kill any active worker
     useEffect(() => {
@@ -141,7 +141,7 @@ function Solve() {
         setSolutionsList([]);
 
         // initialize
-        workerRef.current = new Worker('Workers/SolveWorker.js');
+        workerRef.current = new Worker('Workers/SolveWorker.js', {type: 'module'});
         // if we receive a message from the worker
         const totalSolutions = [];
         workerRef.current.onmessage = (e) => {

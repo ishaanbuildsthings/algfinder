@@ -18,7 +18,7 @@
 .documentationDiv {
   display: flex;
   flex-direction: column;
-  margin-top: 150px;
+  margin-top: 70px;
   /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
   padding: 0px 4% 40px 4%;
 }
