@@ -156,6 +156,8 @@ function Solve() {
                 }
                 return;
             } else if (typeof e.data === 'string' && e.data !== 'done') {
+                console.log(e.data);
+                return;
                 totalSolutions.push(e.data);
                 console.log(totalSolutions);
                 setSolutionsList([...totalSolutions]) // shallow equality is checked
