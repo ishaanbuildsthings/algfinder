@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/cubeExplorerFrontend/static/css/main.671e4d56.css",
-    "main.js": "/cubeExplorerFrontend/static/js/main.0fe11f4f.js",
+    "main.js": "/cubeExplorerFrontend/static/js/main.a5e48435.js",
     "static/js/550.ad7593b7.chunk.js": "/cubeExplorerFrontend/static/js/550.ad7593b7.chunk.js",
     "static/js/152.6480f2b6.chunk.js": "/cubeExplorerFrontend/static/js/152.6480f2b6.chunk.js",
     "static/js/764.66637477.chunk.js": "/cubeExplorerFrontend/static/js/764.66637477.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/626.6348033b.chunk.js": "/cubeExplorerFrontend/static/js/626.6348033b.chunk.js",
     "index.html": "/cubeExplorerFrontend/index.html",
     "main.671e4d56.css.map": "/cubeExplorerFrontend/static/css/main.671e4d56.css.map",
-    "main.0fe11f4f.js.map": "/cubeExplorerFrontend/static/js/main.0fe11f4f.js.map",
+    "main.a5e48435.js.map": "/cubeExplorerFrontend/static/js/main.a5e48435.js.map",
     "550.ad7593b7.chunk.js.map": "/cubeExplorerFrontend/static/js/550.ad7593b7.chunk.js.map",
     "152.6480f2b6.chunk.js.map": "/cubeExplorerFrontend/static/js/152.6480f2b6.chunk.js.map",
     "764.66637477.chunk.js.map": "/cubeExplorerFrontend/static/js/764.66637477.chunk.js.map",
@@ -20,6 +20,6 @@
   },
   "entrypoints": [
     "static/css/main.671e4d56.css",
-    "static/js/main.0fe11f4f.js"
+    "static/js/main.a5e48435.js"
   ]
 }
