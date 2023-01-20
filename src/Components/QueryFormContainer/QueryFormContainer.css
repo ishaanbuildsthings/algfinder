@@ -1,8 +1,3 @@
-input:not([type="radio"]):not([type="checkbox"]) { /* remove rounded corners on inputs for ios */
-    -webkit-appearance: none;
-    border-radius: 0;
-}
-
 .bottomButton {
   border-radius: 15px;
   border: none;
@@ -55,6 +50,9 @@ input:not([type="radio"]):not([type="checkbox"]) { /* remove rounded corners on 
   /* large screen positionings */
 }
 
+.queryFormContainer button:active, button:focus { /* turn off default button outline on android */
+    outline: none;
+}
 
 .queryFormContainer input {
   border: none;
@@ -71,6 +69,11 @@ input:not([type="radio"]):not([type="checkbox"]) { /* remove rounded corners on 
 .queryFormContainer input:focus::placeholder {
   color: transparent;
   /* make the placeholder disappear when clicked in */
+}
+
+.queryFormContainer input:not([type="radio"]):not([type="checkbox"]) { /* remove rounded corners on inputs for ios */
+    -webkit-appearance: none;
+    border-radius: 0;
 }
 
 .queryFormContainer label {
