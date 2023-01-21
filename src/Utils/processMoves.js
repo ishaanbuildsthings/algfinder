@@ -4,7 +4,9 @@ function processMoves(scramble) {
 
   // remove all spaces
   for (let char of scramble) {
-    if (char !== ' ') {
+    if (char === "‘") { /* allow for mobile apostrophes */
+      scrambleNoSpaces += "'";
+    } else if (char !== ' ') {
       scrambleNoSpaces += char;
     }
   }

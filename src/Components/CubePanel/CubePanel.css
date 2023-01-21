@@ -17,6 +17,7 @@ twisty-player {
 
 .dragIconAndText {
   bottom: 8%;
+  pointer-events: none;
   position: absolute;
   right: 15%;
 }
