@@ -70,7 +70,8 @@ function Solve() {
     // when a user changes the scramble, change the queries state
     function handleTextChange(event) {
         let { name, value } = event.target;
-        value = value.replace(/[\u2018]/g, "'") // replace smart quotes
+        //value = value.replace(/[\u2018]/g, "'") // replace smart quotes
+        value = value.replace(/[‘’]/g, "'"); // replace smart quotes
         if (/^[ RUFLDBrufldxyzMSE'2]*$/.test(value) || value === '') {
             setQueries({
                 ...queriesState,
