@@ -72,6 +72,7 @@ function Solve() {
         let { name, value } = event.target;
         //value = value.replace(/[\u2018]/g, "'") // replace smart quotes
         value = value.replace(/[‘’]/g, "'"); // replace smart quotes
+        // todo
         if (/^[ RUFLDBrufldxyzMSE'2]*$/.test(value) || value === '') {
             setQueries({
                 ...queriesState,

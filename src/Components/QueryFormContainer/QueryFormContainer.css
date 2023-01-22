@@ -58,6 +58,7 @@
   border: none;
   box-sizing: border-box;
   /* make it true 100% width */
+  font-size: 16px;
   font-weight: 600;
   height: 50px;
   outline: none;
