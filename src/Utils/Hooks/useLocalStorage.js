@@ -5,11 +5,10 @@ import { useState, useEffect } from 'react';
  * and provide a setter function, setTheme, to change the value.
  *
  * @param {*} key The name of the key that will be written in local storage
- * @param {*} defaultValue When we read the local storage data, if the local storage data doesn't exist,
- * use the defaultValue as the value
+ * @param {*} defaultValue When we read the local storage data, if the local storage data doesn't exist, use the defaultValue as the value
  * @returns Returns the value of the data in localStorage and the setter function to re-write that value
  */
-
+// key: darkStatus, defaultValue: dark
 function useLocalStorage(key, defaultValue) {
   // if a value is stored already, we use that, otherwise we use the default value
   const [value, setValue] = useState(() => {

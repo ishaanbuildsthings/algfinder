@@ -1,3 +1,4 @@
+// todo: fix this stuff and bundle serving not showing up right in dev tools
 // function applyAlg(algorithm, cube) {
 //   for (let move of algorithm) {
 //     cube.move(move);

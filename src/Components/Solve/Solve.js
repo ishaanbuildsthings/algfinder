@@ -69,7 +69,8 @@ function Solve() {
 
     // when a user changes the scramble, change the queries state
     function handleTextChange(event) {
-        const { name, value } = event.target;
+        let { name, value } = event.target;
+        value = value.replace(/[\u2018]/g, "'") // replace smart quotes
         if (/^[ RUFLDBrufldxyzMSE'2]*$/.test(value) || value === '') {
             setQueries({
                 ...queriesState,
@@ -145,10 +146,8 @@ function Solve() {
         // if we receive a message from the worker
         const totalSolutions = [];
         workerRef.current.onmessage = (e) => {
-            // ! todo
-            console.log(`message is: ${e.data}`);
+            // console.log(`message is: ${e.data}`); for debugging
             if (e.data === 'done') {
-                console.log('hit done');
                 setSpinner(false);
                 workerRef.current.terminate();
                 workerRef.current = null;
@@ -157,12 +156,9 @@ function Solve() {
                 }
                 return;
             } else if (typeof e.data === 'string' && e.data !== 'done') {
-                console.log('hit else if');
                 totalSolutions.push(e.data);
-                console.log(totalSolutions);
                 setSolutionsList([...totalSolutions]) // shallow equality is checked
             }
-            console.log('hit end');
         };
 
         // fire off the webworker thread with the queries
