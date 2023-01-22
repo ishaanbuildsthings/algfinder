@@ -33,6 +33,7 @@
   border-radius: 0;
   border: none;
   cursor: pointer;
+  font-size: 14.66px;
   font-weight: bold;
   height: 30px;
   width: calc(100% / 6);
