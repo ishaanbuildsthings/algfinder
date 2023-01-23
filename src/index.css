@@ -63,7 +63,7 @@ code {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: -webkit-fill-available;
   /* root should always take full VH unless the content overflows it such as small screens for the solve page, or the documentation page, which will cause scrollbars */
 }
 
