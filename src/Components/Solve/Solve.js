@@ -4,8 +4,10 @@ import ErrorPopup from '../ErrorPopup/ErrorPopup.js';
 import MovesetPopup from '../MovesetPopup/MovesetPopup.js';
 import NoSolutionsModal from '../NoSolutionsModal/NoSolutionsModal.js';
 import CubePanel from '../CubePanel/CubePanel.js';
-import processMoves from '../../Utils/processMoves.js';
 import generateRandomExample from '../../Utils/randomExamples.js';
+import mapSolutionsListToDict from '../../Utils/mapSolutionsListToDict.js';
+import processMoves from '../../Utils/processMoves.js';
+import sortSolutionsDictByMoves from '../../Utils/sortSolutionsDictByMoves.js';
 import { useEffect, useRef, useState } from 'react';
 import './Solve.css';
 import '../../Common/Popups.css';
@@ -113,6 +115,13 @@ function Solve() {
             });
         }
     }
+    // e.target.value is the value of whether the stm or qtm sort button was clicked
+    function handleClickOnSort(e) {
+        const solutionsDict = mapSolutionsListToDict(solutionsList);
+        const reorderedList = sortSolutionsDictByMoves(solutionsDict, e.target.value);
+        setSolutionsList(reorderedList);
+    }
+    //todo: make more performant
 
     function handleSubmit({ scramble, depth, moveset }) {
         if (workerRef.current) {
@@ -194,7 +203,7 @@ function Solve() {
                 />
                 <CubePanel scramble={queriesState.scramble} />
             </div>
-            <SolutionsDisplayContainer solutionsList={solutionsList} />
+            <SolutionsDisplayContainer handleSort={handleClickOnSort} solutionsList={solutionsList} />
         </div>
     );
 }

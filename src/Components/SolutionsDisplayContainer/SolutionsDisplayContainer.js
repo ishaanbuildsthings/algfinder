@@ -1,41 +1,19 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import Solution from '../Solution/Solution';
-import mapSolutionsListToDict from '../../Utils/mapSolutionsListToDict';
-import sortSolutionsDictByMoves from '../../Utils/sortSolutionsDictByMoves';
-import { useState, useEffect } from 'react';
 import './SolutionsDisplayContainer.css';
 
 /**
  * @param {*}
+ * handleSort - a handler which re-orders the parent solution order state
  * solutionsList - the list of string solutions
  * @usage Used in Solve.js
  */
-function SolutionsDisplayContainer({ solutionsList }) {
-  // * states
-  // ["solution 1", "solution 2" ...]
-  // when more solutions are found, props change, but solutionState does not, useState explicitly only registers the first time
-  const [solutionsState, setSolutionsState] = useState(solutionsList);
-  // this lets the state update dynamically
-  useEffect(() => {
-    setSolutionsState(solutionsList);
-  }, [solutionsList]);
-  //todo
+function SolutionsDisplayContainer({ handleSort, solutionsList }) {
 
-  const JsxSolutions = solutionsState.map((solution) => (
+  const JsxSolutions = solutionsList.map((solution) => (
     <Solution solution={solution} key={solution} />
   ));
-
-  // * handlers
-  // e.target.value is the value of whether the stm or qtm sort button was clicked
-  function handleClickOnSort(e) {
-    const reorderedList = sortSolutionsDictByMoves(
-      mapSolutionsListToDict(solutionsState),
-      e.target.value
-    );
-    setSolutionsState(reorderedList);
-  }
-  //todo: make more performant
 
   return (
     <div className="solutionsDisplayContainer">
@@ -58,14 +36,14 @@ function SolutionsDisplayContainer({ solutionsList }) {
           <div className="solutionsHeaderSpacer"></div>
           {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
           <button
-            onClick={handleClickOnSort}
+            onClick={handleSort}
             className="sortButton mainText qtmButton"
             value="qtm"
           >
             Sort by QTM
           </button>
           <button
-            onClick={handleClickOnSort}
+            onClick={handleSort}
             className="sortButton mainText"
             value="stm"
           >
