@@ -14,7 +14,7 @@ function Solution({ solution }) {
 
   return (
     <li className="solutionLi mainText">
-      {isPopup && <CopyPopup setPopup={setPopup} />}
+      {isPopup && <CopyPopup killPopup={() => setPopup(false)} />}
       <button
         onClick={() => {
           navigator.clipboard.writeText(solution);
