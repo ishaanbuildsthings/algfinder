@@ -1,31 +1,40 @@
-https://codepen.io/Sean713/pen/PoBZKbP -ask this codepen removing min height from solvepageminusnav
 fix weird safari divs and safari font
 make re-rendering more performant
 why does reerender happen on resize of solve page
-get rena to style
-max updatedepth
-could not find icon null
-generating solutions button is weird padding and vertical space
 
 code review:
 position of popups
 .popup in tooltips.css has z-index: 1, which when the screen is shrunk lets the popup appear over the cube
 errorPopup.css has z-index which lets it appear over button, why?
 clicking IN BETWEEn label and input puts cursor at beginning
-put things outside function
-1) why do parents rerender children if the childrens states dont change?
 navbar.js should I include const inside or outside
 queryformcontainer has helper function but its inside because it needs the states
 how to create universal windowsize, am i creating miltiple in a weird way?
-if react remembers const, then why does usememo exist or do we just not use it on []
 queryformcontainer lines 66-68, am i inefficient, talk about the flow
 
 TODO:
 change documentation, maybe add usage gif + diff usage gif for different size app
-why cant i do var a = 10; to modify the window object and access it from another file, it doesnt recognize a
-M U R U R' U' M2 U R U' r' + 12 generates out of order, how is that possible
 
-dev todos:
-streamline processing of moves for sorting
-after deployed, check speeds on different devices
-fix hashrouter
+
+TODOS:
+1) fix hashrouter
+2) improve alg speed, then change examples based on different hardware
+3) streamline process of moves for sorting
+4) mobile rotation
+5) mobile popups
+6) M U R U R' U' M2 U R U' r' + 12 generates out of order, how is that possible
+7) generating solutions button is weird padding and vertical space
+
+
+ERRORS:
+1) could not find icon null
+2) max updatedepth
+
+OTHER:
+1) get rena to style
+
+QUESTIONS:
+1) why do parents rerender children if the childrens states dont change?
+2) why cant i do var a = 10; to modify the window object and access it from another file, it doesnt recognize a
+3) https://codepen.io/Sean713/pen/PoBZKbP -ask this codepen removing min height from solvepageminusnav
+
