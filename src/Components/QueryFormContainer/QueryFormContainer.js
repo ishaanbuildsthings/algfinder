@@ -157,7 +157,7 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
                         (<>
                             Generating Solutions <FontAwesomeIcon className="spinner fa-lg" icon={faSpinner} />
                         </>)
-                        : 'Show Me Solutions!'
+                        : 'Solve!'
                     }
                 </button>
                 <button onClick={() => {
