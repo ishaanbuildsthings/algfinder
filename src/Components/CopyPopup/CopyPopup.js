@@ -1,6 +1,6 @@
 /**
  * @param {*}
- * setPopup - a unique setter function that can toggle off the existence of the CopyPopup
+ * killPopup - toggles off the existence of the CopyPopup
  * @usage used in Solution.js
  */
 function CopyPopup({ killPopup }) {

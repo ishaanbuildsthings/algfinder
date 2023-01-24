@@ -1,12 +1,12 @@
 /**
  * @param {*}
  * errorMessage - the string for the message that should be used in the popup
- * setErrorPopup - the setter which can re-render the solve page and remove ErrorPopup from rendering
+ * killErrorPopup - re-render the solve page and remove ErrorPopup from rendering
  * @usage used in Solve.js
  */
-function ErrorPopup({ errorMessage, setErrorPopup }) {
+function ErrorPopup({ errorMessage, killErrorPopup }) {
   return (
-    <div onAnimationEnd={() => setErrorPopup(false)} className="errorPopup fade-out errorColor">{errorMessage}</div>
+    <div onAnimationEnd={killErrorPopup} className="errorPopup fade-out errorColor">{errorMessage}</div>
   )
 }
 

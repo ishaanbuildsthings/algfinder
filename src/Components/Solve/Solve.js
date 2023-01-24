@@ -179,8 +179,8 @@ function Solve() {
     return (
         <div className="solvePageMinusNav">
             <div className="topHalf">
-                {isMovesetPopupError && <MovesetPopup setMovesetPopup={setMovesetPopupError} />}
-                {isErrorPopup && <ErrorPopup errorMessage={errorMessage} setErrorPopup={setErrorPopup} />}
+                {isMovesetPopupError && <MovesetPopup killMovesetPopup={() => setMovesetPopupError(false)} />}
+                {isErrorPopup && <ErrorPopup errorMessage={errorMessage} killErrorPopup={() => setErrorPopup(false)} />}
                 {isNoSolutionsModal && <NoSolutionsModal />}
                 <QueryFormContainer
                     handleTextChange={handleTextChange}
