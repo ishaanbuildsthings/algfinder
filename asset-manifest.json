@@ -1,17 +1,25 @@
 {
   "files": {
-    "main.css": "/cubeExplorerFrontend/static/css/main.f085b8cd.css",
-    "main.js": "/cubeExplorerFrontend/static/js/main.3371c294.js",
-    "static/js/681.2996de9a.chunk.js": "/cubeExplorerFrontend/static/js/681.2996de9a.chunk.js",
-    "static/js/867.8a6f6f8f.chunk.js": "/cubeExplorerFrontend/static/js/867.8a6f6f8f.chunk.js",
-    "static/js/602.89573b56.chunk.js": "/cubeExplorerFrontend/static/js/602.89573b56.chunk.js",
-    "static/js/838.6be64d1a.chunk.js": "/cubeExplorerFrontend/static/js/838.6be64d1a.chunk.js",
-    "static/js/773.db4293b9.chunk.js": "/cubeExplorerFrontend/static/js/773.db4293b9.chunk.js",
-    "static/js/439.30971f40.chunk.js": "/cubeExplorerFrontend/static/js/439.30971f40.chunk.js",
-    "index.html": "/cubeExplorerFrontend/index.html"
+    "main.css": "/cubeExplorerFrontend/static/css/main.1ee09d4d.css",
+    "main.js": "/cubeExplorerFrontend/static/js/main.a9276730.js",
+    "static/js/550.ad7593b7.chunk.js": "/cubeExplorerFrontend/static/js/550.ad7593b7.chunk.js",
+    "static/js/152.6480f2b6.chunk.js": "/cubeExplorerFrontend/static/js/152.6480f2b6.chunk.js",
+    "static/js/764.66637477.chunk.js": "/cubeExplorerFrontend/static/js/764.66637477.chunk.js",
+    "static/js/800.06baba92.chunk.js": "/cubeExplorerFrontend/static/js/800.06baba92.chunk.js",
+    "static/js/814.bd359a1d.chunk.js": "/cubeExplorerFrontend/static/js/814.bd359a1d.chunk.js",
+    "static/js/626.6348033b.chunk.js": "/cubeExplorerFrontend/static/js/626.6348033b.chunk.js",
+    "index.html": "/cubeExplorerFrontend/index.html",
+    "main.1ee09d4d.css.map": "/cubeExplorerFrontend/static/css/main.1ee09d4d.css.map",
+    "main.a9276730.js.map": "/cubeExplorerFrontend/static/js/main.a9276730.js.map",
+    "550.ad7593b7.chunk.js.map": "/cubeExplorerFrontend/static/js/550.ad7593b7.chunk.js.map",
+    "152.6480f2b6.chunk.js.map": "/cubeExplorerFrontend/static/js/152.6480f2b6.chunk.js.map",
+    "764.66637477.chunk.js.map": "/cubeExplorerFrontend/static/js/764.66637477.chunk.js.map",
+    "800.06baba92.chunk.js.map": "/cubeExplorerFrontend/static/js/800.06baba92.chunk.js.map",
+    "814.bd359a1d.chunk.js.map": "/cubeExplorerFrontend/static/js/814.bd359a1d.chunk.js.map",
+    "626.6348033b.chunk.js.map": "/cubeExplorerFrontend/static/js/626.6348033b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f085b8cd.css",
-    "static/js/main.3371c294.js"
+    "static/css/main.1ee09d4d.css",
+    "static/js/main.a9276730.js"
   ]
 }

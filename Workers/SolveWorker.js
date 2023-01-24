@@ -1,6 +1,3 @@
-// import Cube from 'Cube.js';
-// import { applyAlg, reverseAndInvertMoveList, cleanUpIntersection } from './AlgHandler.js';
-
 // when the worker receives a message from the main thread
 // e.data = the params we send in via postMessage
 onmessage = function (e) {
