@@ -4,8 +4,8 @@
   left: 50%;
   padding: 0 10px;
   position: fixed;
-  top: 50%;
-  transform: translate(-50%);
+  top: 45%;
+  transform: translate(-50%, -50%);
 }
 
 .errorPopup {
@@ -14,9 +14,8 @@
   max-width: 300px;
   padding: 10px;
   position: fixed;
-  position: fixed;
-  top: 55%;
-  transform: translate(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
   width: max-content;
   z-index: 1;
 }
@@ -28,5 +27,5 @@
   padding: 0 10px;
   position: fixed;
   top: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
 }

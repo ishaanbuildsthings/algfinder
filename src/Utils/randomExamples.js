@@ -1,3 +1,4 @@
+// these are random examples that can show when the random example button is clicked
 // good examples are 12 move 3gen, 10 move 4gen, that don't have a lot of solutions
 const examples = [
   { // u perm

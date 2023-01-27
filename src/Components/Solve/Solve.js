@@ -8,7 +8,7 @@ import generateRandomExample from '../../Utils/randomExamples.js';
 import mapSolutionsListToDict from '../../Utils/mapSolutionsListToDict.js';
 import processMoves from '../../Utils/processMoves.js';
 import sortSolutionsDictByMoves from '../../Utils/sortSolutionsDictByMoves.js';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './Solve.css';
 import '../../Common/Popups.css';
 import '../../Common/Tooltips.css';
@@ -16,7 +16,7 @@ import '../../Common/animation.css';
 let errorMessage = '';
 
 /**
- * The Solve component defines all of the display unique to the solve section of the website.
+ * The Solve component is a high-level component that maintains state for both the form and the solutions panel
  * @usage Used in app.js
  */
 function Solve() {
@@ -39,16 +39,21 @@ function Solve() {
     const [isSpinner, setSpinner] = useState(false);
 
     // * other hooks
+    const handleMouseDown = useCallback(() => { // memoize for the useEffect
+        setNoSolutionsModal(false);
+    }, []);
+
     useEffect(() => {
-        window.addEventListener('mousedown', () => setNoSolutionsModal(false));
-
+        if (!isNoSolutionsModal) { // if the popup just turned off, do nothing
+            return;
+        }
+        window.addEventListener('mousedown', handleMouseDown); // if the popup turned on, add an event listener
         return () => {
-            window.removeEventListener('mousedown', () => setNoSolutionsModal(false));
+            window.removeEventListener('mousedown', handleMouseDown); // whenever we turn the popup off a re-render is triggered, running this cleanup function
         };
-    }, [isNoSolutionsModal])
-    // TODO:
+    }, [isNoSolutionsModal, handleMouseDown]);
 
-    // whenever the component unmounts, kill any active worker
+    // whenever the component unmounts, kill any active worker via this cleanup function
     useEffect(() => {
         return () => {
             if (workerRef.current !== null) {
@@ -58,32 +63,21 @@ function Solve() {
         }
     }, []);
 
-
     // * handlers
-    function handleRandomExample() {
-        let data = generateRandomExample();
-        while (JSON.stringify(data) === JSON.stringify(queriesState)) {
-            data = generateRandomExample();
-        }
-        setQueries(data);
-        handleSubmit(data);
-    }
-
     // when a user changes the scramble, change the queries state
-    function handleTextChange(event) {
+    const handleTextChange = useCallback((event) => {
         let { name, value } = event.target;
-        //value = value.replace(/[\u2018]/g, "'") // replace smart quotes
-        value = value.replace(/[‘’]/g, "'"); // replace smart quotes
-        // todo
+        value = value.replace(/[‘’]/g, "'"); // replace smart quotes for mobile use
         if (/^[ RUFLDBrufldxyzMSE'2]*$/.test(value) || value === '') {
             setQueries({
                 ...queriesState,
                 [name]: value
             });
         }
-    }
+    }, [queriesState]); // avoid stale states
+
     // when the user changes the depth, change the queries state
-    function handleNumberChange(event) {
+    const handleNumberChange = useCallback((event) => {
         const { name, value } = event.target;
         if (value === '') {
             setQueries({
@@ -96,9 +90,10 @@ function Solve() {
                 [name]: Math.min(20, value)
             })
         }
-    }
+    }, [queriesState]);
+
     // when the user clicks on a moveset button, change the queries state to include/exclude that button
-    function handleMovesetClick(id) {
+    const handleMovesetClick = useCallback((id) => {
         if (queriesState.moveset.length >= 4 && !queriesState.moveset.includes(id)) {
             setMovesetPopupError(true);
             return;
@@ -114,23 +109,32 @@ function Solve() {
                 moveset: queriesState.moveset.filter((element) => element !== id)
             });
         }
-    }
+    }, [queriesState]);
+
+
     // e.target.value is the value of whether the stm or qtm sort button was clicked
-    function handleClickOnSort(e) {
+    const handleClickOnSort = useCallback((e) => {
         const solutionsDict = mapSolutionsListToDict(solutionsList);
         const reorderedList = sortSolutionsDictByMoves(solutionsDict, e.target.value);
         setSolutionsList(reorderedList);
-    }
-    //todo: make more performant
+    }, [solutionsList]); // needed to capture new closure
 
-    function handleSubmit({ scramble, depth, moveset }) {
+    // workerRef and setter functions don't need to be passed as dependencies since they don't do anything
+    const handleSubmit = useCallback(({ scramble, depth, moveset }) => {
         if (workerRef.current) {
             workerRef.current.terminate();
         }
 
-        // TODO: remove some handling, check if scramble length 1 works
-        if (depth === 1 || depth === '') {
-            errorMessage = 'Please choose a depth of at least 2';
+        if (scramble === '') {
+            errorMessage = 'Please choose a scramble!';
+            setErrorPopup(true);
+            return;
+        } else if (depth === '') {
+            errorMessage = 'Please choose a depth!';
+            setErrorPopup(true);
+            return;
+        } else if (moveset.length === 0) {
+            errorMessage = 'Please choose a moveset!';
             setErrorPopup(true);
             return;
         } else if (moveset.length === 3 & depth > 18) {
@@ -141,19 +145,15 @@ function Solve() {
             errorMessage = 'For 4-gen scrambles, please choose a depth of at most 14';
             setErrorPopup(true);
             return;
-        } else if (moveset.length < 2) {
-            errorMessage = 'Please choose at least 2 move types';
-            setErrorPopup(true);
-            return;
         }
 
-        scramble = processMoves(scramble);
-        const params = { scramble: scramble, moveset: moveset, depth: depth }
+        scramble = processMoves(scramble); // convert bad characters the user enters
+        const params = { scramble: scramble, moveset: moveset, depth: depth };
         setSpinner(true);
         setSolutionsList([]);
 
-        // initialize
-        workerRef.current = new Worker('Workers/SolveWorker.js', {type: 'module'});
+        // initialize worker
+        workerRef.current = new Worker('Workers/SolveWorker.js');
         // if we receive a message from the worker
         const totalSolutions = [];
         workerRef.current.onmessage = (e) => {
@@ -171,19 +171,26 @@ function Solve() {
                 setSolutionsList([...totalSolutions]) // shallow equality is checked
             }
         };
-
         // fire off the webworker thread with the queries
         workerRef.current.postMessage(params);
-    }
-    // todo: scramble = x, movetypes = R, depth = 12, a solution of R' is found?
+    }, []);
 
-    function handleCancel() {
+    const handleCancel = useCallback(() => {
         if (workerRef.current) {
             workerRef.current.terminate();
             setSpinner(false);
             workerRef.current = null;
         }
-    }
+    }, []);
+
+    const handleRandomExample = useCallback(() => {
+          let data = generateRandomExample();
+        while (JSON.stringify(data) === JSON.stringify(queriesState)) {
+            data = generateRandomExample();
+        }
+        setQueries(data);
+        handleSubmit(data);
+    }, [handleSubmit, queriesState]); // handleSubmit is currently a dependency as defensive programming
 
     return (
         <div className="solvePageMinusNav">

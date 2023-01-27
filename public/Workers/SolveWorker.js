@@ -5,7 +5,39 @@ onmessage = function (e) {
 
   let oddStatus = Boolean(depth % 2);
   scramble = scramble.split(' ');
+
+  // handle edge case of single move + single depth
+  if (scramble.length === 1 && depth === 1) { // array only has one move, R R' R2
+    if (moveset.includes(scramble[0][0])) {
+      const solution = invertMove(scramble[0]);
+      this.postMessage(solution);
+    }
+    this.postMessage('done');
+  }
+
   depth = parseInt(Math.ceil((parseInt(depth) / 2)));
+
+  // hande second edge case of only one moveset type
+  if (moveset.length === 1) {
+    const scrambledCube = new Cube();
+    applyAlg(scramble, scrambledCube);
+
+    const testCube1 = new Cube();
+    testCube1.move(moveset[0]);
+    const testCube2 = testCube1._clone();
+    testCube2.move(moveset[0]);
+    const testCube3 = testCube2._clone();
+    testCube3.move(moveset[0]);
+
+    if (JSON.stringify(testCube1.getState()) === JSON.stringify(scrambledCube.getState())) {
+      this.postMessage(invertMove(moveset[0]));
+    } else if (JSON.stringify(testCube2.getState()) === JSON.stringify(scrambledCube.getState())) {
+        this.postMessage(normalToDouble(moveset[0]));
+    } else if (JSON.stringify(testCube3.getState()) === JSON.stringify(scrambledCube.getState())) {
+      this.postMessage(moveset[0]);
+    }
+    this.postMessage('done');
+  }
 
   // create the cubes
   const solvedCube = new Cube();

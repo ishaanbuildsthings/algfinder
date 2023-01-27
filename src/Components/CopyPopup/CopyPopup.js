@@ -1,4 +1,5 @@
 /**
+ *  This is a popup that appears when a user clicks on a solution to copy it to their clipboard
  * @param {*}
  * killPopup - toggles off the existence of the CopyPopup
  * @usage used in Solution.js

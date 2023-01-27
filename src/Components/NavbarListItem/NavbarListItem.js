@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import cx from '../../Utils/cx';
 
+// This is one item on the navbar
 export default function NavbarListItem({ route, tabName }) {
   // necessary for react-router-dom routing
   const history = useNavigate();

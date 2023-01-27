@@ -1,6 +1,7 @@
 import cx from '../../Utils/cx';
 
 /**
+ * A moveset button is on the queryForm and can toggle which moves are allowed in a scramble
  * @param {*}
  * value - the letter of the button
  * handleMoveSetClick - modifies the Solve.js level state when a move is clicked

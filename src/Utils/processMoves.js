@@ -1,12 +1,11 @@
+// when a user enters bad data inside the scramble field, such as "R F2''' U F", this function parses it
 function processMoves(scramble) {
   let scrambleNoSpaces = '';
   let result = '';
 
   // remove all spaces
   for (let char of scramble) {
-    if (char === "‘") { /* allow for mobile apostrophes */
-      scrambleNoSpaces += "'";
-    } else if (char !== ' ') {
+    if (char !== ' ') {
       scrambleNoSpaces += char;
     }
   }

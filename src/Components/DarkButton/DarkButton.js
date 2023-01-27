@@ -1,29 +1,26 @@
 
-import { BsFillMoonStarsFill } from 'react-icons/bs';
+import { BsApp, BsFillMoonStarsFill } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { RiSunLine } from 'react-icons/ri';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import useLocalStorage from '../../Utils/Hooks/useLocalStorage';
 import './DarkButton.css';
 
-
+// this is the button that toggles the dark mode status of the site
 function DarkButton() {
   // * states
   // localStorageStatecomponent tracks the user's local storage data on if they are in dark mode or not
-  const [localStorageState, setLocalStorageState] = useLocalStorage(
-    'darkStatus',
-    'dark'
-  );
+  const [localStorageState, setLocalStorageState] = useLocalStorage('darkKey', 'dark');
 
   // * handlers
   // whenever we click the darkmode toggle, this function changes the local storage state, re-rendering the function with the new style
-  function handleClick() {
+  const handleClick = useCallback(() => {
     if (localStorageState === 'dark') {
       setLocalStorageState('light');
     } else {
       setLocalStorageState('dark');
     }
-  }
+  }, [localStorageState, setLocalStorageState]); // setter added for linter
 
   // * other hooks
   // when the localStorageState changes, this will add or remove a class to the body which creates the different visual style
@@ -37,7 +34,7 @@ function DarkButton() {
   }, [localStorageState]);
 
   return (
-    <button className="darkButton" onClick={handleClick}>
+    <button className="darkButton" onClick={handleClick}> {/*darkButton is bugged since safari is bugged with buttons that have display: flex */}
       <IconContext.Provider value={
         (() => {
           if (localStorageState === 'dark') {
@@ -53,3 +50,4 @@ function DarkButton() {
 }
 
 export default DarkButton;
+

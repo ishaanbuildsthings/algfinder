@@ -1,4 +1,5 @@
 /**
+ * This is a popup that appears if a user tries to enter more than 4 move types
  * @param {*}
  * errorMessage - the string for the message that should be used in the popup
  * killMovesetPopup - re-render the solve page and remove ErrorPopup from rendering

@@ -1,5 +1,6 @@
 import './NoSolutionsModal.css';
-/**xw
+/**
+ * This is the modal that appears when no solutions exist for a scramble
  * @usage used in Solve.js
  */
 function NoSolutionsModal() {

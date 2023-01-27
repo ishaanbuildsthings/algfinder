@@ -8,7 +8,7 @@
   display: flex;
   height: 43px;
   justify-content: center;
-  margin-right: 2vw;
+  margin-right: 3vw;
   padding: 0;
   width: 43px;
 }
@@ -27,9 +27,9 @@
   background-color: #101045;
 }
 
-@media (max-width: 850px) {
+@media (max-width: 372px) {
   .darkButton {
-    margin-right: 4vw;
+    margin-right: 10px;
   }
 }
 

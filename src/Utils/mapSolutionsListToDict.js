@@ -1,3 +1,4 @@
+// This maps a list to an object with the number of quarter turn and slice turn moves
 // takes in an input of ["solution 1", "solution 2" ...]
 // outputs a map: { "solution 1" : [1, 2], "solution 2" : [3, 4] }
 export default function mapSolutionsListToDict(solutions) {

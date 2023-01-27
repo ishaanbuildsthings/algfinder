@@ -1,9 +1,12 @@
+import cx from '../../Utils/cx.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
+import { memo, useMemo } from 'react';
 import Solution from '../Solution/Solution';
 import './SolutionsDisplayContainer.css';
 
 /**
+ * This is the component for all the solutions that appear when a user queries a scramble
  * @param {*}
  * handleSort - a handler which re-orders the parent solution order state
  * solutionsList - the list of string solutions
@@ -11,9 +14,10 @@ import './SolutionsDisplayContainer.css';
  */
 function SolutionsDisplayContainer({ handleSort, solutionsList }) {
 
-  const JsxSolutions = solutionsList.map((solution) => (
+  // creates JSX elements for the solutions, only recomputes when the slutions change
+  const JsxSolutions = useMemo(() => solutionsList.map((solution) => (
     <Solution solution={solution} key={solution} />
-  ));
+  )), [solutionsList]);
 
   return (
     <div className="solutionsDisplayContainer">
@@ -34,7 +38,6 @@ function SolutionsDisplayContainer({ handleSort, solutionsList }) {
             </div>
           </div>
           <div className="solutionsHeaderSpacer"></div>
-          {/* when this onclick is triggered it sorts the state, causing a re-render, so the below JSX should change */}
           <button
             onClick={handleSort}
             className="sortButton mainText qtmButton"
@@ -51,12 +54,11 @@ function SolutionsDisplayContainer({ handleSort, solutionsList }) {
           </button>
         </div>
         <div className="scrollableSolutions secondaryColor">
-          <ol className="solutionsOl">{JsxSolutions}</ol>
+          <ol className={cx('solutionsOl', solutionsList.length >= 100 && 'shouldApplyPadding')}>{JsxSolutions}</ol>
         </div>
       </div>
     </div>
   );
 }
 
-export default SolutionsDisplayContainer;
-//TODO: export default memo(SolutionsDisplayContainer); // never re-renders unless the prop (a state, which does not change upon re-render of the parent) changes
+export default memo(SolutionsDisplayContainer); // never re-renders unless the prop (a state, which does not change upon re-render of the parent) changes

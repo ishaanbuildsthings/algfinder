@@ -4,7 +4,7 @@ function Documentation() {
     <>
       <div className="documentationDiv">
         <h2>How this works (for nerds)</h2>
-        <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. I implemented a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeexplorer/blob/main/main.py">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.
+        <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. I implemented a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeExplorerFrontend/blob/main/public/Workers/SolveWorker.js">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.
           This algorithm reduces the time complexity of the naive solution of O(k<sup>n</sup>), to O(k<sup>n/2</sup>), where k is the branching factor and n is the search depth.
           A basic walkthrough of the algorithm is below.</p>
         <p>We start with two cubes:</p>
@@ -70,7 +70,7 @@ function Documentation() {
           deeper until the user-supplied maximum algorithm length is reached, and return all possible solutions.
         </p>
         <p>As the breadth-first search starting from the solved cube is repeated work, it is <a href="" target="_blank" rel="noopener noreferrer">preprocessed as a binary encoding,</a> speeding up
-          the time complexity even further.</p>
+          the time even further.</p>
 
 
         <h2>Credits</h2>

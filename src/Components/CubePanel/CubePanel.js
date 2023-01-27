@@ -19,7 +19,7 @@ const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
  */
 function Cube({ scramble }) {
   // custom hook to dynamically re-render on window size changes
-  let windowSize = UseWindowSize();
+  const windowSize = UseWindowSize();
 
   return (
     <div className="cubePanel">

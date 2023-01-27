@@ -21,7 +21,7 @@
 .cancelButton {
   margin-top: 10px;
   margin-right: 10px;
-  width: 80px;
+  padding: 0 12px;
 }
 
 .isToggled {
@@ -98,14 +98,27 @@
   border-top-right-radius: 20px;
 }
 
-.submitAndCancel {
+.submitAndCancelAndRandom {
   display: flex;
   width: 100%;
 }
 
+/* override user agent stylesheet */
+.submitAndCancelAndRandom button {
+  font-size: 13.33px;
+}
+
 .submitButton {
+  align-items: center;
+  display: flex;
   flex: 1;
+  justify-content: center;
   margin: 10px 10px 0 0;
+  padding: 0 12px;
+}
+
+.submitButton p {
+  line-height: 1.4;
 }
 
 @media (hover: hover) {
@@ -186,6 +199,7 @@
 
 @media (max-width: 500px) {
   .randomExampleButton {
+    line-height: 1.5;
     max-width: 120px;
   }
 }

@@ -64,7 +64,7 @@ on mobile, these function as buttons due to sticky hover */
 }
 
 .solutionsTooltip p {
-  width: 305px;
+  width: 290px;
 }
 
 /* add some margins between p tags for spacing */
@@ -79,54 +79,33 @@ on mobile, these function as buttons due to sticky hover */
 
 /** media queries */
 
-/* when the screen is short enough make the tooltip appear above not below */
-@media (max-height: 700px) {
-  .solutionsTooltip {
-    bottom: 0;
-  }
-}
-
 /* start to move over tooltips when width shrinnks */
-@media (max-width: 525px) {
+@media (max-width: 560px) {
 
   .scrambleTooltip,
   .depthTooltip,
-  .movesetTooltip {
+  .movesetTooltip,
+  .solutionsTooltip {
     left: -50px;
-    top: 20px;
+    top: 30px;
   }
 }
 
-@media (max-width: 460px) {
-
+@media (max-width: 480px) {
+  .scrambleTooltip,
   .depthTooltip,
-  .movesetTooltip {
-    left: -120px;
+  .movesetTooltip,
+  .solutionsTooltip {
+    left: 50%;
+    position: fixed;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 
-  .scrambleTooltip {
-    left: -70px;
-  }
-}
-
-/* when near phone widths we reduce tooltips to a % of the screen, not yet needed for scramble */
-@media (max-width: 420px) {
-
+  .scrambleTooltip p,
   .depthTooltip p,
   .movesetTooltip p,
   .solutionsTooltip p {
-    width: 50vw;
-  }
-
-  .scrambleTooltip p {
-    width: max-content;
-  }
-}
-
-/* at very thin views concede the max-width: content which was set to allow the scramble
-to appear on one line */
-@media (max-width: 330px) {
-  .scrambleTooltip p {
-    width: 50vw;
+    width: 80vw;
   }
 }

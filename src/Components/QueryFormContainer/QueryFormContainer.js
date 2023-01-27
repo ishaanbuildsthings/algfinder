@@ -1,12 +1,13 @@
-import { useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import MovesetButton from '../MovesetButton/MovesetButton.js';
 import UseWindowSize from '../../Utils/Hooks/useWindowSize.js';
 import './QueryFormContainer.css';
+import { useCallback, useMemo } from 'react';
 
 /**
+ * This is the form where the user enters information for a solve
  * @param {*}
  * handleTextChange - modifies the Solve.js state based on entered scramble text
  * handleNumberChange - modifies the Solve.js state based on entered depth
@@ -15,23 +16,24 @@ import './QueryFormContainer.css';
  * handleCancel - cancels the computation from the submit function
  * handleMovesetClick - modifies the Solve.js state based on toggled moves
  * queriesState - all of the scramble, depth, and moveset
- * isSpinner - the ste if the spinner should show
+ * isSpinner - the statee if the spinner should show
  * @usage Used in Solve.js
  */
 function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandomExample, handleSubmit, handleCancel, handleMovesetClick, queriesState, isSpinner }) {
     //* misc
     // custom hook to dynamically re-render on window size changes
-    let windowSize = UseWindowSize();
+    const windowSize = UseWindowSize();
 
     //* helpers
+    // these helpers change what text shows based on the screen size
     function determineScramblePlaceholderText() {
         if (windowSize.width <= 352) {
-            return '[Tap here to enter]';
-        } else if (windowSize.width <= 395) {
+        return '[Tap here to enter]';
+        } else if (windowSize.width <= 480) {
             return '[Tap here to enter scramble]';
         } else if (windowSize.width <= 767) {
             return '[Tap here to enter scramble you want to solve]';
-        } else if (windowSize.width <= 825) {
+        } else if (windowSize.width <= 1025) {
             return '[Tap here to enter scramble]';
         }
         return '[Click here to enter scramble you want to solve]';
@@ -40,19 +42,39 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
     function determineDepthPlaceholderText() {
         if (windowSize.width <= 352) {
             return '[Tap here to enter]';
-        } else if (windowSize.width <= 395) {
-            return '[Tap here to enter max algorithm length]';
+        } else if (windowSize.width < 480) {
+            return '[Tap here to enter max length]';
         } else if (windowSize.width <= 767) {
-            return '[Tap here to enter maximum algorithm length]';
-        } else if (windowSize.width <= 825) {
-            return '[Tap here to enter max algorithm length]';
+            return '[Click here to enter maximum algorithm length]';
+        } else if (windowSize.width <= 1025) {
+            return '[Tap here to enter max length]';
         }
         return '[Click here to enter maximum algorithm length]';
     }
 
+    function determineGeneratingText() { // some leeway is added for different fonts
+        if (windowSize.width <= 320) {
+            return 'Solving';
+        } else if (windowSize.width <= 470) {
+            return 'Generating';
+        } else if (windowSize.width <= 767) {
+            return 'Generating Solutions';
+        } else if (windowSize.width <= 1000) {
+            return 'Generating';
+        }
+        return 'Generating Solutions';
+    }
+
+    function determineExampleText() {
+        if (windowSize.width <= 360) {
+            return 'Random Example';
+        }
+        return 'Try a Random Example';
+    }
+
     // creates an entire row of moveset buttons
-    const createManyJsxButtons = (listOfLetters) => {
-        const listOfButtons = [];
+    const createManyJsxButtons = useCallback((listOfLetters) => {
+         const listOfButtons = [];
         for (let letter of listOfLetters) {
             listOfButtons.push(
                 <MovesetButton
@@ -64,16 +86,14 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
             );
         }
         return listOfButtons;
-    }
+    }, [handleMovesetClick, queriesState]); // handler only changes if state changes, so this is included defensively
 
-    // TODO: weird stuff going on and not sure if i need to re-render anyway
     // create arrays of JSX buttons
-    //const buttonListFaceMoves = useMemo(() => createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']), [queriesState.moveset]);
-    // const buttonListWideMoves = useMemo(() => createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']), [queriesState.moveset]);
-    // const buttonListSliceAndRotation = useMemo(() => createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']), [queriesState.moveset]);
-    const buttonListFaceMoves = createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']);
-    const buttonListWideMoves = createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']);
-    const buttonListSliceAndRotation = createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']);
+    // The idea is whenever createJSXButtons changes, which only happens when parentState changes, then and only then myButtons will change.
+    // And we need myButtons to change when the parentState changes to ensure that each button is correctly receiving the correct isToggled boolean.
+    const buttonListFaceMoves = useMemo(() => createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']), [createManyJsxButtons]);
+    const buttonListWideMoves = useMemo(() => createManyJsxButtons(['r', 'u', 'd', 'f', 'l', 'b']), [createManyJsxButtons]);
+    const buttonListSliceAndRotation = useMemo(() => createManyJsxButtons(['M', 'S', 'E', 'x', 'y', 'z']), [createManyJsxButtons]);
 
     return (
         // queryFormContainer goes here
@@ -148,17 +168,20 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
 
             </section>
 
-            <section className="submitAndCancel">
+            <section className="submitAndCancelAndRandom">
+                {/* in safari this button is bugged as flexbox on buttons is calculated wrong */}
                 <button
                     className="bottomButton submitButton mainText secondaryColor"
                     onClick={() => handleSubmit(queriesState)}
                 >
-                    {isSpinner ?
-                        (<>
-                            Generating Solutions <FontAwesomeIcon className="spinner fa-lg" icon={faSpinner} />
-                        </>)
-                        : 'Solve!'
-                    }
+                    <p>
+                        {isSpinner ?
+                            (<>
+                                {determineGeneratingText()} <FontAwesomeIcon className="spinner fa-lg" icon={faSpinner} />
+                            </>)
+                            : 'Solve!'
+                        }
+                    </p>
                 </button>
                 <button onClick={() => {
                     handleCancel();
@@ -175,7 +198,7 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
                 }
                     className="bottomButton randomExampleButton mainText secondaryColor"
                 >
-                    Try a Random Example
+                    {determineExampleText()}
                 </button>
             </section>
 
