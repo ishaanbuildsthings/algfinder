@@ -24,10 +24,17 @@ twisty-player {
 
 .dragText {
   cursor: default;
-  display: inline-block;
+  display: none;
 }
 
+
 /** moving around cube, drag icon, and text */
+
+@media(min-width: 768px) {
+  .dragTextLarge {
+    display: inline-block;
+  }
+}
 
 @media (max-width: 1690px) {
   .dragIconAndText {
@@ -138,10 +145,22 @@ twisty-player {
   }
 }
 
+@media (min-width: 361px) and (max-width: 767px) {
+  .dragTextMedium {
+    display: inline-block;
+  }
+}
+
 @media (max-width: 481px) {
   .dragIconAndText {
     bottom: -3%;
     position: absolute;
     right: 6%;
+  }
+}
+
+@media(max-width: 360px) {
+  .dragTextSmall {
+    display: inline-block;
   }
 }

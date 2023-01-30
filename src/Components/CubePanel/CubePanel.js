@@ -3,9 +3,8 @@ import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { memo } from 'react';
 import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
 import processMoves from '../../Utils/processMoves.js';
-import UseWindowSize from '../../Utils/Hooks/useWindowSize.js';
-import setDragText from '../../Utils/setDragText.js'
 import './CubePanel.css';
+import cx from '../../Utils/cx.js';
 
 const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
 
@@ -18,8 +17,6 @@ const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
  * @usage Used in Solve.js
  */
 function Cube({ scramble }) {
-  // custom hook to dynamically re-render on window size changes
-  const windowSize = UseWindowSize();
 
   return (
     <div className="cubePanel">
@@ -29,10 +26,11 @@ function Cube({ scramble }) {
         background="none"
         alg={processMoves(scramble)}
       ></twisty-player>
-
       <div className="dragIconAndText mainText">
         <MemoizedFontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg" />
-        <p className="dragText">&nbsp;&nbsp;{setDragText(windowSize)}</p>
+        <p className={cx('dragText', 'dragTextSmall')}>&nbsp;&nbsp;Drag</p>
+        <p className={cx('dragText', 'dragTextMedium')}>&nbsp;&nbsp;Drag cube</p>
+        <p className={cx('dragText', 'dragTextLarge')}>&nbsp;&nbsp;Drag cube to view</p>
       </div>
     </div>
   );

@@ -126,13 +126,6 @@
   }
 }
 
-/* most phones should take this form */
-@media (max-width: 481px) {
-  .solutionLi {
-
-  }
-}
-
 @media (max-width: 345px) {
   .sortButton {
     margin-right: 0;

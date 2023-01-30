@@ -4,7 +4,7 @@ import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import MovesetButton from '../MovesetButton/MovesetButton.js';
 import UseWindowSize from '../../Utils/Hooks/useWindowSize.js';
 import './QueryFormContainer.css';
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 
 /**
  * This is the form where the user enters information for a solve
@@ -23,6 +23,27 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
     //* misc
     // custom hook to dynamically re-render on window size changes
     const windowSize = UseWindowSize();
+
+    // prevents clicking on the icon from focusing inside the input, mostly important for mobile
+    useEffect(() => {
+        const scrambleIcon = document.querySelector('.scrambleIcon');
+        scrambleIcon.addEventListener('click', e => {
+            e.preventDefault();
+        });
+        const depthIcon = document.querySelector('.depthIcon');
+        depthIcon.addEventListener('click', e => {
+            e.preventDefault();
+        });
+
+        return () => {
+            scrambleIcon.removeEventListener('click', (e) => {
+                e.preventDefault();
+            });
+            depthIcon.removeEventListener('click', (e) => {
+                e.preventDefault();
+            });
+        };
+    }, []);
 
     //* helpers
     // these helpers change what text shows based on the screen size

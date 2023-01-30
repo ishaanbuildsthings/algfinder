@@ -1,5 +1,5 @@
 
-import { BsApp, BsFillMoonStarsFill } from 'react-icons/bs';
+import { BsFillMoonStarsFill } from 'react-icons/bs';
 import { IconContext } from 'react-icons';
 import { RiSunLine } from 'react-icons/ri';
 import { useCallback, useEffect } from 'react';
