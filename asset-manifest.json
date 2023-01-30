@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/cubeExplorerFrontend/static/css/main.b8071484.css",
-    "main.js": "/cubeExplorerFrontend/static/js/main.9bba10be.js",
-    "static/js/550.ad7593b7.chunk.js": "/cubeExplorerFrontend/static/js/550.ad7593b7.chunk.js",
-    "static/js/152.6480f2b6.chunk.js": "/cubeExplorerFrontend/static/js/152.6480f2b6.chunk.js",
-    "static/js/764.66637477.chunk.js": "/cubeExplorerFrontend/static/js/764.66637477.chunk.js",
-    "static/js/800.06baba92.chunk.js": "/cubeExplorerFrontend/static/js/800.06baba92.chunk.js",
-    "static/js/814.bd359a1d.chunk.js": "/cubeExplorerFrontend/static/js/814.bd359a1d.chunk.js",
-    "static/js/626.6348033b.chunk.js": "/cubeExplorerFrontend/static/js/626.6348033b.chunk.js",
-    "index.html": "/cubeExplorerFrontend/index.html",
-    "main.b8071484.css.map": "/cubeExplorerFrontend/static/css/main.b8071484.css.map",
-    "main.9bba10be.js.map": "/cubeExplorerFrontend/static/js/main.9bba10be.js.map",
-    "550.ad7593b7.chunk.js.map": "/cubeExplorerFrontend/static/js/550.ad7593b7.chunk.js.map",
-    "152.6480f2b6.chunk.js.map": "/cubeExplorerFrontend/static/js/152.6480f2b6.chunk.js.map",
-    "764.66637477.chunk.js.map": "/cubeExplorerFrontend/static/js/764.66637477.chunk.js.map",
-    "800.06baba92.chunk.js.map": "/cubeExplorerFrontend/static/js/800.06baba92.chunk.js.map",
-    "814.bd359a1d.chunk.js.map": "/cubeExplorerFrontend/static/js/814.bd359a1d.chunk.js.map",
-    "626.6348033b.chunk.js.map": "/cubeExplorerFrontend/static/js/626.6348033b.chunk.js.map"
+    "main.css": "/algfinder/static/css/main.36f6f302.css",
+    "main.js": "/algfinder/static/js/main.b3ef6617.js",
+    "static/js/550.ad7593b7.chunk.js": "/algfinder/static/js/550.ad7593b7.chunk.js",
+    "static/js/152.6480f2b6.chunk.js": "/algfinder/static/js/152.6480f2b6.chunk.js",
+    "static/js/764.66637477.chunk.js": "/algfinder/static/js/764.66637477.chunk.js",
+    "static/js/800.06baba92.chunk.js": "/algfinder/static/js/800.06baba92.chunk.js",
+    "static/js/814.bd359a1d.chunk.js": "/algfinder/static/js/814.bd359a1d.chunk.js",
+    "static/js/626.6348033b.chunk.js": "/algfinder/static/js/626.6348033b.chunk.js",
+    "index.html": "/algfinder/index.html",
+    "main.36f6f302.css.map": "/algfinder/static/css/main.36f6f302.css.map",
+    "main.b3ef6617.js.map": "/algfinder/static/js/main.b3ef6617.js.map",
+    "550.ad7593b7.chunk.js.map": "/algfinder/static/js/550.ad7593b7.chunk.js.map",
+    "152.6480f2b6.chunk.js.map": "/algfinder/static/js/152.6480f2b6.chunk.js.map",
+    "764.66637477.chunk.js.map": "/algfinder/static/js/764.66637477.chunk.js.map",
+    "800.06baba92.chunk.js.map": "/algfinder/static/js/800.06baba92.chunk.js.map",
+    "814.bd359a1d.chunk.js.map": "/algfinder/static/js/814.bd359a1d.chunk.js.map",
+    "626.6348033b.chunk.js.map": "/algfinder/static/js/626.6348033b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b8071484.css",
-    "static/js/main.9bba10be.js"
+    "static/css/main.36f6f302.css",
+    "static/js/main.b3ef6617.js"
   ]
 }
