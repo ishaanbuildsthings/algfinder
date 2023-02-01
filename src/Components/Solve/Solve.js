@@ -38,6 +38,9 @@ function Solve() {
     const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
     const [isSpinner, setSpinner] = useState(false);
 
+    // track the most recently applied alg, to know if we should delay or not for the animation
+    const [mostRecentAlg, setMostRecentAlg] = useState('');
+
     // * other hooks
     const handleMouseDown = useCallback(() => { // memoize for the useEffect
         setNoSolutionsModal(false);
@@ -65,18 +68,18 @@ function Solve() {
         }
     }, []);
 
-    // when the user changes the scramble field, the current applied alg should change if they had clicked on one
-    // ! new
-    const clearCube = useCallback(() => {
+    useEffect(() => {
+        // whenever the most recent alg changes, update the cube to have that
+        // todo: make not declarative
         const cube = document.querySelector('.mycube');
-        cube.alg = "";
-    }, []);
+        cube.alg = mostRecentAlg;
+    }, [mostRecentAlg]);
 
     // * handlers
     // when a user changes the scramble, change the queries state
     const handleTextChange = useCallback((event) => {
         // ! new
-        clearCube();
+        setMostRecentAlg('');
 
         let { name, value } = event.target;
         value = value.replace(/[‘’]/g, "'"); // replace smart quotes for mobile use
@@ -138,6 +141,10 @@ function Solve() {
         if (workerRef.current) {
             workerRef.current.terminate();
         }
+
+        setMostRecentAlg(''); // when a new alg is submitted, it implies the next solution that is clicked should be ran instantly, rather than after a delay, so re-assign the most recent alg to ''
+
+        // todo: refactor cube to be a ref / custom react component thing
 
         if (scramble === '') {
             errorMessage = 'Please choose a scramble!';
@@ -226,7 +233,12 @@ function Solve() {
                 />
                 <CubePanel scramble={queriesState.scramble} />
             </div>
-            <SolutionsDisplayContainer handleSort={handleClickOnSort} solutionsList={solutionsList} />
+            <SolutionsDisplayContainer
+                handleSort={handleClickOnSort}
+                solutionsList={solutionsList}
+                mostRecentAlg={mostRecentAlg}
+                setMostRecentAlg={setMostRecentAlg}
+            />
         </div>
     );
 }

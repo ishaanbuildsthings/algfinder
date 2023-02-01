@@ -37,9 +37,8 @@
   flex: 1;
   /* the solutionsDisplayContainer will flex 1/2 of the solvePageMinusNav height */
   justify-content: center;
-  min-height: 145px;
-  /* this allows the container to shrink somewhat as height is not set otherwise,
-  but it caps out at a certain point, so the scrollable solutions is visible */
+  min-height: 300px;
+  /* this allows the container to shrink somewhat as height is not set otherwise, but it caps out at a certain point, so the scrollable solutions is visible */
   padding: 0;
   padding: 25px 5%;
   position: relative;

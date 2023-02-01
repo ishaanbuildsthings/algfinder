@@ -6,8 +6,8 @@ function Navbar() {
   return (
     <nav className="navbarDiv">
       <ul className="navbarUl">
-        <NavbarListItem route={'/'} tabName="Solve" />
-        <NavbarListItem route={'/documentation'} tabName="Documentation" />
+        <NavbarListItem route={'/'} tabName="Solver" />
+        <NavbarListItem route={'/about'} tabName="About" />
       </ul>
       <DarkButton />
     </nav>

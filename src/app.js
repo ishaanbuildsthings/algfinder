@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar/Navbar.js';
 import Solve from './Components/Solve/Solve.js';
-import Documentation from './Components/Documentation/Documentation.js';
+import About from './Components/About/About.js';
 
 /**
  * This defines the entire website in terms of components, including all routes.
@@ -15,7 +15,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Solve />} />
-        <Route path="/documentation" element={<Documentation />} />
+        <Route path="/about" element={<About />} />
       </Routes>
     </>
   );

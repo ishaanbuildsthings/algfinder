@@ -1,15 +1,22 @@
-import './Documentation.css';
-function Documentation() {
+import './About.css';
+function About() {
   return (
     <>
       <div className="documentationDiv">
         <h2>Credits</h2>
-        <p>This tool was made by <a href="https://www.worldcubeassociation.org/persons/2015AGRA03" target="_blank" rel="noopener noreferrer">Ishaan Agrawal.</a> In 2017, I broke the world record for solving a Rubik's Cube while blindfolded, and I had spent thousands of hours finding algorithms by hand to make my solutions hyper-efficient. I made this tool to automate that process for others!
+        <p>This tool was made by <a href="https://www.worldcubeassociation.org/persons/2015AGRA03" target="_blank" rel="noopener noreferrer">Ishaan Agrawal.</a> In 2017, I broke the&nbsp;
+          <a href="https://www.youtube.com/watch?v=N8MNEngonTs" target="_blank" rel="noopener noreferrer">
+            world record for solving a Rubik's Cube while blindfolded,&nbsp;
+          </a>
+          by spending thousands of hours finding algorithms by hand to make my solutions hyper-efficient. I made this tool to automate that process for others and save time!
         </p>
         <p>
-          I am currently looking for an entry Front-End Web Development job, please don't hesitate to contact me:
+          I am currently looking for an entry Front-End Web Development job, if you can help, please contact me:&nbsp;
+          <a href="https://www.ishaan.ag" target="_blank" rel="noopener noreferrer">Portfolio & Resume | </a>
+          <a href="mailto:me@ishaan.ag"> Email | </a>
+          <a href="https://github.com/agrawalishaan" target="_blank" rel="noopener noreferrer"> Github</a>
         </p>
-        <p>With special thanks to Tony Peng and <a href="https://www.worldcubeassociation.org/persons/2016GOHT01" target="_blank" rel="noopener noreferrer">Timothy Goh,</a> for spending more time than anyone reasonably should, teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.</p>
+        <p>Special thanks to Tony Peng and <a href="https://www.worldcubeassociation.org/persons/2016GOHT01" target="_blank" rel="noopener noreferrer">Timothy Goh,</a> for spending more time than anyone reasonably should, teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.</p>
 
         <p>And <a href="https://www.worldcubeassociation.org/persons/2006GARR01" target="_blank" rel="noopen noreferrer">Lucas Garron</a> and his co-contributors, for their beautiful <a href="https://js.cubing.net/cubing/" target="_blank" rel="noopener noreferrer">Rubik's Cube visual display.</a></p>
 
@@ -94,4 +101,4 @@ function Documentation() {
   );
 }
 
-export default Documentation;
+export default About;

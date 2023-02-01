@@ -1,5 +1,3 @@
-make solve button bigger on mobile via flex 1
-
 ERRORS:
 1) could not find icon null
 2) max updatedepth
@@ -14,7 +12,7 @@ SO question about memoize that i also asked on slack
 3) https://codepen.io/Sean713/pen/PoBZKbP -ask this codepen removing min height from solvepageminusnav
 
 window size fixe
-change documentation and solve navbar
 create modal
-add animations
+refactor animations
+add twisty-alg-viewer
 

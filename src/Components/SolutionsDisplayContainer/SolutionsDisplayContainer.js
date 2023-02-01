@@ -12,12 +12,18 @@ import './SolutionsDisplayContainer.css';
  * solutionsList - the list of string solutions
  * @usage Used in Solve.js
  */
-function SolutionsDisplayContainer({ handleSort, solutionsList }) {
+function SolutionsDisplayContainer({ handleSort, mostRecentAlg, setMostRecentAlg, solutionsList }) {
 
-  // creates JSX elements for the solutions, only recomputes when the slutions change
+
+  // creates JSX elements for the solutions
   const JsxSolutions = useMemo(() => solutionsList.map((solution) => (
-    <Solution solution={solution} key={solution} />
-  )), [solutionsList]);
+    <Solution
+      solution={solution}
+      key={solution}
+      mostRecentAlg={mostRecentAlg}
+      setMostRecentAlg={setMostRecentAlg}
+    />
+  )), [mostRecentAlg, solutionsList]); // todo
 
   return (
     <div className="solutionsDisplayContainer">
