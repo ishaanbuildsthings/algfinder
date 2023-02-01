@@ -1,6 +1,6 @@
-# algfinder
+# algfinder.com
 
-[algfinder.com](https://algfinder.com) is a modern, web-based application that generates exhaustive solutions for a given Rubik's cube scramble, depth, and moveset.
+[algfinder.com](https://algfinder.com) is a fast, web-based application that generates exhaustive solutions for a given Rubik's cube scramble, depth, and moveset. This tool was built to make discovery of new algorithms more accessible, and push the limits of competitive speedcubing.
 
 ![Video demo](<put gif here>)
 
@@ -14,4 +14,4 @@ Created by [Ishaan Agrawal](https://ishaan.ag). Special thanks to Timothy Goh an
 
 This project also contains the [`twisty`](https://js.cubing.net/cubing/twisty/) library.
 
-Created under the MIT license.
+Licensed under the [MIT license](https://github.com/agrawalishaan/algfinder/blob/main/LICENSE.md).
