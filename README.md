@@ -10,10 +10,8 @@ To run this code on your machine, navigate to the relevant directory and run `np
 
 ## Acknowledgements
 
-Created by [Ishaan Agrawal](https://ishaan.ag). Special thanks to Timothy Goh and Tony Peng for their guidance.
+Created by [Ishaan Agrawal](https://ishaan.ag). Special thanks to Timothy Goh and Tony Peng for teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.
 
-This project also contains the [`twisty`](https://js.cubing.net/cubing/twisty/).
+This project also contains the [`twisty`](https://js.cubing.net/cubing/twisty/) library.
 
-## License
-
-This project is licensed under the GPL license (version 3 or later). This means that this library is free to use, although you must publish any code that uses it (e.g. also put it on GitHub).
+Created under the MIT license.
