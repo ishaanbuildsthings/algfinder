@@ -1,11 +1,11 @@
 // these are random examples that can show when the random example button is clicked
 // good examples are 12 move 3gen, 10 move 4gen, that don't have a lot of solutions
 const examples = [
-  { // u perm
-    scramble: "R2 U R U R' U' R' U' R' U R'",
-    moveset: ['R', 'U'],
-    depth: 13
-  },
+  // { // u perm
+  //   scramble: "R2 U R U R' U' R' U' R' U R'",
+  //   moveset: ['R', 'U'],
+  //   depth: 13
+  // },
   { // a perm
     scramble: "x R' U R' D2 R U' R' D2 R2",
     moveset: ['R', 'U', 'D', 'x'],

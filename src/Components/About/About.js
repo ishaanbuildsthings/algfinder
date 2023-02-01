@@ -6,14 +6,14 @@ function About() {
         <h2>Credits</h2>
         <p>This tool was made by <a href="https://www.worldcubeassociation.org/persons/2015AGRA03" target="_blank" rel="noopener noreferrer">Ishaan Agrawal.</a> In 2017, I broke the&nbsp;
           <a href="https://www.youtube.com/watch?v=N8MNEngonTs" target="_blank" rel="noopener noreferrer">
-            world record for solving a Rubik's Cube while blindfolded,&nbsp;
+            world record&nbsp;
           </a>
-          by spending thousands of hours finding algorithms by hand to make my solutions hyper-efficient. I made this tool to automate that process for others and save time!
+          for solving a Rubik's Cube while blindfolded by spending thousands of hours finding algorithms by hand, to make my solutions hyper-efficient. I made this tool to automate that process for others and save time!
         </p>
         <p>
-          I am currently looking for an entry Front-End Web Development job, if you can help, please contact me:&nbsp;
-          <a href="https://www.ishaan.ag" target="_blank" rel="noopener noreferrer">Portfolio & Resume | </a>
-          <a href="mailto:me@ishaan.ag"> Email | </a>
+          I am currently looking for an entry level Web Development job, if you know of an opportunity, would like to introduce someone to me, or just want to chat, please contact me:&nbsp;
+          <a href="https://www.ishaan.ag" target="_blank" rel="noopener noreferrer">Portfolio & Resume, </a>
+          <a href="mailto:me@ishaan.ag"> Email, </a>
           <a href="https://github.com/agrawalishaan" target="_blank" rel="noopener noreferrer"> Github</a>
         </p>
         <p>Special thanks to Tony Peng and <a href="https://www.worldcubeassociation.org/persons/2016GOHT01" target="_blank" rel="noopener noreferrer">Timothy Goh,</a> for spending more time than anyone reasonably should, teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.</p>

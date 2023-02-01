@@ -102,10 +102,16 @@ on mobile, these function as buttons due to sticky hover */
     transform: translate(-50%, -50%);
   }
 
-  .scrambleTooltip p,
+
   .depthTooltip p,
   .movesetTooltip p,
   .solutionsTooltip p {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 350px) {
+  .scrambleTooltip p {
     width: 80vw;
   }
 }

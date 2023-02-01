@@ -128,7 +128,7 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
                         <FontAwesomeIcon icon={faCircleInfo} className="scrambleIcon icon mainText" />
                         <div className="scrambleTooltip tooltip accentColor">
                             <p>Enter the scramble you want to solve.</p>
-                            <p>Example: R U R' y R' F R U' R' F' R</p>
+                            <p>Example: R2 U R U R' U' R' U' R' U R'</p>
                         </div>
                     </div>
                 </label>
