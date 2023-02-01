@@ -4,7 +4,7 @@
 
 ![Video demo](<put gif here>)
 
-##Setup
+## Setup
 
 To run this code on your machine, navigate to the relevant directory and run `npm run start`
 
@@ -12,7 +12,7 @@ To run this code on your machine, navigate to the relevant directory and run `np
 
 Created by [Ishaan Agrawal](https://ishaan.ag). Special thanks to Timothy Goh and Tony Peng for their guidance.
 
-This project also contains the [`twisty`] (https://js.cubing.net/cubing/twisty/).
+This project also contains the [`twisty`](https://js.cubing.net/cubing/twisty/).
 
 ## License
 
