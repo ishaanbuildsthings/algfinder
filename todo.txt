@@ -13,3 +13,8 @@ SO question about memoize that i also asked on slack
 2) why cant i do var a = 10; to modify the window object and access it from another file, it doesnt recognize a
 3) https://codepen.io/Sean713/pen/PoBZKbP -ask this codepen removing min height from solvepageminusnav
 
+window size fixe
+change documentation and solve navbar
+create modal
+add animations
+

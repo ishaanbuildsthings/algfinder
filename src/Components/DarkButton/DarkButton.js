@@ -20,7 +20,9 @@ function DarkButton() {
     } else {
       setLocalStorageState('dark');
     }
-  }, [localStorageState, setLocalStorageState]); // setter added for linter
+  // setter never changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localStorageState]);
 
   // * other hooks
   // when the localStorageState changes, this will add or remove a class to the body which creates the different visual style

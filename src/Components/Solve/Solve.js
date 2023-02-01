@@ -51,7 +51,9 @@ function Solve() {
         return () => {
             window.removeEventListener('mousedown', handleMouseDown); // whenever we turn the popup off a re-render is triggered, running this cleanup function
         };
-    }, [isNoSolutionsModal, handleMouseDown]);
+    // handle mouse down never changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isNoSolutionsModal]);
 
     // whenever the component unmounts, kill any active worker via this cleanup function
     useEffect(() => {
@@ -63,9 +65,19 @@ function Solve() {
         }
     }, []);
 
+    // when the user changes the scramble field, the current applied alg should change if they had clicked on one
+    // ! new
+    const clearCube = useCallback(() => {
+        const cube = document.querySelector('.mycube');
+        cube.alg = "";
+    }, []);
+
     // * handlers
     // when a user changes the scramble, change the queries state
     const handleTextChange = useCallback((event) => {
+        // ! new
+        clearCube();
+
         let { name, value } = event.target;
         value = value.replace(/[‘’]/g, "'"); // replace smart quotes for mobile use
         if (/^[ RUFLDBrufldxyzMSE'2]*$/.test(value) || value === '') {
@@ -74,6 +86,8 @@ function Solve() {
                 [name]: value
             });
         }
+    // clearCube only changes when solve is remounted anyway, so it is not needed
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queriesState]); // avoid stale states
 
     // when the user changes the depth, change the queries state
@@ -190,7 +204,9 @@ function Solve() {
         }
         setQueries(data);
         handleSubmit(data);
-    }, [handleSubmit, queriesState]); // handleSubmit is currently a dependency as defensive programming
+    // handleSubmit never changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queriesState]);
 
     return (
         <div className="solvePageMinusNav">

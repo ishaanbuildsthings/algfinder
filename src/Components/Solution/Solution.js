@@ -14,14 +14,26 @@ function Solution({ solution }) {
 
   const [sliceTurnMetric, halfTurnMetric] = getQtmAndStm(solution);
 
+  const applyAlgAndAnimate = useCallback(() => {
+    const cube = document.querySelector('.mycube');
+    cube.timestamp = 'start';
+    cube.alg = solution;
+    cube.play();
+    // a solution should never change
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // ! new
+
   return (
     <li className="solutionLi mainText">
       {isPopup && <CopyPopup killPopup={() => setPopup(false)} />}
       <button
         onClick={useCallback(() => {
           navigator.clipboard.writeText(solution);
+          applyAlgAndAnimate();
           setPopup(true);
-        }, [solution])}
+          // applyAlgAndAnimate should not change
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [solution])} // ! new
         className="solutionButton"
       >
         {solution} ({sliceTurnMetric}s, {halfTurnMetric}q)

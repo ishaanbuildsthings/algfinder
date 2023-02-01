@@ -3,6 +3,24 @@ function Documentation() {
   return (
     <>
       <div className="documentationDiv">
+        <h2>Credits</h2>
+        <p>This tool was made by <a href="https://www.worldcubeassociation.org/persons/2015AGRA03" target="_blank" rel="noopener noreferrer">Ishaan Agrawal.</a> In 2017, I broke the world record for solving a Rubik's Cube while blindfolded, and I had spent thousands of hours finding algorithms by hand to make my solutions hyper-efficient. I made this tool to automate that process for others!
+        </p>
+        <p>
+          I am currently looking for an entry Front-End Web Development job, please don't hesitate to contact me:
+        </p>
+        <p>With special thanks to Tony Peng and <a href="https://www.worldcubeassociation.org/persons/2016GOHT01" target="_blank" rel="noopener noreferrer">Timothy Goh,</a> for spending more time than anyone reasonably should, teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.</p>
+
+        <p>And <a href="https://www.worldcubeassociation.org/persons/2006GARR01" target="_blank" rel="noopen noreferrer">Lucas Garron</a> and his co-contributors, for their beautiful <a href="https://js.cubing.net/cubing/" target="_blank" rel="noopener noreferrer">Rubik's Cube visual display.</a></p>
+
+
+        <h2>Contributions</h2>
+        <p>This is written in React and is open-source. If you would like to contribute, make feature requests, or report bugs, the Github repository is&nbsp;
+          <a href="https://github.com/agrawalishaan/cubeExplorerFrontend" target="_blank" rel="noopen noreferrer">here.</a>
+          {/* &nbsp;|&nbsp;
+          <a href="https://github.com/agrawalishaan/cubeexplorer" target="_blank" rel="noopen noreferrer">Back End</a> */}
+        </p>
+
         <h2>How this works (for nerds)</h2>
         <p>The crux of this tool is the search algorithm needed to solve the supplied scramble. I implemented a <a target="_blank" rel="noopener noreferrer" href="https://github.com/agrawalishaan/cubeExplorerFrontend/blob/main/public/Workers/SolveWorker.js">bidirectional breadth-first search algorithm</a>&nbsp;to detect solutions.
           This algorithm reduces the time complexity of the naive solution of O(k<sup>n</sup>), to O(k<sup>n/2</sup>), where k is the branching factor and n is the search depth.
@@ -71,21 +89,6 @@ function Documentation() {
         </p>
         <p>As the breadth-first search starting from the solved cube is repeated work, it is <a href="" target="_blank" rel="noopener noreferrer">preprocessed as a binary encoding,</a> speeding up
           the time even further.</p>
-
-
-        <h2>Credits</h2>
-        <p>This tool was made by <a href="https://www.worldcubeassociation.org/persons/2015AGRA03" target="_blank" rel="noopener noreferrer">Ishaan Agrawal.</a></p>
-        <p>With special thanks to Tony Peng and <a href="https://www.worldcubeassociation.org/persons/2016GOHT01" target="_blank" rel="noopener noreferrer">Timothy Goh,</a> for spending more time than anyone reasonably should, teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.</p>
-
-        <p>And <a href="https://www.worldcubeassociation.org/persons/2006GARR01" target="_blank" rel="noopen noreferrer">Lucas Garron</a> and his co-contributors, for their beautiful <a href="https://js.cubing.net/cubing/" target="_blank" rel="noopener noreferrer">Rubik's Cube visual display.</a></p>
-
-
-        <h2>Contributions</h2>
-        <p>This is written in React and is open-source. If you would like to contribute, make feature requests, or report bugs, the Github repository is&nbsp;
-          <a href="https://github.com/agrawalishaan/cubeExplorerFrontend" target="_blank" rel="noopen noreferrer">here.</a>
-          {/* &nbsp;|&nbsp;
-          <a href="https://github.com/agrawalishaan/cubeexplorer" target="_blank" rel="noopen noreferrer">Back End</a> */}
-        </p>
       </div>
     </>
   );

@@ -21,10 +21,13 @@ function Cube({ scramble }) {
   return (
     <div className="cubePanel">
       <twisty-player
+        class="mycube"
         visualization="PG3D"
         control-panel="none"
         background="none"
-        alg={processMoves(scramble)}
+        experimental-setup-alg={processMoves(scramble)}
+        // ! new alg={processMoves(scramble)}
+        tempo-scale="4"
       ></twisty-player>
       <div className="dragIconAndText mainText">
         <MemoizedFontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg" />

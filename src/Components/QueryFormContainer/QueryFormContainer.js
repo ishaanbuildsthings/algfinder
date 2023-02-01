@@ -107,7 +107,9 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
             );
         }
         return listOfButtons;
-    }, [handleMovesetClick, queriesState]); // handler only changes if state changes, so this is included defensively
+    // handleMovesetClick only changes if the state changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [queriesState]);
 
     // create arrays of JSX buttons
     // The idea is whenever createJSXButtons changes, which only happens when parentState changes, then and only then myButtons will change.
