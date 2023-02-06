@@ -146,16 +146,8 @@ function Solve() {
 
         // todo: refactor cube to be a ref / custom react component thing
 
-        if (scramble === '') {
-            errorMessage = 'Please choose a scramble!';
-            setErrorPopup(true);
-            return;
-        } else if (depth === '') {
+        if (depth === '') {
             errorMessage = 'Please choose a depth!';
-            setErrorPopup(true);
-            return;
-        } else if (moveset.length === 0) {
-            errorMessage = 'Please choose a moveset!';
             setErrorPopup(true);
             return;
         } else if (moveset.length === 3 & depth > 18) {
@@ -178,7 +170,11 @@ function Solve() {
         // if we receive a message from the worker
         const totalSolutions = [];
         workerRef.current.onmessage = (e) => {
-            // console.log(`message is: ${e.data}`); for debugging
+            console.log(`message is: ${e.data}`); // for debugging
+            if (e.data.slice(0, 1) === '~') {
+                return;
+            } // for debugging
+            // todo
             if (e.data === 'done') {
                 setSpinner(false);
                 workerRef.current.terminate();

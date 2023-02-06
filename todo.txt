@@ -21,3 +21,5 @@ add hamburger for mobile
 github issues
 todos
 remove hash router #
+add site tracking for how many visits my page gets
+set up codepen with render and cube.play https://codepen.io/agrawalishaan/pen/abjRrpr?editors=1111

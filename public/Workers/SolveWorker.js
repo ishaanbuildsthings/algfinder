@@ -1,3 +1,25 @@
+// this represents the state of a solved cube returned by getState() on a new cube
+// also used to initialize the state of a cube
+const SOLVED_CUBE = [
+  ['⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜'],
+  ['🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩'],
+  ['🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥'],
+  ['🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨'],
+  ['🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧'],
+  ['🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦']
+]
+
+function getSolvedCubeState() {
+  return (
+    SOLVED_CUBE[0].join('') +
+    SOLVED_CUBE[1].join('') +
+    SOLVED_CUBE[2].join('') +
+    SOLVED_CUBE[3].join('') +
+    SOLVED_CUBE[4].join('') +
+    SOLVED_CUBE[5].join('')
+  );
+}
+
 // when the worker receives a message from the main thread
 // e.data = the params we send in via postMessage
 onmessage = function (e) {
@@ -6,38 +28,19 @@ onmessage = function (e) {
   let oddStatus = Boolean(depth % 2);
   scramble = scramble.split(' ');
 
-  // handle edge case of single move + single depth
-  if (scramble.length === 1 && depth === 1) { // array only has one move, R R' R2
-    if (moveset.includes(scramble[0][0])) {
-      const solution = invertMove(scramble[0]);
-      this.postMessage(solution);
-    }
-    this.postMessage('done');
+  // if the scramble starts with rotations, remove them, this way for x R' U' R' we get the solution R U R
+  const newArr = [];
+  let partOfStartingChain = true;
+
+  for (let move of scramble) {
+      if (['x', 'y', 'z'].includes(move[0]) && partOfStartingChain) {
+      } else {
+          newArr.push(move);
+          partOfStartingChain = false;
+      }
   }
+  scramble = newArr;
 
-  depth = parseInt(Math.ceil((parseInt(depth) / 2)));
-
-  // hande second edge case of only one moveset type
-  if (moveset.length === 1) {
-    const scrambledCube = new Cube();
-    applyAlg(scramble, scrambledCube);
-
-    const testCube1 = new Cube();
-    testCube1.move(moveset[0]);
-    const testCube2 = testCube1._clone();
-    testCube2.move(moveset[0]);
-    const testCube3 = testCube2._clone();
-    testCube3.move(moveset[0]);
-
-    if (JSON.stringify(testCube1.getState()) === JSON.stringify(scrambledCube.getState())) {
-      this.postMessage(invertMove(moveset[0]));
-    } else if (JSON.stringify(testCube2.getState()) === JSON.stringify(scrambledCube.getState())) {
-        this.postMessage(normalToDouble(moveset[0]));
-    } else if (JSON.stringify(testCube3.getState()) === JSON.stringify(scrambledCube.getState())) {
-      this.postMessage(moveset[0]);
-    }
-    this.postMessage('done');
-  }
 
   // create the cubes
   const solvedCube = new Cube();
@@ -47,10 +50,65 @@ onmessage = function (e) {
   scrambledCube.movesApplied = [];
   scrambledCube.allowedMoves = moveset;
 
+  // if the depth is 0, and our cube is solved or can be rotated to be solved, return nothing as a solution
+  if (depth === 0) {
+    if (JSON.stringify(scrambledCube.getReorderedState()) === JSON.stringify(getSolvedCubeState())) {
+      this.postMessage('');
+    }
+    this.postMessage('done');
+    return;
+  }
+
+  // if there isn't a moveset, and our cube is solved or can be rotated to be solved, return nothing as a solution
+  if (moveset.length === 0) {
+    if (JSON.stringify(scrambledCube.getReorderedState()) === JSON.stringify(getSolvedCubeState())) {
+      this.postMessage('');
+    }
+    this.postMessage('done');
+    return;
+  }
+
+
+  // // handle edge case of single move scramble + depth of 1
+  // if (scramble.length === 1 && depth === 1) { // array only has one move, R R' R2
+  //     // todo if its a rotation just return a solution
+  //   if (moveset.includes(scramble[0][0])) {
+  //     const solution = invertMove(scramble[0]);
+  //     this.postMessage(solution);
+  //   }
+  //   this.postMessage('done');
+  // }
+
+  depth = parseInt(Math.ceil((parseInt(depth) / 2)));
+
+  // // hande second edge case of only one moveset type
+  // // todo if its a rotation just return a solution
+  // if (moveset.length === 1) {
+  //   const scrambledCube = new Cube();
+  //   applyAlg(scramble, scrambledCube);
+
+  //   const testCube1 = new Cube();
+  //   testCube1.move(moveset[0]);
+  //   const testCube2 = testCube1._clone();
+  //   testCube2.move(moveset[0]);
+  //   const testCube3 = testCube2._clone();
+  //   testCube3.move(moveset[0]);
+
+  //   if (JSON.stringify(testCube1.getState()) === JSON.stringify(scrambledCube.getState())) {
+  //     this.postMessage(invertMove(moveset[0]));
+  //   } else if (JSON.stringify(testCube2.getState()) === JSON.stringify(scrambledCube.getState())) {
+  //       this.postMessage(normalToDouble(moveset[0]));
+  //   } else if (JSON.stringify(testCube3.getState()) === JSON.stringify(scrambledCube.getState())) {
+  //     this.postMessage(moveset[0]);
+  //   }
+  //   this.postMessage('done');
+  // }
+
+
   // setup for search algorithm
-  const solvedHash = {};
+  const solvedHash = {[solvedCube.getReorderedState()]: ['']};
   const solvedQueue = [solvedCube]; // holds a queue of cubes
-  const scrambledHash = {};
+  const scrambledHash = {[scrambledCube.getReorderedState()]: ['']};
   const scrambledQueue = [scrambledCube];
 
   let depthOfNextQueuedCube = 0;
@@ -60,7 +118,14 @@ onmessage = function (e) {
 
      // grab the next cube from the list and create its adjacency list
     const parentSolvedCube = solvedQueue.shift();
-    const solvedAdjacencyList = parentSolvedCube.createAdjList();
+
+    let solvedAdjacencyList;
+    // if our cube is the very first initial solved cube, don't allow rotations to start
+    if (parentSolvedCube === solvedCube) {
+      solvedAdjacencyList = parentSolvedCube.createAdjListForSolvedCubeAtStart();
+    } else {
+    solvedAdjacencyList = parentSolvedCube.createAdjList();
+    }
 
     // for every cube in the adjacency list, assign properties
     for (let adjacentCube of solvedAdjacencyList) {
@@ -69,18 +134,18 @@ onmessage = function (e) {
       adjacentCube.allowedMoves = moveset;
 
        // if this state hasnt been reached, initialize the ways to reach that state
-      if (!(adjacentCube.getState() in solvedHash)) {
-        solvedHash[adjacentCube.getState()] = [adjacentCube.movesApplied.join(' ')];
+      if (!(adjacentCube.getReorderedState() in solvedHash)) {
+        solvedHash[adjacentCube.getReorderedState()] = [adjacentCube.movesApplied.join(' ')];
       } else {
-        solvedHash[adjacentCube.getState()].push(adjacentCube.movesApplied.join(' '));
+        solvedHash[adjacentCube.getReorderedState()].push(adjacentCube.movesApplied.join(' '));
       }
-      if (adjacentCube.getState() in scrambledHash) {
-        for (let scrambledHalfway of scrambledHash[adjacentCube.getState()]) {
+      if (adjacentCube.getReorderedState() in scrambledHash) {
+        for (let scrambledHalfway of scrambledHash[adjacentCube.getReorderedState()]) {
           scrambledHalfway = scrambledHalfway.split(' ');
           const stage1 = reverseAndInvertMoveList(scrambledHalfway);
           const stage2 = cleanUpIntersection(adjacentCube.movesApplied, stage1);
           const stage3 = reverseAndInvertMoveList(stage2);
-          const stage3s = stage3.join(' ');
+          const stage3s = stage3.join(' ').trim();
           if (!finalSolutions.has(stage3s)) {
             this.postMessage(stage3s);
             finalSolutions.add(stage3s);
@@ -107,18 +172,18 @@ onmessage = function (e) {
       scrambledAdjacentCube.depth = parentScrambledCube.depth + 1;
       scrambledAdjacentCube.allowedMoves = moveset;
 
-      if (!(scrambledAdjacentCube.getState() in scrambledHash)) {
-        scrambledHash[scrambledAdjacentCube.getState()] = [scrambledAdjacentCube.movesApplied.join(' ')];
+      if (!(scrambledAdjacentCube.getReorderedState() in scrambledHash)) {
+        scrambledHash[scrambledAdjacentCube.getReorderedState()] = [scrambledAdjacentCube.movesApplied.join(' ')];
       } else { // if it has been reached, just add another state
-        scrambledHash[scrambledAdjacentCube.getState()].push(scrambledAdjacentCube.movesApplied.join(' '));
+        scrambledHash[scrambledAdjacentCube.getReorderedState()].push(scrambledAdjacentCube.movesApplied.join(' '));
       }
 
-      if (scrambledAdjacentCube.getState() in solvedHash) {
-        for (let solvedHalfway of solvedHash[scrambledAdjacentCube.getState()]) {
+      if (scrambledAdjacentCube.getReorderedState() in solvedHash) {
+        for (let solvedHalfway of solvedHash[scrambledAdjacentCube.getReorderedState()]) {
           solvedHalfway = solvedHalfway.split(' ');
           const stage1 = reverseAndInvertMoveList(solvedHalfway);
           const stage2 = cleanUpIntersection(scrambledAdjacentCube.movesApplied, stage1);
-          const stage2s = stage2.join(' ');
+          const stage2s = stage2.join(' ').trim();
           if (!finalSolutions.has(stage2s)) {
             this.postMessage(stage2s);
             finalSolutions.add(stage2s);
@@ -128,26 +193,12 @@ onmessage = function (e) {
     scrambledQueue.push(scrambledAdjacentCube);
     }
   }
+  // this.postMessage(`~final set: ${finalSolutions.size}`); // for debugging
   this.postMessage('done');
 }
 
-
 // ! CUBE ___________________________________________________
 
-const MOVES = [
-  'U', 'R', 'F', 'B', 'L', 'D',
-  'u', 'r', 'f', 'b', 'l', 'd',
-  'S', 'E', 'M', 'x', 'y', 'z'
-];
-
-const SOLVED_STICKER_STATE = [
-  '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜',
-  '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩',
-  '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥',
-  '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦',
-  '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧',
-  '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨',
-]
 
 class Cube {
   constructor() {
@@ -156,12 +207,12 @@ class Cube {
     this.depth = 0;
     this.allowedMoves = [];
 
-    this.uFace = SOLVED_STICKER_STATE.slice(0, 9);
-    this.fFace = SOLVED_STICKER_STATE.slice(9, 18);
-    this.rFace = SOLVED_STICKER_STATE.slice(18, 27);
-    this.bFace = SOLVED_STICKER_STATE.slice(27, 36);
-    this.lFace = SOLVED_STICKER_STATE.slice(36, 45);
-    this.dFace = SOLVED_STICKER_STATE.slice(45, 54);
+    this.uFace = SOLVED_CUBE[0].slice();
+    this.fFace = SOLVED_CUBE[1].slice();
+    this.rFace = SOLVED_CUBE[2].slice();
+    this.dFace = SOLVED_CUBE[3].slice();
+    this.lFace = SOLVED_CUBE[4].slice();
+    this.bFace = SOLVED_CUBE[5].slice();
 
     // to allow rotating the correct faces based on the letter passed to move function, and to get the updated state
     this.faceMapping = {
@@ -198,6 +249,11 @@ class Cube {
 
   // returns string representation of state
   getState() {
+    return this.uFace.join('') + this.fFace.join('') + this.rFace.join('') + this.dFace.join('') + this.lFace.join('') + this.bFace.join('');
+  }
+
+  // returns string representation of reordered faces so that white is always on top and green is on the front
+  getReorderedState() {
     return this.uFace.join('') + this.fFace.join('') + this.rFace.join('') + this.dFace.join('') + this.lFace.join('') + this.bFace.join('');
   }
 
@@ -579,7 +635,7 @@ class Cube {
     }
   }
 
-  // creates a list of cubes that are adjacent to the current cube, adjacenies generated by allowed movetypes minus most recently applied move type
+  // creates a list of cubes that are adjacent to the current cube, adjacenies generated by allowed movetypes minus most recently applied move type, no rotations allowed for first move
   createAdjList() {
     const adjList = [];
     let simplifiedLastMove;
@@ -589,8 +645,35 @@ class Cube {
       simplifiedLastMove = '';
     }
 
-    for (let letter of MOVES) {
-      if (this.allowedMoves.includes(letter) && letter !== simplifiedLastMove) {
+    for (let letter of this.allowedMoves) {
+      if (letter !== simplifiedLastMove) {
+
+        const cube1 = this._clone();
+        const cube2 = this._clone();
+        const cube3 = this._clone();
+        cube1.move(letter);
+        cube2.move(letter + "'");
+        cube3.move(letter + '2');
+        adjList.push(cube1, cube2, cube3);
+      }
+    }
+    return adjList;
+  }
+
+  // creates a list of cubes that are adjacent to the current cube, adjacenies generated by allowed movetypes minus most recently applied move type
+  createAdjListForSolvedCubeAtStart() {
+    const adjList = [];
+    let simplifiedLastMove;
+    if (this.movesApplied.length !== 0) {
+      simplifiedLastMove = simplifyMove(this.movesApplied[this.movesApplied.length - 1]);
+    } else {
+      simplifiedLastMove = '';
+    }
+
+    for (let letter of this.allowedMoves) {
+      // don't allow rotations to be done as the first move as they can be pruned away
+      const isFirstMoveAndRotation = this.movesApplied.length === 0 && letter === ('x' || 'y' || 'z');
+      if (letter !== simplifiedLastMove && !isFirstMoveAndRotation) {
 
         const cube1 = this._clone();
         const cube2 = this._clone();
@@ -609,6 +692,7 @@ class Cube {
 // ! ALGHANDLER _____________________________
 
 function applyAlg(algorithm, cube) {
+  if (JSON.stringify(algorithm) === JSON.stringify([''])) return; // if the user doesn't submit a scramble
   for (let move of algorithm) {
     cube.move(move);
   }
