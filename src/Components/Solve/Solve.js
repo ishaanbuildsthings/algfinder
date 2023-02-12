@@ -54,8 +54,8 @@ function Solve() {
         return () => {
             window.removeEventListener('mousedown', handleMouseDown); // whenever we turn the popup off a re-render is triggered, running this cleanup function
         };
-    // handle mouse down never changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // handle mouse down never changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isNoSolutionsModal]);
 
     // whenever the component unmounts, kill any active worker via this cleanup function
@@ -89,8 +89,8 @@ function Solve() {
                 [name]: value
             });
         }
-    // clearCube only changes when solve is remounted anyway, so it is not needed
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // clearCube only changes when solve is remounted anyway, so it is not needed
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queriesState]); // avoid stale states
 
     // when the user changes the depth, change the queries state
@@ -170,11 +170,10 @@ function Solve() {
         // if we receive a message from the worker
         const totalSolutions = [];
         workerRef.current.onmessage = (e) => {
-            console.log(`message is: ${e.data}`); // for debugging
+            // console.log(`message is: ${e.data}`); // for debugging
             if (e.data.slice(0, 1) === '~') {
                 return;
             } // for debugging
-            // todo
             if (e.data === 'done') {
                 setSpinner(false);
                 workerRef.current.terminate();
@@ -201,14 +200,14 @@ function Solve() {
     }, []);
 
     const handleRandomExample = useCallback(() => {
-          let data = generateRandomExample();
+        let data = generateRandomExample();
         while (JSON.stringify(data) === JSON.stringify(queriesState)) {
             data = generateRandomExample();
         }
         setQueries(data);
         handleSubmit(data);
-    // handleSubmit never changes
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // handleSubmit never changes
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queriesState]);
 
     return (
