@@ -23,3 +23,9 @@ todos
 remove hash router #
 add site tracking for how many visits my page gets
 set up codepen with render and cube.play https://codepen.io/agrawalishaan/pen/abjRrpr?editors=1111
+
+
+TODO: alg for a perm is wrong
+more vlaidations / notes
+most recent alg timer isnt working, and typing in scramble doesnt work
+change 3gen to say scrambles of 3 moves

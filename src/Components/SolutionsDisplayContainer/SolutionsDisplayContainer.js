@@ -9,6 +9,8 @@ import './SolutionsDisplayContainer.css';
  * This is the component for all the solutions that appear when a user queries a scramble
  * @param {*}
  * handleSort - a handler which re-orders the parent solution order state
+ * mostRecentAlg - the alg that will run on animation
+ * setMostRecentAlg - setter for the alg
  * solutionsList - the list of string solutions
  * @usage Used in Solve.js
  */
@@ -21,7 +23,7 @@ function SolutionsDisplayContainer({ handleSort, mostRecentAlg, setMostRecentAlg
       solution={solution}
       key={solution}
       mostRecentAlg={mostRecentAlg}
-      setMostRecentAlg={setMostRecentAlg}
+      setMostRecentAlgToSolution={() => setMostRecentAlg(solution)}
     />
   )), [mostRecentAlg, solutionsList]); // todo
 

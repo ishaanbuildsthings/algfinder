@@ -560,4 +560,3 @@ class Cube {
 
 module.exports = Cube;
 
-// todo: add solved cube class that extends cube

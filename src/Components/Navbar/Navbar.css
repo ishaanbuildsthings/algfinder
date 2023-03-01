@@ -29,6 +29,7 @@ li a:hover:not(.active) {
   /* expand to width of the page */
   z-index: 1;
   /* scramble circle icon would appear above when scrolled otherwise */
+  border-bottom: 1px solid grey;
 }
 
 .navbarUl {

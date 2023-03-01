@@ -20,7 +20,7 @@ let errorMessage = '';
  * @usage Used in app.js
  */
 function Solve() {
-    const workerRef = useRef(null); // initially the ref points to no worker
+    const workerRef = useRef(null); // initially the ref points to no worker, we store the worker inside a ref so even when the component re-renders, we can terminate the correct worker
 
     // * states
     // tracks the current list of solutions, passed to solutionsDisplay
@@ -70,16 +70,14 @@ function Solve() {
 
     useEffect(() => {
         // whenever the most recent alg changes, update the cube to have that
-        // todo: make not declarative
-        const cube = document.querySelector('.mycube');
+        const cube = document.querySelector('.cube');
         cube.alg = mostRecentAlg;
     }, [mostRecentAlg]);
 
     // * handlers
     // when a user changes the scramble, change the queries state
     const handleTextChange = useCallback((event) => {
-        // ! new
-        setMostRecentAlg('');
+        setMostRecentAlg(''); // when the user starts typing a new scramble, it implies they will generate new solutions, so set the most recent alg to be blank to allow for an immediate animation on the next run
 
         let { name, value } = event.target;
         value = value.replace(/[‘’]/g, "'"); // replace smart quotes for mobile use
@@ -89,8 +87,6 @@ function Solve() {
                 [name]: value
             });
         }
-        // clearCube only changes when solve is remounted anyway, so it is not needed
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queriesState]); // avoid stale states
 
     // when the user changes the depth, change the queries state
@@ -144,8 +140,6 @@ function Solve() {
 
         setMostRecentAlg(''); // when a new alg is submitted, it implies the next solution that is clicked should be ran instantly, rather than after a delay, so re-assign the most recent alg to ''
 
-        // todo: refactor cube to be a ref / custom react component thing
-
         if (depth === '') {
             errorMessage = 'Please choose a depth!';
             setErrorPopup(true);
@@ -171,9 +165,9 @@ function Solve() {
         const totalSolutions = [];
         workerRef.current.onmessage = (e) => {
             // console.log(`message is: ${e.data}`); // for debugging
-            if (e.data.slice(0, 1) === '~') {
-                return;
-            } // for debugging
+            // if (e.data.slice(0, 1) === '~') {
+            //     return;
+            // } // for debugging
             if (e.data === 'done') {
                 setSpinner(false);
                 workerRef.current.terminate();

@@ -7,8 +7,6 @@ const { applyAlg, cleanUpIntersection, reverseAndInvertMoveList } = require('./W
 
 // ! SOLVER
 
-// todo: i can remove the base case potentially now that the hashes are set up
-
 
 //let { scramble, moveset, depth } = { scramble: "R2 U2 R2 U2 R2 U2", moveset: ["R", "U"], depth: 6 };
 let { scramble, moveset, depth } = { scramble: "U2", moveset: ["R", "U", "x"], depth: 4 };

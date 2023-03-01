@@ -1,4 +1,5 @@
 // todo: currently R R' x, 2, x y yields a solution of x', once reordered state is fixed it should show no solutions
+// todo: same with R x, 1, R, should yield R' once fixed
 // this represents the state of a solved cube returned by getState() on a new cube
 // also used to initialize the state of a cube
 const SOLVED_CUBE = [
@@ -8,7 +9,7 @@ const SOLVED_CUBE = [
   ['🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨'],
   ['🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧'],
   ['🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦']
-]
+];
 
 const SOLVED_CUBE_STATE = '⬜⬜⬜⬜⬜⬜⬜⬜⬜🟩🟩🟩🟩🟩🟩🟩🟩🟩🟥🟥🟥🟥🟥🟥🟥🟥🟥🟨🟨🟨🟨🟨🟨🟨🟨🟨🟧🟧🟧🟧🟧🟧🟧🟧🟧🟦🟦🟦🟦🟦🟦🟦🟦🟦';
 
@@ -59,7 +60,7 @@ onmessage = function (e) {
   depth = parseInt(Math.ceil((parseInt(depth) / 2)));
 
   // hande second edge case of only one moveset type
-  // todo if its a rotation just return a solution, currently R R' x, 5, R, yields no solutions, but should yield a blank from the reorders state
+  // todo: if its a rotation just return a solution, currently R R' x, 5, R, yields no solutions, but should yield a blank from the reorders state
   if (moveset.length === 1) {
     const scrambledCube = new Cube();
     applyAlg(scramble, scrambledCube);
@@ -71,15 +72,16 @@ onmessage = function (e) {
     const testCube3 = testCube2._clone();
     testCube3.move(moveset[0]);
 
-    if (JSON.stringify(testCube1.getState()) === JSON.stringify(scrambledCube.getState())) {
+    if (JSON.stringify(testCube1.getReorderedState()) === JSON.stringify(scrambledCube.getReorderedState())) {
       this.postMessage(invertMove(moveset[0]));
-    } else if (JSON.stringify(testCube2.getState()) === JSON.stringify(scrambledCube.getState())) {
+    } else if (JSON.stringify(testCube2.getReorderedState()) === JSON.stringify(scrambledCube.getReorderedState())) {
       this.postMessage(normalToDouble(moveset[0]));
-    } else if (JSON.stringify(testCube3.getState()) === JSON.stringify(scrambledCube.getState())) {
+    } else if (JSON.stringify(testCube3.getReorderedState()) === JSON.stringify(scrambledCube.getReorderedState())) {
       this.postMessage(moveset[0]);
     }
     this.postMessage('done');
   }
+  // todo: i edited all of the above to use reordered state, make sure that is okay
 
 
   // setup for search algorithm
@@ -89,6 +91,8 @@ onmessage = function (e) {
   const scrambledQueue = [scrambledCube];
 
   let depthOfNextQueuedCube = 0;
+
+  // ! ################################### SOLVER ###################################
 
   while (depthOfNextQueuedCube < depth) {
 
@@ -109,14 +113,16 @@ onmessage = function (e) {
       adjacentCube.depth = parentSolvedCube.depth + 1;
       adjacentCube.allowedMoves = moveset;
 
+      const adjacentReorderedState = adjacentCube.getReorderedState();
+
       // if this state hasnt been reached, initialize the ways to reach that state
-      if (!(adjacentCube.getReorderedState() in solvedHash)) {
-        solvedHash[adjacentCube.getReorderedState()] = [adjacentCube.movesApplied.join(' ')];
+      if (!(adjacentReorderedState in solvedHash)) {
+        solvedHash[adjacentReorderedState] = [adjacentCube.movesApplied.join(' ')];
       } else {
-        solvedHash[adjacentCube.getReorderedState()].push(adjacentCube.movesApplied.join(' '));
+        solvedHash[adjacentReorderedState].push(adjacentCube.movesApplied.join(' '));
       }
-      if (adjacentCube.getReorderedState() in scrambledHash) {
-        for (let scrambledHalfway of scrambledHash[adjacentCube.getReorderedState()]) {
+      if (adjacentReorderedState in scrambledHash) {
+        for (let scrambledHalfway of scrambledHash[adjacentReorderedState]) {
           scrambledHalfway = scrambledHalfway.split(' ');
           const stage1 = reverseAndInvertMoveList(scrambledHalfway);
           const stage2 = cleanUpIntersection(adjacentCube.movesApplied, stage1);
@@ -149,14 +155,16 @@ onmessage = function (e) {
       scrambledAdjacentCube.depth = parentScrambledCube.depth + 1;
       scrambledAdjacentCube.allowedMoves = moveset;
 
-      if (!(scrambledAdjacentCube.getReorderedState() in scrambledHash)) {
-        scrambledHash[scrambledAdjacentCube.getReorderedState()] = [scrambledAdjacentCube.movesApplied.join(' ')];
+      const scrambledAdjacentReorderedState = scrambledAdjacentCube.getReorderedState();
+
+      if (!(scrambledAdjacentReorderedState in scrambledHash)) {
+        scrambledHash[scrambledAdjacentReorderedState] = [scrambledAdjacentCube.movesApplied.join(' ')];
       } else { // if it has been reached, just add another state
-        scrambledHash[scrambledAdjacentCube.getReorderedState()].push(scrambledAdjacentCube.movesApplied.join(' '));
+        scrambledHash[scrambledAdjacentReorderedState].push(scrambledAdjacentCube.movesApplied.join(' '));
       }
 
-      if (scrambledAdjacentCube.getReorderedState() in solvedHash) {
-        for (let solvedHalfway of solvedHash[scrambledAdjacentCube.getReorderedState()]) {
+      if (scrambledAdjacentReorderedState in solvedHash) {
+        for (let solvedHalfway of solvedHash[scrambledAdjacentReorderedState]) {
           solvedHalfway = solvedHalfway.split(' ');
           const stage1 = reverseAndInvertMoveList(solvedHalfway);
           const stage2 = cleanUpIntersection(scrambledAdjacentCube.movesApplied, stage1);
@@ -174,7 +182,7 @@ onmessage = function (e) {
   this.postMessage('done');
 }
 
-// ! CUBE ___________________________________________________
+// ! ################################### CUBE ###################################
 
 
 class Cube {
@@ -196,15 +204,6 @@ class Cube {
       'U': this.uFace, 'F': this.fFace, 'R': this.rFace,
       'D': this.dFace, 'L': this.lFace, 'B': this.bFace
     }
-  }
-
-  _getFace(move) {
-    if (move === 'U') return this.uFace;
-    if (move === 'F') return this.fFace;
-    if (move === 'R') return this.rFace;
-    if (move === 'D') return this.dFace;
-    if (move === 'L') return this.lFace;
-    if (move === 'B') return this.bFace;
   }
 
   _clone() {
@@ -231,10 +230,167 @@ class Cube {
 
   // returns string representation of reordered faces so that white is always on top and green is on the front
   getReorderedState() {
-    return this.uFace.join('') + this.fFace.join('') + this.rFace.join('') + this.dFace.join('') + this.lFace.join('') + this.bFace.join('');
+    const hashableCubeState = this._createHashableCubeState([
+      [...this.uFace], [...this.fFace], [...this.rFace], [...this.dFace], [...this.lFace], [...this.bFace]
+    ]);
+
+    return hashableCubeState[0].join('') + hashableCubeState[1].join('') + hashableCubeState[2].join('') + hashableCubeState[3].join('') + hashableCubeState[4].join('') + hashableCubeState[5].join('');
+  }
+
+  _createHashableCubeState(cubeState) {
+
+    // grab the green and white sides from the matrix
+    let greenSide, whiteSide;
+    for (let i = 0; i < cubeState.length; i++) {
+        if (cubeState[i][4] === '🟩') {
+            greenSide = i;
+        } else if (cubeState[i][4] === '⬜') {
+            whiteSide = i;
+        }
+    }
+
+    // grab the sides from the matrix
+    const [u, f, r, d, l, b] = cubeState;
+
+    // rotates a supplied face by a certain number of degrees
+    const rotateFace = (face, degrees) => {
+    const [temp0, temp1, temp2, temp3, temp5, temp6, temp7, temp8] = [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]];
+    if (degrees === 90) {
+      [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] = [temp6, temp3, temp0, temp7, temp1, temp8, temp5, temp2];
+    } else if (degrees === -90) {
+      [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] = [temp2, temp5, temp8, temp1, temp7, temp0, temp3, temp6];
+    } else {
+      [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] = [temp8, temp7, temp6, temp5, temp3, temp2, temp1, temp0];
+    }
+  };
+
+    // execute an X move
+    const handleX = (move) => {
+      const tempu = u.slice();
+      const tempb = b.slice();
+      const tempd = d.slice();
+      const tempf = f.slice();
+
+      if (move === 'x') {
+        u.splice(0, 9, ...tempf);
+        b.splice(0, 9, ...tempu.reverse());
+        d.splice(0, 9, ...tempb.reverse());
+        f.splice(0, 9, ...tempd);
+        rotateFace(l, -90);
+        rotateFace(r, 90);
+      } else if (move === 'x2') {
+        u.splice(0, 9, ...tempd);
+        b.splice(0, 9, ...tempf.reverse());
+        d.splice(0, 9, ...tempu);
+        f.splice(0, 9, ...tempb.reverse());
+        rotateFace(l, 180);
+        rotateFace(r, 180);
+      } else if (move === "x'") {
+        u.splice(0, 9, ...tempb.reverse());
+        f.splice(0, 9, ...tempu);
+        d.splice(0, 9, ...tempf);
+        b.splice(0, 9, ...tempd.reverse());
+        rotateFace(l, 90);
+        rotateFace(r, -90);
+      }
+    };
+
+    // execute a Y move
+    const handleY = (move) => {
+      const tempf = f.slice();
+      const templ = l.slice();
+      const tempb = b.slice();
+      const tempr = r.slice();
+
+      if (move === 'y') {
+        f.splice(0, 9, ...tempr);
+        r.splice(0, 9, ...tempb);
+        b.splice(0, 9, ...templ);
+        l.splice(0, 9, ...tempf);
+        rotateFace(u, 90);
+        rotateFace(d, -90);
+      } else if (move === 'y2') {
+        f.splice(0, 9, ...tempb);
+        r.splice(0, 9, ...templ);
+        b.splice(0, 9, ...tempf);
+        l.splice(0, 9, ...tempr);
+        rotateFace(u, 180);
+        rotateFace(d, -180);
+      } else if (move === "y'") {
+        f.splice(0, 9, ...templ);
+        r.splice(0, 9, ...tempf);
+        b.splice(0, 9, ...tempr);
+        l.splice(0, 9, ...tempb);
+        rotateFace(u, -90);
+        rotateFace(d, 90);
+      }
+    };
+
+    // execute a Z move
+    const handleZ = (move) => {
+      const tempu = u.slice();
+      const tempr = r.slice();
+      const tempd = d.slice();
+      const templ = l.slice();
+
+      const helpZ = (faceToChange, old) => {
+        faceToChange.splice(0, 9, old[6], old[3], old[0], old[7], old[4], old[1], old[8], old[5], old[2]);
+      };
+
+      const helpZPrime = (faceToChange, old) => {
+        faceToChange.splice(0, 9, old[2], old[5], old[8], old[1], old[4], old[7], old[0], old[3], old[6]);
+      };
+
+      if (move === 'z') {
+        helpZ(u, templ);
+        helpZ(r, tempu);
+        helpZ(d, tempr);
+        helpZ(l, tempd);
+        rotateFace(f, 90);
+        rotateFace(b, -90);
+      } else if (move === 'z2') {
+        u.splice(0, 9, ...tempd.reverse()); // need splice as we are mutating the actual face
+        r.splice(0, 9, ...templ.reverse());
+        d.splice(0, 9, ...tempu.reverse());
+        l.splice(0, 9, ...tempr.reverse());
+        rotateFace(f, 180);
+        rotateFace(b, 180);
+      } else if (move === "z'") {
+        helpZPrime(u, tempr);
+        helpZPrime(r, tempd);
+        helpZPrime(d, templ);
+        helpZPrime(l, tempu);
+        rotateFace(f, -90);
+        rotateFace(b, 90);
+      }
+    };
+
+    if (greenSide === 0) {
+        handleX("x'");
+    } else if (greenSide === 2) {
+        handleY('y');
+    } else if (greenSide === 3) {
+        handleX('x');
+    } else if (greenSide === 4) {
+        handleY("y'");
+    } else if (greenSide === 5) {
+        handleY('y2');
+    }
+
+    if (whiteSide === 2) {
+        handleZ("z'");
+    } else if (whiteSide === 3) {
+        handleZ('z2');
+    } else if (whiteSide === 4) {
+        handleZ('z');
+    }
+
+    return cubeState;
   }
 
   move(move) {
+
+    // * ########## move functions ##########
 
     const handleU = () => {
       const tempf = f.slice(0, 3);
@@ -541,8 +697,8 @@ class Cube {
       }
     };
 
-    this.movesApplied.push(move);
 
+    this.movesApplied.push(move);
     const lastChar = move[move.length - 1];
     const [u, f, r, d, l, b] = [this.uFace, this.fFace, this.rFace, this.dFace, this.lFace, this.bFace];
 
@@ -666,7 +822,7 @@ class Cube {
 }
 
 
-// ! ALGHANDLER _____________________________
+// ! ################################### ALGHANDLER ###################################
 
 function applyAlg(algorithm, cube) {
   if (JSON.stringify(algorithm) === JSON.stringify([''])) return; // if the user doesn't submit a scramble
