@@ -1,13 +1,17 @@
-import cx from '../../Utils/cx.js';
+import { memo, useMemo } from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import { memo, useMemo } from 'react';
-import Solution from '../Solution/Solution';
+
+import cx from '../../utils/cx.js';
+
+import Solution from './Solution/Solution';
+
 import './SolutionsDisplayContainer.css';
 
 /**
  * This is the component for all the solutions that appear when a user queries a scramble
- * @param {*}
+ * @param
  * handleSort - a handler which re-orders the parent solution order state
  * mostRecentAlg - the alg that will run on animation
  * setMostRecentAlg - setter for the alg
@@ -16,7 +20,7 @@ import './SolutionsDisplayContainer.css';
  */
 function SolutionsDisplayContainer({ handleSort, mostRecentAlg, setMostRecentAlg, solutionsList }) {
 
-
+  // * calculations
   // creates JSX elements for the solutions
   const JsxSolutions = useMemo(() => solutionsList.map((solution) => (
     <Solution
@@ -62,7 +66,11 @@ function SolutionsDisplayContainer({ handleSort, mostRecentAlg, setMostRecentAlg
           </button>
         </div>
         <div className="scrollableSolutions secondaryColor">
-          <ol className={cx('solutionsOl', solutionsList.length >= 100 && 'shouldApplyPadding')}>{JsxSolutions}</ol>
+          <ol
+            className={cx('solutionsOl', solutionsList.length >= 100 && 'shouldApplyPadding')}
+          >
+            {JsxSolutions}
+          </ol>
         </div>
       </div>
     </div>

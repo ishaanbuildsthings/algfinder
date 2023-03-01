@@ -30,6 +30,7 @@ li a:hover:not(.active) {
   z-index: 1;
   /* scramble circle icon would appear above when scrolled otherwise */
   border-bottom: 1px solid grey;
+  /* TODO */
 }
 
 .navbarUl {

@@ -1,10 +1,14 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { memo } from 'react';
+
 import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
-import processMoves from '../../Utils/processMoves.js';
+
+import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import cx from '../../utils/cx.js';
+import processMoves from '../../utils/processMoves.js';
+
 import './CubePanel.css';
-import cx from '../../Utils/cx.js';
 
 const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
 
@@ -12,7 +16,7 @@ const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
  * This Cube component is used on the solve page. The cube component is a wrapper
  * of the custom HTML element <twisty-player> from the cubing.js library.
  *
- * @param {*}
+ * @param
  * scramble - the currently entered scramble
  * @usage Used in Solve.js
  */

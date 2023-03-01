@@ -1,8 +1,9 @@
-import DarkButton from '../DarkButton/DarkButton';
-import NavbarListItem from '../NavbarListItem/NavbarListItem';
+import DarkButton from './DarkButton/DarkButton';
+import NavbarListItem from './NavbarListItem/NavbarListItem';
+
 import './Navbar.css';
 
-function Navbar() {
+export default function Navbar() {
   return (
     <nav className="navbarDiv">
       <ul className="navbarUl">
@@ -12,6 +13,4 @@ function Navbar() {
       <DarkButton />
     </nav>
   );
-}
-
-export default Navbar;
+};

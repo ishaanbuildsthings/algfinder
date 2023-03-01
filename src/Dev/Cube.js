@@ -1,6 +1,6 @@
 // * this is the cube module for dev testing purposes
 
-import { simplifyMove } from './AlgHandler.js';
+import { simplifyMove } from './algHandler.js';
 
 
 const MOVES = [

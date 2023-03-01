@@ -4,32 +4,26 @@
 export default function sortSolutionsDictByMoves(map, stmOrQtm) {
   let position;
   stmOrQtm === 'stm' ? position = 0 : position = 1;
-
   const mapValues = map.values(); // [[1, 4], [3, 6] ... ]
   const lengths = []; // [1, 3, ...]
   for (let value of mapValues) {
     lengths.push(value[position]);
   }
-
   let flag = true;
   // if the values aren't strictly equal to or increasing, don't sort
   for (let i = 0; i < lengths.length; i++) {
     if (i !== lengths.length - 1) {
       if (lengths[i + 1] >= lengths[i]) {
-
       } else {
         flag = false;
       }
     }
   }
-
   const solutions = Array.from(map.keys()); // we have solutions and lengths
-
   if (!flag) {
     solutions.sort((a, b) => {
       return lengths[solutions.indexOf(a)] - lengths[solutions.indexOf(b)];
     });
   }
-
   return solutions;
-}
+};

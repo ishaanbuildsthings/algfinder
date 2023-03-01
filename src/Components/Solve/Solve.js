@@ -1,49 +1,64 @@
-import QueryFormContainer from '../QueryFormContainer/QueryFormContainer.js';
-import SolutionsDisplayContainer from '../SolutionsDisplayContainer/SolutionsDisplayContainer.js';
+import { useCallback, useEffect, useRef, useState } from 'react';
+
+import Joyride, { CallBackProps, STATUS, Step } from 'react-joyride';
+
+import generateRandomExample from '../../utils/randomExamples.js';
+import { joyrideCanSolveSteps, joyrideCannotSolveSteps } from '../../utils/joyride.js';
+import mapSolutionsListToDict from '../../utils/mapSolutionsListToDict.js';
+import processMoves from '../../utils/processMoves.js';
+import sortSolutionsDictByMoves from '../../utils/sortSolutionsDictByMoves.js';
+
+import CubePanel from '../CubePanel/CubePanel.js';
 import ErrorPopup from '../ErrorPopup/ErrorPopup.js';
+import LandingModal from '../LandingModal/LandingModal.js';
 import MovesetPopup from '../MovesetPopup/MovesetPopup.js';
 import NoSolutionsModal from '../NoSolutionsModal/NoSolutionsModal.js';
-import CubePanel from '../CubePanel/CubePanel.js';
-import generateRandomExample from '../../Utils/randomExamples.js';
-import mapSolutionsListToDict from '../../Utils/mapSolutionsListToDict.js';
-import processMoves from '../../Utils/processMoves.js';
-import sortSolutionsDictByMoves from '../../Utils/sortSolutionsDictByMoves.js';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import QueryFormContainer from '../QueryFormContainer/QueryFormContainer.js';
+import SolutionsDisplayContainer from '../SolutionsDisplayContainer/SolutionsDisplayContainer.js';
+
+import '../../commonCss/popups.css';
+import '../../commonCss/tooltips.css';
+import '../../commonCss/animation.css';
 import './Solve.css';
-import '../../Common/Popups.css';
-import '../../Common/Tooltips.css';
-import '../../Common/animation.css';
+
 let errorMessage = '';
 
 /**
  * The Solve component is a high-level component that maintains state for both the form and the solutions panel
- * @usage Used in app.js
+ * @usage Used in App.js
  */
-function Solve() {
-    const workerRef = useRef(null); // initially the ref points to no worker, we store the worker inside a ref so even when the component re-renders, we can terminate the correct worker
-
+export default function Solve({ solveComponentMountedMoreThanOnce }) {
     // * states
     // tracks the current list of solutions, passed to solutionsDisplay
     const [solutionsList, setSolutionsList] = useState([]);
-    // tracks the fields of the query form
-    // passed to QueryForm and Cube, so that they can display the user-defined data
+    // tracks the fields of the query form, passed to QueryForm and Cube, so that they can display the user-defined data
     const [queriesState, setQueries] = useState({
         scramble: '',
         depth: '',
         moveset: []
     });
+    // for the product tour
+    const [canSolveCube, setCanSolveCube] = useState(false);
+    const [cannotSolveCube, setCannotSolveCube] = useState(false);
+    const [runJoyride, setRunJoyride] = useState(false);
+    const [activeStep, setActiveStep] = useState(0);
     // conditional renders
     const [isErrorPopup, setErrorPopup] = useState(false);
     const [isMovesetPopupError, setMovesetPopupError] = useState(false);
     const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
     const [isSpinner, setSpinner] = useState(false);
-
     // track the most recently applied alg, to know if we should delay or not for the animation
     const [mostRecentAlg, setMostRecentAlg] = useState('');
 
-    // * other hooks
-    const handleMouseDown = useCallback(() => { // memoize for the useEffect
-        setNoSolutionsModal(false);
+    // * refs
+    const workerRef = useRef(null); // initially the ref points to no worker, we store the worker inside a ref so even when the component re-renders, we can terminate the correct worker
+    const joyrideRef = useRef(null); // the joyride is stored in a ref so that we can make the joyride move to the next step via the handleNextClick function
+
+    // * useEffects
+    // whenever the component mounts, increment a counter by one, and only render the joyride if the count is 1
+    useEffect(() => {
+        solveComponentMountedMoreThanOnce.current = true;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -68,13 +83,17 @@ function Solve() {
         }
     }, []);
 
-    useEffect(() => {
+     useEffect(() => {
         // whenever the most recent alg changes, update the cube to have that
         const cube = document.querySelector('.cube');
         cube.alg = mostRecentAlg;
     }, [mostRecentAlg]);
 
-    // * handlers
+    // * functions
+    const handleMouseDown = useCallback(() => { // memoize for the useEffect
+        setNoSolutionsModal(false);
+    }, []);
+
     // when a user changes the scramble, change the queries state
     const handleTextChange = useCallback((event) => {
         setMostRecentAlg(''); // when the user starts typing a new scramble, it implies they will generate new solutions, so set the most recent alg to be blank to allow for an immediate animation on the next run
@@ -124,7 +143,6 @@ function Solve() {
         }
     }, [queriesState]);
 
-
     // e.target.value is the value of whether the stm or qtm sort button was clicked
     const handleClickOnSort = useCallback((e) => {
         const solutionsDict = mapSolutionsListToDict(solutionsList);
@@ -137,9 +155,7 @@ function Solve() {
         if (workerRef.current) {
             workerRef.current.terminate();
         }
-
         setMostRecentAlg(''); // when a new alg is submitted, it implies the next solution that is clicked should be ran instantly, rather than after a delay, so re-assign the most recent alg to ''
-
         if (depth === '') {
             errorMessage = 'Please choose a depth!';
             setErrorPopup(true);
@@ -153,14 +169,12 @@ function Solve() {
             setErrorPopup(true);
             return;
         }
-
         scramble = processMoves(scramble); // convert bad characters the user enters
         const params = { scramble: scramble, moveset: moveset, depth: depth };
         setSpinner(true);
         setSolutionsList([]);
-
         // initialize worker
-        workerRef.current = new Worker('Workers/SolveWorker.js');
+        workerRef.current = new Worker('workers/solveWorker.js');
         // if we receive a message from the worker
         const totalSolutions = [];
         workerRef.current.onmessage = (e) => {
@@ -199,16 +213,73 @@ function Solve() {
             data = generateRandomExample();
         }
         setQueries(data);
-        handleSubmit(data);
-        // handleSubmit never changes
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        setMostRecentAlg(''); // when a new alg is submitted, it implies the next solution that is clicked should be ran instantly, rather than after a delay, so re-assign the most recent alg to ''
     }, [queriesState]);
+
+    // run determines if the joyride is running, and active step refers to the step of the joyride
+    // The handleJoyrideCallback function is called whenever a step is completed or skipped, and sets run and activeStep back to their initial values when the joyride is finished or skipped.
+    const handleJoyrideCallback = useCallback((data) => {
+        const { status } = data;
+        if (status === STATUS.FINISHED || status === STATUS.SKIPPED) {
+            setRunJoyride(false);
+            setCanSolveCube(false);
+        }
+    }, []);
 
     return (
         <div className="solvePageMinusNav">
+            {!solveComponentMountedMoreThanOnce.current && (
+                <LandingModal
+                    handleCanSolveCube={() => {
+                        setCanSolveCube(true); // renders the can solve cube joyride
+                        setRunJoyride(true); // sets the joyride to be running
+                    }}
+                handleCannotSolveCube={() => setCannotSolveCube(true)}
+            />
+            )}
+            {canSolveCube && (<Joyride
+                steps={joyrideCanSolveSteps}
+                run={runJoyride}
+                activeStep={activeStep}
+                callback={handleJoyrideCallback}
+                continuous={true}
+                showProgress={true}
+                showSkipButton={true}
+                ref={joyrideRef}
+                styles={{
+                    options: {
+                        primaryColor: '#3030e8'
+                    },
+                    buttonNext: {
+                        letterSpacing: '0.7px'
+                    }
+                }}
+            />)}
+            {cannotSolveCube && (<Joyride
+                steps={joyrideCannotSolveSteps}
+                continuous={true}
+                showProgress={true}
+                showSkipButton={true}
+                styles={{
+                    options: {
+                        primaryColor: '#3030e8'
+                    },
+                    buttonNext: {
+                        letterSpacing: '0.7px'
+                    }
+                }}
+            />)}
             <div className="topHalf">
-                {isMovesetPopupError && <MovesetPopup killMovesetPopup={() => setMovesetPopupError(false)} />}
-                {isErrorPopup && <ErrorPopup errorMessage={errorMessage} killErrorPopup={() => setErrorPopup(false)} />}
+                {isMovesetPopupError &&
+                    <MovesetPopup
+                        killMovesetPopup={() => setMovesetPopupError(false)}
+                    />
+                }
+                {isErrorPopup &&
+                    <ErrorPopup
+                        errorMessage={errorMessage}
+                        killErrorPopup={() => setErrorPopup(false)}
+                    />}
                 {isNoSolutionsModal && <NoSolutionsModal />}
                 <QueryFormContainer
                     handleTextChange={handleTextChange}
@@ -222,6 +293,7 @@ function Solve() {
                 />
                 <CubePanel scramble={queriesState.scramble} />
             </div>
+            <button onClick={handleNextClick}>click me to roceed</button>
             <SolutionsDisplayContainer
                 handleSort={handleClickOnSort}
                 solutionsList={solutionsList}
@@ -230,6 +302,4 @@ function Solve() {
             />
         </div>
     );
-}
-
-export default Solve;
+};

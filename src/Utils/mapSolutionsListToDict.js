@@ -11,4 +11,4 @@ export default function mapSolutionsListToDict(solutions) {
     noSpacesPrimeOrDouble.length + totalSliceMoves]);
   }
   return solutionsMap;
-}
+};

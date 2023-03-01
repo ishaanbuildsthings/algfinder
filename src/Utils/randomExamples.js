@@ -28,9 +28,7 @@ const examples = [
   }
 ];
 
-function generateRandomExample() {
+export default function generateRandomExample() {
   const randomNum = Math.floor(Math.random() * examples.length);
   return examples[randomNum];
-}
-
-export default generateRandomExample;
+};

@@ -1,14 +1,18 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import MovesetButton from '../MovesetButton/MovesetButton.js';
-import UseWindowSize from '../../Utils/Hooks/useWindowSize.js';
-import './QueryFormContainer.css';
 import { useCallback, useEffect, useMemo } from 'react';
 
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
+import useWindowSize from '../../utils/hooks/useWindowSize.js';
+
+import MovesetButton from '../MovesetButton/MovesetButton.js';
+
+import './QueryFormContainer.css';
+
 /**
- * This is the form where the user enters information for a solve
- * @param {*}
+ * This is the form in which the user enters information for a solve
+ * @param
  * handleTextChange - modifies the Solve.js state based on entered scramble text
  * handleNumberChange - modifies the Solve.js state based on entered depth
  * handleRandomExample - modifies the Solve.js queriesState with a randomly generated example
@@ -19,11 +23,12 @@ import { useCallback, useEffect, useMemo } from 'react';
  * isSpinner - the statee if the spinner should show
  * @usage Used in Solve.js
  */
-function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandomExample, handleSubmit, handleCancel, handleMovesetClick, queriesState, isSpinner }) {
-    //* misc
+export default function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandomExample, handleSubmit, handleCancel, handleMovesetClick, queriesState, isSpinner }) {
+    //* custom hooks
     // custom hook to dynamically re-render on window size changes
-    const windowSize = UseWindowSize();
+    const windowSize = useWindowSize();
 
+    // * useEffects
     // prevents clicking on the icon from focusing inside the input, mostly important for mobile
     useEffect(() => {
         const scrambleIcon = document.querySelector('.scrambleIcon');
@@ -34,7 +39,6 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
         depthIcon.addEventListener('click', e => {
             e.preventDefault();
         });
-
         return () => {
             scrambleIcon.removeEventListener('click', (e) => {
                 e.preventDefault();
@@ -93,6 +97,7 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
         return 'Try a Random Example';
     }
 
+    // * functions
     // creates an entire row of moveset buttons
     const createManyJsxButtons = useCallback((listOfLetters) => {
          const listOfButtons = [];
@@ -111,6 +116,7 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [queriesState]);
 
+    // * useMemos
     // create arrays of JSX buttons
     // The idea is whenever createJSXButtons changes, which only happens when parentState changes, then and only then myButtons will change.
     // And we need myButtons to change when the parentState changes to ensure that each button is correctly receiving the correct isToggled boolean.
@@ -146,7 +152,6 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
 
             </section>
 
-
             <section>
 
                 <label className="mainText mainColor" htmlFor="depthInput">Max Algorithm Length
@@ -170,7 +175,6 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
                     onChange={handleNumberChange}
                 />
             </section>
-
 
             <section>
 
@@ -212,7 +216,7 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
                 }
                     className="bottomButton cancelButton mainText secondaryColor"
                 >
-                    Cancel
+                    Cancel Solve
                 </button>
 
                 <button onClick={() => {
@@ -227,6 +231,4 @@ function QueryFormContainer({ handleTextChange, handleNumberChange, handleRandom
 
         </div>
     );
-}
-
-export default QueryFormContainer;
+};

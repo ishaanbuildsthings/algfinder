@@ -1,6 +1,6 @@
 // * this module is for testing the webworker file within node
 
-const Cube = require('./WebworkerPlaygroundCube.js');
+const Cube = require('./webworkerPlaygroundCube.js');
 const { printDepth, printLine, printMoves, visualize } = require('./WebworkerPgVisualizer.js');
 const { applyAlg, cleanUpIntersection, reverseAndInvertMoveList } = require('./WebworkerPgAlgHandler');
 

@@ -5,4 +5,4 @@ export default function getQtmAndStm(solution) {
   const sliceTurnMetric = noSpacesPrimeOrDouble.length;
   const halfTurnMetric = sliceTurnMetric + totalSliceMoves;
   return [sliceTurnMetric, halfTurnMetric];
-}
+};

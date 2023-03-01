@@ -1,5 +1,6 @@
 import './Faq.css';
-function About() {
+// todo: add why there are restricited move depths, learn notation, this isnt useful as i dont know how to get to this state, scroll up arrow, table of contents
+export default function Faq() {
   return (
     <>
       <div className="documentationDiv">
@@ -17,15 +18,11 @@ function About() {
           <a href="https://github.com/agrawalishaan" target="_blank" rel="noopener noreferrer"> Github</a>
         </p>
         <p>Special thanks to Tony Peng and <a href="https://www.worldcubeassociation.org/persons/2016GOHT01" target="_blank" rel="noopener noreferrer">Timothy Goh,</a> for spending more time than anyone reasonably should, teaching me advanced React, Javascript, Server/Client concepts, CSS Flexbox, and much more.</p>
-
         <p>And <a href="https://www.worldcubeassociation.org/persons/2006GARR01" target="_blank" rel="noopen noreferrer">Lucas Garron</a> and his co-contributors, for their beautiful <a href="https://js.cubing.net/cubing/" target="_blank" rel="noopener noreferrer">Rubik's Cube visual display.</a></p>
-
 
         <h2>How can I help?</h2>
         <p>This is written in React and is open-source. If you would like to contribute, make feature requests, or report bugs, the Github repository is&nbsp;
           <a href="https://github.com/agrawalishaan/cubeExplorerFrontend" target="_blank" rel="noopen noreferrer">here.</a>
-          {/* &nbsp;|&nbsp;
-          <a href="https://github.com/agrawalishaan/cubeexplorer" target="_blank" rel="noopen noreferrer">Back End</a> */}
         </p>
 
         <h2>How does this program work? (for nerds)</h2>
@@ -99,6 +96,4 @@ function About() {
       </div>
     </>
   );
-}
-
-export default About;
+};

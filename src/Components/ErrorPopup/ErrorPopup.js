@@ -7,7 +7,12 @@
  */
 function ErrorPopup({ errorMessage, killErrorPopup }) {
   return (
-    <div onAnimationEnd={killErrorPopup} className="errorPopup fade-out errorColor">{errorMessage}</div>
+    <div
+      onAnimationEnd={killErrorPopup}
+      className="errorPopup fade-out errorColor"
+    >
+      {errorMessage}
+    </div>
   )
 }
 
