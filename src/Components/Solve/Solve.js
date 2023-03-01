@@ -293,7 +293,6 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
                 />
                 <CubePanel scramble={queriesState.scramble} />
             </div>
-            <button onClick={handleNextClick}>click me to roceed</button>
             <SolutionsDisplayContainer
                 handleSort={handleClickOnSort}
                 solutionsList={solutionsList}
