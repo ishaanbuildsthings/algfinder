@@ -14,17 +14,20 @@ export default function NavbarListItem({ route, tabName }) {
   // necessary for parsing the current URL to display the correct .active CSS coloring
   const location = useLocation();
   return (
-        <li className="navbarItem">
-          <a
-            onClick={(e) => {
-              e.preventDefault();
-              history(route);
-            }}
-            className={cx(location.pathname === route && 'active accentColor', tabName)}
-            href={route}
-          >
-            {tabName}
-          </a>
-        </li>
+    <li className="navbarItem">
+      <a
+        onClick={(e) => {
+          e.preventDefault();
+          history(route);
+        }}
+        className={cx(
+          location.pathname === route && 'active accentColor',
+          tabName
+        )}
+        href={route}
+      >
+        {tabName}
+      </a>
+    </li>
   );
-};
+}

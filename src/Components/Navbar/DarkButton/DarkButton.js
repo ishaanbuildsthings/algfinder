@@ -1,4 +1,3 @@
-
 import { useCallback, useEffect } from 'react';
 
 import { BsFillMoonStarsFill } from 'react-icons/bs';
@@ -13,7 +12,10 @@ import './DarkButton.css';
 export default function DarkButton() {
   // * states
   // localStorageStatecomponent tracks the user's local storage data on if they are in dark mode or not
-  const [localStorageState, setLocalStorageState] = useLocalStorage('darkKey', 'dark');
+  const [localStorageState, setLocalStorageState] = useLocalStorage(
+    'darkKey',
+    'dark'
+  );
 
   // * useEffects
   // when the localStorageState changes, this will add or remove a class to the body which creates the different visual style
@@ -34,22 +36,24 @@ export default function DarkButton() {
     } else {
       setLocalStorageState('dark');
     }
-  // setter never changes
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // setter never changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localStorageState]);
 
   return (
-    <button className="darkButton" onClick={handleClick}> {/*darkButton is bugged since safari is bugged with buttons that have display: flex */}
-      <IconContext.Provider value={
-        (() => {
+    <button type="button" className="darkButton" onClick={handleClick}>
+      {' '}
+      {/* darkButton is bugged since safari is bugged with buttons that have display: flex */}
+      <IconContext.Provider
+        value={(() => {
           if (localStorageState === 'dark') {
             return { size: '60%' };
           }
           return { size: '45%' };
-        })()
-      }>
+        })()}
+      >
         {localStorageState === 'dark' ? <RiSunLine /> : <BsFillMoonStarsFill />}
       </IconContext.Provider>
     </button>
   );
-};
+}

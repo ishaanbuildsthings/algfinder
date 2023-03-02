@@ -5,9 +5,5 @@
  * @returns "picture dark" (darkMode is true, isMobile is false
  */
 export default function cx(...args) {
-  return args
-    .filter((element) => {
-      return typeof element === 'string';
-    })
-    .join(' ');
-};
+  return args.filter((element) => typeof element === 'string').join(' ');
+}

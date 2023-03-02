@@ -21,11 +21,18 @@ export default function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Solve
-          solveComponentMountedMoreThanOnce={solveComponentMountedMoreThanOnce}
-        />} />
+        <Route
+          path="/"
+          element={
+            <Solve
+              solveComponentMountedMoreThanOnce={
+                solveComponentMountedMoreThanOnce
+              }
+            />
+          }
+        />
         <Route path="/faq" element={<Faq />} />
       </Routes>
     </>
   );
-};
+}

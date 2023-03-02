@@ -5,7 +5,7 @@
  * killMovesetPopup - re-render the solve page and remove ErrorPopup from rendering
  * @usage used in Solve.js
  */
-function MovesetPopup({ killMovesetPopup }) {
+export default function MovesetPopup({ killMovesetPopup }) {
   return (
     <div
       onAnimationEnd={killMovesetPopup}
@@ -13,7 +13,5 @@ function MovesetPopup({ killMovesetPopup }) {
     >
       Please choose at most 4 moves!
     </div>
-  )
+  );
 }
-
-export default MovesetPopup;

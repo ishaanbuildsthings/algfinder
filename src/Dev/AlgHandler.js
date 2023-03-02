@@ -1,14 +1,14 @@
 // * this is the algHandler module for dev testing purposes
 
 export default function applyAlg(algorithm, cube) {
-  for (let move of algorithm) {
+  for (const move of algorithm) {
     cube.move(move);
   }
 }
 
 function invertMoveList(moveList) {
   const invertedList = [];
-  for (let move of moveList) {
+  for (const move of moveList) {
     invertedList.push(invertMove(move));
   }
   return invertedList;
@@ -24,33 +24,32 @@ function reverseAndInvertMoveList(moveList) {
 
 // take in a move string and return just the letter portion
 function simplifyMove(move) {
-  if (move.length === 2) {
-    move = move[0];
-  }
-  return move;
+  return move.length === 2 ? move[0] : move;
 }
 
 // invert a move string
 function invertMove(move) {
+  let invertedMove;
   if (move[move.length - 1] === "'") {
-    move = move[0];
+    // eslint-disable-next-line prefer-destructuring
+    invertedMove = move[0];
   } else if (move.length === 1) {
-    move += "'";
+    invertedMove = `${move}'`;
   }
-  return move;
+  return invertedMove;
 }
 
 // parsing functions
 function normalToPrime(move) {
-  return move + "'";
+  return `${move}'`;
 }
 
 function normalToDouble(move) {
-  return move + '2';
+  return `${move}2`;
 }
 
 function primeToDouble(move) {
-  return move[0] + '2';
+  return `${move[0]}2`;
 }
 
 function doubleToNormal(move) {
@@ -58,11 +57,12 @@ function doubleToNormal(move) {
 }
 
 function doubleToPrime(move) {
-  return move[0] + "'";
+  return `${move[0]}'`;
 }
 
 // connects the left and right ends of move lists
-function cleanUpIntersection(lista, listb) { // ["R2", "U" "R'", "U'"] and ["R", "U", "R'", "U2"]
+function cleanUpIntersection(lista, listb) {
+  // ["R2", "U" "R'", "U'"] and ["R", "U", "R'", "U2"]
   // create copies of the lists of the moves
   const list1 = lista.slice();
   const list2 = listb.slice();
@@ -87,7 +87,8 @@ function cleanUpIntersection(lista, listb) { // ["R2", "U" "R'", "U'"] and ["R",
   const list2FirstMoveLastChar = list2FirstMove[list2FirstMove.length - 1];
 
   // if the last move of the first list is not the same type as the first move of the second list, just return the lists
-  if (list1LastMoveFirstChar !== list2FirstMoveFirstChar) { // ["R2", "U2"] and ["F2", "R2"]
+  if (list1LastMoveFirstChar !== list2FirstMoveFirstChar) {
+    // ["R2", "U2"] and ["F2", "R2"]
     return [...list1, ...list2]; // returns ["R2", "U2", "F2", "R2"]
   }
 
@@ -102,19 +103,18 @@ function cleanUpIntersection(lista, listb) { // ["R2", "U" "R'", "U'"] and ["R",
   } else if (list1LastMoveLastChar === '2') {
     if (list2FirstMoveLastChar === "'") {
       list1[list1.length - 1] = doubleToNormal(list1[list1.length - 1]);
-    } else if (list2FirstMoveLastChar === '2') { // ["R2"] and ["R2"]
+    } else if (list2FirstMoveLastChar === '2') {
+      // ["R2"] and ["R2"]
       list1.splice(-1, 1);
     } else {
       list1[list1.length - 1] = doubleToPrime(list1[list1.length - 1]);
     }
+  } else if (list2FirstMoveLastChar === "'") {
+    list1.splice(-1, 1);
+  } else if (list2FirstMoveLastChar === '2') {
+    list1[list1.length - 1] = invertMove(list1[list1.length - 1]);
   } else {
-    if (list2FirstMoveLastChar === "'") {
-      list1.splice(-1, 1);
-    } else if (list2FirstMoveLastChar === '2') {
-      list1[list1.length - 1] = invertMove(list1[list1.length - 1]);
-    } else {
-      list1[list1.length - 1] = normalToDouble(list1[list1.length - 1]);
-    }
+    list1[list1.length - 1] = normalToDouble(list1[list1.length - 1]);
   }
   // ? console.log(`before, list 2 is: ${list2}`)
   list2.splice(0, 1);
@@ -122,4 +122,13 @@ function cleanUpIntersection(lista, listb) { // ["R2", "U" "R'", "U'"] and ["R",
   return cleanUpIntersection(list1, list2);
 }
 
-export { applyAlg, invertMoveList, reverseMoveList, reverseAndInvertMoveList, simplifyMove, invertMove, normalToPrime, cleanUpIntersection }
+export {
+  applyAlg,
+  invertMoveList,
+  reverseMoveList,
+  reverseAndInvertMoveList,
+  simplifyMove,
+  invertMove,
+  normalToPrime,
+  cleanUpIntersection,
+};

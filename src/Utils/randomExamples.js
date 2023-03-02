@@ -6,29 +6,33 @@ const examples = [
   //   moveset: ['R', 'U'],
   //   depth: 13
   // },
-  { // a perm
+  {
+    // a perm
     scramble: "x R' U R' D2 R U' R' D2 R2",
     moveset: ['R', 'U', 'D', 'x'],
-    depth: 10
+    depth: 10,
   },
-  { // j perm
+  {
+    // j perm
     scramble: "R' U L' U2 R U' R' U2 R L",
     moveset: ['R', 'U', 'L'],
-    depth: 12
+    depth: 12,
   },
-  { // checkerboard oll
+  {
+    // checkerboard oll
     scramble: "M U R U R' U' M2 U R U' r'",
     moveset: ['R', 'U', 'M'],
-    depth: 12
+    depth: 12,
   },
-  { // corner
+  {
+    // corner
     scramble: "R' D' R' D R U2 R' D' R U2 D R",
     moveset: ['R', 'U', 'D'],
-    depth: 12
-  }
+    depth: 12,
+  },
 ];
 
 export default function generateRandomExample() {
   const randomNum = Math.floor(Math.random() * examples.length);
   return examples[randomNum];
-};
+}

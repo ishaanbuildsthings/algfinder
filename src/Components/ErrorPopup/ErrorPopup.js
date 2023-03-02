@@ -5,7 +5,7 @@
  * killErrorPopup - re-render the solve page and remove ErrorPopup from rendering
  * @usage used in Solve.js
  */
-function ErrorPopup({ errorMessage, killErrorPopup }) {
+export default function ErrorPopup({ errorMessage, killErrorPopup }) {
   return (
     <div
       onAnimationEnd={killErrorPopup}
@@ -13,7 +13,5 @@ function ErrorPopup({ errorMessage, killErrorPopup }) {
     >
       {errorMessage}
     </div>
-  )
+  );
 }
-
-export default ErrorPopup;

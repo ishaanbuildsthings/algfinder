@@ -13,6 +13,7 @@ import cx from '../../utils/cx';
 function MovesetButton({ value, handleMovesetClick, isToggled }) {
   return (
     <button
+      type="button"
       className={cx(
         'mainText',
         !isToggled && 'secondaryColor',

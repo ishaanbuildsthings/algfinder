@@ -29,22 +29,23 @@ function Content({ handleClose, handleCanSolveCube, handleCannotSolveCube }) {
       <H4 align="center" mb="xl">
         To get started, can you solve a Rubik's Cube?
       </H4>
-      <Box
-        flexBox="true"
-        justify="space-around"
-      >
+      <Box flexBox="true" justify="space-around">
         <Button
           onClick={() => {
             handleClose();
             handleCanSolveCube();
           }}
-        >Yes</Button>
+        >
+          Yes
+        </Button>
         <Button
           onClick={() => {
             handleClose();
             handleCannotSolveCube();
           }}
-        >No</Button>
+        >
+          No
+        </Button>
       </Box>
     </Box>
   );
@@ -57,29 +58,33 @@ function Content({ handleClose, handleCanSolveCube, handleCannotSolveCube }) {
  * handleCannotSolveCube - forwarded to Content
  * @usage - used in Solve.js
  */
-export default function LandingModal({handleCanSolveCube, handleCannotSolveCube}) {
+export default function LandingModal({
+  handleCanSolveCube,
+  handleCannotSolveCube,
+}) {
   const [isShowing, setIsShowing] = useState(true);
 
   return (
+    // eslint-disable-next-line react/jsx-no-useless-fragment
     <>
       {isShowing && (
         <Floater
-          component={<Content
-            handleClose={() => setIsShowing(false)}
-            handleCanSolveCube={handleCanSolveCube}
-            handleCannotSolveCube={handleCannotSolveCube}
-            />}
-          open={true}
+          component={
+            <Content
+              handleClose={() => setIsShowing(false)}
+              handleCanSolveCube={handleCanSolveCube}
+              handleCannotSolveCube={handleCannotSolveCube}
+            />
+          }
+          open
           placement="center"
           styles={{
             options: {
-              zIndex: 1000
-            }
+              zIndex: 1000,
+            },
           }}
-        >
-        </Floater>
+        />
       )}
     </>
   );
-};
-
+}

@@ -6,11 +6,8 @@
  */
 export default function CopyPopup({ killPopup }) {
   return (
-    <div
-      className="fade-out copyPopup accentColor"
-      onAnimationEnd={killPopup}
-    >
+    <div className="fade-out copyPopup accentColor" onAnimationEnd={killPopup}>
       Copied!
     </div>
   );
-};
+}

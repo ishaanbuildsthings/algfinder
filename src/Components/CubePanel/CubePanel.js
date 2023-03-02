@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+// this is actually imported but the linter does not detect it
+// eslint-disable-next-line no-unused-vars
 import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
 
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
@@ -21,7 +23,6 @@ const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
  * @usage Used in Solve.js
  */
 function Cube({ scramble }) {
-
   return (
     <div className="cubePanel">
       <twisty-player
@@ -31,12 +32,16 @@ function Cube({ scramble }) {
         background="none"
         experimental-setup-alg={processMoves(scramble)}
         tempo-scale="4"
-      ></twisty-player>
+      />
       <div className="dragIconAndText mainText">
         <MemoizedFontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg" />
         <p className={cx('dragText', 'dragTextSmall')}>&nbsp;&nbsp;Drag</p>
-        <p className={cx('dragText', 'dragTextMedium')}>&nbsp;&nbsp;Drag cube</p>
-        <p className={cx('dragText', 'dragTextLarge')}>&nbsp;&nbsp;Drag cube to view</p>
+        <p className={cx('dragText', 'dragTextMedium')}>
+          &nbsp;&nbsp;Drag cube
+        </p>
+        <p className={cx('dragText', 'dragTextLarge')}>
+          &nbsp;&nbsp;Drag cube to view
+        </p>
       </div>
     </div>
   );

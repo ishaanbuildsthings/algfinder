@@ -1,69 +1,115 @@
-const { simplifyMove } = require('./WebworkerPgAlgHandler');
-
+const { simplifyMove } = require('./webworkerPgAlgHandler');
 
 // ! rotational symmetry utility____________________________
 const key = {
-    '⬜': 0,
-    '🟩': 1,
-    '🟥': 2,
-    '🟦': 5,
-    '🟧': 4,
-    '🟨': 3
-}
+  '⬜': 0,
+  '🟩': 1,
+  '🟥': 2,
+  '🟦': 5,
+  '🟧': 4,
+  '🟨': 3,
+};
 
 const RThenXThenXprime = [
-['⬜','⬜','🟩','⬜','⬜','🟩','⬜','⬜','🟩'],
-['🟩','🟩','🟨','🟩','🟩','🟨','🟩','🟩','🟨'],
-['🟥','🟥','🟥','🟥','🟥','🟥','🟥','🟥','🟥'],
-['🟨','🟨','🟦','🟨','🟨','🟦','🟨','🟨','🟦'],
-['🟧','🟧','🟧','🟧','🟧','🟧','🟧','🟧','🟧'],
-['⬜','🟦','🟦','⬜','🟦','🟦','⬜','🟦','🟦'],
-
+  ['⬜', '⬜', '🟩', '⬜', '⬜', '🟩', '⬜', '⬜', '🟩'],
+  ['🟩', '🟩', '🟨', '🟩', '🟩', '🟨', '🟩', '🟩', '🟨'],
+  ['🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥'],
+  ['🟨', '🟨', '🟦', '🟨', '🟨', '🟦', '🟨', '🟨', '🟦'],
+  ['🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧'],
+  ['⬜', '🟦', '🟦', '⬜', '🟦', '🟦', '⬜', '🟦', '🟦'],
 ];
 
 const RThenX = [
-['🟩','🟩','🟨','🟩','🟩','🟨','🟩','🟩','🟨'],
-['🟨','🟨','🟦','🟨','🟨','🟦','🟨','🟨','🟦'],
-['🟥','🟥','🟥','🟥','🟥','🟥','🟥','🟥','🟥'],
-['🟦','🟦','⬜','🟦','🟦','⬜','🟦','🟦','⬜'],
-['🟧','🟧','🟧','🟧','🟧','🟧','🟧','🟧','🟧'],
-['🟩','⬜','⬜','🟩','⬜','⬜','🟩','⬜','⬜'],
+  ['🟩', '🟩', '🟨', '🟩', '🟩', '🟨', '🟩', '🟩', '🟨'],
+  ['🟨', '🟨', '🟦', '🟨', '🟨', '🟦', '🟨', '🟨', '🟦'],
+  ['🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥'],
+  ['🟦', '🟦', '⬜', '🟦', '🟦', '⬜', '🟦', '🟦', '⬜'],
+  ['🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧'],
+  ['🟩', '⬜', '⬜', '🟩', '⬜', '⬜', '🟩', '⬜', '⬜'],
 ];
 
 // this function allows for the rotational symmetry encoding inside the hashing function
+// eslint-disable-next-line no-unused-vars
 function reorderWithAuxillaryMemory(matrix) {
   // console.log(`the input matrix is:`);
   // console.log(matrix);
   // console.log(JSON.stringify(matrix) === JSON.stringify(RThenX));
 
   if (JSON.stringify(matrix) === JSON.stringify(RThenX)) {
-      // console.log('hit:')
-      // console.log(`the output matrix is:`);
-      // console.log(RThenXThenXprime);
-      return RThenXThenXprime;
+    // console.log('hit:')
+    // console.log(`the output matrix is:`);
+    // console.log(RThenXThenXprime);
+    return RThenXThenXprime;
   }
-    const orderedState = [null, null, null, null, null, null];
-    for (let sublist of matrix) {
-        const center = sublist[4];
-        const position = key[center];
-        orderedState[position] = sublist;
-    }
+  const orderedState = [null, null, null, null, null, null];
+  for (const sublist of matrix) {
+    const center = sublist[4];
+    const position = key[center];
+    orderedState[position] = sublist;
+  }
   // console.log(`the output matrix is:`);
   // console.log(orderedState);
-    return orderedState;
+  return orderedState;
 }
 
 // ! CUBE
 
-
 const SOLVED_STICKER_STATE = [
-  '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜',
-  '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩',
-  '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥',
-  '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦',
-  '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧',
-  '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨',
-]
+  '⬜',
+  '⬜',
+  '⬜',
+  '⬜',
+  '⬜',
+  '⬜',
+  '⬜',
+  '⬜',
+  '⬜',
+  '🟩',
+  '🟩',
+  '🟩',
+  '🟩',
+  '🟩',
+  '🟩',
+  '🟩',
+  '🟩',
+  '🟩',
+  '🟥',
+  '🟥',
+  '🟥',
+  '🟥',
+  '🟥',
+  '🟥',
+  '🟥',
+  '🟥',
+  '🟥',
+  '🟦',
+  '🟦',
+  '🟦',
+  '🟦',
+  '🟦',
+  '🟦',
+  '🟦',
+  '🟦',
+  '🟦',
+  '🟧',
+  '🟧',
+  '🟧',
+  '🟧',
+  '🟧',
+  '🟧',
+  '🟧',
+  '🟧',
+  '🟧',
+  '🟨',
+  '🟨',
+  '🟨',
+  '🟨',
+  '🟨',
+  '🟨',
+  '🟨',
+  '🟨',
+  '🟨',
+];
 
 class Cube {
   constructor() {
@@ -81,9 +127,13 @@ class Cube {
 
     // to allow rotating the correct faces based on the letter passed to move function, and to get the updated state
     this.faceMapping = {
-      'U': this.uFace, 'F': this.fFace, 'R': this.rFace,
-      'D': this.dFace, 'L': this.lFace, 'B': this.bFace
-    }
+      U: this.uFace,
+      F: this.fFace,
+      R: this.rFace,
+      D: this.dFace,
+      L: this.lFace,
+      B: this.bFace,
+    };
   }
 
   _getFace(move) {
@@ -105,15 +155,26 @@ class Cube {
     clone.lFace = [...this.lFace];
     clone.dFace = [...this.dFace];
     clone.faceMapping = {
-      'U': clone.uFace, 'F': clone.fFace, 'R': clone.rFace,
-      'D': clone.dFace, 'L': clone.lFace, 'B': clone.bFace
+      U: clone.uFace,
+      F: clone.fFace,
+      R: clone.rFace,
+      D: clone.dFace,
+      L: clone.lFace,
+      B: clone.bFace,
     };
     return clone;
   }
 
   // returns string representation of state
   getState() {
-    return this.uFace.join('') + this.fFace.join('') + this.rFace.join('') + this.dFace.join('') + this.lFace.join('') + this.bFace.join('');
+    return (
+      this.uFace.join('') +
+      this.fFace.join('') +
+      this.rFace.join('') +
+      this.dFace.join('') +
+      this.lFace.join('') +
+      this.bFace.join('')
+    );
   }
 
   // returns string representation of reordered faces so that white is always on top and green is on the front
@@ -124,11 +185,17 @@ class Cube {
   // }
 
   getReorderedState() {
-    return this.uFace.join('') + this.fFace.join('') + this.rFace.join('') + this.dFace.join('') + this.lFace.join('') + this.bFace.join('');
+    return (
+      this.uFace.join('') +
+      this.fFace.join('') +
+      this.rFace.join('') +
+      this.dFace.join('') +
+      this.lFace.join('') +
+      this.bFace.join('')
+    );
   }
 
   move(move) {
-
     const handleU = () => {
       const tempf = f.slice(0, 3);
       const tempr = r.slice(0, 3);
@@ -150,7 +217,7 @@ class Cube {
         r.splice(0, 3, ...tempb);
         f.splice(0, 3, ...tempr);
       }
-    }
+    };
 
     const handleR = () => {
       const tempu = [u[2], u[5], u[8]];
@@ -250,7 +317,7 @@ class Cube {
       const tempd = d.slice(6);
       const tempr = [r[8], r[5], r[2]];
       if (lastChar === "'") {
-         u.splice(0, 3, ...templ.reverse());
+        u.splice(0, 3, ...templ.reverse());
         [l[0], l[3], l[6]] = tempd;
         d.splice(6, 3, ...tempr);
         [r[8], r[5], r[2]] = tempu;
@@ -260,7 +327,7 @@ class Cube {
         d.splice(6, 3, ...tempu);
         [l[0], l[3], l[6]] = tempr;
       } else {
-         u.splice(0, 3, ...tempr.reverse());
+        u.splice(0, 3, ...tempr.reverse());
         [l[0], l[3], l[6]] = tempu;
         d.splice(6, 3, ...templ);
         [r[8], r[5], r[2]] = tempd;
@@ -282,7 +349,8 @@ class Cube {
         [r[1], r[4], r[7]] = tempd;
         d.splice(3, 3, ...templ.reverse());
         [l[7], l[4], l[1]] = tempu;
-      } else { // S2/f2/b2
+      } else {
+        // S2/f2/b2
         u.splice(3, 3, ...tempd);
         [r[1], r[4], r[7]] = templ;
         d.splice(3, 3, ...tempu.reverse());
@@ -305,7 +373,8 @@ class Cube {
         [u[1], u[4], u[7]] = tempf;
         [b[7], b[4], b[1]] = tempu;
         [d[1], d[4], d[7]] = tempb;
-      } else { // M2/l2/r2
+      } else {
+        // M2/l2/r2
         [f[1], f[4], f[7]] = tempb;
         [u[1], u[4], u[7]] = tempd;
         [b[7], b[4], b[1]] = tempf;
@@ -328,7 +397,8 @@ class Cube {
         r.splice(3, 3, ...tempb);
         b.splice(3, 3, ...templ);
         l.splice(3, 3, ...tempf);
-      } else { // E2/d2/u2
+      } else {
+        // E2/d2/u2
         f.splice(3, 3, ...tempb);
         r.splice(3, 3, ...templ);
         b.splice(3, 3, ...tempf);
@@ -403,11 +473,35 @@ class Cube {
       const templ = l.slice();
 
       const helpZ = (faceToChange, old) => {
-        faceToChange.splice(0, 9, old[6], old[3], old[0], old[7], old[4], old[1], old[8], old[5], old[2]);
+        faceToChange.splice(
+          0,
+          9,
+          old[6],
+          old[3],
+          old[0],
+          old[7],
+          old[4],
+          old[1],
+          old[8],
+          old[5],
+          old[2]
+        );
       };
 
       const helpZPrime = (faceToChange, old) => {
-        faceToChange.splice(0, 9, old[2], old[5], old[8], old[1], old[4], old[7], old[0], old[3], old[6]);
+        faceToChange.splice(
+          0,
+          9,
+          old[2],
+          old[5],
+          old[8],
+          old[1],
+          old[4],
+          old[7],
+          old[0],
+          old[3],
+          old[6]
+        );
       };
 
       if (move === 'z') {
@@ -437,7 +531,14 @@ class Cube {
     this.movesApplied.push(move);
 
     const lastChar = move[move.length - 1];
-    const [u, f, r, d, l, b] = [this.uFace, this.fFace, this.rFace, this.dFace, this.lFace, this.bFace];
+    const [u, f, r, d, l, b] = [
+      this.uFace,
+      this.fFace,
+      this.rFace,
+      this.dFace,
+      this.lFace,
+      this.bFace,
+    ];
 
     // handle outer moves
     if (move[0] === 'U' || move[0] === 'u') {
@@ -464,44 +565,55 @@ class Cube {
     // handle rotations
     if (move[0] === 'x') {
       handleX();
-    } if (move[0] === 'y') {
+    }
+    if (move[0] === 'y') {
       handleY();
-    } if (move[0] === 'z') {
+    }
+    if (move[0] === 'z') {
       handleZ();
     }
 
-    if (move[0] === 'x' || move[0] === 'y' || move[0] === 'z' || move[0] === 'S' || move[0] === 'M' || move[0] === 'E') {
+    if (
+      move[0] === 'x' ||
+      move[0] === 'y' ||
+      move[0] === 'z' ||
+      move[0] === 'S' ||
+      move[0] === 'M' ||
+      move[0] === 'E'
+    ) {
       return; // don't rotate any more faces
     }
 
     // rotate the correct face the right amount of degrees based on the move
     if (move[move.length - 1] === "'") {
-      this._rotateFace(
-        this.faceMapping[move.slice(0, 1).toUpperCase()],
-        -90
-      );
+      this._rotateFace(this.faceMapping[move.slice(0, 1).toUpperCase()], -90);
     } else if (move[move.length - 1] === '2') {
-     this._rotateFace(
-        this.faceMapping[move.slice(0, 1).toUpperCase()],
-        180
-      );
+      this._rotateFace(this.faceMapping[move.slice(0, 1).toUpperCase()], 180);
     } else {
-       this._rotateFace(
-        this.faceMapping[move.slice(0, 1).toUpperCase()],
-        90
-      );
+      this._rotateFace(this.faceMapping[move.slice(0, 1).toUpperCase()], 90);
     }
-
   }
 
-  _rotateFace(face, degrees) {
-    const [temp0, temp1, temp2, temp3, temp5, temp6, temp7, temp8] = [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]];
+  static _rotateFace(face, degrees) {
+    const [temp0, temp1, temp2, temp3, temp5, temp6, temp7, temp8] = [
+      face[0],
+      face[1],
+      face[2],
+      face[3],
+      face[5],
+      face[6],
+      face[7],
+      face[8],
+    ];
     if (degrees === 90) {
-      [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] = [temp6, temp3, temp0, temp7, temp1, temp8, temp5, temp2];
+      [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] =
+        [temp6, temp3, temp0, temp7, temp1, temp8, temp5, temp2];
     } else if (degrees === -90) {
-      [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] = [temp2, temp5, temp8, temp1, temp7, temp0, temp3, temp6];
+      [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] =
+        [temp2, temp5, temp8, temp1, temp7, temp0, temp3, temp6];
     } else {
-        [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] = [temp8, temp7, temp6, temp5, temp3, temp2, temp1, temp0];
+      [face[0], face[1], face[2], face[3], face[5], face[6], face[7], face[8]] =
+        [temp8, temp7, temp6, temp5, temp3, temp2, temp1, temp0];
     }
   }
 
@@ -510,22 +622,24 @@ class Cube {
     const adjList = [];
     let simplifiedLastMove;
     if (this.movesApplied.length !== 0) {
-      simplifiedLastMove = simplifyMove(this.movesApplied[this.movesApplied.length - 1]);
+      simplifiedLastMove = simplifyMove(
+        this.movesApplied[this.movesApplied.length - 1]
+      );
     } else {
       simplifiedLastMove = '';
     }
 
-    for (let letter of this.allowedMoves) {
+    for (const letter of this.allowedMoves) {
       // don't allow rotations to be done as the first move as they can be pruned away
-      const isFirstMoveAndRotation = this.movesApplied.length === 0 && letter === ('x' || 'y' || 'z');
+      const isFirstMoveAndRotation =
+        this.movesApplied.length === 0 && letter === ('x' || 'y' || 'z');
       if (letter !== simplifiedLastMove && !isFirstMoveAndRotation) {
-
         const cube1 = this._clone();
         const cube2 = this._clone();
         const cube3 = this._clone();
         cube1.move(letter);
-        cube2.move(letter + "'");
-        cube3.move(letter + '2');
+        cube2.move(`${letter}'`);
+        cube3.move(`${letter}2`);
         adjList.push(cube1, cube2, cube3);
       }
     }
@@ -537,20 +651,21 @@ class Cube {
     const adjList = [];
     let simplifiedLastMove;
     if (this.movesApplied.length !== 0) {
-      simplifiedLastMove = simplifyMove(this.movesApplied[this.movesApplied.length - 1]);
+      simplifiedLastMove = simplifyMove(
+        this.movesApplied[this.movesApplied.length - 1]
+      );
     } else {
       simplifiedLastMove = '';
     }
 
-    for (let letter of this.allowedMoves) {
+    for (const letter of this.allowedMoves) {
       if (letter !== simplifiedLastMove) {
-
         const cube1 = this._clone();
         const cube2 = this._clone();
         const cube3 = this._clone();
         cube1.move(letter);
-        cube2.move(letter + "'");
-        cube3.move(letter + '2');
+        cube2.move(`${letter}'`);
+        cube3.move(`${letter}2`);
         adjList.push(cube1, cube2, cube3);
       }
     }
@@ -559,4 +674,3 @@ class Cube {
 }
 
 module.exports = Cube;
-

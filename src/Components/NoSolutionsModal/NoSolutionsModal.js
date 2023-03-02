@@ -5,8 +5,8 @@ import './NoSolutionsModal.css';
  */
 export default function NoSolutionsModal() {
   return (
-      <div className="noSolutionsModal errorColor">
-         <p>No solutions exist!</p>
-      </div>
-   );
-};
+    <div className="noSolutionsModal errorColor">
+      <p>No solutions exist!</p>
+    </div>
+  );
+}
