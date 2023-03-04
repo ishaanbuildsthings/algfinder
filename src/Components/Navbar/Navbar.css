@@ -16,21 +16,19 @@ li a:hover:not(.active) {
 }
 
 .navbarDiv {
-  align-items: center;
   /* center the toggle */
-  background-color: #121212;
+  align-items: center;
   /* set color so when scrolling the navbar is not see through */
-  display: flex;
-  justify-content: space-between;
-  /* navbar contains the UL and the toggle so this spaces them out */
-  position: fixed;
-  /* make navbar stay on the top, particularly for documentation page */
-  width: 100%;
-  /* expand to width of the page */
-  z-index: 1;
-  /* scramble circle icon would appear above when scrolled otherwise */
+  background-color: #121212;
   border-bottom: 1px solid grey;
-  /* TODO */
+  display: flex;
+  /* navbar contains the UL and the toggle so this spaces them out */
+  justify-content: space-between;
+  /* make navbar stay on the top, particularly for documentation page */
+  position: fixed;
+  /* expand to width of the page */
+  width: 100%;
+  z-index: 1;
 }
 
 .navbarUl {

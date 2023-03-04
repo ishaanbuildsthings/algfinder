@@ -94,34 +94,51 @@ export const joyrideCannotSolveSteps = [
     disableBeacon: true,
     spotlightClicks: true,
     hideCloseButton: true,
-    hideFooter: true,
+    locale: { next: '' },
   },
   {
     target: '#scrambleInput',
     content:
       "A random scramble was generated. The text here is Rubik's Cube notation, and represents the moves applied to the cube. You can learn how to write your own Rubik's Cube notation in the FAQ in the navigation bar.",
     placement: 'right',
+    hideCloseButton: true,
   },
   {
     target: '#depthInput',
     content:
       'A maximum depth was also selected. This means we will only see solutions that are at most this many moves. Deeper solutions take longer to calculate.',
     placement: 'right',
+    hideCloseButton: true,
   },
   {
     target: '.buttonGrid',
     content:
       'Finally, a moveset was chosen. We will restrict our solutions to only use these moves on the cube.',
     placement: 'right',
+    hideCloseButton: true,
   },
   {
     target: '.submitButton',
     content: 'Now that our queries are entered, click here to solve the cube!',
     placement: 'right',
-    disableBeacon: true,
     spotlightClicks: true,
     hideCloseButton: true,
     hideFooter: true,
+  },
+  {
+    target: '.scrollableSolutions',
+    content:
+      'Awesome, it seems like some solutions were found! You can click on the animate button next to any solution to see the cube solve itself in real-time!',
+    placement: 'right',
+    spotlightClicks: true,
+    hideCloseButton: true,
+    hideFooter: true,
+  },
+  {
+    target: '.cube',
+    content: 'Watch and hear the cube solve itself in real-time!',
+    placement: 'left',
+    hideCloseButton: true,
   },
   {
     target: '.FAQ',
@@ -162,11 +179,13 @@ export const joyrideCannotSolveSteps = [
       </>
     ),
     placement: 'bottom',
+    hideCloseButton: true,
   },
   {
-    target: '.scrollableSolutions',
+    target: '.FAQ',
     content:
       "If you want to learn about how the solving algorithm works, see why I made this, learn Rubik's Cube notation, or much more, check out the FAQ!",
     placement: 'bottom',
+    hideCloseButton: true,
   },
 ];

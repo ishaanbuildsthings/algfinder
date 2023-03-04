@@ -1,5 +1,4 @@
-// todo: currently R R' x, 2, x y yields a solution of x', once reordered state is fixed it should show no solutions
-// todo: same with R x, 1, R, should yield R' once fixed
+/* eslint-disable class-methods-use-this */
 // this represents the state of a solved cube returned by getState() on a new cube
 // also used to initialize the state of a cube
 const SOLVED_CUBE = [
@@ -17,23 +16,19 @@ const SOLVED_CUBE_STATE =
 // when the worker receives a message from the main thread
 // e.data = the params we send in via postMessage
 onmessage = function (e) {
-  let { scramble, moveset, depth } = e.data;
+  let { processedScramble, moveset, depth } = e.data;
   const finalSolutions = new Set(); // this is to track if repeat solutions are found
-
   const oddStatus = Boolean(depth % 2);
-  scramble = scramble.split(' ');
+  const scramble = processedScramble.split(' ');
 
   // if the scramble starts with rotations, remove them, this way for x R' U' R' we get the solution R U R
-  const newArr = [];
-  let partOfStartingChain = true;
-
-  for (const move of scramble) {
-    if (!['x', 'y', 'z'].includes(move[0]) || !partOfStartingChain) {
-      newArr.push(move);
-      partOfStartingChain = false;
-    }
+  while (
+    scramble[0][0] === 'x' ||
+    scramble[0][0] === 'y' ||
+    scramble[0][0] === 'z'
+  ) {
+    scramble.shift();
   }
-  scramble = newArr;
 
   // create the cubes
   const solvedCube = new Cube();
@@ -52,8 +47,7 @@ onmessage = function (e) {
     finalSolutions.add(''); // if a scrambled cube finds a state via R, and a solved cube finds a state via R', the intersection is '', so we need to add this to final solutions to prevent duplicates
   }
 
-  // if the depth is 0, and our cube is solved or can be rotated to be solved, finish
-  // if there isn't a moveset, and our cube is solved or can be rotated to be solved, finish
+  // if the depth is 0, or there isn't a moveset, finish
   if (depth === 0 || moveset.length === 0) {
     this.postMessage('done');
     return;
@@ -62,12 +56,12 @@ onmessage = function (e) {
   depth = parseInt(Math.ceil(parseInt(depth) / 2));
 
   // hande second edge case of only one moveset type
-  // todo: if its a rotation just return a solution, currently R R' x, 5, R, yields no solutions, but should yield a blank from the reorders state
   if (moveset.length === 1) {
     // eslint-disable-next-line no-shadow
     const scrambledCube = new Cube();
     applyAlg(scramble, scrambledCube);
 
+    // the test cubes are the one move variants based on the single variant, if any of those single moves solve the cube, those are solutions
     const testCube1 = new Cube();
     testCube1.move(moveset[0]);
     const testCube2 = testCube1._clone();
@@ -76,29 +70,28 @@ onmessage = function (e) {
     testCube3.move(moveset[0]);
 
     if (
-      JSON.stringify(testCube1.getReorderedState()) ===
-      JSON.stringify(scrambledCube.getReorderedState())
+      JSON.stringify(testCube1.getState()) ===
+      JSON.stringify(scrambledCube.getState())
     ) {
       this.postMessage(invertMove(moveset[0]));
     } else if (
-      JSON.stringify(testCube2.getReorderedState()) ===
-      JSON.stringify(scrambledCube.getReorderedState())
+      JSON.stringify(testCube2.getState()) ===
+      JSON.stringify(scrambledCube.getState())
     ) {
       this.postMessage(normalToDouble(moveset[0]));
     } else if (
-      JSON.stringify(testCube3.getReorderedState()) ===
-      JSON.stringify(scrambledCube.getReorderedState())
+      JSON.stringify(testCube3.getState()) ===
+      JSON.stringify(scrambledCube.getState())
     ) {
       this.postMessage(moveset[0]);
     }
     this.postMessage('done');
   }
-  // todo: i edited all of the above to use reordered state, make sure that is okay
 
   // setup for search algorithm
-  const solvedHash = { [solvedCube.getReorderedState()]: [''] };
+  const solvedHash = { [solvedCube.getState()]: [''] };
   const solvedQueue = [solvedCube]; // holds a queue of cubes
-  const scrambledHash = { [scrambledCube.getReorderedState()]: [''] };
+  const scrambledHash = { [scrambledCube.getState()]: [''] };
   const scrambledQueue = [scrambledCube];
 
   let depthOfNextQueuedCube = 0;
@@ -124,7 +117,7 @@ onmessage = function (e) {
       adjacentCube.depth = parentSolvedCube.depth + 1;
       adjacentCube.allowedMoves = moveset;
 
-      const adjacentReorderedState = adjacentCube.getReorderedState();
+      const adjacentReorderedState = adjacentCube.getState();
 
       // if this state hasnt been reached, initialize the ways to reach that state
       if (!(adjacentReorderedState in solvedHash)) {
@@ -171,8 +164,7 @@ onmessage = function (e) {
       scrambledAdjacentCube.depth = parentScrambledCube.depth + 1;
       scrambledAdjacentCube.allowedMoves = moveset;
 
-      const scrambledAdjacentReorderedState =
-        scrambledAdjacentCube.getReorderedState();
+      const scrambledAdjacentReorderedState = scrambledAdjacentCube.getState();
 
       if (!(scrambledAdjacentReorderedState in scrambledHash)) {
         scrambledHash[scrambledAdjacentReorderedState] = [
@@ -267,7 +259,7 @@ class Cube {
     );
   }
 
-  // returns string representation of reordered faces so that white is always on top and green is on the front
+  // returns string representation of reordered faces so that white is always on top and green is on the front, used for some base case checking
   getReorderedState() {
     const hashableCubeState = this._createHashableCubeState([
       [...this.uFace],
@@ -288,7 +280,7 @@ class Cube {
     );
   }
 
-  static _createHashableCubeState(cubeState) {
+  _createHashableCubeState(cubeState) {
     // grab the green and white sides from the matrix
     let greenSide;
     let whiteSide;
@@ -899,7 +891,7 @@ class Cube {
     }
   }
 
-  static _rotateFace(face, degrees) {
+  _rotateFace(face, degrees) {
     const [temp0, temp1, temp2, temp3, temp5, temp6, temp7, temp8] = [
       face[0],
       face[1],
@@ -1017,6 +1009,7 @@ function invertMove(move) {
   } else if (move.length === 1) {
     invertedMove = `${move}'`;
   }
+  if (invertedMove === undefined) return move;
   return invertedMove;
 }
 

@@ -10,6 +10,7 @@ import {
 import mapSolutionsListToDict from '../../utils/mapSolutionsListToDict.js';
 import processMoves from '../../utils/processMoves.js';
 import sortSolutionsDictByMoves from '../../utils/sortSolutionsDictByMoves.js';
+import useLocalStorage from '../../utils/hooks/useLocalStorage.js';
 
 import CubePanel from '../CubePanel/CubePanel.js';
 import ErrorPopup from '../ErrorPopup/ErrorPopup.js';
@@ -24,7 +25,9 @@ import '../../commonCss/tooltips.css';
 import '../../commonCss/animation.css';
 import './Solve.css';
 
-let errorMessage = '';
+const CANNOT_SOLVE_CUBE_RANDOM_EXAMPLE_STEP = 0;
+const CANNOT_SOLVE_CUBE_SUBMIT_STEP = 4;
+const CANNOT_SOLVE_CUBE_ANIMATE_STEP = 5;
 
 /**
  * The Solve component is a high-level component that maintains state for both the form and the solutions panel
@@ -40,6 +43,8 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
     depth: '',
     moveset: [],
   });
+  // tracks any error messages for a popup error
+  const [errorMessage, setErrorMessage] = useState('');
   // for the product tour
   const [solveCubeJoyrideShowing, setSolveCubeJoyrideShowing] = useState(false);
   const [cannotSolveCubeJoyrideShowing, setCannotSolveCubeJoyrideShowing] =
@@ -54,6 +59,11 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
   const [isMovesetPopupError, setMovesetPopupError] = useState(false);
   const [isNoSolutionsModal, setNoSolutionsModal] = useState(false);
   const [isSpinner, setSpinner] = useState(false);
+  // tracks whether the dialog modal should be shown in the future
+  const [dialogLocalStorage, setDialogStateAndLocalStorage] = useLocalStorage(
+    'dialog',
+    true
+  );
   // track the most recently applied alg, to know if we should delay or not for the animation
   const [mostRecentAlg, setMostRecentAlg] = useState('');
 
@@ -61,12 +71,13 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
   const workerRef = useRef(null); // initially the ref points to no worker, we store the worker inside a ref so even when the component re-renders, we can terminate the correct worker
 
   // * useEffects
-  // whenever the component mounts, increment a counter by one, and only render the joyride if the count is 1
+  // whenever the component mounts, update a ref to be true, this makes it so when you go to the FAQ and return to the homepage, the joyrides don't show up again
   useEffect(() => {
     solveComponentMountedMoreThanOnce.current = true;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // whenever the "no solutions found" modal appears, add an event listener to clear it
   useEffect(() => {
     if (!isNoSolutionsModal) {
       // if the popup just turned off, do nothing
@@ -91,8 +102,8 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
     []
   );
 
+  // whenever the most recent alg changes, update the cube to have that alg
   useEffect(() => {
-    // whenever the most recent alg changes, update the cube to have that
     const cube = document.querySelector('.cube');
     cube.alg = mostRecentAlg;
   }, [mostRecentAlg]);
@@ -164,6 +175,7 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
     [queriesState]
   );
 
+  // whenever a sort button is clicked, sort the solutions appropriately
   // e.target.value is the value of whether the stm or qtm sort button was clicked
   const handleClickOnSort = useCallback(
     (e) => {
@@ -177,11 +189,12 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
     [solutionsList]
   ); // needed to capture new closure
 
+  // when the submit button is clicked, run the worker, start the loading icon, and reset the most recently applied alg
   // workerRef and setter functions don't need to be passed as dependencies since they don't do anything
   const handleSubmit = useCallback(
     ({ scramble, depth, moveset }) => {
       // if we are in the controlled joyride at the submit step, proceed in the joyride
-      if (cannotSolveCubeStepIndex === 4) {
+      if (cannotSolveCubeStepIndex === CANNOT_SOLVE_CUBE_SUBMIT_STEP) {
         setCannotSolveCubeStepIndex(cannotSolveCubeStepIndex + 1);
       }
       if (workerRef.current) {
@@ -189,19 +202,21 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
       }
       setMostRecentAlg(''); // when a new alg is submitted, it implies the next solution that is clicked should be ran instantly, rather than after a delay, so re-assign the most recent alg to ''
       if (depth === '') {
-        errorMessage = 'Please choose a depth!';
+        setErrorMessage('Please choose a depth!');
         setErrorPopup(true);
         return;
       }
       if (moveset.length === 3 && depth > 18) {
-        errorMessage =
-          'For 3-gen scrambles, please choose a depth of at most 18';
+        setErrorMessage(
+          'For scrambles of 3 moves, please choose a depth of at most 18.'
+        );
         setErrorPopup(true);
         return;
       }
       if (moveset.length === 4 && depth > 14) {
-        errorMessage =
-          'For 4-gen scrambles, please choose a depth of at most 14';
+        setErrorMessage(
+          'For scrambles of 4 moves, please choose a depth of at most 14.'
+        );
         setErrorPopup(true);
         return;
       }
@@ -216,7 +231,7 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
       workerRef.current.onmessage = (e) => {
         // console.log(`message is: ${e.data}`); // for debugging
         // if (e.data.slice(0, 1) === '~') {
-        //     return;
+        //   return;
         // } // for debugging
         if (e.data === 'done') {
           setSpinner(false);
@@ -245,7 +260,8 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
   }, []);
 
   const handleRandomExample = useCallback(() => {
-    if (cannotSolveCubeStepIndex === 0) {
+    // if we are at the random example step
+    if (cannotSolveCubeStepIndex === CANNOT_SOLVE_CUBE_RANDOM_EXAMPLE_STEP) {
       setCannotSolveCubeStepIndex(cannotSolveCubeStepIndex + 1);
     }
     let data = generateRandomExample();
@@ -256,43 +272,61 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
     setMostRecentAlg(''); // when a new alg is submitted, it implies the next solution that is clicked should be ran instantly, rather than after a delay, so re-assign the most recent alg to ''
   }, [queriesState, cannotSolveCubeStepIndex]);
 
-  // The handleJoyrideCallback function is called whenever a step is completed or skipped
-  const handleSolveCubeJoyrideCallback = useCallback((data) => {
-    const { action, index, status, type } = data;
-    if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
-      // console.log("🚀 | handleJoyrideCallback | data", data); // for debugging
-      setSolveCubeStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
-    } else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
-      setSolveCubeStepIndex(0); // avoid bad data in case we need to use the step index in handleSubmit to choose to proceed with the joyride or do something else
-      setSolveCubeJoyrideRunning(false);
-    }
-  }, []);
+  // creates joyride callback functions using the reusable logic
+  const createHandleJoyrideCallback = useCallback(
+    (setter, setJoyrideShowing) => (data) => {
+      const { action, index, status, type } = data;
+      if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
+        // console.log("🚀 | handleJoyrideCallback | data", data); // for debugging
+        setter(index + (action === ACTIONS.PREV ? -1 : 1));
+      } else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
+        setJoyrideShowing(false);
+      }
+    },
+    []
+  );
+  // These functions are called every time the joyride proceeds one step
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleSolveCubeJoyrideCallback = useCallback(
+    createHandleJoyrideCallback(
+      setSolveCubeStepIndex,
+      setSolveCubeJoyrideShowing
+    ),
+    []
+  );
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const handleCannotSolveCubeJoyrideCallback = useCallback(
+    createHandleJoyrideCallback(
+      setCannotSolveCubeStepIndex,
+      setCannotSolveCubeJoyrideShowing
+    ),
+    []
+  );
 
-  const handleCannotSolveCubeJoyrideCallback = useCallback((data) => {
-    const { action, index, status, type } = data;
-    if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
-      // console.log("🚀 | handleJoyrideCallback | data", data); // for debugging
-      setCannotSolveCubeStepIndex(index + (action === ACTIONS.PREV ? -1 : 1));
-    } else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
-      setCannotSolveCubeStepIndex(0); // avoid bad data in case we need to use the step index in handleSubmit to choose to proceed with the joyride or do something else
-      setCannotSolveCubeJoyrideRunning(false);
+  // this function is called on every step of the joyride
+  const proceedToNextStepCannotSolveJoyride = useCallback(() => {
+    // if we are at the animate step
+    if (cannotSolveCubeStepIndex === CANNOT_SOLVE_CUBE_ANIMATE_STEP) {
+      setCannotSolveCubeStepIndex(cannotSolveCubeStepIndex + 1);
     }
-  }, []);
+  }, [cannotSolveCubeStepIndex]);
 
   return (
     <div className="solvePageMinusNav">
-      {!solveComponentMountedMoreThanOnce.current && (
-        <LandingModal
-          handleCanSolveCube={() => {
-            setSolveCubeJoyrideRunning(true);
-            setSolveCubeJoyrideShowing(true); // renders the can solve cube joyride
-          }}
-          handleCannotSolveCube={() => {
-            setCannotSolveCubeJoyrideRunning(true);
-            setCannotSolveCubeJoyrideShowing(true);
-          }}
-        />
-      )}
+      {!solveComponentMountedMoreThanOnce.current &&
+        dialogLocalStorage !== 'false' && (
+          <LandingModal
+            dontShowDialogAgain={() => setDialogStateAndLocalStorage(false)}
+            handleCanSolveCube={() => {
+              setSolveCubeJoyrideRunning(true);
+              setSolveCubeJoyrideShowing(true); // renders the can solve cube joyride
+            }}
+            handleCannotSolveCube={() => {
+              setCannotSolveCubeJoyrideRunning(true);
+              setCannotSolveCubeJoyrideShowing(true);
+            }}
+          />
+        )}
       {solveCubeJoyrideShowing && (
         <Joyride
           disableOverlayClose
@@ -361,6 +395,9 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
         solutionsList={solutionsList}
         mostRecentAlg={mostRecentAlg}
         setMostRecentAlg={setMostRecentAlg}
+        proceedToNextStepCannotSolveJoyride={
+          proceedToNextStepCannotSolveJoyride
+        }
       />
     </div>
   );

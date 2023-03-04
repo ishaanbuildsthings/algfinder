@@ -1,17 +1,15 @@
 .solvePageMinusNav {
-  display: flex;
   /* the whole page contains the topHalf and bottomHalf, it will be a flex container to flex these two children vertically. The whole page should have a flex of 1, to take up any remaining space that the navbar does not occupy. */
+  display: flex;
+  /* occupy the full height of the root except for the fixed navbar. Due to minimum heights, the solvePageMinusNav will eventually overflow the viewport and allow the user to scroll. */
   flex: 1;
   flex-direction: column;
-  /* occupy the full height of the root except for the fixed navbar. Due to minimum heights, the solvePageMinusNav will
-  eventually overflow the viewport and allow the user to scroll. */
-  letter-spacing: 0.01rem;
   /* override user style sheet */
-  margin-top: 50px;
+  letter-spacing: 0.01rem;
   /* since the navbar is taken out of flow with position: fixed; this pushes the elements down, repeated section for clarity */
+  margin-top: 50px;
+  /* since this doesn't have an assigned height, we need to stop protecting its children and allow it to shrink https://codepen.io/Sean713/pen/PoBZKbP */
   min-height: 0;
-  /* since this doesn't have an assigned height, we need to stop protecting its children and allow it to shrink */
-  /* https://codepen.io/Sean713/pen/PoBZKbP */
 }
 
 @media (max-width: 767px) {

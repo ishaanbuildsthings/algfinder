@@ -35,6 +35,7 @@ function invertMove(move) {
   } else if (move.length === 1) {
     invertedMove = `${move}'`;
   }
+  if (invertedMove === undefined) return move;
   return invertedMove;
 }
 

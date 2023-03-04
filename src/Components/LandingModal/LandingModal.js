@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 
 import Floater from 'react-floater';
 
-import { Box, Button, H4 } from '@gilbarbara/components';
+import { Box, Button, Checkbox, H4 } from '@gilbarbara/components';
 
 /**
  * The content component displays what is inside the LandingModal, which is the Modal
@@ -11,8 +11,26 @@ import { Box, Button, H4 } from '@gilbarbara/components';
  * handleClose - closes the modal
  * handleCanSolveCube - initiates the joyride if the user can solve a cube
  * handleCannotSolveCube - intiates the joyride if the user cannot solve a cube
+ * dontShowDialogAgain - writes to local storage if the user wants to not see the modal again
  */
-function Content({ handleClose, handleCanSolveCube, handleCannotSolveCube }) {
+function Content({
+  handleClose,
+  handleCanSolveCube,
+  handleCannotSolveCube,
+  dontShowDialogAgain,
+}) {
+  const [checkboxState, setCheckboxState] = useState(false);
+  // handles which joyride the user goes to
+  const handleButtonClick = useCallback(
+    (handleWhichJoyride) => {
+      handleClose();
+      handleWhichJoyride();
+      if (checkboxState) dontShowDialogAgain();
+    },
+    // handle close always closes the modal
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [checkboxState]
+  );
   return (
     <Box
       padding="xl"
@@ -30,23 +48,19 @@ function Content({ handleClose, handleCanSolveCube, handleCannotSolveCube }) {
         To get started, can you solve a Rubik's Cube?
       </H4>
       <Box flexBox="true" justify="space-around">
-        <Button
-          onClick={() => {
-            handleClose();
-            handleCanSolveCube();
-          }}
-        >
+        <Button onClick={() => handleButtonClick(handleCanSolveCube)}>
           Yes
         </Button>
-        <Button
-          onClick={() => {
-            handleClose();
-            handleCannotSolveCube();
-          }}
-        >
+        <Button onClick={() => handleButtonClick(handleCannotSolveCube)}>
           No
         </Button>
       </Box>
+      <Checkbox
+        onChange={(event) => {
+          setCheckboxState(event.target.checked);
+        }}
+        label="Do not show this dialog again"
+      />
     </Box>
   );
 }
@@ -56,11 +70,13 @@ function Content({ handleClose, handleCanSolveCube, handleCannotSolveCube }) {
  * @param
  * handleCanSolveCube - forwarded to Content
  * handleCannotSolveCube - forwarded to Content
+ * dontShowDialogAgain - forwarded to Content
  * @usage - used in Solve.js
  */
 export default function LandingModal({
   handleCanSolveCube,
   handleCannotSolveCube,
+  dontShowDialogAgain,
 }) {
   const [isShowing, setIsShowing] = useState(true);
 
@@ -71,6 +87,7 @@ export default function LandingModal({
         <Floater
           component={
             <Content
+              dontShowDialogAgain={dontShowDialogAgain}
               handleClose={() => setIsShowing(false)}
               handleCanSolveCube={handleCanSolveCube}
               handleCannotSolveCube={handleCannotSolveCube}

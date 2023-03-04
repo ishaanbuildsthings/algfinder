@@ -9,6 +9,7 @@ export default function Faq() {
         <li>How does the solving algorithm work? (for nerds)</li>
         <li>Where can I learn Rubik's Cube notation?</li>
         <li>Why are there restrictions for search depth?</li>
+        <li>Can you make the program run faster?</li>
         <li>
           This isn't useful if I don't know how to reach a position in the cube
           already!

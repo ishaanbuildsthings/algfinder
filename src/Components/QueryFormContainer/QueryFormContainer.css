@@ -2,7 +2,9 @@
   border-radius: 15px;
   border: none;
   cursor: pointer;
-  font-weight: bold;
+  /* needed due to user agent stylesheet override */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
   height: 50px;
 }
 
@@ -33,56 +35,62 @@
   border-radius: 0;
   border: none;
   cursor: pointer;
+  font-family: 'Poppins', sans-serif;
   font-size: 14.66px;
-  font-weight: bold;
+  font-weight: 500;
   height: 30px;
-  width: calc(100% / 6);
   /* take 1/6th of the button grid which is a blocking div inside the queryFormContainer */
+  width: calc(100% / 6);
 }
 
 .queryFormContainer {
-  box-sizing: border-box;
   /* make the width capped at true 650px including padding */
+  box-sizing: border-box;
+  /* take up half of the width (but get capped via max width), or half of height (but get capped via .topHalf max height) */
   flex: 1;
-  /* take up half of the width (but get capped via max width),
-  or half of height (but get capped via .topHalf max height) */
   max-width: 650px;
   padding: 50px 0 0 5%;
   /* large screen positionings */
 }
 
-.queryFormContainer button:active, button:focus { /* turn off default button outline on android */
+/* turn off default button outline on android */
+.queryFormContainer button:active, button:focus {
     outline: none;
 }
 
 .queryFormContainer input {
   border: none;
-  box-sizing: border-box;
   /* make it true 100% width */
+  box-sizing: border-box;
+  /* needed due to user agent stylesheet override */
+  font-family: 'Poppins', sans-serif;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 500;
   height: 50px;
   outline: none;
   padding: 0 35px;
-  width: 100%;
   /* expand to fill full queryFormContainer */
+  width: 100%;
 }
 
 .queryFormContainer input:focus::placeholder {
-  color: transparent;
   /* make the placeholder disappear when clicked in */
+  color: transparent;
 }
 
-.queryFormContainer input:not([type="radio"]):not([type="checkbox"]) { /* remove rounded corners on inputs for ios */
+/* remove rounded corners on inputs for ios */
+.queryFormContainer input:not([type="radio"]):not([type="checkbox"]) {
     -webkit-appearance: none;
     border-radius: 0;
 }
 
 .queryFormContainer label {
-  display: flex;
   /* this also makes the width of the label 100% since labels are not by default */
-  font-size: 0.8rem;
-  font-weight: 600;
+  display: flex;
+  /* needed due to user agent stylesheet override */
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 2;
   padding: 10px 0 10px 20px;
   text-transform: uppercase;
@@ -122,15 +130,15 @@
 }
 
 @media (hover: hover) {
+  /* get rid of sticky hover when clicking in a field on mobile */
   .queryFormContainer input:hover:not(:focus) {
-    /* get rid of sticky hover when clicking in a field on mobile */
     background-color: #4c4c4c;
   }
 }
 
 @media (hover: hover) {
+  /* get rid of sticky hover when clicking in a field on mobile */
   .queryFormContainer button:hover:not(.isToggled) {
-    /* get rid of sticky hover when clicking in a field on mobile */
     background-color: #4c4c4c;
     transition: 0.2s;
   }
@@ -178,13 +186,13 @@
   }
 
   .queryFormContainer {
-    box-sizing: border-box;
     /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
+    box-sizing: border-box;
     max-width: none;
-    padding: 15px 10px 10px 10px;
     /* move query form up to use extra space */
-    width: 100%;
+    padding: 15px 10px 10px 10px;
     /* once we flex vertically, fill the whole screen */
+    width: 100%;
   }
 
   .scrambleLabel {

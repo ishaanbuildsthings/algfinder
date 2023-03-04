@@ -1,3 +1,13 @@
+.animateButton,
+.copyButton {
+  background-color: #926ac3;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+}
+
 .scrollableSolutions {
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -10,7 +20,6 @@
   background: none;
   border: none;
   color: inherit;
-  cursor: pointer;
   font: inherit;
   outline: inherit;
   padding: 0;
@@ -18,14 +27,15 @@
 
 .solutionLi {
   line-height: 2.5;
+  border-bottom: 1px solid #121212;
 }
 
 .solutionsDisplay {
   display: flex;
   flex: 1;
   flex-direction: column;
-  max-height: 95%;
   /* take up 95% of the container */
+  max-height: 95%;
   width: 100%;
 }
 
@@ -34,15 +44,15 @@
   display: flex;
   flex-direction: column;
   /* ? can use a non-flexbox */
-  flex: 1;
   /* the solutionsDisplayContainer will flex 1/2 of the solvePageMinusNav height */
+  flex: 1;
   justify-content: center;
-  min-height: 300px;
   /* this allows the container to shrink somewhat as height is not set otherwise, but it caps out at a certain point, so the scrollable solutions is visible */
+  min-height: 300px;
   padding: 0;
   padding: 25px 5%;
-  position: relative;
   /* allows for positioning of the CopyPopup */
+  position: relative;
 }
 
 .solutionsHeader {
@@ -59,11 +69,13 @@
   flex: 1;
 }
 
-.solutionsOl {
-  padding: 0 10px 0 38px;
+.solutionsUl {
+  list-style-type: none;
+  padding: 0 12px 0 12px;
 }
 
-.shouldApplyPadding { /* applied when there are more than 100 solutions */
+/* applied when there are more than 100 solutions */
+.shouldApplyPadding {
     padding-left: 47px;
   }
 
@@ -72,17 +84,18 @@
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  font-size: 12px;
-  font-weight: bold;
+  /* needed due to user agent stylesheet override */
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
   margin-right: 8px;
   padding: 10px;
 }
 
 .solutionLi button {
-  margin-left: 10px;
   /* add some spacing between the solution and number */
-  text-align: left;
+  margin-left: 10px;
   /* when solutions go on two lines this keeps it lined up */
+  text-align: left;
 }
 
 @media (hover: hover) {
@@ -116,10 +129,10 @@
 /** media queries */
 @media (max-width: 767px) {
   .solutionsDisplayContainer {
-    box-sizing: border-box;
     /* changing the sizing style since the padding is a more significant part of the screen width, this is easier to work with */
-    flex: 0.5;
+    box-sizing: border-box;
     /* takes up 1/3rd of the solvePageMinusNav, allowing the cube visual to have enough room */
+    flex: 0.5;
     padding: 5px 10px;
     width: 100%;
   }
@@ -140,7 +153,7 @@
 @media (max-width: 280px) {
 
   /* prevent scrollbars from showing in scrollable soltuions on very narrow screens */
-  .solutionsOl {
+  .solutionsUl {
     margin-top: 5px;
   }
 }

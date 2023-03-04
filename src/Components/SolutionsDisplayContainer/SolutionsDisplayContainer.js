@@ -16,20 +16,36 @@ import './SolutionsDisplayContainer.css';
  * mostRecentAlg - the alg that will run on animation
  * setMostRecentAlg - setter for the alg
  * solutionsList - the list of string solutions
+ * proceedToNextStepCannotSolveJoyride - jumps to the next step for the cannot solve cube joyride if the current step is at the animate section
  * @usage Used in Solve.js
  */
-function SolutionsDisplayContainer({ handleSort, mostRecentAlg, setMostRecentAlg, solutionsList }) {
-
+function SolutionsDisplayContainer({
+  handleSort,
+  mostRecentAlg,
+  setMostRecentAlg,
+  solutionsList,
+  proceedToNextStepCannotSolveJoyride,
+}) {
   // * calculations
   // creates JSX elements for the solutions
-  const JsxSolutions = useMemo(() => solutionsList.map((solution) => (
-    <Solution
-      solution={solution}
-      key={solution}
-      mostRecentAlg={mostRecentAlg}
-      setMostRecentAlgToSolution={() => setMostRecentAlg(solution)}
-    />
-  )), [mostRecentAlg, solutionsList]); // todo
+  const JsxSolutions = useMemo(
+    () =>
+      solutionsList.map((solution, index) => (
+        <Solution
+          solution={solution}
+          key={solution}
+          index={index}
+          mostRecentAlg={mostRecentAlg}
+          proceedToNextStepCannotSolveJoyride={
+            proceedToNextStepCannotSolveJoyride
+          }
+          setMostRecentAlgToSolution={() => setMostRecentAlg(solution)}
+        />
+      )),
+    // setMostRecentAlg is a setter, so it is not needed in the dependency array
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [mostRecentAlg, solutionsList, proceedToNextStepCannotSolveJoyride]
+  );
 
   return (
     <div className="solutionsDisplayContainer">
@@ -43,14 +59,15 @@ function SolutionsDisplayContainer({ handleSort, mostRecentAlg, setMostRecentAlg
             />
             <div className="solutionsTooltip tooltip accentColor">
               <p>
-                Any found solutions will be displayed here. Click a solution to
-                copy it to your clipboard. All solutions that exist for a query
-                will be found.
+                Any found solutions will be displayed here. All solutions that
+                exist for a query will be found. You can animate a solution or
+                copy it to your clipboard.
               </p>
             </div>
           </div>
-          <div className="solutionsHeaderSpacer"></div>
+          <div className="solutionsHeaderSpacer" />
           <button
+            type="button"
             onClick={handleSort}
             className="sortButton mainText qtmButton"
             value="qtm"
@@ -58,6 +75,7 @@ function SolutionsDisplayContainer({ handleSort, mostRecentAlg, setMostRecentAlg
             Sort by QTM
           </button>
           <button
+            type="button"
             onClick={handleSort}
             className="sortButton mainText"
             value="stm"
@@ -66,11 +84,14 @@ function SolutionsDisplayContainer({ handleSort, mostRecentAlg, setMostRecentAlg
           </button>
         </div>
         <div className="scrollableSolutions secondaryColor">
-          <ol
-            className={cx('solutionsOl', solutionsList.length >= 100 && 'shouldApplyPadding')}
+          <ul
+            className={cx(
+              'solutionsUl',
+              solutionsList.length >= 100 && 'shouldApplyPadding'
+            )}
           >
             {JsxSolutions}
-          </ol>
+          </ul>
         </div>
       </div>
     </div>

@@ -13,23 +13,23 @@ h2 {
   max-width: 70%;
 }
 
+/* width is forced to max since the document flexes vertically */
 .cubeRow {
   display: flex;
   justify-content: center;
-  /* width is forced to max since the document flexes vertically */
 }
 
 .documentationDiv {
   display: flex;
   flex-direction: column;
-  margin-top: 70px;
   /* since the navbar is taken out of flow with position: fixed; this pushes the elements down */
+  margin-top: 70px;
   padding: 0px 4% 40px 4%;
 }
 
 .cubeAndCaption p {
-  text-align: center;
   /* p may be aligned within cubeAndCaption, but the text inside isn't, this is needed for when the caption is too long as per tony's explanation */
+  text-align: center;
 }
 
 .documentationDiv a {
@@ -39,7 +39,8 @@ h2 {
 }
 
 .documentationDiv h2,
-.documentationDiv p {
+.documentationDiv p,
+.documentationDiv li {
   color: white;
 }
 

@@ -140,8 +140,7 @@ export default function QueryFormContainer({
 
   // * useMemos
   // create arrays of JSX buttons
-  // The idea is whenever createJSXButtons changes, which only happens when parentState changes, then and only then myButtons will change.
-  // And we need myButtons to change when the parentState changes to ensure that each button is correctly receiving the correct isToggled boolean.
+  // The idea is whenever createJSXButtons changes, which only happens when parentState changes, then and only then myButtons will change. And we need myButtons to change when the parentState changes to ensure that each button is correctly receiving the correct isToggled boolean.
   const buttonListFaceMoves = useMemo(
     () => createManyJsxButtons(['R', 'U', 'D', 'F', 'L', 'B']),
     [createManyJsxButtons]

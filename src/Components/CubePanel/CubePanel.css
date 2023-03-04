@@ -4,15 +4,13 @@ twisty-player {
 }
 
 .cubePanel {
-  flex: 1;
   /* fill out the width since cubePanel will get capped, in height mode keep expanding until .topHalf caps the height */
+  flex: 1;
+  /* normally the cube expands or shrinks to fill the remainder of the page, for small phones we don't want the cube to keep shrinking, we would rather scroll. By adding a minimum height, the sum of heights of our content will overflow the 100vh height allowing for the scroll effect. */
   min-height: 100px;
-  /* normally the cube expands or shrinks to fill the remainder of the page, for small phones we don't want the cube to keep shrinking, we would rather scroll.
-  By adding a minimum height, the sum of heights of our content will overflow the 100vh
-  height allowing for the scroll effect. */
   padding: 15px 0 35px 0;
-  position: relative;
   /* to position drag cube to view icon and text */
+  position: relative;
 }
 
 .dragIconAndText {
@@ -130,13 +128,12 @@ twisty-player {
 
 @media (max-width: 767px) {
   .cubePanel {
+    /* once the components are stacked vertically, allow the cube to shrink to less than 50% of the height. This is needed as the queryForm is fixed height and the cube will otherwise be hardcoded at 50% */
     flex-shrink: 1;
-    /* once the components are stacked vertically, allow the cube to shrink to less than 50% of the height.
-    This is needed as the queryForm is fixed height and the cube will otherwise be hardcoded at 50% */
-    padding: 0;
     /* make room for cube on smaller screen */
+    padding: 0;
+     /* width was not defined in laptop view */
     width: 100%;
-    /* width was not defined in laptop view */
   }
 
   .dragIconAndText {

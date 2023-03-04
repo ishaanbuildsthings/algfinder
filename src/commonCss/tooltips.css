@@ -1,6 +1,6 @@
 .iconAndTooltip {
+
   position: relative;
-  /* allows positioning for tooltip */
 }
 
 .solutionsIcon {
@@ -11,16 +11,16 @@
   border-radius: 5px;
   border: 1px solid black;
   color: #fff;
-  display: none;
   /* by default do not show or take up space */
+  display: none;
   font-size: 14px;
   left: 30px;
   line-height: 1.5;
   padding: 5px 10px;
-  position: absolute;
   /* positioned relative to the .iconAndTooltip */
-  text-transform: none;
+  position: absolute;
   /* override all caps that came from the labels */
+  text-transform: none;
   z-index: 1;
 }
 
@@ -32,12 +32,11 @@
 .scrambleTooltip,
 .depthTooltip,
 .movesetTooltip {
-  font-weight: 500;
   /* override label font-weight */
+  font-weight: 500;
 }
 
-/* make all tooltips visible on hover, display type does not really matter
-on mobile, these function as buttons due to sticky hover */
+/* make all tooltips visible on hover, display type does not really matter on mobile, these function as buttons due to sticky hover */
 .depthIcon:hover+.depthTooltip {
   display: inline;
 }
