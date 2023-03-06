@@ -7,17 +7,10 @@ make custom git commands
 clean mac setup
 
 add gif for github
-window size fix---
 add twisty-alg-viewer
 add more cool examples
 set up codepen with render and cube.play
-
-
 more vlaidations / notes
 most recent alg timer isnt working, and typing in scramble doesnt work
-change 3gen to say scrambles of 3 moves
-craco
-refactor some bad code lke reassinging variable in solveworker
 safari styling
-change to ekzheng style dark mode toggle
 check ram or device to limit

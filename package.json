@@ -4,16 +4,16 @@
   "private": true,
   "homepage": "https://agrawalishaan.github.io",
   "dependencies": {
-    "@emotion/react": "^11.10.6",
-    "@emotion/styled": "^11.10.6",
     "@fortawesome/fontawesome-svg-core": "^6.2.1",
     "@fortawesome/free-solid-svg-icons": "^6.2.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@gilbarbara/components": "^0.8.1",
+    "@mui/icons-material": "^5.11.11",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "cubing": "^0.34.6",
+    "eslint-import-resolver-alias": "^1.1.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-floater": "^0.8.2",
@@ -24,11 +24,11 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
+    "predeploy": "craco build",
     "deploy": "gh-pages -d build",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "browserslist": {
@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "@craco/craco": "^7.0.0",
     "eslint": "^8.35.0",
     "eslint-config-wesbos": "^3.2.3",
     "gh-pages": "^5.0.0",
@@ -59,6 +60,23 @@
       "react/prop-types": [
         0
       ]
+    },
+    "settings": {
+      "import/resolver": {
+        "alias": {
+          "map": [
+            [
+              "@",
+              "./src"
+            ]
+          ],
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".json"
+          ]
+        }
+      }
     }
   }
 }

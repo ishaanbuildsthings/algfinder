@@ -12,18 +12,15 @@
   transform: translateY(5px);
 }
 
-.buttonGrid>.movesetButton:nth-child(13) {
-  border-bottom-left-radius: 20px;
-}
-
-.buttonGrid>.movesetButton:nth-child(18) {
-  border-bottom-right-radius: 20px;
-}
-
 .cancelButton {
+  background-color: #ff9999 !important;
+  color: black !important;
   margin-top: 10px;
-  margin-right: 10px;
   padding: 0 12px;
+}
+
+.primaryButton {
+  background-color: #8C9EFF;
 }
 
 .isToggled {
@@ -34,6 +31,7 @@
 .movesetButton {
   border-radius: 0;
   border: none;
+  color: #757575;
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   font-size: 14.66px;
@@ -41,6 +39,12 @@
   height: 30px;
   /* take 1/6th of the button grid which is a blocking div inside the queryFormContainer */
   width: calc(100% / 6);
+}
+
+.queryFormBorder {
+  border: 2px solid #1e1e1e;
+  border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 .queryFormContainer {
@@ -81,7 +85,6 @@
 /* remove rounded corners on inputs for ios */
 .queryFormContainer input:not([type="radio"]):not([type="checkbox"]) {
     -webkit-appearance: none;
-    border-radius: 0;
 }
 
 .queryFormContainer label {
@@ -92,18 +95,14 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 2;
-  padding: 10px 0 10px 20px;
+  padding: 15px 0 5px 15px;
   text-transform: uppercase;
 }
 
 .randomExampleButton {
+  margin-right: 12px;
   margin-top: 10px;
   padding: 0 12px;
-}
-
-.scrambleLabel {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
 }
 
 .submitAndCancelAndRandom {
@@ -173,14 +172,6 @@
 /** media queries */
 
 @media (max-width: 767px) {
-  .buttonGrid>.movesetButton:nth-child(13) {
-    border-bottom-left-radius: 10px;
-  }
-
-  .buttonGrid>.movesetButton:nth-child(18) {
-    border-bottom-right-radius: 10px;
-  }
-
   .movesetButton {
     height: 40px;
   }
@@ -193,11 +184,6 @@
     padding: 15px 10px 10px 10px;
     /* once we flex vertically, fill the whole screen */
     width: 100%;
-  }
-
-  .scrambleLabel {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
   }
 
   .submitButton {

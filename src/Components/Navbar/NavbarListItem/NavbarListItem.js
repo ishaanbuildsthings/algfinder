@@ -1,6 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import cx from '../../../utils/cx';
+import cx from '@/utils/cx.js';
 
 /**
  * @param

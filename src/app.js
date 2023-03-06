@@ -2,9 +2,9 @@ import { useRef } from 'react';
 
 import { Routes, Route } from 'react-router-dom';
 
-import Faq from './Components/Faq/Faq.js';
-import Navbar from './Components/Navbar/Navbar.js';
-import Solve from './Components/Solve/Solve.js';
+import Solve from '@/Components/Solve/Solve.js';
+import Faq from '@/Components/Faq/Faq.js';
+import Navbar from '@/Components/Navbar/Navbar.js';
 
 /**
  * This defines the entire website in terms of components, including all routes.

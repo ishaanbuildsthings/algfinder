@@ -1,16 +1,16 @@
 import { memo } from 'react';
 
 // this is actually imported but the linter does not detect it
-// eslint-disable-next-line no-unused-vars
+
 import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
 
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import cx from '../../utils/cx.js';
-import processMoves from '../../utils/processMoves.js';
+import cx from '@/utils/cx.js';
+import processMoves from '@/utils/processMoves.js';
 
-import './CubePanel.css';
+import '@/Components/CubePanel/CubePanel.css';
 
 const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
 

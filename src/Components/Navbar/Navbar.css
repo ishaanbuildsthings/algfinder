@@ -8,7 +8,7 @@ li a {
 
 /* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
 li a:hover:not(.active) {
-  background-color: #1e1e1e;
+  background-color: #282828;
 }
 
 .active {
@@ -19,8 +19,8 @@ li a:hover:not(.active) {
   /* center the toggle */
   align-items: center;
   /* set color so when scrolling the navbar is not see through */
-  background-color: #121212;
-  border-bottom: 1px solid grey;
+  background-color: #161615;
+  border-bottom: 2px solid #1e1e1e;
   display: flex;
   /* navbar contains the UL and the toggle so this spaces them out */
   justify-content: space-between;
@@ -45,7 +45,7 @@ li a:hover:not(.active) {
 
 /* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
 .light li a:hover:not(.active) {
-  background-color: #d6d3d3;
+  background-color: #F0F0F0;
 }
 
 .light .active {
@@ -53,7 +53,7 @@ li a:hover:not(.active) {
 }
 
 .light .navbarDiv {
-  background-color: #fff;
+  background-color: #FAFAF9;
 }
 
 

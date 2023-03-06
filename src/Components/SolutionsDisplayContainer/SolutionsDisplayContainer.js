@@ -3,11 +3,11 @@ import { memo, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
-import cx from '../../utils/cx.js';
+import cx from '@/utils/cx.js';
 
-import Solution from './Solution/Solution';
+import Solution from '@/Components/SolutionsDisplayContainer/Solution/Solution.js';
 
-import './SolutionsDisplayContainer.css';
+import '@/Components/SolutionsDisplayContainer/SolutionsDisplayContainer.css';
 
 /**
  * This is the component for all the solutions that appear when a user queries a scramble
@@ -26,7 +26,6 @@ function SolutionsDisplayContainer({
   solutionsList,
   proceedToNextStepCannotSolveJoyride,
 }) {
-  // * calculations
   // creates JSX elements for the solutions
   const JsxSolutions = useMemo(
     () =>
@@ -39,7 +38,10 @@ function SolutionsDisplayContainer({
           proceedToNextStepCannotSolveJoyride={
             proceedToNextStepCannotSolveJoyride
           }
-          setMostRecentAlgToSolution={() => setMostRecentAlg(solution)}
+          setMostRecentAlgToSolution={() => {
+            setMostRecentAlg(solution);
+            console.log(`sol is: ${solution}`);
+          }}
         />
       )),
     // setMostRecentAlg is a setter, so it is not needed in the dependency array

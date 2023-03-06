@@ -30,3 +30,15 @@
     transform: rotate(360deg);
   }
 }
+
+@keyframes pulse {
+  0% {
+    background-color: #282828;
+  }
+  50% {
+    background-color: black;
+  }
+  100% {
+    background-color: #282828;
+  }
+}

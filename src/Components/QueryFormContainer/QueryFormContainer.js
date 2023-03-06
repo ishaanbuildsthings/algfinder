@@ -4,11 +4,11 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { faCircleInfo, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import useWindowSize from '../../utils/hooks/useWindowSize.js';
+import useWindowSize from '@/utils/hooks/useWindowSize.js';
 
-import MovesetButton from '../MovesetButton/MovesetButton.js';
+import MovesetButton from '@/Components/MovesetButton/MovesetButton.js';
 
-import './QueryFormContainer.css';
+import '@/Components/QueryFormContainer/QueryFormContainer.css';
 
 /**
  * This is the form in which the user enters information for a solve
@@ -157,99 +157,98 @@ export default function QueryFormContainer({
   return (
     // queryFormContainer goes here
     <div className="queryFormContainer">
-      <section>
-        <label
-          className="scrambleLabel mainText mainColor"
-          htmlFor="scrambleInput"
-        >
-          Scramble
-          <div className="iconAndTooltip">
-            <FontAwesomeIcon
-              icon={faCircleInfo}
-              className="scrambleIcon icon mainText"
-            />
-            <div className="scrambleTooltip tooltip accentColor">
-              <p>Enter the scramble you want to solve.</p>
-              <p>Example: R2 U R U R' U' R' U' R' U R'</p>
+      <div className="queryFormBorder">
+        <section>
+          <label className="mainText mainColor" htmlFor="scrambleInput">
+            Scramble
+            <div className="iconAndTooltip">
+              <FontAwesomeIcon
+                icon={faCircleInfo}
+                className="scrambleIcon icon mainText"
+              />
+              <div className="scrambleTooltip tooltip accentColor">
+                <p>Enter the scramble you want to solve.</p>
+                <p>Example: R2 U R U R' U' R' U' R' U R'</p>
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
 
-        <input
-          id="scrambleInput"
-          type="text"
-          placeholder={determineScramblePlaceholderText()}
-          className="secondaryColor mainText"
-          name="scramble"
-          autoComplete="off"
-          value={queriesState.scramble}
-          onChange={handleTextChange}
-        />
-      </section>
+          <input
+            id="scrambleInput"
+            type="text"
+            placeholder={determineScramblePlaceholderText()}
+            className="secondaryColor mainText"
+            name="scramble"
+            autoComplete="off"
+            value={queriesState.scramble}
+            onChange={handleTextChange}
+          />
+        </section>
 
-      <section>
-        <label className="mainText mainColor" htmlFor="depthInput">
-          Max Algorithm Length
-          <div className="iconAndTooltip">
-            <FontAwesomeIcon
-              icon={faCircleInfo}
-              className="depthIcon icon mainText"
-            />
-            <div className="depthTooltip tooltip accentColor">
-              <p>
-                Enter the maximum length of solutions the solver should give.
-              </p>
-              <p>
-                Example: 14 means you will receive solutions of at most 14
-                moves.
-              </p>
+        <section>
+          <label className="mainText mainColor" htmlFor="depthInput">
+            Max Algorithm Length
+            <div className="iconAndTooltip">
+              <FontAwesomeIcon
+                icon={faCircleInfo}
+                className="depthIcon icon mainText"
+              />
+              <div className="depthTooltip tooltip accentColor">
+                <p>
+                  Enter the maximum length of solutions the solver should give.
+                </p>
+                <p>
+                  Example: 14 means you will receive solutions of at most 14
+                  moves.
+                </p>
+              </div>
             </div>
-          </div>
-        </label>
+          </label>
 
-        <input
-          id="depthInput"
-          type="text"
-          placeholder={determineDepthPlaceholderText()}
-          className="secondaryColor mainText"
-          name="depth"
-          autoComplete="off"
-          value={queriesState.depth}
-          onChange={handleNumberChange}
-        />
-      </section>
+          <input
+            id="depthInput"
+            type="text"
+            placeholder={determineDepthPlaceholderText()}
+            className="secondaryColor mainText"
+            name="depth"
+            autoComplete="off"
+            value={queriesState.depth}
+            onChange={handleNumberChange}
+          />
+        </section>
 
-      <section>
-        <label className="mainText mainColor">
-          Toggle allowed moveset
-          <div className="iconAndTooltip">
-            <FontAwesomeIcon
-              icon={faCircleInfo}
-              className="movesetIcon mainText icon"
-            />
-            <div className="movesetTooltip tooltip accentColor">
-              <p>
-                Enter the move types you want the solutions to be restricted to.
-              </p>
-              <p>
-                Example: if you enter RUD, solutions will at most use those
-                three move types.
-              </p>
+        <section>
+          <label className="mainText mainColor">
+            Toggle allowed moveset
+            <div className="iconAndTooltip">
+              <FontAwesomeIcon
+                icon={faCircleInfo}
+                className="movesetIcon mainText icon"
+              />
+              <div className="movesetTooltip tooltip accentColor">
+                <p>
+                  Enter the move types you want the solutions to be restricted
+                  to.
+                </p>
+                <p>
+                  Example: if you enter RUD, solutions will at most use those
+                  three move types.
+                </p>
+              </div>
             </div>
+          </label>
+          <div>
+            {buttonListFaceMoves}
+            {buttonListWideMoves}
+            {buttonListSliceAndRotation}
           </div>
-        </label>
-        <div className="buttonGrid">
-          {buttonListFaceMoves}
-          {buttonListWideMoves}
-          {buttonListSliceAndRotation}
-        </div>
-      </section>
-
+        </section>
+      </div>
       <section className="submitAndCancelAndRandom">
         {/* in safari this button is bugged as flexbox on buttons is calculated wrong */}
         <button
           type="button"
-          className="bottomButton submitButton mainText secondaryColor"
+          className="bottomButton submitButton primaryButton"
           onClick={() => handleSubmit(queriesState)}
         >
           <p>
@@ -259,10 +258,21 @@ export default function QueryFormContainer({
                 <FontAwesomeIcon className="spinner fa-lg" icon={faSpinner} />
               </>
             ) : (
-              'Show Me Solutions!'
+              'Generate Solutions'
             )}
           </p>
         </button>
+
+        <button
+          type="button"
+          onClick={() => {
+            handleRandomExample();
+          }}
+          className="bottomButton randomExampleButton primaryButton"
+        >
+          {determineExampleText()}
+        </button>
+
         <button
           type="button"
           onClick={() => {
@@ -271,16 +281,6 @@ export default function QueryFormContainer({
           className="bottomButton cancelButton mainText secondaryColor"
         >
           Cancel Solve
-        </button>
-
-        <button
-          type="button"
-          onClick={() => {
-            handleRandomExample();
-          }}
-          className="bottomButton randomExampleButton mainText secondaryColor"
-        >
-          {determineExampleText()}
         </button>
       </section>
     </div>

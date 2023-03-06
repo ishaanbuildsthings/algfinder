@@ -4,10 +4,12 @@ twisty-player {
 }
 
 .cubePanel {
+  box-sizing: border-box;
   /* fill out the width since cubePanel will get capped, in height mode keep expanding until .topHalf caps the height */
   flex: 1;
   /* normally the cube expands or shrinks to fill the remainder of the page, for small phones we don't want the cube to keep shrinking, we would rather scroll. By adding a minimum height, the sum of heights of our content will overflow the 100vh height allowing for the scroll effect. */
   min-height: 100px;
+  max-height: 450px;
   padding: 15px 0 35px 0;
   /* to position drag cube to view icon and text */
   position: relative;

@@ -1,4 +1,4 @@
-import './NoSolutionsModal.css';
+import '@/Components/NoSolutionsModal/NoSolutionsModal.css';
 /**
  * This is the modal that appears when no solutions exist for a scramble
  * @usage used in Solve.js

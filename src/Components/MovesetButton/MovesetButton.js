@@ -1,4 +1,4 @@
-import cx from '../../utils/cx';
+import cx from '@/utils/cx.js';
 
 /**
  * A moveset button is on the queryForm and can toggle which moves are allowed in a scramble
@@ -15,7 +15,6 @@ function MovesetButton({ value, handleMovesetClick, isToggled }) {
     <button
       type="button"
       className={cx(
-        'mainText',
         !isToggled && 'secondaryColor',
         'movesetButton',
         isToggled && 'isToggled accentColor'

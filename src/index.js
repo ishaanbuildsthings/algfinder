@@ -2,9 +2,9 @@ import ReactDOM from 'react-dom/client';
 
 import { HashRouter } from 'react-router-dom';
 
-import App from './App';
+import App from '@/App.js';
 
-import './index.css';
+import '@/index.css';
 
 /**
  * This module renders the whole app with support for react-router-dom.

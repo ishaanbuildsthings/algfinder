@@ -1,10 +1,10 @@
 .darkButton {
   align-items: center;
-  background-color: #efc523;
+  background-color: transparent;
   border: none;
-  border-radius: 3px;
+  border-radius: 43px;
   box-sizing: border-box;
-  color: #0F0F0F;
+  color: #fff;
   display: flex;
   height: 43px;
   justify-content: center;
@@ -13,18 +13,22 @@
   width: 43px;
 }
 
+.darkButton:active {
+  animation-name: pulse;
+  animation-duration: 1s;
+}
+
 .darkButton:hover {
   cursor: pointer;
-  background-color: #dab523;
+  background-color: #282828;
 }
 
 .light .darkButton {
-  background-color: #191970;
-  color: #f3f1fe;
+  color: #313131;
 }
 
 .light .darkButton:hover {
-  background-color: #101045;
+  background-color: #F0F0F0;
 }
 
 @media (max-width: 372px) {

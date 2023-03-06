@@ -2,28 +2,28 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 
 import Joyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 
-import generateRandomExample from '../../utils/randomExamples.js';
+import generateRandomExample from '@/utils/generateRandomExample.js';
 import {
   joyrideCanSolveSteps,
   joyrideCannotSolveSteps,
-} from '../../utils/joyride.js';
-import mapSolutionsListToDict from '../../utils/mapSolutionsListToDict.js';
-import processMoves from '../../utils/processMoves.js';
-import sortSolutionsDictByMoves from '../../utils/sortSolutionsDictByMoves.js';
-import useLocalStorage from '../../utils/hooks/useLocalStorage.js';
+} from '@/utils/joyride.js';
+import mapSolutionsListToDict from '@/utils/mapSolutionsListToDict.js';
+import processMoves from '@/utils/processMoves.js';
+import sortSolutionsDictByMoves from '@/utils/sortSolutionsDictByMoves.js';
+import useLocalStorage from '@/utils/hooks/useLocalStorage.js';
 
-import CubePanel from '../CubePanel/CubePanel.js';
-import ErrorPopup from '../ErrorPopup/ErrorPopup.js';
-import LandingModal from '../LandingModal/LandingModal.js';
-import MovesetPopup from '../MovesetPopup/MovesetPopup.js';
-import NoSolutionsModal from '../NoSolutionsModal/NoSolutionsModal.js';
-import QueryFormContainer from '../QueryFormContainer/QueryFormContainer.js';
-import SolutionsDisplayContainer from '../SolutionsDisplayContainer/SolutionsDisplayContainer.js';
+import CubePanel from '@/Components/CubePanel/CubePanel.js';
+import ErrorPopup from '@/Components/ErrorPopup/ErrorPopup.js';
+import LandingModal from '@/Components/LandingModal/LandingModal.js';
+import MovesetPopup from '@/Components/MovesetPopup/MovesetPopup.js';
+import NoSolutionsModal from '@/Components/NoSolutionsModal/NoSolutionsModal.js';
+import QueryFormContainer from '@/Components/QueryFormContainer/QueryFormContainer.js';
+import SolutionsDisplayContainer from '@/Components/SolutionsDisplayContainer/SolutionsDisplayContainer.js';
 
-import '../../commonCss/popups.css';
-import '../../commonCss/tooltips.css';
-import '../../commonCss/animation.css';
-import './Solve.css';
+import '@/commonCss/popups.css';
+import '@/commonCss/tooltips.css';
+import '@/commonCss/animation.css';
+import '@/Components/Solve/Solve.css';
 
 const CANNOT_SOLVE_CUBE_RANDOM_EXAMPLE_STEP = 0;
 const CANNOT_SOLVE_CUBE_SUBMIT_STEP = 4;
@@ -66,6 +66,10 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
   );
   // track the most recently applied alg, to know if we should delay or not for the animation
   const [mostRecentAlg, setMostRecentAlg] = useState('');
+
+  useEffect(() => {
+    console.log(`most recent alg changed. it is now: ${mostRecentAlg}`);
+  }, [mostRecentAlg]);
 
   // * refs
   const workerRef = useRef(null); // initially the ref points to no worker, we store the worker inside a ref so even when the component re-renders, we can terminate the correct worker

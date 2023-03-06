@@ -1,7 +1,7 @@
-import DarkButton from './DarkButton/DarkButton';
-import NavbarListItem from './NavbarListItem/NavbarListItem';
+import DarkButton from '@/Components/Navbar/DarkButton/DarkButton';
+import NavbarListItem from '@/Components/Navbar/NavbarListItem/NavbarListItem';
 
-import './Navbar.css';
+import '@/Components/Navbar/Navbar.css';
 
 export default function Navbar() {
   return (

@@ -1,12 +1,10 @@
 import { useCallback, useEffect } from 'react';
 
-import { BsFillMoonStarsFill } from 'react-icons/bs';
-import { IconContext } from 'react-icons';
-import { RiSunLine } from 'react-icons/ri';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
 
-import useLocalStorage from '../../../utils/hooks/useLocalStorage';
+import useLocalStorage from '@/utils/hooks/useLocalStorage';
 
-import './DarkButton.css';
+import '@/Components/Navbar/DarkButton/DarkButton.css';
 
 // this is the button that toggles the dark mode status of the site
 export default function DarkButton() {
@@ -28,7 +26,7 @@ export default function DarkButton() {
     }
   }, [localStorageState]);
 
-  // * handlers
+  // * functions
   // whenever we click the darkmode toggle, this function changes the local storage state, re-rendering the function with the new style
   const handleClick = useCallback(() => {
     if (localStorageState === 'dark') {
@@ -42,18 +40,7 @@ export default function DarkButton() {
 
   return (
     <button type="button" className="darkButton" onClick={handleClick}>
-      {' '}
-      {/* darkButton is bugged since safari is bugged with buttons that have display: flex */}
-      <IconContext.Provider
-        value={(() => {
-          if (localStorageState === 'dark') {
-            return { size: '60%' };
-          }
-          return { size: '45%' };
-        })()}
-      >
-        {localStorageState === 'dark' ? <RiSunLine /> : <BsFillMoonStarsFill />}
-      </IconContext.Provider>
+      {localStorageState === 'dark' ? <Brightness7 /> : <Brightness4 />}
     </button>
   );
 }

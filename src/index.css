@@ -10,7 +10,7 @@ body {
   /* my styling */
   /* remove blue flash on some responsive sites */
   -webkit-tap-highlight-color: transparent;
-  background-color: #121212;
+  background-color: #161615;
   font-family: 'Poppins', sans-serif;
   font-size: 15px;
   font-weight: 500;
@@ -33,7 +33,7 @@ code {
 }
 
 .accentColor {
-  background-color: #926ac3;
+  background-color: #8C9EFF;
 }
 
 .errorColor {
@@ -42,7 +42,7 @@ code {
 }
 
 .mainColor {
-  background-color: #1e1e1e;
+  background-color: #161615;
 }
 
 .mainText {
@@ -50,7 +50,7 @@ code {
 }
 
 .secondaryColor {
-  background-color: #222;
+  background-color: #1e1e1e;
 }
 
 .topHalf {
@@ -70,11 +70,11 @@ code {
 /** light mode */
 
 body.light {
-  background-color: #fff;
+  background-color: #FAFAF9;
 }
 
 .light .accentColor {
-  background-color: #6200ee;
+  background-color: #3030E8;
 }
 
 .light .errorColor {
@@ -95,13 +95,6 @@ body.light {
 }
 
 /** media queries */
-@media (min-width: 768px) {
-
-  /* in the normal side by side view, prevent the cube from growing by limiting .topHalf */
-  .topHalf {
-    max-height: 450px;
-  }
-}
 
 @media (max-width: 767px) {
   .topHalf {

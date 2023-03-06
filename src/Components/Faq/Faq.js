@@ -1,4 +1,5 @@
-import './Faq.css';
+import '@/Components/Faq/Faq.css';
+
 // todo: add why there are restricited move depths, learn notation, this isnt useful as i dont know how to get to this state, scroll up arrow, table of contents
 export default function Faq() {
   return (
@@ -10,6 +11,7 @@ export default function Faq() {
         <li>Where can I learn Rubik's Cube notation?</li>
         <li>Why are there restrictions for search depth?</li>
         <li>Can you make the program run faster?</li>
+        <li>Why did you make computation on the client side?</li>
         <li>
           This isn't useful if I don't know how to reach a position in the cube
           already!

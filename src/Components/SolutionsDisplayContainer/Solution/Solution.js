@@ -38,15 +38,22 @@ export default function Solution({
     // the code seems to work without this, but I'm not sure if it is consistent due to its being an external library, therefore, I assign the alg of the cube manually to ensure when the solve is run it is done with the right alg
     cube.alg = solution;
     // if our cube has never had an alg applied, meaning we are clicking on a solution for the first time, don't wait, but if it has had an alg applied (user jumping around between solutions), then wait a bit at the start so they can see it was set back to the original scramble first
+    console.log(mostRecentAlg);
+    console.log(mostRecentAlg === '');
     if (mostRecentAlg !== '') {
-      // console.log('hit 2') // for debugging
+      console.log('hit 2'); // for debugging
       await wait(1000);
     }
     // console.log('hit') // for debugging
     cube.play();
-    // setMostRecentAlgToSolution shouldn't change, solution shouldn't change
+    // setMostRecentAlgToSolution should only change when the solution does
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mostRecentAlg, proceedToNextStepCannotSolveJoyride]);
+  }, [
+    mostRecentAlg,
+    proceedToNextStepCannotSolveJoyride,
+    solution,
+    setMostRecentAlgToSolution,
+  ]);
 
   return (
     <li className="solutionLi mainText">
