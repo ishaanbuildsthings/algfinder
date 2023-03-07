@@ -67,10 +67,6 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
   // track the most recently applied alg, to know if we should delay or not for the animation
   const [mostRecentAlg, setMostRecentAlg] = useState('');
 
-  useEffect(() => {
-    console.log(`most recent alg changed. it is now: ${mostRecentAlg}`);
-  }, [mostRecentAlg]);
-
   // * refs
   const workerRef = useRef(null); // initially the ref points to no worker, we store the worker inside a ref so even when the component re-renders, we can terminate the correct worker
 

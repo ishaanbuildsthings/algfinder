@@ -10,7 +10,8 @@ body {
   /* my styling */
   /* remove blue flash on some responsive sites */
   -webkit-tap-highlight-color: transparent;
-  background-color: #161615;
+  background-color: #121212;
+  /* todo: 161615 */
   font-family: 'Poppins', sans-serif;
   font-size: 15px;
   font-weight: 500;
@@ -42,7 +43,7 @@ code {
 }
 
 .mainColor {
-  background-color: #161615;
+  background-color: #1e1e1e;
 }
 
 .mainText {
@@ -50,7 +51,7 @@ code {
 }
 
 .secondaryColor {
-  background-color: #1e1e1e;
+  background-color: #222;
 }
 
 .topHalf {

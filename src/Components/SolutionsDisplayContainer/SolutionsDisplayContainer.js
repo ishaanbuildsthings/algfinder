@@ -71,7 +71,7 @@ function SolutionsDisplayContainer({
           <button
             type="button"
             onClick={handleSort}
-            className="sortButton mainText qtmButton"
+            className="sortButton qtmButton secondaryColor"
             value="qtm"
           >
             Sort by QTM
@@ -79,7 +79,7 @@ function SolutionsDisplayContainer({
           <button
             type="button"
             onClick={handleSort}
-            className="sortButton mainText"
+            className="sortButton secondaryColor"
             value="stm"
           >
             Sort by STM

@@ -1,8 +1,8 @@
 import { memo } from 'react';
 
 // this is actually imported but the linter does not detect it
-
-import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
+// eslint-disable-next-line no-unused-vars
+// import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
 
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

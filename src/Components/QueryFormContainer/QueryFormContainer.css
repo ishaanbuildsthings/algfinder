@@ -1,6 +1,7 @@
 .bottomButton {
   border-radius: 15px;
   border: none;
+  color: #fff;
   cursor: pointer;
   /* needed due to user agent stylesheet override */
   font-family: 'Poppins', sans-serif;
@@ -13,14 +14,15 @@
 }
 
 .cancelButton {
-  background-color: #ff9999 !important;
-  color: black !important;
+  border: 2px solid #ff9999;
+  color: #ff9999;
   margin-top: 10px;
   padding: 0 12px;
 }
 
 .primaryButton {
-  background-color: #8C9EFF;
+  border: 2px solid #8C9EFF;
+  color: #8C9EFF;
 }
 
 .isToggled {
@@ -42,8 +44,8 @@
 }
 
 .queryFormBorder {
-  border: 2px solid #1e1e1e;
   border-radius: 10px;
+  overflow: hidden;
   margin-bottom: 20px;
 }
 
@@ -85,6 +87,7 @@
 /* remove rounded corners on inputs for ios */
 .queryFormContainer input:not([type="radio"]):not([type="checkbox"]) {
     -webkit-appearance: none;
+    border-radius: 0;
 }
 
 .queryFormContainer label {
@@ -95,7 +98,7 @@
   font-size: 14px;
   font-weight: 500;
   line-height: 2;
-  padding: 15px 0 5px 15px;
+  padding: 10px 0 10px 20px;
   text-transform: uppercase;
 }
 

@@ -80,9 +80,9 @@
   }
 
 .sortButton {
-  background-color: #8C9EFF;
-  border-radius: 8px;
-  border: none;
+  border-radius: 15px;
+  border: 2px solid #8C9EFF;
+  color: #8C9EFF;
   cursor: pointer;
   /* needed due to user agent stylesheet override */
   font-family: 'Poppins', sans-serif;

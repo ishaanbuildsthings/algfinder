@@ -248,7 +248,7 @@ export default function QueryFormContainer({
         {/* in safari this button is bugged as flexbox on buttons is calculated wrong */}
         <button
           type="button"
-          className="bottomButton submitButton primaryButton"
+          className="bottomButton submitButton primaryButton secondaryColor"
           onClick={() => handleSubmit(queriesState)}
         >
           <p>
@@ -268,7 +268,7 @@ export default function QueryFormContainer({
           onClick={() => {
             handleRandomExample();
           }}
-          className="bottomButton randomExampleButton primaryButton"
+          className="bottomButton randomExampleButton primaryButton secondaryColor"
         >
           {determineExampleText()}
         </button>
@@ -278,7 +278,7 @@ export default function QueryFormContainer({
           onClick={() => {
             handleCancel();
           }}
-          className="bottomButton cancelButton mainText secondaryColor"
+          className="bottomButton cancelButton secondaryColor"
         >
           Cancel Solve
         </button>
