@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 /**
- * This is a hook to store and retrieve information from local storage
+ * This is a hook to store and retrieve information from local storage, it uses lazy initialization to only read from local storage once
  */
 export default function useLocalStorage(key, initialValue) {
   const [state, setState] = useState(() => {

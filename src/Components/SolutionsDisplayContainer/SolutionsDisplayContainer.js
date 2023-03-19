@@ -3,8 +3,6 @@ import { memo, useMemo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
-import cx from '@/utils/cx.js';
-
 import Solution from '@/Components/SolutionsDisplayContainer/Solution/Solution.js';
 
 import '@/Components/SolutionsDisplayContainer/SolutionsDisplayContainer.css';
@@ -40,7 +38,6 @@ function SolutionsDisplayContainer({
           }
           setMostRecentAlgToSolution={() => {
             setMostRecentAlg(solution);
-            console.log(`sol is: ${solution}`);
           }}
         />
       )),
@@ -51,7 +48,7 @@ function SolutionsDisplayContainer({
 
   return (
     <div className="solutionsDisplayContainer">
-      <div className="solutionsDisplay">
+      <div className="solutionsDisplay shadow">
         <div className="solutionsHeader mainColor">
           <span className="mainText">Solutions</span>
           <div className="iconAndTooltip">
@@ -59,7 +56,7 @@ function SolutionsDisplayContainer({
               icon={faCircleInfo}
               className="solutionsIcon icon mainText"
             />
-            <div className="solutionsTooltip tooltip accentColor">
+            <div className="solutionsTooltip tooltip accentColor accentColorText">
               <p>
                 Any found solutions will be displayed here. All solutions that
                 exist for a query will be found. You can animate a solution or
@@ -71,29 +68,22 @@ function SolutionsDisplayContainer({
           <button
             type="button"
             onClick={handleSort}
-            className="sortButton qtmButton secondaryColor"
+            className="sortButton accentColor accentColorText qtmButton shadow"
             value="qtm"
           >
-            Sort by QTM
+            Sort QTM
           </button>
           <button
             type="button"
             onClick={handleSort}
-            className="sortButton secondaryColor"
+            className="sortButton accentColor accentColorText shadow"
             value="stm"
           >
-            Sort by STM
+            Sort STM
           </button>
         </div>
         <div className="scrollableSolutions secondaryColor">
-          <ul
-            className={cx(
-              'solutionsUl',
-              solutionsList.length >= 100 && 'shouldApplyPadding'
-            )}
-          >
-            {JsxSolutions}
-          </ul>
+          <ul className="solutionsUl">{JsxSolutions}</ul>
         </div>
       </div>
     </div>

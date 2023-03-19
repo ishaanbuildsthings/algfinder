@@ -1,0 +1,14 @@
+.popup {
+  border-radius: 5px;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+  left: 50%;
+  /* this, and width: max-content; are needed because when we move the div via left: 50% and the screen is narrow, it wraps onto two lines since there is no room, then it moves left via the translate(-50%), so these two properties allow the text not to wrap until necessary */
+  max-width: 80%;
+  padding: 0 10px;
+  position: fixed;
+  text-align: center;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  z-index: 1;
+}

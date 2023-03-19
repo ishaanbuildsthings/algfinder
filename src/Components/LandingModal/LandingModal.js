@@ -2,7 +2,9 @@ import { useCallback, useState } from 'react';
 
 import Floater from 'react-floater';
 
-import { Box, Button, Checkbox, H4 } from '@gilbarbara/components';
+import { Box, Checkbox } from '@gilbarbara/components';
+
+import '@/Components/LandingModal/LandingModal.css';
 
 /**
  * The content component displays what is inside the LandingModal, which is the Modal
@@ -33,34 +35,41 @@ function Content({
   );
   return (
     <Box
+      className="landingModal"
+      shadow="false"
       padding="xl"
       radius="md"
       variant="white"
       width="400px"
-      shadow="low"
       flexBox="true"
       direction="column"
     >
-      <H4 align="center">
-        Welcome to Algfinder, an app that visually solves Rubik's Cubes.
-      </H4>
-      <H4 align="center" mb="xl">
-        To get started, can you solve a Rubik's Cube?
-      </H4>
+      <h2>Welcome to Algfinder, an app that visually solves Rubik's Cubes.</h2>
+      <h2 id="canSolveCube">To get started, can you solve a Rubik's Cube?</h2>
       <Box flexBox="true" justify="space-around">
-        <Button onClick={() => handleButtonClick(handleCanSolveCube)}>
-          Yes
-        </Button>
-        <Button onClick={() => handleButtonClick(handleCannotSolveCube)}>
+        <button
+          className="yesNoButton accentColor accentColorText"
+          type="button"
+          onClick={() => handleButtonClick(handleCanSolveCube)}
+        >
+          <p>Yes</p>
+        </button>
+        <button
+          type="button"
+          className="yesNoButton accentColor accentColorText"
+          onClick={() => handleButtonClick(handleCannotSolveCube)}
+        >
           No
-        </Button>
+        </button>
       </Box>
-      <Checkbox
-        onChange={(event) => {
-          setCheckboxState(event.target.checked);
-        }}
-        label="Do not show this dialog again"
-      />
+      <div className="alignCheckBox">
+        <Checkbox
+          onChange={(event) => {
+            setCheckboxState(event.target.checked);
+          }}
+          label="Do not show this dialog again"
+        />
+      </div>
     </Box>
   );
 }

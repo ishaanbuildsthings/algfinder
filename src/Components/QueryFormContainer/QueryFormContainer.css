@@ -1,32 +1,31 @@
 .bottomButton {
   border-radius: 15px;
   border: none;
-  color: #fff;
   cursor: pointer;
   /* needed due to user agent stylesheet override */
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   height: 50px;
+  /* so the ripple doesn't show outside the borders */
+  overflow: hidden;
+  padding: 0 12px;
+  /* for the ripple positioning */
+  position: relative;
 }
 
-.bottomButton:active {
-  transform: translateY(5px);
+.buttonGrid .movesetButton:nth-child(13) {
+  border-bottom-left-radius: 10px;
+}
+
+.buttonGrid .movesetButton:nth-child(18) {
+  border-bottom-right-radius: 10px;
 }
 
 .cancelButton {
-  border: 2px solid #ff9999;
-  color: #ff9999;
-  margin-top: 10px;
-  padding: 0 12px;
-}
-
-.primaryButton {
-  border: 2px solid #8C9EFF;
-  color: #8C9EFF;
+  margin-top: 5px;
 }
 
 .isToggled {
-  color: #0f0f0f;
   transition: 0.2s;
 }
 
@@ -38,14 +37,13 @@
   font-family: 'Poppins', sans-serif;
   font-size: 14.66px;
   font-weight: 500;
-  height: 30px;
+  height: 34px;
   /* take 1/6th of the button grid which is a blocking div inside the queryFormContainer */
   width: calc(100% / 6);
 }
 
 .queryFormBorder {
   border-radius: 10px;
-  overflow: hidden;
   margin-bottom: 20px;
 }
 
@@ -60,8 +58,9 @@
 }
 
 /* turn off default button outline on android */
-.queryFormContainer button:active, button:focus {
-    outline: none;
+.queryFormContainer button:active,
+button:focus {
+  outline: none;
 }
 
 .queryFormContainer input {
@@ -86,8 +85,8 @@
 
 /* remove rounded corners on inputs for ios */
 .queryFormContainer input:not([type="radio"]):not([type="checkbox"]) {
-    -webkit-appearance: none;
-    border-radius: 0;
+  -webkit-appearance: none;
+  border-radius: 0;
 }
 
 .queryFormContainer label {
@@ -104,13 +103,16 @@
 
 .randomExampleButton {
   margin-right: 12px;
-  margin-top: 10px;
-  padding: 0 12px;
+  margin-top: 5px;
+}
+
+.scrambleLabel {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .submitAndCancelAndRandom {
   display: flex;
-  width: 100%;
 }
 
 /* override user agent stylesheet */
@@ -123,8 +125,8 @@
   display: flex;
   flex: 1;
   justify-content: center;
-  margin: 10px 10px 0 0;
-  padding: 0 12px;
+  margin: 5px 10px 0 0;
+  min-width: 90px;
 }
 
 .submitButton p {
@@ -132,15 +134,24 @@
 }
 
 @media (hover: hover) {
+  .cancelButton:hover {
+    background-color: #7d3b41;
+    transition: 0.2s;
+  }
+
+  .submitButton:hover,
+  .randomExampleButton:hover {
+    background-color: #3e5d87;
+    transition: 0.2s;
+  }
+
   /* get rid of sticky hover when clicking in a field on mobile */
   .queryFormContainer input:hover:not(:focus) {
     background-color: #4c4c4c;
   }
-}
 
-@media (hover: hover) {
   /* get rid of sticky hover when clicking in a field on mobile */
-  .queryFormContainer button:hover:not(.isToggled) {
+  .queryFormContainer .movesetButton:hover:not(.isToggled) {
     background-color: #4c4c4c;
     transition: 0.2s;
   }
@@ -156,21 +167,27 @@
 }
 
 @media (hover: hover) {
+  .light .cancelButton:hover {
+    background-color: #782c2b;
+    transition: 0.2s;
+  }
 
   /* get rid of sticky hover when clicking in a field on mobile */
-  .light .queryFormContainer button:hover:not(.isToggled) {
+  .light .queryFormContainer .movesetButton:hover:not(.isToggled) {
     background-color: #d6d3d3;
   }
-}
-
-@media (hover: hover) {
 
   /* get rid of sticky hover when clicking in a field on mobile */
   .light .queryFormContainer input:hover:not(:focus) {
     background-color: #d6d3d3;
   }
-}
 
+  .light .submitButton:hover,
+  .light .randomExampleButton:hover {
+    background-color: #303F9F;
+    transition: 0.2s;
+  }
+}
 
 /** media queries */
 
@@ -184,7 +201,7 @@
     box-sizing: border-box;
     max-width: none;
     /* move query form up to use extra space */
-    padding: 15px 10px 10px 10px;
+    padding: 30px 10px 10px 10px;
     /* once we flex vertically, fill the whole screen */
     width: 100%;
   }
@@ -198,5 +215,11 @@
   .randomExampleButton {
     line-height: 1.5;
     max-width: 120px;
+  }
+}
+
+@media (max-width: 300px) {
+  .bottomButton {
+    padding: 0 6px;
   }
 }

@@ -17,7 +17,7 @@ function MovesetButton({ value, handleMovesetClick, isToggled }) {
       className={cx(
         !isToggled && 'secondaryColor',
         'movesetButton',
-        isToggled && 'isToggled accentColor'
+        isToggled && 'isToggled accentColor accentColorText'
       )}
       onClick={() => handleMovesetClick(value)}
     >

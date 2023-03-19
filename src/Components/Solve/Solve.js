@@ -1,7 +1,9 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useRef, useState } from 'react';
 
 import Joyride, { ACTIONS, EVENTS, STATUS } from 'react-joyride';
 
+import createRipple from '@/utils/createRipple';
+import depths from '@/utils/computerStrength';
 import generateRandomExample from '@/utils/generateRandomExample.js';
 import {
   joyrideCanSolveSteps,
@@ -13,27 +15,27 @@ import sortSolutionsDictByMoves from '@/utils/sortSolutionsDictByMoves.js';
 import useLocalStorage from '@/utils/hooks/useLocalStorage.js';
 
 import CubePanel from '@/Components/CubePanel/CubePanel.js';
-import ErrorPopup from '@/Components/ErrorPopup/ErrorPopup.js';
+import GenericPopup from '@/Components/GenericPopup/GenericPopup';
 import LandingModal from '@/Components/LandingModal/LandingModal.js';
-import MovesetPopup from '@/Components/MovesetPopup/MovesetPopup.js';
 import NoSolutionsModal from '@/Components/NoSolutionsModal/NoSolutionsModal.js';
 import QueryFormContainer from '@/Components/QueryFormContainer/QueryFormContainer.js';
 import SolutionsDisplayContainer from '@/Components/SolutionsDisplayContainer/SolutionsDisplayContainer.js';
 
-import '@/commonCss/popups.css';
 import '@/commonCss/tooltips.css';
 import '@/commonCss/animation.css';
 import '@/Components/Solve/Solve.css';
 
+// these steps indicate when we interact with the UI to proceed in the joyride
 const CANNOT_SOLVE_CUBE_RANDOM_EXAMPLE_STEP = 0;
 const CANNOT_SOLVE_CUBE_SUBMIT_STEP = 4;
 const CANNOT_SOLVE_CUBE_ANIMATE_STEP = 5;
 
 /**
  * The Solve component is a high-level component that maintains state for both the form and the solutions panel
+ * @params darkModeState - the state of the dark mode for the site, from App.js
  * @usage Used in App.js
  */
-export default function Solve({ solveComponentMountedMoreThanOnce }) {
+function Solve({ darkModeState }) {
   // * states
   // tracks the current list of solutions, passed to solutionsDisplay
   const [solutionsList, setSolutionsList] = useState([]);
@@ -44,7 +46,7 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
     moveset: [],
   });
   // tracks any error messages for a popup error
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('Enter a scramble.');
   // for the product tour
   const [solveCubeJoyrideShowing, setSolveCubeJoyrideShowing] = useState(false);
   const [cannotSolveCubeJoyrideShowing, setCannotSolveCubeJoyrideShowing] =
@@ -67,16 +69,14 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
   // track the most recently applied alg, to know if we should delay or not for the animation
   const [mostRecentAlg, setMostRecentAlg] = useState('');
 
+  // * calculations
+  // no use memo as it introduces overhead
+  const accentColor = darkModeState === 'dark' ? '#4A6FA5' : '#4051B5';
+
   // * refs
   const workerRef = useRef(null); // initially the ref points to no worker, we store the worker inside a ref so even when the component re-renders, we can terminate the correct worker
 
   // * useEffects
-  // whenever the component mounts, update a ref to be true, this makes it so when you go to the FAQ and return to the homepage, the joyrides don't show up again
-  useEffect(() => {
-    solveComponentMountedMoreThanOnce.current = true;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   // whenever the "no solutions found" modal appears, add an event listener to clear it
   useEffect(() => {
     if (!isNoSolutionsModal) {
@@ -121,7 +121,7 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
 
       let { name, value } = event.target;
       value = value.replace(/[‘’]/g, "'"); // replace smart quotes for mobile use
-      if (/^[ RUFLDBrufldxyzMSE'2]*$/.test(value) || value === '') {
+      if (/^[ RUFLDBrufldbxyzMSE'2]*$/.test(value) || value === '') {
         setQueries({
           ...queriesState,
           [name]: value,
@@ -179,6 +179,7 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
   // e.target.value is the value of whether the stm or qtm sort button was clicked
   const handleClickOnSort = useCallback(
     (e) => {
+      createRipple(e);
       const solutionsDict = mapSolutionsListToDict(solutionsList);
       const reorderedList = sortSolutionsDictByMoves(
         solutionsDict,
@@ -202,20 +203,20 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
       }
       setMostRecentAlg(''); // when a new alg is submitted, it implies the next solution that is clicked should be ran instantly, rather than after a delay, so re-assign the most recent alg to ''
       if (depth === '') {
-        setErrorMessage('Please choose a depth!');
+        setErrorMessage('Choose a depth!');
         setErrorPopup(true);
         return;
       }
-      if (moveset.length === 3 && depth > 18) {
+      if (moveset.length === 3 && depth > depths[0]) {
         setErrorMessage(
-          'For scrambles of 3 moves, please choose a depth of at most 18.'
+          `For scrambles of 3 moves, choose a depth of at most ${depths[0]}.`
         );
         setErrorPopup(true);
         return;
       }
-      if (moveset.length === 4 && depth > 14) {
+      if (moveset.length === 4 && depth > depths[1]) {
         setErrorMessage(
-          'For scrambles of 4 moves, please choose a depth of at most 14.'
+          `For scrambles of 4 moves, choose a depth of at most ${depths[1]}.`
         );
         setErrorPopup(true);
         return;
@@ -233,14 +234,22 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
         // if (e.data.slice(0, 1) === '~') {
         //   return;
         // } // for debugging
-        if (e.data === 'done') {
+        if (e.data === 'too many solutions') {
+          setSpinner(false);
+          workerRef.current.terminate();
+          workerRef.current = null;
+          setErrorMessage(
+            'Trimming solutions, too many found!'
+          );
+          setErrorPopup(true);
+        } else if (e.data === 'done') {
           setSpinner(false);
           workerRef.current.terminate();
           workerRef.current = null;
           if (totalSolutions.length === 0) {
             setNoSolutionsModal(true);
           }
-        } else if (typeof e.data === 'string' && e.data !== 'done') {
+        } else if (typeof e.data === 'string') {
           totalSolutions.push(e.data);
           setSolutionsList([...totalSolutions]); // shallow equality is checked
         }
@@ -276,11 +285,13 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
   const createHandleJoyrideCallback = useCallback(
     (setter, setJoyrideShowing) => (data) => {
       const { action, index, status, type } = data;
+      // if we click the next button or back button, adjust the steps
       if ([EVENTS.STEP_AFTER, EVENTS.TARGET_NOT_FOUND].includes(type)) {
         // console.log("🚀 | handleJoyrideCallback | data", data); // for debugging
         setter(index + (action === ACTIONS.PREV ? -1 : 1));
       } else if ([STATUS.FINISHED, STATUS.SKIPPED].includes(status)) {
         setJoyrideShowing(false);
+        setDialogStateAndLocalStorage(false);
       }
     },
     []
@@ -305,7 +316,6 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
 
   // this function is called on every step of the joyride
   const proceedToNextStepCannotSolveJoyride = useCallback(() => {
-    // if we are at the animate step
     if (cannotSolveCubeStepIndex === CANNOT_SOLVE_CUBE_ANIMATE_STEP) {
       setCannotSolveCubeStepIndex(cannotSolveCubeStepIndex + 1);
     }
@@ -313,20 +323,19 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
 
   return (
     <div className="solvePageMinusNav">
-      {!solveComponentMountedMoreThanOnce.current &&
-        dialogLocalStorage !== 'false' && (
-          <LandingModal
-            dontShowDialogAgain={() => setDialogStateAndLocalStorage(false)}
-            handleCanSolveCube={() => {
-              setSolveCubeJoyrideRunning(true);
-              setSolveCubeJoyrideShowing(true); // renders the can solve cube joyride
-            }}
-            handleCannotSolveCube={() => {
-              setCannotSolveCubeJoyrideRunning(true);
-              setCannotSolveCubeJoyrideShowing(true);
-            }}
-          />
-        )}
+      {dialogLocalStorage !== 'false' && (
+        <LandingModal
+          dontShowDialogAgain={() => setDialogStateAndLocalStorage(false)}
+          handleCanSolveCube={() => {
+            setSolveCubeJoyrideRunning(true);
+            setSolveCubeJoyrideShowing(true); // renders the can solve cube joyride
+          }}
+          handleCannotSolveCube={() => {
+            setCannotSolveCubeJoyrideRunning(true);
+            setCannotSolveCubeJoyrideShowing(true);
+          }}
+        />
+      )}
       {solveCubeJoyrideShowing && (
         <Joyride
           disableOverlayClose
@@ -339,10 +348,14 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
           stepIndex={solveCubeStepIndex}
           styles={{
             options: {
-              primaryColor: '#3030e8',
+              // styles the back button
+              primaryColor: accentColor,
             },
             buttonNext: {
               letterSpacing: '0.7px',
+              // styles the next button
+              backgroundColor: accentColor,
+              cursor: solveCubeStepIndex === 0 ? 'default' : 'pointer',
             },
           }}
         />
@@ -359,26 +372,35 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
           stepIndex={cannotSolveCubeStepIndex}
           styles={{
             options: {
-              primaryColor: '#3030e8',
+              // styles the back button
+              primaryColor: accentColor,
             },
             buttonNext: {
               letterSpacing: '0.7px',
+              // styles the next button
+              backgroundColor: accentColor,
+              cursor: cannotSolveCubeStepIndex === 0 ? 'default' : 'pointer',
             },
           }}
         />
       )}
       <div className="topHalf">
         {isMovesetPopupError && (
-          <MovesetPopup killMovesetPopup={() => setMovesetPopupError(false)} />
+          <GenericPopup
+            message="Choose at most 4 moves!"
+            killPopup={() => setMovesetPopupError(false)}
+          popupType="error" />
         )}
         {isErrorPopup && (
-          <ErrorPopup
-            errorMessage={errorMessage}
-            killErrorPopup={() => setErrorPopup(false)}
+          <GenericPopup
+            message={errorMessage}
+            killPopup={() => setErrorPopup(false)}
+            popupType="error"
           />
-        )}
+          )}
         {isNoSolutionsModal && <NoSolutionsModal />}
         <QueryFormContainer
+          errorMessage={errorMessage}
           handleTextChange={handleTextChange}
           handleNumberChange={handleNumberChange}
           handleRandomExample={handleRandomExample}
@@ -402,3 +424,5 @@ export default function Solve({ solveComponentMountedMoreThanOnce }) {
     </div>
   );
 }
+
+export default memo(Solve);

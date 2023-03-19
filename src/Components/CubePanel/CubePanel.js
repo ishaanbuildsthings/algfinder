@@ -1,8 +1,7 @@
 import { memo } from 'react';
 
 // this is actually imported but the linter does not detect it
-// eslint-disable-next-line no-unused-vars
-// import TwistyPlayer from 'cubing/twisty'; // this lets us use the custom web component
+import 'cubing/twisty'; // this lets us use the custom web component
 
 import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,6 +25,7 @@ function Cube({ scramble }) {
   return (
     <div className="cubePanel">
       <twisty-player
+        id="main-player"
         class="cube"
         visualization="PG3D"
         control-panel="none"

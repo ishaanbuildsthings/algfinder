@@ -21,7 +21,7 @@ export default function NavbarListItem({ route, tabName }) {
           history(route);
         }}
         className={cx(
-          location.pathname === route && 'active accentColor',
+          location.pathname === route && 'accentColor accentColorText',
           tabName
         )}
         href={route}

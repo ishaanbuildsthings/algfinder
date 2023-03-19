@@ -1,11 +1,32 @@
+.animateButton {
+  /* push the animate and copy buttons to the right */
+  margin-left: auto;
+}
+
 .animateButton,
 .copyButton {
-  background-color: #926ac3;
+  background-color: #555;
   border: none;
   border-radius: 3px;
+  color: #e4e4e4;
   cursor: pointer;
   font-family: 'Poppins', sans-serif;
   font-size: 13px;
+}
+
+@media (hover: hover) {
+  .animateButton:hover,
+  .copyButton:hover {
+    background-color: #3c3c3c;
+    transition: 0.2s;
+  }
+}
+
+
+.buttonContainer {
+  /* this allows the buttons to have their correct heights */
+  align-items: center;
+  display: flex;
 }
 
 .scrollableSolutions {
@@ -16,21 +37,19 @@
   overflow-y: scroll;
 }
 
-.solutionButton {
-  background: none;
-  border: none;
-  color: inherit;
-  font: inherit;
-  outline: inherit;
-  padding: 0;
+.solution {
+  margin-right: 8px;
 }
 
 .solutionLi {
-  line-height: 2.5;
+  line-height: 2;
   border-bottom: 1px solid #121212;
+  padding-bottom: 5px;
+  padding-top: 5px;
 }
 
 .solutionsDisplay {
+  border-radius: 10px;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -60,8 +79,7 @@
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   display: flex;
-  padding: 5px;
-  padding-left: 15px;
+  padding: 12px 5px 12px 15px;
 }
 
 .solutionsHeaderSpacer {
@@ -69,61 +87,75 @@
   flex: 1;
 }
 
+.solutionsIcon {
+  margin-left: 4px;
+  margin-right: 10px;
+}
+
 .solutionsUl {
   list-style-type: none;
+  margin-top: 5px;
   padding: 0 12px 0 12px;
 }
 
-/* applied when there are more than 100 solutions */
-.shouldApplyPadding {
-    padding-left: 47px;
-  }
-
 .sortButton {
-  border-radius: 15px;
-  border: 2px solid #8C9EFF;
-  color: #8C9EFF;
+  border: none;
+  border-radius: 10px;
   cursor: pointer;
   /* needed due to user agent stylesheet override */
   font-family: 'Poppins', sans-serif;
   font-weight: 500;
   margin-right: 8px;
-  padding: 10px;
+  /* for the ripples */
+  overflow: hidden;
+  padding: 5px 10px;
+  /* for the ripples */
+  position: relative;
 }
 
-.solutionLi button {
+@media (hover: hover) {
+  .sortButton:hover {
+    background-color: #3e5d87;
+    transition: 0.2s;
+  }
+}
+
+.solutionLi .copyButton {
   /* add some spacing between the solution and number */
   margin-left: 10px;
   /* when solutions go on two lines this keeps it lined up */
   text-align: left;
 }
 
-@media (hover: hover) {
+/** light mode */
+.light .animateButton,
+.light .copyButton {
+  background-color: #f7f7f7;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  color: #313131;
+}
 
-  /* get rid of sticky hover when clicking in a field on mobile */
-  .sortButton:hover {
-    background-color: #4c4c4c;
+.light .solutionLi {
+  border-bottom-color: #d9d7d7;
+}
+
+ /* get rid of sticky hover when clicking in a field on mobile */
+@media (hover: hover) {
+  .light .animateButton:hover,
+  .light .copyButton:hover {
+    background-color: #ECECEC;
     transition: 0.2s;
   }
-}
-
-.sortButton:active {
-  transform: translateY(5px);
-}
-
-/** light mode */
-
-@media (hover: hover) {
   .light .scrollableSolutions {
     color-scheme: normal;
   }
 
-  /* get rid of sticky hover when clicking in a field on mobile */
   .light .sortButton:hover {
-    background-color: #d6d3d3;
+    background-color: #303F9F;
+    transition: 0.2s;
   }
-}
 
+}
 
 
 /** media queries */
@@ -135,25 +167,5 @@
     flex: 0.5;
     padding: 5px 10px;
     width: 100%;
-  }
-}
-
-@media (max-width: 345px) {
-  .sortButton {
-    margin-right: 0;
-  }
-}
-
-@media (max-width: 320px) {
-  .qtmButton {
-    margin-right: -5px;
-  }
-}
-
-@media (max-width: 280px) {
-
-  /* prevent scrollbars from showing in scrollable soltuions on very narrow screens */
-  .solutionsUl {
-    margin-top: 5px;
   }
 }

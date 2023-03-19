@@ -128,7 +128,7 @@ export const joyrideCannotSolveSteps = [
   {
     target: '.scrollableSolutions',
     content:
-      'Awesome, it seems like some solutions were found! You can click on the animate button next to any solution to see the cube solve itself in real-time!',
+      'Awesome, it seems like some solutions were found! Click on the animate button next to any solution to see the cube solve itself in real-time!',
     placement: 'right',
     spotlightClicks: true,
     hideCloseButton: true,

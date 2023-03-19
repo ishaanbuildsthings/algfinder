@@ -1,4 +1,5 @@
 li a {
+  /* for unactive tabs */
   color: white;
   display: block;
   padding: 10px 15px;
@@ -7,12 +8,8 @@ li a {
 }
 
 /* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
-li a:hover:not(.active) {
+li a:hover:not(.accentColorText) {
   background-color: #282828;
-}
-
-.active {
-  color: #0f0f0f;
 }
 
 .navbarDiv {
@@ -54,6 +51,7 @@ li a:hover:not(.active) {
 
 .light .navbarDiv {
   background-color: #FAFAF9;
+  border-bottom-color: #e7e7e7;
 }
 
 

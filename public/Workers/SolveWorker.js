@@ -137,6 +137,10 @@ onmessage = function (e) {
           const stage3 = reverseAndInvertMoveList(stage2);
           const stage3s = stage3.join(' ').trim();
           if (!finalSolutions.has(stage3s)) {
+            if (finalSolutions.size > 98) {
+              this.postMessage('too many solutions');
+              return;
+            }
             this.postMessage(stage3s);
             finalSolutions.add(stage3s);
           }
@@ -187,6 +191,10 @@ onmessage = function (e) {
           );
           const stage2s = stage2.join(' ').trim();
           if (!finalSolutions.has(stage2s)) {
+            if (finalSolutions.size > 98) {
+              this.postMessage('too many solutions');
+              return;
+            }
             this.postMessage(stage2s);
             finalSolutions.add(stage2s);
           }

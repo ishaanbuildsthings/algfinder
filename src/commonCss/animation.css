@@ -1,13 +1,21 @@
-.fade-out {
+.fadeOutAnimation {
   animation-delay: 1.5s;
   animation-duration: 1s;
   animation-fill-mode: forwards;
   animation-name: fadeOut;
 }
 
+.ripple {
+  animation: ripple 350ms linear;
+  /* reset the animation to the beginning */
+  animation-fill-mode: forwards;
+  border-radius: 50%;
+  /* take it out of the flow of the document to show above the button */
+  position: absolute;
+}
+
 .spinner {
   animation: spin infinite 2s linear;
-  color: #e4e4e4;
   margin: 0 5px;
 }
 
@@ -21,6 +29,17 @@
   }
 }
 
+/* The ripple should initially start semi opaque and become fully transparent by the end of the transform, it will start at some arbitrary scale and grow to be a circle with diameter of the longest side length of the button that produced the ripple. The ripple is continuously offset based on the code in the createRipple function. and the ripple is also offset by the 'top' and 'left' properties dynamically in the createRipple function. Note the ripple might not truly fill the button as the ripple is a circle but the button might be a square, this can be changed by making the ripple grow to a larger size if needed */
+@keyframes ripple {
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -28,17 +47,5 @@
 
   to {
     transform: rotate(360deg);
-  }
-}
-
-@keyframes pulse {
-  0% {
-    background-color: #282828;
-  }
-  50% {
-    background-color: black;
-  }
-  100% {
-    background-color: #282828;
   }
 }

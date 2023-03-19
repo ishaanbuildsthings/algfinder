@@ -9,18 +9,17 @@
   height: 43px;
   justify-content: center;
   margin-right: 3vw;
+  /* the ripple shouldn't exceed past the button */
+  overflow: hidden;
   padding: 0;
+  /* position the ripple absolutely inside the button */
+  position: relative;
   width: 43px;
 }
 
-.darkButton:active {
-  animation-name: pulse;
-  animation-duration: 1s;
-}
-
 .darkButton:hover {
-  cursor: pointer;
   background-color: #282828;
+  cursor: pointer;
 }
 
 .light .darkButton {

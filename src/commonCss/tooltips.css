@@ -1,16 +1,10 @@
 .iconAndTooltip {
-
   position: relative;
-}
-
-.solutionsIcon {
-  margin-left: 4px;
 }
 
 .tooltip {
   border-radius: 5px;
-  border: 1px solid black;
-  color: #fff;
+  box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
   /* by default do not show or take up space */
   display: none;
   font-size: 14px;
@@ -21,6 +15,7 @@
   position: absolute;
   /* override all caps that came from the labels */
   text-transform: none;
+  /* appear above other info tags in certain viewports */
   z-index: 1;
 }
 
@@ -91,6 +86,7 @@
 }
 
 @media (max-width: 480px) {
+
   .scrambleTooltip,
   .depthTooltip,
   .movesetTooltip,

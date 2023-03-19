@@ -1,9 +1,10 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useCallback, useEffect, useMemo } from 'react';
+import { memo, useCallback, useEffect, useMemo } from 'react';
 
 import { faCircleInfo, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+import createRipple from '@/utils/createRipple';
 import useWindowSize from '@/utils/hooks/useWindowSize.js';
 
 import MovesetButton from '@/Components/MovesetButton/MovesetButton.js';
@@ -13,6 +14,7 @@ import '@/Components/QueryFormContainer/QueryFormContainer.css';
 /**
  * This is the form in which the user enters information for a solve
  * @param
+ * errorMessage - the message for the error if a user enters a depth that is too long based on their hardware
  * handleTextChange - modifies the Solve.js state based on entered scramble text
  * handleNumberChange - modifies the Solve.js state based on entered depth
  * handleRandomExample - modifies the Solve.js queriesState with a randomly generated example
@@ -23,7 +25,8 @@ import '@/Components/QueryFormContainer/QueryFormContainer.css';
  * isSpinner - the statee if the spinner should show
  * @usage Used in Solve.js
  */
-export default function QueryFormContainer({
+function QueryFormContainer({
+  errorMessage,
   handleTextChange,
   handleNumberChange,
   handleRandomExample,
@@ -58,9 +61,9 @@ export default function QueryFormContainer({
     };
   }, []);
 
-  //* helpers
+  //* useCallback
   // these helpers change what text shows based on the screen size
-  function determineScramblePlaceholderText() {
+  const determineScramblePlaceholderText = useCallback(() => {
     if (windowSize.width <= 352) {
       return '[Tap here to enter]';
     }
@@ -74,9 +77,9 @@ export default function QueryFormContainer({
       return '[Tap here to enter scramble]';
     }
     return '[Click here to enter scramble you want to solve]';
-  }
+  }, [windowSize]);
 
-  function determineDepthPlaceholderText() {
+  const determineDepthPlaceholderText = useCallback(() => {
     if (windowSize.width <= 352) {
       return '[Tap here to enter]';
     }
@@ -90,9 +93,9 @@ export default function QueryFormContainer({
       return '[Tap here to enter max length]';
     }
     return '[Click here to enter maximum algorithm length]';
-  }
+  }, [windowSize]);
 
-  function determineGeneratingText() {
+  const determineGeneratingText = useCallback(() => {
     // some leeway is added for different fonts
     if (windowSize.width <= 320) {
       return 'Solving';
@@ -107,16 +110,15 @@ export default function QueryFormContainer({
       return 'Generating';
     }
     return 'Generating Solutions';
-  }
+  }, [windowSize]);
 
-  function determineExampleText() {
+  const determineExampleText = useCallback(() => {
     if (windowSize.width <= 360) {
       return 'Random Example';
     }
     return 'Try a Random Example';
-  }
+  }, [windowSize]);
 
-  // * functions
   // creates an entire row of moveset buttons
   const createManyJsxButtons = useCallback(
     (listOfLetters) => {
@@ -155,18 +157,20 @@ export default function QueryFormContainer({
   );
 
   return (
-    // queryFormContainer goes here
     <div className="queryFormContainer">
-      <div className="queryFormBorder">
+      <div className="queryFormBorder shadow">
         <section>
-          <label className="mainText mainColor" htmlFor="scrambleInput">
+          <label
+            className="mainText mainColor scrambleLabel"
+            htmlFor="scrambleInput"
+          >
             Scramble
             <div className="iconAndTooltip">
               <FontAwesomeIcon
                 icon={faCircleInfo}
                 className="scrambleIcon icon mainText"
               />
-              <div className="scrambleTooltip tooltip accentColor">
+              <div className="scrambleTooltip tooltip accentColor accentColorText">
                 <p>Enter the scramble you want to solve.</p>
                 <p>Example: R2 U R U R' U' R' U' R' U R'</p>
               </div>
@@ -193,7 +197,7 @@ export default function QueryFormContainer({
                 icon={faCircleInfo}
                 className="depthIcon icon mainText"
               />
-              <div className="depthTooltip tooltip accentColor">
+              <div className="depthTooltip tooltip accentColor accentColorText">
                 <p>
                   Enter the maximum length of solutions the solver should give.
                 </p>
@@ -205,16 +209,19 @@ export default function QueryFormContainer({
             </div>
           </label>
 
-          <input
-            id="depthInput"
-            type="text"
-            placeholder={determineDepthPlaceholderText()}
-            className="secondaryColor mainText"
-            name="depth"
-            autoComplete="off"
-            value={queriesState.depth}
-            onChange={handleNumberChange}
-          />
+          <div className="secondaryColor">
+            <input
+              id="depthInput"
+              type="text"
+              placeholder={determineDepthPlaceholderText()}
+              /* secondaryColor is needed again, despite the outer div having it, due to user agent stylesheet specificity */
+              className="mainText secondaryColor"
+              name="depth"
+              autoComplete="off"
+              value={queriesState.depth}
+              onChange={handleNumberChange}
+            />
+          </div>
         </section>
 
         <section>
@@ -225,7 +232,7 @@ export default function QueryFormContainer({
                 icon={faCircleInfo}
                 className="movesetIcon mainText icon"
               />
-              <div className="movesetTooltip tooltip accentColor">
+              <div className="movesetTooltip tooltip accentColor accentColorText">
                 <p>
                   Enter the move types you want the solutions to be restricted
                   to.
@@ -237,7 +244,7 @@ export default function QueryFormContainer({
               </div>
             </div>
           </label>
-          <div>
+          <div className="buttonGrid">
             {buttonListFaceMoves}
             {buttonListWideMoves}
             {buttonListSliceAndRotation}
@@ -248,14 +255,17 @@ export default function QueryFormContainer({
         {/* in safari this button is bugged as flexbox on buttons is calculated wrong */}
         <button
           type="button"
-          className="bottomButton submitButton primaryButton secondaryColor"
+          className="bottomButton submitButton accentColor accentColorText shadow"
           onClick={() => handleSubmit(queriesState)}
         >
           <p>
             {isSpinner ? (
               <>
                 {determineGeneratingText()}{' '}
-                <FontAwesomeIcon className="spinner fa-lg" icon={faSpinner} />
+                <FontAwesomeIcon
+                  className="spinner fa-lg accentColorText"
+                  icon={faSpinner}
+                />
               </>
             ) : (
               'Generate Solutions'
@@ -265,20 +275,22 @@ export default function QueryFormContainer({
 
         <button
           type="button"
-          onClick={() => {
+          onClick={(event) => {
+            createRipple(event);
             handleRandomExample();
           }}
-          className="bottomButton randomExampleButton primaryButton secondaryColor"
+          className="bottomButton randomExampleButton accentColor accentColorText shadow"
         >
           {determineExampleText()}
         </button>
 
         <button
           type="button"
-          onClick={() => {
+          onClick={(event) => {
+            createRipple(event);
             handleCancel();
           }}
-          className="bottomButton cancelButton secondaryColor"
+          className="bottomButton cancelButton errorColor shadow"
         >
           Cancel Solve
         </button>
@@ -286,3 +298,5 @@ export default function QueryFormContainer({
     </div>
   );
 }
+
+export default memo(QueryFormContainer);

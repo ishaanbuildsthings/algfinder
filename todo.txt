@@ -5,12 +5,28 @@ SO question about memoize that i also asked on slack
 react router bob zirolle course
 make custom git commands
 clean mac setup
+why does margin-left: auto in a flexbox div space all of the items to the right, why doesnt it work in a normal div?
+how come we can leave comments inside jsx?
+ask tirumal about the mysterios padding inside buttons
 
+dockerized backend with load balancer and preprocessed data with pro mode and diagrams
 add gif for github
-add twisty-alg-viewer
+set up me@ishaan.ag email
+add testing
+add web accessibility and semantic html elements
+
+
 add more cool examples
-set up codepen with render and cube.play
 more vlaidations / notes
-most recent alg timer isnt working, and typing in scramble doesnt work
+read all code
+check lighthouse and rendering
+
+
+test hovers for cancel and sort buttons and everything on ios and android
+check selection color on all devices and normal colors for all
+make sure joyride is okay with new colors on lower constrast screens
+validate scrambles and stylings and shit
 safari styling
-check ram or device to limit
+
+2) the player is messed up when i animate then click try a random example
+

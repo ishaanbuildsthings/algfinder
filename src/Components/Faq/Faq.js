@@ -1,65 +1,101 @@
 import '@/Components/Faq/Faq.css';
 
-// todo: add why there are restricited move depths, learn notation, this isnt useful as i dont know how to get to this state, scroll up arrow, table of contents
 export default function Faq() {
   return (
     <div className="documentationDiv">
-      <ul>
-        <li>Who made this?</li>
-        <li>Can I add to the source code?</li>
-        <li>How does the solving algorithm work? (for nerds)</li>
-        <li>Where can I learn Rubik's Cube notation?</li>
-        <li>Why are there restrictions for search depth?</li>
-        <li>Can you make the program run faster?</li>
-        <li>Why did you make computation on the client side?</li>
-        <li>
-          This isn't useful if I don't know how to reach a position in the cube
-          already!
-        </li>
-      </ul>
-      <h2>Who made this?</h2>
-      <p>
-        This tool was made by{' '}
-        <a
-          href="https://www.worldcubeassociation.org/persons/2015AGRA03"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Ishaan Agrawal.
-        </a>{' '}
-        In 2017, I broke the&nbsp;
-        <a
-          href="https://www.youtube.com/watch?v=N8MNEngonTs"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          world record&nbsp;
-        </a>
-        for solving a Rubik's Cube while blindfolded by spending thousands of
-        hours finding algorithms by hand, to make my solutions hyper-efficient.
-        I made this tool to automate that process for others and save time!
-      </p>
-      <p>
-        I am currently looking for an entry level Web Development job, if you
-        know of an opportunity, would like to introduce someone to me, or just
-        want to chat, please contact me:&nbsp;
-        <a
-          href="https://www.ishaan.ag"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Portfolio & Resume,{' '}
-        </a>
-        <a href="mailto:me@ishaan.ag"> Email, </a>
-        <a
-          href="https://github.com/agrawalishaan"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {' '}
-          Github
-        </a>
-      </p>
+      <div className="madeThisContainer">
+        <div className="madeThisContainerText">
+          <div className="madeThisContainerBlurb">
+            <h2 id="madeThis">About</h2>
+            <p>
+              This tool was made by{' '}
+              <a
+                href="https://www.worldcubeassociation.org/persons/2015AGRA03"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Ishaan Agrawal.
+              </a>{' '}
+              In 2017, I broke the&nbsp;
+              <a
+                href="https://www.youtube.com/watch?v=N8MNEngonTs"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                world record&nbsp;
+              </a>
+              for solving a Rubik's Cube while blindfolded by spending thousands
+              of hours finding algorithms by hand, to make my solutions
+              hyper-efficient. I made this tool to automate that process for
+              others and push the limits of speedcubing!
+            </p>
+            <p>
+              I am currently looking for an entry level Web Development job, if
+              you know of an opportunity, would like to introduce someone to me,
+              or just want to chat, please contact me:&nbsp;
+              <a
+                href="https://www.ishaan.ag"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Portfolio & Resume,{' '}
+              </a>
+              <a href="mailto:me@ishaan.ag"> Email, </a>
+              <a
+                href="https://github.com/agrawalishaan"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {' '}
+                Github
+              </a>
+            </p>
+          </div>
+        </div>
+        <iframe
+          className="youtubeVideo"
+          height="315"
+          src="https://www.youtube.com/embed/N8MNEngonTs?start=58"
+          title="Ishaan Agrawal [former] WORLD RECORD - Rubik&#39;s Cube BLD average: 22.67s"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      </div>
+      <div className="tableOfContents secondaryColor shadow">
+        <h2>Table of Contents</h2>
+        <div className="relevantLinksTable">
+          <h3>Relevant Links</h3>
+          <a>Source Code (contributions welcome)</a>
+          <a>Making a custom bit encoding for preprocessed data</a>
+          <a>Sharding data, creating constant-time disk reads, </a>
+        </div>
+        <div className="technicalTable">
+          <h3>Technical Questions</h3>
+          <a>Where is the source code?</a>
+          <a>How does the solving algorithm work?</a>
+          <a>Why are there resitrictions for search depth?</a>
+          <a>How did you preprocess data to improve the time-complexity?</a>
+          <a>How did you architecture the backend?</a>
+          <a>
+            Why doesn't this algorithm solve cube states ending in different
+            orientations?
+          </a>
+        </div>
+        <div className="generalTable">
+          <h3>General Questions</h3>
+          <a to="#madeThis">Who made this?</a>
+          <a>Where can I learn Rubik's Cube notation?</a>
+          <a>
+            This isn't useful if I don't know how to reach a position in the
+            cube already!
+          </a>
+          <a>I have an idea on how to improve this app!</a>
+          <a>Where did you learn to code?</a>
+        </div>
+      </div>
+
+      <h2>Where did you learn to code?</h2>
       <p>
         Special thanks to Tony Peng and{' '}
         <a
