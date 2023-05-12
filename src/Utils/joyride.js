@@ -113,7 +113,7 @@ export const joyrideCannotSolveSteps = [
   {
     target: '.buttonGrid',
     content:
-      'Finally, a moveset was chosen. We will restrict our solutions to only use these moves on the cube.',
+      'Finally, a moveset was chosen. We will restrict our solutions to only use these moves on the cube. Each letter corresponds to a turn on the cube.',
     placement: 'right',
     hideCloseButton: true,
   },
@@ -128,7 +128,7 @@ export const joyrideCannotSolveSteps = [
   {
     target: '.scrollableSolutions',
     content:
-      'Awesome, it seems like some solutions were found! Click on the animate button next to any solution to see the cube solve itself in real-time!',
+      'Awesome, it seems like some solutions were found! Click on the animate button next to any solution to see the cube solve itself in real-time.',
     placement: 'right',
     spotlightClicks: true,
     hideCloseButton: true,
@@ -136,7 +136,7 @@ export const joyrideCannotSolveSteps = [
   },
   {
     target: '.cube',
-    content: 'Watch and hear the cube solve itself in real-time!',
+    content: 'Watch and hear the cube solve itself!',
     placement: 'left',
     hideCloseButton: true,
   },

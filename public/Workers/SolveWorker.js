@@ -1,17 +1,118 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable class-methods-use-this */
 // this represents the state of a solved cube returned by getState() on a new cube
 // also used to initialize the state of a cube
+
+const scrambledDeque = {
+  headPosition: 0,
+  tailPosition: -1,
+  storage: {},
+  enqueueRight(val) {
+    this.tailPosition++;
+    this.storage[this.tailPosition] = val;
+  },
+  dequeueRight() {
+    // trying to dequeue from an empty queue
+    if (this.tailPosition < this.headPosition) {
+      return null;
+    }
+
+    const value = this.storage[this.tailPosition];
+    delete this.storage[this.tailPosition];
+    this.tailPosition--;
+    return value;
+  },
+  dequeueLeft() {
+    // trying to dequeue from an empty queue
+    if (this.tailPosition < this.headPosition) {
+      return null;
+    }
+
+    const value = this.storage[this.headPosition];
+    delete this.storage[this.headPosition];
+    this.headPosition++;
+    return value;
+  },
+  peekRight() {
+    // trying to peek from an empty queue
+    if (this.tailPosition < this.headPosition) {
+      return null;
+    }
+    return this.storage[this.tailPosition];
+  },
+  peekLeft() {
+    // trying to peek from an empty queue
+    if (this.tailPosition < this.headPosition) {
+      return null;
+    }
+    return this.storage[this.headPosition];
+  },
+  size() {
+    return this.tailPosition - this.headPosition + 1;
+  },
+};
+
+const solvedDeque = {
+  headPosition: 0,
+  tailPosition: -1,
+  storage: {},
+  enqueueRight(val) {
+    this.tailPosition++;
+    this.storage[this.tailPosition] = val;
+  },
+  dequeueRight() {
+    // trying to dequeue from an empty queue
+    if (this.tailPosition < this.headPosition) {
+      return null;
+    }
+
+    const value = this.storage[this.tailPosition];
+    delete this.storage[this.tailPosition];
+    this.tailPosition--;
+    return value;
+  },
+  dequeueLeft() {
+    // trying to dequeue from an empty queue
+    if (this.tailPosition < this.headPosition) {
+      return null;
+    }
+
+    const value = this.storage[this.headPosition];
+    delete this.storage[this.headPosition];
+    this.headPosition++;
+    return value;
+  },
+  peekRight() {
+    // trying to peek from an empty queue
+    if (this.tailPosition < this.headPosition) {
+      return null;
+    }
+    return this.storage[this.tailPosition];
+  },
+  peekLeft() {
+    // trying to peek from an empty queue
+    if (this.tailPosition < this.headPosition) {
+      return null;
+    }
+    return this.storage[this.headPosition];
+  },
+  size() {
+    return this.tailPosition - this.headPosition + 1;
+  },
+};
+
+//! rename variables, remove get
 const SOLVED_CUBE = [
-  ['⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜', '⬜'],
-  ['🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩', '🟩'],
-  ['🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥', '🟥'],
-  ['🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨', '🟨'],
-  ['🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧', '🟧'],
-  ['🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦', '🟦'],
+  ["⬜", "⬜", "⬜", "⬜", "⬜", "⬜", "⬜", "⬜", "⬜"],
+  ["🟩", "🟩", "🟩", "🟩", "🟩", "🟩", "🟩", "🟩", "🟩"],
+  ["🟥", "🟥", "🟥", "🟥", "🟥", "🟥", "🟥", "🟥", "🟥"],
+  ["🟨", "🟨", "🟨", "🟨", "🟨", "🟨", "🟨", "🟨", "🟨"],
+  ["🟧", "🟧", "🟧", "🟧", "🟧", "🟧", "🟧", "🟧", "🟧"],
+  ["🟦", "🟦", "🟦", "🟦", "🟦", "🟦", "🟦", "🟦", "🟦"],
 ];
 
 const SOLVED_CUBE_STATE =
-  '⬜⬜⬜⬜⬜⬜⬜⬜⬜🟩🟩🟩🟩🟩🟩🟩🟩🟩🟥🟥🟥🟥🟥🟥🟥🟥🟥🟨🟨🟨🟨🟨🟨🟨🟨🟨🟧🟧🟧🟧🟧🟧🟧🟧🟧🟦🟦🟦🟦🟦🟦🟦🟦🟦';
+  "⬜⬜⬜⬜⬜⬜⬜⬜⬜🟩🟩🟩🟩🟩🟩🟩🟩🟩🟥🟥🟥🟥🟥🟥🟥🟥🟥🟨🟨🟨🟨🟨🟨🟨🟨🟨🟧🟧🟧🟧🟧🟧🟧🟧🟧🟦🟦🟦🟦🟦🟦🟦🟦🟦";
 
 // when the worker receives a message from the main thread
 // e.data = the params we send in via postMessage
@@ -19,13 +120,13 @@ onmessage = function (e) {
   let { processedScramble, moveset, depth } = e.data;
   const finalSolutions = new Set(); // this is to track if repeat solutions are found
   const oddStatus = Boolean(depth % 2);
-  const scramble = processedScramble.split(' ');
+  const scramble = processedScramble.split(" ");
 
   // if the scramble starts with rotations, remove them, this way for x R' U' R' we get the solution R U R
   while (
-    scramble[0][0] === 'x' ||
-    scramble[0][0] === 'y' ||
-    scramble[0][0] === 'z'
+    scramble[0][0] === "x" ||
+    scramble[0][0] === "y" ||
+    scramble[0][0] === "z"
   ) {
     scramble.shift();
   }
@@ -43,13 +144,13 @@ onmessage = function (e) {
     JSON.stringify(scrambledCube.getReorderedState()) ===
     JSON.stringify(SOLVED_CUBE_STATE)
   ) {
-    this.postMessage('');
-    finalSolutions.add(''); // if a scrambled cube finds a state via R, and a solved cube finds a state via R', the intersection is '', so we need to add this to final solutions to prevent duplicates
+    this.postMessage("");
+    finalSolutions.add(""); // if a scrambled cube finds a state via R, and a solved cube finds a state via R', the intersection is '', so we need to add this to final solutions to prevent duplicates
   }
 
   // if the depth is 0, or there isn't a moveset, finish
   if (depth === 0 || moveset.length === 0) {
-    this.postMessage('done');
+    this.postMessage("done");
     return;
   }
 
@@ -85,14 +186,14 @@ onmessage = function (e) {
     ) {
       this.postMessage(moveset[0]);
     }
-    this.postMessage('done');
+    this.postMessage("done");
   }
 
   // setup for search algorithm
-  const solvedHash = { [solvedCube.getState()]: [''] };
-  const solvedQueue = [solvedCube]; // holds a queue of cubes
-  const scrambledHash = { [scrambledCube.getState()]: [''] };
-  const scrambledQueue = [scrambledCube];
+  const solvedHash = { [solvedCube.getState()]: [""] };
+  solvedDeque.enqueueRight(solvedCube);
+  const scrambledHash = { [scrambledCube.getState()]: [""] };
+  scrambledDeque.enqueueRight(scrambledCube);
 
   let depthOfNextQueuedCube = 0;
 
@@ -100,7 +201,7 @@ onmessage = function (e) {
 
   while (depthOfNextQueuedCube < depth) {
     // grab the next cube from the list and create its adjacency list
-    const parentSolvedCube = solvedQueue.shift();
+    const parentSolvedCube = solvedDeque.dequeueLeft();
 
     let solvedAdjacencyList;
     // if our cube is the very first initial solved cube, don't allow rotations to start
@@ -122,23 +223,23 @@ onmessage = function (e) {
       // if this state hasnt been reached, initialize the ways to reach that state
       if (!(adjacentReorderedState in solvedHash)) {
         solvedHash[adjacentReorderedState] = [
-          adjacentCube.movesApplied.join(' '),
+          adjacentCube.movesApplied.join(" "),
         ];
       } else {
         solvedHash[adjacentReorderedState].push(
-          adjacentCube.movesApplied.join(' ')
+          adjacentCube.movesApplied.join(" ")
         );
       }
       if (adjacentReorderedState in scrambledHash) {
         for (let scrambledHalfway of scrambledHash[adjacentReorderedState]) {
-          scrambledHalfway = scrambledHalfway.split(' ');
+          scrambledHalfway = scrambledHalfway.split(" ");
           const stage1 = reverseAndInvertMoveList(scrambledHalfway);
           const stage2 = cleanUpIntersection(adjacentCube.movesApplied, stage1);
           const stage3 = reverseAndInvertMoveList(stage2);
-          const stage3s = stage3.join(' ').trim();
+          const stage3s = stage3.join(" ").trim();
           if (!finalSolutions.has(stage3s)) {
             if (finalSolutions.size > 98) {
-              this.postMessage('too many solutions');
+              this.postMessage("too many solutions");
               return;
             }
             this.postMessage(stage3s);
@@ -146,14 +247,14 @@ onmessage = function (e) {
           }
         }
       }
-      solvedQueue.push(adjacentCube);
+      solvedDeque.enqueueRight(adjacentCube);
     }
     // update the depth for the next cube
-    depthOfNextQueuedCube = solvedQueue[0].depth;
+    depthOfNextQueuedCube = solvedDeque.peekLeft().depth;
 
     // SCRAMBLED END
 
-    const parentScrambledCube = scrambledQueue.shift();
+    const parentScrambledCube = scrambledDeque.dequeueLeft();
 
     // pruning
     if (oddStatus && parentScrambledCube.depth === depth - 1) {
@@ -172,27 +273,27 @@ onmessage = function (e) {
 
       if (!(scrambledAdjacentReorderedState in scrambledHash)) {
         scrambledHash[scrambledAdjacentReorderedState] = [
-          scrambledAdjacentCube.movesApplied.join(' '),
+          scrambledAdjacentCube.movesApplied.join(" "),
         ];
       } else {
         // if it has been reached, just add another state
         scrambledHash[scrambledAdjacentReorderedState].push(
-          scrambledAdjacentCube.movesApplied.join(' ')
+          scrambledAdjacentCube.movesApplied.join(" ")
         );
       }
 
       if (scrambledAdjacentReorderedState in solvedHash) {
         for (let solvedHalfway of solvedHash[scrambledAdjacentReorderedState]) {
-          solvedHalfway = solvedHalfway.split(' ');
+          solvedHalfway = solvedHalfway.split(" ");
           const stage1 = reverseAndInvertMoveList(solvedHalfway);
           const stage2 = cleanUpIntersection(
             scrambledAdjacentCube.movesApplied,
             stage1
           );
-          const stage2s = stage2.join(' ').trim();
+          const stage2s = stage2.join(" ").trim();
           if (!finalSolutions.has(stage2s)) {
             if (finalSolutions.size > 98) {
-              this.postMessage('too many solutions');
+              this.postMessage("too many solutions");
               return;
             }
             this.postMessage(stage2s);
@@ -200,11 +301,11 @@ onmessage = function (e) {
           }
         }
       }
-      scrambledQueue.push(scrambledAdjacentCube);
+      scrambledDeque.enqueueRight(scrambledAdjacentCube);
     }
   }
   // this.postMessage(`~final set: ${finalSolutions.size}`); // for debugging
-  this.postMessage('done');
+  this.postMessage("done");
 };
 
 // ! ################################### CUBE ###################################
@@ -258,12 +359,12 @@ class Cube {
   // returns string representation of state
   getState() {
     return (
-      this.uFace.join('') +
-      this.fFace.join('') +
-      this.rFace.join('') +
-      this.dFace.join('') +
-      this.lFace.join('') +
-      this.bFace.join('')
+      this.uFace.join("") +
+      this.fFace.join("") +
+      this.rFace.join("") +
+      this.dFace.join("") +
+      this.lFace.join("") +
+      this.bFace.join("")
     );
   }
 
@@ -279,12 +380,12 @@ class Cube {
     ]);
 
     return (
-      hashableCubeState[0].join('') +
-      hashableCubeState[1].join('') +
-      hashableCubeState[2].join('') +
-      hashableCubeState[3].join('') +
-      hashableCubeState[4].join('') +
-      hashableCubeState[5].join('')
+      hashableCubeState[0].join("") +
+      hashableCubeState[1].join("") +
+      hashableCubeState[2].join("") +
+      hashableCubeState[3].join("") +
+      hashableCubeState[4].join("") +
+      hashableCubeState[5].join("")
     );
   }
 
@@ -293,9 +394,9 @@ class Cube {
     let greenSide;
     let whiteSide;
     for (let i = 0; i < cubeState.length; i += 1) {
-      if (cubeState[i][4] === '🟩') {
+      if (cubeState[i][4] === "🟩") {
         greenSide = i;
-      } else if (cubeState[i][4] === '⬜') {
+      } else if (cubeState[i][4] === "⬜") {
         whiteSide = i;
       }
     }
@@ -358,14 +459,14 @@ class Cube {
       const tempd = d.slice();
       const tempf = f.slice();
 
-      if (move === 'x') {
+      if (move === "x") {
         u.splice(0, 9, ...tempf);
         b.splice(0, 9, ...tempu.reverse());
         d.splice(0, 9, ...tempb.reverse());
         f.splice(0, 9, ...tempd);
         rotateFace(l, -90);
         rotateFace(r, 90);
-      } else if (move === 'x2') {
+      } else if (move === "x2") {
         u.splice(0, 9, ...tempd);
         b.splice(0, 9, ...tempf.reverse());
         d.splice(0, 9, ...tempu);
@@ -389,14 +490,14 @@ class Cube {
       const tempb = b.slice();
       const tempr = r.slice();
 
-      if (move === 'y') {
+      if (move === "y") {
         f.splice(0, 9, ...tempr);
         r.splice(0, 9, ...tempb);
         b.splice(0, 9, ...templ);
         l.splice(0, 9, ...tempf);
         rotateFace(u, 90);
         rotateFace(d, -90);
-      } else if (move === 'y2') {
+      } else if (move === "y2") {
         f.splice(0, 9, ...tempb);
         r.splice(0, 9, ...templ);
         b.splice(0, 9, ...tempf);
@@ -452,14 +553,14 @@ class Cube {
         );
       };
 
-      if (move === 'z') {
+      if (move === "z") {
         helpZ(u, templ);
         helpZ(r, tempu);
         helpZ(d, tempr);
         helpZ(l, tempd);
         rotateFace(f, 90);
         rotateFace(b, -90);
-      } else if (move === 'z2') {
+      } else if (move === "z2") {
         u.splice(0, 9, ...tempd.reverse()); // need splice as we are mutating the actual face
         r.splice(0, 9, ...templ.reverse());
         d.splice(0, 9, ...tempu.reverse());
@@ -479,21 +580,21 @@ class Cube {
     if (greenSide === 0) {
       handleX("x'");
     } else if (greenSide === 2) {
-      handleY('y');
+      handleY("y");
     } else if (greenSide === 3) {
-      handleX('x');
+      handleX("x");
     } else if (greenSide === 4) {
       handleY("y'");
     } else if (greenSide === 5) {
-      handleY('y2');
+      handleY("y2");
     }
 
     if (whiteSide === 2) {
       handleZ("z'");
     } else if (whiteSide === 3) {
-      handleZ('z2');
+      handleZ("z2");
     } else if (whiteSide === 4) {
-      handleZ('z');
+      handleZ("z");
     }
 
     return cubeState;
@@ -512,7 +613,7 @@ class Cube {
         b.splice(0, 3, ...tempr);
         r.splice(0, 3, ...tempf);
         f.splice(0, 3, ...templ);
-      } else if (lastChar === '2') {
+      } else if (lastChar === "2") {
         l.splice(0, 3, ...tempr);
         b.splice(0, 3, ...tempf);
         r.splice(0, 3, ...templ);
@@ -535,7 +636,7 @@ class Cube {
         [d[2], d[5], d[8]] = tempf;
         [f[2], f[5], f[8]] = tempu;
         [u[2], u[5], u[8]] = tempb.reverse();
-      } else if (lastChar === '2') {
+      } else if (lastChar === "2") {
         [b[0], b[3], b[6]] = tempf.reverse();
         [d[2], d[5], d[8]] = tempu;
         [f[2], f[5], f[8]] = tempb.reverse();
@@ -558,7 +659,7 @@ class Cube {
         [r[0], r[3], r[6]] = tempd;
         d.splice(0, 3, ...templ.reverse());
         [l[2], l[5], l[8]] = tempu.reverse();
-      } else if (lastChar === '2') {
+      } else if (lastChar === "2") {
         u.splice(6, 3, ...tempd);
         [r[0], r[3], r[6]] = templ;
         d.splice(0, 3, ...tempu.reverse());
@@ -581,7 +682,7 @@ class Cube {
         l.splice(6, 3, ...tempf);
         b.splice(6, 3, ...templ);
         r.splice(6, 3, ...tempb);
-      } else if (lastChar === '2') {
+      } else if (lastChar === "2") {
         f.splice(6, 3, ...tempb);
         r.splice(6, 3, ...templ);
         b.splice(6, 3, ...tempf);
@@ -604,7 +705,7 @@ class Cube {
         [f[0], f[3], f[6]] = tempd;
         [d[0], d[3], d[6]] = tempb;
         [b[8], b[5], b[2]] = tempu;
-      } else if (lastChar === '2') {
+      } else if (lastChar === "2") {
         [u[0], u[3], u[6]] = tempd;
         [f[0], f[3], f[6]] = tempb;
         [d[0], d[3], d[6]] = tempu;
@@ -627,7 +728,7 @@ class Cube {
         [l[0], l[3], l[6]] = tempd;
         d.splice(6, 3, ...tempr);
         [r[8], r[5], r[2]] = tempu;
-      } else if (lastChar === '2') {
+      } else if (lastChar === "2") {
         u.splice(0, 3, ...tempd.reverse());
         [r[8], r[5], r[2]] = templ;
         d.splice(6, 3, ...tempu);
@@ -645,12 +746,12 @@ class Cube {
       const tempr = [r[1], r[4], r[7]];
       const tempd = d.slice(3, 6).reverse();
       const templ = [l[7], l[4], l[1]];
-      if (move === 'S' || move === 'f' || move === "b'") {
+      if (move === "S" || move === "f" || move === "b'") {
         u.splice(3, 3, ...templ);
         [r[1], r[4], r[7]] = tempu;
         d.splice(3, 3, ...tempr.reverse());
         [l[7], l[4], l[1]] = tempd;
-      } else if (move === "S'" || move === "f'" || move === 'b') {
+      } else if (move === "S'" || move === "f'" || move === "b") {
         u.splice(3, 3, ...tempr);
         [r[1], r[4], r[7]] = tempd;
         d.splice(3, 3, ...templ.reverse());
@@ -669,12 +770,12 @@ class Cube {
       const tempf = [f[1], f[4], f[7]];
       const tempd = [d[1], d[4], d[7]];
       const tempb = [b[7], b[4], b[1]];
-      if (move === 'M' || move === 'l' || move === "r'") {
+      if (move === "M" || move === "l" || move === "r'") {
         [f[1], f[4], f[7]] = tempu;
         [d[1], d[4], d[7]] = tempf;
         [b[7], b[4], b[1]] = tempd;
         [u[1], u[4], u[7]] = tempb;
-      } else if (move === "M'" || move === "l'" || move === 'r') {
+      } else if (move === "M'" || move === "l'" || move === "r") {
         [f[1], f[4], f[7]] = tempd;
         [u[1], u[4], u[7]] = tempf;
         [b[7], b[4], b[1]] = tempu;
@@ -693,12 +794,12 @@ class Cube {
       const tempr = r.slice(3, 6);
       const tempb = b.slice(3, 6);
       const templ = l.slice(3, 6);
-      if (move === 'E' || move === 'd' || move === "u'") {
+      if (move === "E" || move === "d" || move === "u'") {
         f.splice(3, 3, ...templ);
         r.splice(3, 3, ...tempf);
         b.splice(3, 3, ...tempr);
         l.splice(3, 3, ...tempb);
-      } else if (move === "E'" || move === "d'" || move === 'u') {
+      } else if (move === "E'" || move === "d'" || move === "u") {
         f.splice(3, 3, ...tempr);
         r.splice(3, 3, ...tempb);
         b.splice(3, 3, ...templ);
@@ -718,14 +819,14 @@ class Cube {
       const tempd = d.slice();
       const tempf = f.slice();
 
-      if (move === 'x') {
+      if (move === "x") {
         u.splice(0, 9, ...tempf);
         b.splice(0, 9, ...tempu.reverse());
         d.splice(0, 9, ...tempb.reverse());
         f.splice(0, 9, ...tempd);
         this._rotateFace(l, -90);
         this._rotateFace(r, 90);
-      } else if (move === 'x2') {
+      } else if (move === "x2") {
         u.splice(0, 9, ...tempd);
         b.splice(0, 9, ...tempf.reverse());
         d.splice(0, 9, ...tempu);
@@ -748,14 +849,14 @@ class Cube {
       const tempb = b.slice();
       const tempr = r.slice();
 
-      if (move === 'y') {
+      if (move === "y") {
         f.splice(0, 9, ...tempr);
         r.splice(0, 9, ...tempb);
         b.splice(0, 9, ...templ);
         l.splice(0, 9, ...tempf);
         this._rotateFace(u, 90);
         this._rotateFace(d, -90);
-      } else if (move === 'y2') {
+      } else if (move === "y2") {
         f.splice(0, 9, ...tempb);
         r.splice(0, 9, ...templ);
         b.splice(0, 9, ...tempf);
@@ -810,14 +911,14 @@ class Cube {
         );
       };
 
-      if (move === 'z') {
+      if (move === "z") {
         helpZ(u, templ);
         helpZ(r, tempu);
         helpZ(d, tempr);
         helpZ(l, tempd);
         this._rotateFace(f, 90);
         this._rotateFace(b, -90);
-      } else if (move === 'z2') {
+      } else if (move === "z2") {
         u.splice(0, 9, ...tempd.reverse()); // need splice as we are mutating the actual face
         r.splice(0, 9, ...templ.reverse());
         d.splice(0, 9, ...tempu.reverse());
@@ -846,45 +947,45 @@ class Cube {
     ];
 
     // handle outer moves
-    if (move[0] === 'U' || move[0] === 'u') {
+    if (move[0] === "U" || move[0] === "u") {
       handleU();
-    } else if (move[0] === 'R' || move[0] === 'r') {
+    } else if (move[0] === "R" || move[0] === "r") {
       handleR();
-    } else if (move[0] === 'F' || move[0] === 'f') {
+    } else if (move[0] === "F" || move[0] === "f") {
       handleF();
-    } else if (move[0] === 'D' || move[0] === 'd') {
+    } else if (move[0] === "D" || move[0] === "d") {
       handleD();
-    } else if (move[0] === 'L' || move[0] === 'l') {
+    } else if (move[0] === "L" || move[0] === "l") {
       handleL();
-    } else if (move[0] === 'B' || move[0] === 'b') {
+    } else if (move[0] === "B" || move[0] === "b") {
       handleB();
     }
     // handle inner moves
-    if (move[0] === 'S' || move[0] === 'f' || move[0] === 'b') {
+    if (move[0] === "S" || move[0] === "f" || move[0] === "b") {
       handleS();
-    } else if (move[0] === 'M' || move[0] === 'l' || move[0] === 'r') {
+    } else if (move[0] === "M" || move[0] === "l" || move[0] === "r") {
       handleM();
-    } else if (move[0] === 'E' || move[0] === 'd' || move[0] === 'u') {
+    } else if (move[0] === "E" || move[0] === "d" || move[0] === "u") {
       handleE();
     }
     // handle rotations
-    if (move[0] === 'x') {
+    if (move[0] === "x") {
       handleX();
     }
-    if (move[0] === 'y') {
+    if (move[0] === "y") {
       handleY();
     }
-    if (move[0] === 'z') {
+    if (move[0] === "z") {
       handleZ();
     }
 
     if (
-      move[0] === 'x' ||
-      move[0] === 'y' ||
-      move[0] === 'z' ||
-      move[0] === 'S' ||
-      move[0] === 'M' ||
-      move[0] === 'E'
+      move[0] === "x" ||
+      move[0] === "y" ||
+      move[0] === "z" ||
+      move[0] === "S" ||
+      move[0] === "M" ||
+      move[0] === "E"
     ) {
       return; // don't rotate any more faces
     }
@@ -892,7 +993,7 @@ class Cube {
     // rotate the correct face the right amount of degrees based on the move
     if (move[move.length - 1] === "'") {
       this._rotateFace(this.faceMapping[move.slice(0, 1).toUpperCase()], -90);
-    } else if (move[move.length - 1] === '2') {
+    } else if (move[move.length - 1] === "2") {
       this._rotateFace(this.faceMapping[move.slice(0, 1).toUpperCase()], 180);
     } else {
       this._rotateFace(this.faceMapping[move.slice(0, 1).toUpperCase()], 90);
@@ -931,7 +1032,7 @@ class Cube {
         this.movesApplied[this.movesApplied.length - 1]
       );
     } else {
-      simplifiedLastMove = '';
+      simplifiedLastMove = "";
     }
 
     for (const letter of this.allowedMoves) {
@@ -957,13 +1058,13 @@ class Cube {
         this.movesApplied[this.movesApplied.length - 1]
       );
     } else {
-      simplifiedLastMove = '';
+      simplifiedLastMove = "";
     }
 
     for (const letter of this.allowedMoves) {
       // don't allow rotations to be done as the first move as they can be pruned away
       const isFirstMoveAndRotation =
-        this.movesApplied.length === 0 && letter === ('x' || 'y' || 'z');
+        this.movesApplied.length === 0 && letter === ("x" || "y" || "z");
       if (letter !== simplifiedLastMove && !isFirstMoveAndRotation) {
         const cube1 = this._clone();
         const cube2 = this._clone();
@@ -981,7 +1082,7 @@ class Cube {
 // ! ################################### ALGHANDLER ###################################
 
 function applyAlg(algorithm, cube) {
-  if (JSON.stringify(algorithm) === JSON.stringify([''])) return; // if the user doesn't submit a scramble
+  if (JSON.stringify(algorithm) === JSON.stringify([""])) return; // if the user doesn't submit a scramble
   for (const move of algorithm) {
     cube.move(move);
   }
@@ -1070,15 +1171,15 @@ function cleanUpIntersection(lista, listb) {
   if (list1LastMoveLastChar === "'") {
     if (list2FirstMoveLastChar === "'") {
       list1[list1.length - 1] = primeToDouble(list1[list1.length - 1]);
-    } else if (list2FirstMoveLastChar === '2') {
+    } else if (list2FirstMoveLastChar === "2") {
       list1[list1.length - 1] = invertMove(list1[list1.length - 1]);
     } else {
       list1.splice(-1, 1);
     }
-  } else if (list1LastMoveLastChar === '2') {
+  } else if (list1LastMoveLastChar === "2") {
     if (list2FirstMoveLastChar === "'") {
       list1[list1.length - 1] = doubleToNormal(list1[list1.length - 1]);
-    } else if (list2FirstMoveLastChar === '2') {
+    } else if (list2FirstMoveLastChar === "2") {
       // ["R2"] and ["R2"]
       list1.splice(-1, 1);
     } else {
@@ -1086,7 +1187,7 @@ function cleanUpIntersection(lista, listb) {
     }
   } else if (list2FirstMoveLastChar === "'") {
     list1.splice(-1, 1);
-  } else if (list2FirstMoveLastChar === '2') {
+  } else if (list2FirstMoveLastChar === "2") {
     list1[list1.length - 1] = invertMove(list1[list1.length - 1]);
   } else {
     list1[list1.length - 1] = normalToDouble(list1[list1.length - 1]);

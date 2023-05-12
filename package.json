@@ -20,6 +20,7 @@
     "react-icons": "^4.7.1",
     "react-joyride": "^2.5.3",
     "react-router-dom": "^6.4.4",
+    "react-router-hash-link": "^2.4.3",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },

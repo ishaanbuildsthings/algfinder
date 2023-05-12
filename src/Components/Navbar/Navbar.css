@@ -1,17 +1,3 @@
-li a {
-  /* for unactive tabs */
-  color: white;
-  display: block;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-}
-
-/* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
-li a:hover:not(.accentColorText) {
-  background-color: #282828;
-}
-
 .navbarDiv {
   /* center the toggle */
   align-items: center;
@@ -26,6 +12,20 @@ li a:hover:not(.accentColorText) {
   /* expand to width of the page */
   width: 100%;
   z-index: 1;
+}
+
+.navbarDiv li a {
+  /* for unactive tabs */
+  color: white;
+  display: block;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
+.navbarDiv li a:hover:not(.accentColorText) {
+  background-color: #282828;
 }
 
 .navbarUl {

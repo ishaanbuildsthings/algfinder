@@ -5,7 +5,7 @@ import '@/Components/NoSolutionsModal/NoSolutionsModal.css';
  */
 export default function NoSolutionsModal() {
   return (
-    <div className="noSolutionsModal errorColor">
+    <div className="noSolutionsModal errorColor shadow">
       <p>No solutions exist!</p>
     </div>
   );

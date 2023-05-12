@@ -1,15 +1,15 @@
-import { memo } from 'react';
+import { memo } from "react";
 
 // this is actually imported but the linter does not detect it
-import 'cubing/twisty'; // this lets us use the custom web component
+import "cubing/twisty"; // this lets us use the custom web component
 
-import { faUpDownLeftRight } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUpDownLeftRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import cx from '@/utils/cx.js';
-import processMoves from '@/utils/processMoves.js';
+import cx from "@/utils/cx.js";
+import processMoves from "@/utils/processMoves.js";
 
-import '@/Components/CubePanel/CubePanel.css';
+import "@/Components/CubePanel/CubePanel.css";
 
 const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
 
@@ -21,6 +21,7 @@ const MemoizedFontAwesomeIcon = memo(FontAwesomeIcon);
  * scramble - the currently entered scramble
  * @usage Used in Solve.js
  */
+// ! TODO add spacing instead of &nbsp
 function Cube({ scramble }) {
   return (
     <div className="cubePanel">
@@ -35,11 +36,11 @@ function Cube({ scramble }) {
       />
       <div className="dragIconAndText mainText">
         <MemoizedFontAwesomeIcon icon={faUpDownLeftRight} className="fa-lg" />
-        <p className={cx('dragText', 'dragTextSmall')}>&nbsp;&nbsp;Drag</p>
-        <p className={cx('dragText', 'dragTextMedium')}>
+        <p className={cx("dragText", "dragTextSmall")}>&nbsp;&nbsp;Drag</p>
+        <p className={cx("dragText", "dragTextMedium")}>
           &nbsp;&nbsp;Drag cube
         </p>
-        <p className={cx('dragText', 'dragTextLarge')}>
+        <p className={cx("dragText", "dragTextLarge")}>
           &nbsp;&nbsp;Drag cube to view
         </p>
       </div>

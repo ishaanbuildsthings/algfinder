@@ -27,6 +27,9 @@ check selection color on all devices and normal colors for all
 make sure joyride is okay with new colors on lower constrast screens
 validate scrambles and stylings and shit
 safari styling
+add skip this modal and do not show again button
 
 2) the player is messed up when i animate then click try a random example
+
+theres a bug when i get the bdbdbdbdb alg, solve it, then try a random example again
 

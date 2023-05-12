@@ -1,3 +1,7 @@
+import { HashLink } from 'react-router-hash-link';
+
+import scrollWithOffset from '@/utils/scrollWithOffset';
+
 import '@/Components/Faq/Faq.css';
 
 export default function Faq() {
@@ -5,56 +9,55 @@ export default function Faq() {
     <div className="documentationDiv">
       <div className="madeThisContainer">
         <div className="madeThisContainerText">
-          <div className="madeThisContainerBlurb">
-            <h2 id="madeThis">About</h2>
-            <p>
-              This tool was made by{' '}
-              <a
-                href="https://www.worldcubeassociation.org/persons/2015AGRA03"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Ishaan Agrawal.
-              </a>{' '}
-              In 2017, I broke the&nbsp;
-              <a
-                href="https://www.youtube.com/watch?v=N8MNEngonTs"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                world record&nbsp;
-              </a>
-              for solving a Rubik's Cube while blindfolded by spending thousands
-              of hours finding algorithms by hand, to make my solutions
-              hyper-efficient. I made this tool to automate that process for
-              others and push the limits of speedcubing!
-            </p>
-            <p>
-              I am currently looking for an entry level Web Development job, if
-              you know of an opportunity, would like to introduce someone to me,
-              or just want to chat, please contact me:&nbsp;
-              <a
-                href="https://www.ishaan.ag"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Portfolio & Resume,{' '}
-              </a>
-              <a href="mailto:me@ishaan.ag"> Email, </a>
-              <a
-                href="https://github.com/agrawalishaan"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {' '}
-                Github
-              </a>
-            </p>
-          </div>
+          <h2>About</h2>
+          <p>
+            This tool was made by{' '}
+            <a
+              href="https://www.worldcubeassociation.org/persons/2015AGRA03"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Ishaan Agrawal.
+            </a>{' '}
+            In 2017, I broke the{' '}
+            <a
+              href="https://www.youtube.com/watch?v=N8MNEngonTs"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              world record{' '}
+            </a>
+            for solving a Rubik's Cube while blindfolded by spending thousands
+            of hours finding algorithms by hand, to make my solutions
+            hyper-efficient. I made this tool to automate that process for
+            others and push the limits of speedcubing!
+          </p>
+          <p>
+            I am currently looking for an entry level Web Development job, if
+            you know of an opportunity, would like to introduce someone to me,
+            or just want to chat, please contact me:{' '}
+            <a
+              href="https://www.ishaan.ag"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Portfolio & Resume,{' '}
+            </a>
+            <a href="mailto:me@ishaan.ag"> Email, </a>
+            <a
+              href="https://github.com/agrawalishaan"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {' '}
+              Github
+            </a>
+          </p>
         </div>
         <iframe
           className="youtubeVideo"
-          height="315"
+          height="322.4"
+          width="572.8"
           src="https://www.youtube.com/embed/N8MNEngonTs?start=58"
           title="Ishaan Agrawal [former] WORLD RECORD - Rubik&#39;s Cube BLD average: 22.67s"
           frameBorder="0"
@@ -63,39 +66,61 @@ export default function Faq() {
         />
       </div>
       <div className="tableOfContents secondaryColor shadow">
-        <h2>Table of Contents</h2>
-        <div className="relevantLinksTable">
-          <h3>Relevant Links</h3>
-          <a>Source Code (contributions welcome)</a>
-          <a>Making a custom bit encoding for preprocessed data</a>
-          <a>Sharding data, creating constant-time disk reads, </a>
-        </div>
         <div className="technicalTable">
           <h3>Technical Questions</h3>
-          <a>Where is the source code?</a>
-          <a>How does the solving algorithm work?</a>
-          <a>Why are there resitrictions for search depth?</a>
-          <a>How did you preprocess data to improve the time-complexity?</a>
-          <a>How did you architecture the backend?</a>
-          <a>
-            Why doesn't this algorithm solve cube states ending in different
-            orientations?
-          </a>
+          <ul className="tableOfContentsUl">
+            <li>
+              <HashLink
+                to="/faq#algorithm"
+                smooth
+                scroll={(el) => scrollWithOffset(el)}
+              >
+                How does the solving algorithm work?
+              </HashLink>
+            </li>
+            <li>
+              <a>Why are there resitrictions for search depth?</a>
+            </li>
+            <li>
+              <a>Why are there resitrictions for search depth?</a>
+            </li>
+            <li>
+              <a>Why are there resitrictions for search depth?</a>
+            </li>
+            <li>
+              <a>
+                Why doesn't this algorithm solve cube states ending in different
+                orientations?
+              </a>
+            </li>
+          </ul>
         </div>
         <div className="generalTable">
           <h3>General Questions</h3>
-          <a to="#madeThis">Who made this?</a>
-          <a>Where can I learn Rubik's Cube notation?</a>
-          <a>
-            This isn't useful if I don't know how to reach a position in the
-            cube already!
-          </a>
-          <a>I have an idea on how to improve this app!</a>
-          <a>Where did you learn to code?</a>
+          <ul className="tableOfContentsUl">
+            <li>
+              <a>Who made this?</a>
+            </li>
+            <li>
+              <a>Where can I learn Rubik's Cube notation?</a>
+            </li>
+            <li>
+              <a>
+                This isn't useful if I don't know how to reach a position in the
+                cube already!
+              </a>
+            </li>
+            <li>
+              <a>I have an idea on how to improve this app!</a>
+            </li>
+            <li>
+              <a>Where did you learn to code?</a>
+            </li>
+          </ul>
         </div>
       </div>
 
-      <h2>Where did you learn to code?</h2>
+      <h2 id="learn-to-code">Where did you learn to code?</h2>
       <p>
         Special thanks to Tony Peng and{' '}
         <a
@@ -132,7 +157,7 @@ export default function Faq() {
       <p>
         This is written in React and is open-source. If you would like to
         contribute, make feature requests, or report bugs, the Github repository
-        is&nbsp;
+        is{' '}
         <a
           href="https://github.com/agrawalishaan/cubeExplorerFrontend"
           target="_blank"
@@ -142,7 +167,7 @@ export default function Faq() {
         </a>
       </p>
 
-      <h2>How does the solving algorithm work? (for nerds)</h2>
+      <h2 id="algorithm">How does the solving algorithm work? (for nerds)</h2>
       <p>
         The crux of this tool is the search algorithm needed to solve the
         supplied scramble. I implemented a{' '}
@@ -152,11 +177,11 @@ export default function Faq() {
           href="https://github.com/agrawalishaan/cubeExplorerFrontend/blob/main/public/Workers/SolveWorker.js"
         >
           bidirectional breadth-first search algorithm
-        </a>
-        &nbsp;to detect solutions. This algorithm reduces the time complexity of
-        the naive solution of O(k<sup>n</sup>), to O(k<sup>n/2</sup>), where k
-        is the branching factor and n is the search depth. A basic walkthrough
-        of the algorithm is below.
+        </a>{' '}
+        to detect solutions. This algorithm reduces the time complexity of the
+        naive solution of O(k<sup>n</sup>), to O(k<sup>n/2</sup>), where k is
+        the branching factor and n is the search depth. A basic walkthrough of
+        the algorithm is below.
       </p>
       <p>We start with two cubes:</p>
       <div className="cubeRow">
