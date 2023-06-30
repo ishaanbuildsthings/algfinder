@@ -36,13 +36,13 @@ export default function Faq() {
             I am currently looking for an entry level Web Development job, if
             you know of an opportunity, would like to introduce someone to me,
             or just want to chat, please contact me:{" "}
-            <a
+            {/* <a
               href="https://www.ishaan.ag"
               target="_blank"
               rel="noopener noreferrer"
             >
               Portfolio & Resume,{" "}
-            </a>
+            </a> */}
             <a href="mailto:me@ishaan.ag"> Email, </a>
             <a
               href="https://github.com/agrawalishaan"
