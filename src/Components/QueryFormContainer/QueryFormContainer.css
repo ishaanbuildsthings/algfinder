@@ -205,10 +205,6 @@ button:focus {
     /* once we flex vertically, fill the whole screen */
     width: 100%;
   }
-
-  .submitButton {
-    border-radius: 10px;
-  }
 }
 
 @media (max-width: 500px) {
