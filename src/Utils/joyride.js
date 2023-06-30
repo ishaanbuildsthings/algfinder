@@ -135,7 +135,7 @@ export const joyrideCannotSolveSteps = [
   },
   {
     target: ".cube",
-    content: "Watch and hear the cube solve itself!",
+    content: "Watch the cube solve itself!",
     placement: "left",
     hideCloseButton: true,
   },
