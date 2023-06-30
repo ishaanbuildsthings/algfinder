@@ -41,7 +41,7 @@
 }
 
 /* don't need to handle sticky hover for mobile, as when we click on a page in mobile it will always change to be active */
-.light li a:hover:not(.active) {
+.light li a:hover:not(.accentColorText) {
   background-color: #F0F0F0;
 }
 
