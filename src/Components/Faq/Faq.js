@@ -1,8 +1,8 @@
-import { HashLink } from 'react-router-hash-link';
+import { HashLink } from "react-router-hash-link";
 
-import scrollWithOffset from '@/utils/scrollWithOffset';
+import scrollWithOffset from "@/utils/scrollWithOffset";
 
-import '@/Components/Faq/Faq.css';
+import "@/Components/Faq/Faq.css";
 
 export default function Faq() {
   return (
@@ -11,21 +11,21 @@ export default function Faq() {
         <div className="madeThisContainerText">
           <h2>About</h2>
           <p>
-            This tool was made by{' '}
+            This tool was made by{" "}
             <a
               href="https://www.worldcubeassociation.org/persons/2015AGRA03"
               target="_blank"
               rel="noopener noreferrer"
             >
               Ishaan Agrawal.
-            </a>{' '}
-            In 2017, I broke the{' '}
+            </a>{" "}
+            In 2017, I broke the{" "}
             <a
               href="https://www.youtube.com/watch?v=N8MNEngonTs"
               target="_blank"
               rel="noopener noreferrer"
             >
-              world record{' '}
+              world record{" "}
             </a>
             for solving a Rubik's Cube while blindfolded by spending thousands
             of hours finding algorithms by hand, to make my solutions
@@ -35,13 +35,13 @@ export default function Faq() {
           <p>
             I am currently looking for an entry level Web Development job, if
             you know of an opportunity, would like to introduce someone to me,
-            or just want to chat, please contact me:{' '}
+            or just want to chat, please contact me:{" "}
             <a
               href="https://www.ishaan.ag"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Portfolio & Resume,{' '}
+              Portfolio & Resume,{" "}
             </a>
             <a href="mailto:me@ishaan.ag"> Email, </a>
             <a
@@ -49,12 +49,12 @@ export default function Faq() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              {' '}
+              {" "}
               Github
             </a>
           </p>
         </div>
-        <iframe
+        {/* <iframe
           className="youtubeVideo"
           height="322.4"
           width="572.8"
@@ -63,9 +63,9 @@ export default function Faq() {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           allowFullScreen
-        />
+        /> */}
       </div>
-      <div className="tableOfContents secondaryColor shadow">
+      {/* <div className="tableOfContents secondaryColor shadow">
         <div className="technicalTable">
           <h3>Technical Questions</h3>
           <ul className="tableOfContentsUl">
@@ -118,32 +118,32 @@ export default function Faq() {
             </li>
           </ul>
         </div>
-      </div>
+      </div> */}
 
       <h2 id="learn-to-code">Where did you learn to code?</h2>
       <p>
-        Special thanks to Tony Peng and{' '}
+        Special thanks to Tony Peng and{" "}
         <a
           href="https://www.worldcubeassociation.org/persons/2016GOHT01"
           target="_blank"
           rel="noopener noreferrer"
         >
           Timothy Goh,
-        </a>{' '}
+        </a>{" "}
         for spending more time than anyone reasonably should, teaching me
         advanced React, Javascript, Server/Client concepts, CSS Flexbox, and
         much more.
       </p>
       <p>
-        And{' '}
+        And{" "}
         <a
           href="https://www.worldcubeassociation.org/persons/2006GARR01"
           target="_blank"
           rel="noreferrer"
         >
           Lucas Garron
-        </a>{' '}
-        and his co-contributors, for their beautiful{' '}
+        </a>{" "}
+        and his co-contributors, for their beautiful{" "}
         <a
           href="https://js.cubing.net/cubing/"
           target="_blank"
@@ -157,7 +157,7 @@ export default function Faq() {
       <p>
         This is written in React and is open-source. If you would like to
         contribute, make feature requests, or report bugs, the Github repository
-        is{' '}
+        is{" "}
         <a
           href="https://github.com/agrawalishaan/cubeExplorerFrontend"
           target="_blank"
@@ -170,14 +170,14 @@ export default function Faq() {
       <h2 id="algorithm">How does the solving algorithm work? (for nerds)</h2>
       <p>
         The crux of this tool is the search algorithm needed to solve the
-        supplied scramble. I implemented a{' '}
+        supplied scramble. I implemented a{" "}
         <a
           target="_blank"
           rel="noopener noreferrer"
           href="https://github.com/agrawalishaan/cubeExplorerFrontend/blob/main/public/Workers/SolveWorker.js"
         >
           bidirectional breadth-first search algorithm
-        </a>{' '}
+        </a>{" "}
         to detect solutions. This algorithm reduces the time complexity of the
         naive solution of O(k<sup>n</sup>), to O(k<sup>n/2</sup>), where k is
         the branching factor and n is the search depth. A basic walkthrough of
@@ -285,10 +285,10 @@ export default function Faq() {
       </p>
       <p>
         As the breadth-first search starting from the solved cube is repeated
-        work, it is{' '}
+        work, it is{" "}
         <a href="google.com" target="_blank" rel="noopener noreferrer">
           preprocessed as a binary encoding,
-        </a>{' '}
+        </a>{" "}
         speeding up the time even further.
       </p>
     </div>
